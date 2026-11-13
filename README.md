@@ -85,7 +85,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
   - Itinerario en tarjeta azul marino con íconos (se elige solo por la actividad o con un tercer dato: `["22:00", "Fiesta", "fiesta"]`).
   - Fondo toile azul grisáceo, tarjetas de papel rasgado, cartas antiguas, sellos de cera y etiquetas con borla dorada.
   - Carrete tipo collage: marcos de película en blanco y negro, los novios recortados con borde blanco y una etiqueta con sus nombres (`fotoRecorte` y `carrete` en `config.js`).
-  - Código de vestimenta con paleta.
+  - Código de vestimenta: al tocar un color, el vestido y el traje se pintan de ese color (o se muestra el diseño de `diseno` en `paleta`).
   - Regalos (mesa de regalos y CLABE para copiar).
   - Confirmación por WhatsApp.
   - Frase en bloque azul y tarjeta final «Solo adultos / ¡Muchas gracias!» (opcionales en `config.js`).

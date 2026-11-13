@@ -51,6 +51,7 @@ window.CONFIG = {
                  ["20:00", "Primer baile"], ["21:00", "Cena"], ["22:00", "¡A bailar!", "fiesta"], ["00:30", "¿Un café?"]],
     vestimenta: "Formal de noche",
     vestimentaNota: "Caballeros de traje oscuro; damas de vestido largo. Nos encantará verte en tonos azules.",
+    // al tocar un color, el dibujo se pinta de ese color; si agregas  diseno: "disenos/archivo.jpg"  se muestra esa imagen
     paleta: [
       { color: "#14213D", nombre: "Azul marino" },
       { color: "#2C4A7E", nombre: "Azul rey" },

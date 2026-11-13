@@ -409,6 +409,14 @@
   .tape span{display:block}
   .words{display:flex;justify-content:space-between;margin:12cqw 8cqw 0;font-family:var(--caps);font-size:6.6cqw;letter-spacing:.06em;color:var(--gold2)}
   .story{margin:5cqw 7cqw 0;font-size:4.1cqw}
+  /* dress code: el dibujo toma el color elegido */
+  .dnote .outfit{position:relative;--dc:transparent;--dl:var(--navy)}
+  .outfit-svg .ofill path{fill:var(--dc);opacity:0;transition:fill .5s ease,opacity .5s ease}
+  .outfit.tinted .outfit-svg .ofill path{opacity:.92}
+  .outfit.tinted .outfit-svg{color:var(--dl);transition:color .5s ease}
+  .outfit .dimg{display:none;width:100%;height:auto;border-radius:1cqw}
+  .outfit.con-diseno .outfit-svg{display:none}
+  .outfit.con-diseno .dimg{display:block}
 </style>
 </head>
 <body>
@@ -615,13 +623,18 @@
       <path d="M40 104H160" /><path d="M128 2L156 -8 160 -1 132 10Z" transform="translate(0 6)"/><path d="M128 10C118 12 108 14 104 17" stroke-dasharray="2 2"/>${g}
       <use href="#spark" x="60" y="10" width="7" height="7" fill="currentColor" stroke="none"/><use href="#spark" x="140" y="44" width="5" height="5" fill="currentColor" stroke="none"/><use href="#spark" x="50" y="56" width="5" height="5" fill="currentColor" stroke="none"/></svg>`;
   }
-  const outfit = `<svg viewBox="0 0 200 220" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M70 22C70 14 78 14 78 20" /><path d="M74 20V30"/><path d="M60 40L74 30 88 40"/>
+  const outfit = `<svg class="outfit-svg" viewBox="0 0 200 220" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g class="ofill" stroke="none">
+      <path d="M58 62Q64 54 70 60Q76 54 82 62L79 100C82 140 88 172 112 206Q70 214 26 206C52 172 58 140 61 100Z"/>
+      <path d="M150 24L182 40L192 138L185 146L156 152L150 96L144 152L115 146L108 138L118 40Z"/>
+      <path d="M128 152L130 212H170L172 152Z"/>
+    </g>
+    <g stroke="#14213D"><path d="M70 22C70 14 78 14 78 20" /><path d="M74 20V30"/><path d="M60 40L74 30 88 40"/></g>
     <path d="M58 62Q64 54 70 60Q76 54 82 62"/><path d="M58 62L61 100M82 62L79 100"/><path d="M61 100Q70 104 79 100"/>
     <path d="M61 100C58 140 52 172 26 206Q70 214 112 206C88 172 82 140 79 100"/>
     <path d="M66 108C63 150 54 182 44 207M73 108C75 150 82 182 92 208M70 120C70 160 68 190 68 211" stroke-width=".6"/>
     <path d="M60 100Q70 96 80 100" stroke-width=".6"/><path d="M26 206Q20 212 30 214M112 206Q120 212 108 214" stroke-width=".6"/>
-    <path d="M150 12C150 4 158 4 158 10C158 14 154 16 150 18V24"/><path d="M150 24L118 40M150 24L182 40"/>
+    <path d="M150 12C150 4 158 4 158 10C158 14 154 16 150 18V24" stroke="#14213D"/><path d="M150 24L118 40M150 24L182 40"/>
     <path d="M118 40L115 146L144 152L150 96L156 152L185 146L182 40"/><path d="M140 34L150 92L160 34"/><path d="M140 34L132 64L148 88M160 34L168 64L152 88"/>
     <path d="M146 38L150 41L154 38V44L150 41L146 44Z" fill="currentColor"/><circle cx="150" cy="108" r="1.4" fill="currentColor"/><circle cx="150" cy="122" r="1.4" fill="currentColor"/>
     <path d="M122 106H134M166 106H178" stroke-width=".8"/><path d="M118 40L108 138M182 40L192 138" stroke-width=".8"/>
@@ -735,7 +748,7 @@
       <div class="dwrap">
         <div class="tw rv" style="margin:0 4cqw"><div class="torn dnote">
           <p>${esc(E.vestimentaNota)}</p>
-          <div class="outfit">${outfit}</div>
+          <div class="outfit">${outfit}<img class="dimg" alt="Sugerencia de vestimenta"></div>
           ${E.reservado ? `<div class="reserv"><i style="background:${esc(E.reservado.color)}"></i>${esc(E.reservado.nombre)}</div>` : ""}
         </div></div>
       </div>
@@ -817,9 +830,25 @@
     $("#ocal").href = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(titulo)}&startdt=${iso(fecha)}&enddt=${iso(end)}&location=${encodeURIComponent(lugar)}`;
 
     // paleta
+    // al tocar un color, el vestido y el traje se pintan de ese color (o se muestra su diseño si tiene uno)
+    const outfitBox = $(".dnote .outfit");
+    const luminancia = hex => {
+      let h = hex.replace("#", "");
+      if (h.length === 3) h = h.split("").map(ch => ch + ch).join("");
+      const n = parseInt(h, 16);
+      return (0.299 * (n >> 16 & 255) + 0.587 * (n >> 8 & 255) + 0.114 * (n & 255)) / 255;
+    };
     $$("#pal button").forEach(b => b.addEventListener("click", () => {
+      const c = E.paleta[+b.dataset.i];
       $$("#pal button").forEach(x => x.classList.toggle("on", x === b));
-      $("#palname").textContent = E.paleta[+b.dataset.i].nombre;
+      $("#palname").textContent = c.nombre;
+      if (!outfitBox) return;
+      outfitBox.style.setProperty("--dc", c.color);
+      outfitBox.style.setProperty("--dl", luminancia(c.color) < .45 ? "#F4F6FA" : "#14213D");
+      outfitBox.classList.add("tinted");
+      const img = outfitBox.querySelector(".dimg");
+      if (c.diseno) { img.src = c.diseno; outfitBox.classList.add("con-diseno"); } else outfitBox.classList.remove("con-diseno");
+      gsap.fromTo(outfitBox, { scale: .96 }, { scale: 1, duration: .6, ease: "back.out(2)" });
     }));
 
     // regalos
