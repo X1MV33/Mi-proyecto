@@ -79,8 +79,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
 - **Secciones:**
   - Portada con foto.
   - Sobre azul con forro de flores que se abre y saca la tarjeta.
-  - Reproductor de música.
-  - Calendario con corazón en la fecha y cuenta regresiva.
+  - Cuenta regresiva.
   - Padres y padrinos.
   - Ceremonia y recepción en polaroids.
   - Itinerario en tarjeta azul marino con íconos (se elige solo por la actividad o con un tercer dato: `["22:00", "Fiesta", "fiesta"]`).

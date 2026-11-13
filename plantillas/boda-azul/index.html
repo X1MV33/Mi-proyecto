@@ -660,18 +660,13 @@
         <div class="fecha">${fechaCorta.replace(/ · /g, " . ")}</div>
         <p class="msg">${esc(E.mensajeTarjeta || E.frase)}</p>
       </div></div>
-      <div class="player rv">
-        <p>Dale play para escuchar ${esc(C.cancion).toLowerCase()}</p>
-        <div class="bar"><i id="pbar"></i></div>
-        <div class="ctl"><button type="button" id="pprev" aria-label="Reiniciar">${ico.prev}</button><button type="button" id="pp" aria-label="Reproducir">${ico.play}</button><button type="button" id="pnext" aria-label="Siguiente">${ico.next}</button></div>
-      </div>
     </section>
 
     <section class="sec toile" style="padding:16cqw 6cqw 14cqw">
-      <div class="t-script rv" style="font-size:10cqw;margin-bottom:31cqw">${esc(E.saludo)}</div>
+      <div class="t-script rv" style="font-size:10cqw;margin-bottom:12cqw">${esc(E.saludo)}</div>
       <div class="stack">
         <img class="scrap" src="texturas/carta.webp" alt="" style="right:-5cqw;top:44%;width:36cqw;transform:rotate(7deg)">
-        <div class="bq" style="left:5%;top:-28cqw;width:23cqw;transform:rotate(-16deg);z-index:4"><img src="flores/ramo-blanco.webp" alt=""></div>
+        <div class="bq" style="left:-9cqw;top:38%;width:24cqw;transform:rotate(-18deg);z-index:1"><img src="flores/alcatraz.webp" alt=""></div>
         <div class="tw rv"><div class="torn card-inv">
           ${E.cita ? `<p class="cita">“${esc(E.cita.texto)}”<br>— ${esc(E.cita.ref)}</p>` : ""}
           <h5>Con la bendición de Dios y de nuestros padres</h5>
@@ -850,9 +845,7 @@
     $$("[data-foto]").forEach(el => el.addEventListener("click", () => Lightbox.open(+el.dataset.foto)));
 
     // reproductor
-    $("#pp").addEventListener("click", () => Musica.toggle());
-    $("#pprev").addEventListener("click", () => { Musica.restart(); });
-    $("#pnext").addEventListener("click", () => { Musica.restart(); });
+
   }
 
   function toast(t) { const el = $("#toast"); el.textContent = t; el.style.opacity = 1; clearTimeout(toast._t); toast._t = setTimeout(() => el.style.opacity = 0, 1800); }
