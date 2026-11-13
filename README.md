@@ -96,7 +96,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
 
 - **Ilustraciones:** todas originales, en acuarela (globo, nubes, osito aviador, avión, estrella, moño, banderín, pueblo, papel). Están en `arte/`.
 - **Inicio:**
-  1. Pantalla «Toca para comenzar» (así la música suena desde el principio).
+  1. La animación arranca sola al abrir el link; la música empieza con el primer toque.
   2. Cielo con nubes en capas, globos a lo lejos y destellos dorados; se escribe el nombre en cursiva.
   3. El avión con el osito llega volando en curva, saluda y se va.
   4. Sube el globo grande con el sobre colgando.

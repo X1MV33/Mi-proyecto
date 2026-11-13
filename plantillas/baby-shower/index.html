@@ -420,7 +420,7 @@
   function scene() {
     const w = W(), h = H(), pw = $("#plane").offsetWidth, ph = $("#plane").offsetHeight;
     gsap.set("#plane", { x: w * 1.1, y: h * .02, scale: .22, rotation: -10, opacity: 0 });
-    gsap.set("#rig", { y: h * .2 + $("#rig").offsetHeight * 1.6 });
+    gsap.set("#rig", { y: h * 1.25 });
     gsap.set("#stork", { x: w * 1.05, y: h * .38, scale: .85 });
     gsap.to("#plane .hel", { scaleY: -1, duration: .045, repeat: -1, yoyo: true, ease: "none" });
     const tl = gsap.timeline();
@@ -492,15 +492,13 @@
   let started = false;
   function comenzar() {
     if (started) return; started = true;
-    Musica.play();
-    gsap.to("#gate", { opacity: 0, duration: 1, ease: "power1.inOut", onComplete: () => $("#gate").remove() });
     scene();
   }
-  $("#gate").addEventListener("click", e => { e.stopPropagation(); comenzar(); });
-  $("#gate").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") comenzar(); });
-  gsap.from("#gate > *", { opacity: 0, y: 14, duration: 1.2, stagger: .15, ease: "power2.out" });
-  gsap.to("#gate .gb", { y: -10, rotation: 2, duration: 2.4, yoyo: true, repeat: -1, ease: "sine.inOut" });
-  gsap.to("#gate .pl", { scale: 1.08, duration: .9, yoyo: true, repeat: -1, ease: "sine.inOut" });
+  // sin pantalla de entrada: la animación arranca sola; la música empieza con el primer toque (los celulares lo exigen)
+  $("#gate").remove();
+  let musicOn = false;
+  const startMusic = () => { if (musicOn) return; musicOn = true; Musica.play(); };
+  ["pointerdown", "touchstart", "keydown"].forEach(ev => addEventListener(ev, startMusic, { once: true, passive: true }));
 
   /* ======================= INVITACIÓN ======================= */
   const ico = {
@@ -773,7 +771,8 @@
   }
 
   // ?invitacion=1 salta la escena (útil para revisar y editar)
-  if (/[?&](invitacion|skip)=1/.test(location.search)) { $("#gate").remove(); abrirInvitacion(); }
+  if (/[?&](invitacion|skip)=1/.test(location.search)) abrirInvitacion();
+  else comenzar();
 })();
 </script>
 </body>
