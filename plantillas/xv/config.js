@@ -14,6 +14,12 @@ window.CONFIG = {
     fechaISO: "2027-03-14T19:00:00",          // para la cuenta regresiva
     fechaTexto: "Sábado 14 de marzo de 2027",
     mensaje: "Hay momentos que se vuelven inolvidables cuando se comparten con quienes más queremos. Con la bendición de Dios y el amor de mis padres, te invito a celebrar mis quince años.",
+    historiaTitulo: "Mi historia",
+    historia: [
+      "Quince años de risas, aprendizajes y sueños que hoy se convierten en un día inolvidable.",
+      "Gracias a Dios y a mi familia por acompañarme en cada paso, y a ti por ser parte de mi vida.",
+      "Me encantaría que me acompañes a celebrar el inicio de esta nueva etapa."
+    ],
     padres: ["Ricardo Morales", "Gabriela Rivera"],
     padrinos: ["Andrés Fernández", "Lucía Fernández"],
     ceremonia: { titulo: "Misa", lugar: "Parroquia de San Juan Bautista", direccion: "Calle Principal 123, Centro", hora: "19:00 h",
@@ -41,7 +47,7 @@ window.CONFIG = {
   // Fotos de la quinceañera (galería 3D, portada interna y cierre). Reemplázalas por las reales.
   fotos: ["fotos/foto1.jpg", "fotos/foto2.jpg", "fotos/foto3.jpg", "fotos/foto4.jpg", "fotos/foto5.jpg"],
   fotoPortada: 0,                 // índice de la foto en arco al abrir la invitación
-  fotoCierre: 4,                  // índice de la foto de fondo del cierre
+  fotoOvalo: 1,                   // índice de la foto en el marco ovalado
   // Música: pon la ruta a tu canción (p. ej. "musica.mp3" dentro de /xv). Vacío = vals de caja musical generado en vivo.
   musica: "",
   duracion: 20,                   // duración del loop (s); toda la secuencia se escala
