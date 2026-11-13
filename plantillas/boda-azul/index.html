@@ -387,8 +387,8 @@
   .ddark p,.gdark p{font-size:4.2cqw;line-height:1.5;color:#C9D4E8;margin-top:3cqw}
   .ddark .pal button{box-shadow:0 0 0 1px rgba(255,255,255,.55),0 1.2cqw 2.5cqw rgba(0,0,0,.25)}
   .ddark .palname{color:#C9D4E8}
-  .dwrap,.gwrap{position:relative;margin-top:-4cqw;min-height:60cqw}
-  .dnote{padding:9cqw 7cqw 8cqw 8cqw;text-align:left}
+  .dwrap,.gwrap{position:relative;margin-top:-4cqw}
+  .dnote{padding:9cqw 8cqw 8cqw;text-align:center}
   .dnote p{font-size:4.2cqw;line-height:1.5;color:var(--ink)}
   .dnote .outfit{width:100%;margin:4cqw 0 0}
   .dnote .reserv{margin-top:2cqw}
@@ -724,21 +724,18 @@
         <div class="palname" id="palname">Toca un color</div>
       </div>
       <div class="dwrap">
-        ${tag("Código<br>de<br>vestimenta", "left:0;top:4cqw;transform:rotate(-8deg)")}
-        <div class="tw rv" style="margin-left:24cqw;margin-right:2cqw"><div class="torn dnote">
+        <div class="tw rv" style="margin:0 4cqw"><div class="torn dnote">
           <p>${esc(E.vestimentaNota)}</p>
           <div class="outfit">${outfit}</div>
           ${E.reservado ? `<div class="reserv"><i style="background:${esc(E.reservado.color)}"></i>${esc(E.reservado.nombre)}</div>` : ""}
         </div></div>
-        <div class="bq" style="left:-4cqw;bottom:-10cqw;width:26cqw;transform:rotate(-10deg);z-index:3"><img src="flores/alcatraz.webp" alt="" loading="lazy"></div>
       </div>
     </section>
 
     <section class="sec toile s-gift" style="padding:16cqw 6cqw 18cqw">
       <div class="dark gdark rv">${giftIco}<p style="margin-top:0">${esc(R.texto)}</p></div>
       <div class="gwrap">
-        ${tag("Sugerencia<br>de<br>regalos", "left:-1cqw;top:6cqw;transform:rotate(-8deg)")}
-        <div class="tw rv" style="margin-left:24cqw;margin-right:2cqw"><div class="torn gcard2">
+        <div class="tw rv" style="margin:0 4cqw"><div class="torn gcard2">
           ${R.cuenta ? `<h4>Transferencia</h4><p>${esc(R.cuenta.banco)}<br>${esc(R.cuenta.titular)}<br>CLABE<br><b id="clabe">${esc(R.cuenta.clabe)}</b></p>
           <button class="pill sm" type="button" id="copy">Copiar CLABE</button>` : ""}
           ${(R.mesa || []).map(m => `<br><a class="pill sm" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.nombre)}</a>`).join("")}
