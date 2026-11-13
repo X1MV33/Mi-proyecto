@@ -122,7 +122,7 @@
   .btn.f{background:var(--blue2);color:#fff;border-color:var(--blue2);box-shadow:0 1cqw 2.4cqw rgba(62,88,132,.25)}
   .btn:active{transform:scale(.97)}
 
-  .hero{padding-top:20cqw}
+  .hero{padding-top:24cqw}
   .hero .arch{padding-top:20cqw}
   .hero .gl{width:24cqw;margin:0 auto -4cqw;position:relative;z-index:3}
   .hero .nm{font-family:var(--serif);font-size:9cqw;letter-spacing:.16em;padding-left:.16em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-top:3cqw;line-height:1.1}
@@ -214,6 +214,12 @@
   .filmcard .fbar{position:absolute;left:4cqw;right:4cqw;bottom:3cqw;height:.8cqw;border-radius:1cqw;background:rgba(255,255,255,.35);overflow:hidden}
   .filmcard .fbar i{display:block;height:100%;width:0;background:#fff;border-radius:1cqw}
   .lace{position:absolute;z-index:0;pointer-events:none;opacity:.9}
+  .lace-top{position:absolute;left:0;top:0;width:100%;height:auto;z-index:4;pointer-events:none;filter:drop-shadow(0 .6cqw .8cqw rgba(40,60,90,.15))}
+  .arch.lacey{overflow:hidden}
+  .arch.lacey > *:not(.lc){position:relative;z-index:1}
+  .arch .lc{position:absolute;bottom:0;width:38cqw;opacity:.42;pointer-events:none;z-index:0}
+  .arch .lc.r{right:0}
+  .arch .lc.l{left:0;transform:scaleX(-1)}
   .lace-row{position:relative;z-index:1;display:block;width:100%;height:auto;margin-top:10cqw}
   .closing{position:relative;text-align:center;padding:14cqw 6cqw 10cqw}
   .closing > *:not(.lace){position:relative;z-index:1}
@@ -513,9 +519,11 @@
     ${sky("nube2", "left:-22cqw;top:360cqw;width:60cqw;opacity:.85")}${sky("nube3", "right:-8cqw;top:470cqw;width:38cqw;opacity:.8")}
     ${sky("nube1", "left:-24cqw;top:560cqw;width:74cqw;opacity:.8")}${sky("nube2", "right:-20cqw;top:660cqw;width:58cqw;opacity:.85")}
 
+    <img class="lace-top" src="${IMG("encaje-orilla")}" alt="">
     <section class="blk hero">
       <img class="gl rv" src="${IMG("globo")}" alt="" id="heroGlobo">
-      <div class="arch rv">
+      <div class="arch rv lacey">
+        <img class="lc l" src="${IMG("encaje-esquina")}" alt=""><img class="lc r" src="${IMG("encaje-esquina")}" alt="">
         <div class="kick">${esc(C.kicker)}</div>
         <div class="script" style="font-size:14cqw;margin-top:3cqw">${esc(C.textoSuperior)}</div>
         <div class="orn">✦</div>
@@ -527,8 +535,7 @@
         <div class="small">${esc(E.direccion)}</div>
         <div class="btns"><a class="btn f" href="${esc(E.mapa)}" target="_blank" rel="noopener">Ver ubicación</a><a class="btn" id="gcal" target="_blank" rel="noopener">Agendar</a></div>
       </div>
-      <img class="lace" src="${IMG("encaje-esquina")}" alt="" style="right:0;top:0;width:52cqw">
-      <img class="deco rv" src="${IMG("lirios")}" alt="" style="left:-9cqw;top:24cqw;width:36cqw;transform:rotate(-14deg)">
+      <img class="deco rv" src="${IMG("lirios")}" alt="" style="left:-3cqw;top:31cqw;width:30cqw;transform:rotate(-24deg)">
       <img class="deco rv" src="${IMG("elefante")}" alt="" style="right:-1cqw;bottom:0;width:25cqw">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:10cqw;top:24cqw;width:11cqw" data-flap="1">
     </section>
