@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Mis XV Años</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Pinyon+Script&display=block" rel="stylesheet">
+<style>
+  :root{
+    --olive-cream:#DCE3C3;
+    --serif-brown:#8A6A5A;
+    --wine:#9E3460;            /* rosa vino para el nombre */
+    --gold:#C9A15A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#000;overflow:hidden;overscroll-behavior:none}
+  body{
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- STAGE 9:16 ----------
+     Móvil (más alto que 9:16): ocupa toda la pantalla.
+     Escritorio / ventanas anchas: se encaja en 9:16 centrado.
+     Todo lo de dentro se mide en cqw/cqh (unidades del propio stage). */
+  #stage{
+    position:relative;
+    width:min(100vw, 56.25vh);
+    width:min(100vw, 56.25dvh);
+    height:100vh; height:100dvh;
+    overflow:hidden;
+    container-type:size;
+    background:#000;
+    isolation:isolate;
+    user-select:none;-webkit-user-select:none;
+  }
+  .layer{position:absolute;inset:0;pointer-events:none}
+  .fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  img{display:block;-webkit-user-drag:none}
+  .will{will-change:transform,opacity}
+
+  /* ---------- ESCENA 1 ---------- */
+  #s1{z-index:1;background:#2E3720;box-shadow:0 -3cqh 6cqh rgba(20,25,12,.45)}
+  #s1Zoom{position:absolute;inset:0;transform-origin:50% 50%}
+  #s1Breath{position:absolute;inset:0}
+  #s1 .bg{position:absolute;inset:-3%}
+  #s1 .bg img{width:100%;height:100%;object-fit:cover}
+  .cenefa{position:absolute;top:-2%;height:104%;width:9cqw;object-fit:cover;object-position:top;opacity:.85}
+  .cenefa.l{left:0}
+  .cenefa.r{right:0;transform:scaleX(-1)}
+  .marco1{position:absolute;top:-2%;height:104%;width:34cqw}
+  .marco1 img{width:100%;height:100%;object-fit:cover}
+  .marco1.l{left:-2cqw}
+  .marco1.l img{object-position:left center}
+  .marco1.r{right:-2cqw}
+  .marco1.r img{object-position:right center}
+  #stars{position:absolute;inset:0}
+  .star{position:absolute;width:6cqw;height:6cqw;margin:-3cqw 0 0 -3cqw}
+  .star img{width:100%;height:100%}
+  #s1Shade{position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 46%, rgba(30,36,20,.0), rgba(20,25,12,.35) 100%)}
+
+  /* Monograma */
+  #monogram{
+    position:absolute;left:50%;top:45%;
+    width:64cqw;height:64cqw;margin:-32cqw 0 0 -32cqw;
+    opacity:0;
+  }
+  #monogram svg{width:100%;height:100%;overflow:visible}
+  #monogram .ring{fill:none;stroke:var(--olive-cream);stroke-width:1.1}
+  #monogram .ring.thin{stroke-width:.5}
+  #monogram .flour{fill:none;stroke:var(--olive-cream);stroke-width:.9;stroke-linecap:round}
+  #monogram .glyph{
+    font-family:"Pinyon Script",cursive;
+    fill:var(--olive-cream);fill-opacity:0;
+    stroke:var(--olive-cream);stroke-width:.9;
+    stroke-linejoin:round;
+    paint-order:stroke;
+  }
+  #monogram .glyph.under{stroke:#2E3720;stroke-width:3.2;fill:none;stroke-opacity:0}
+
+  /* ---------- VENTANA ARCO + ESCENA 2 ---------- */
+  #win{
+    position:absolute;z-index:2;
+    left:50%;top:50%;
+    width:40cqw;height:56cqw;           /* proporción del arco 100 x 140 */
+    margin:-30cqw 0 0 -20cqw;           /* centrado (ligeramente más alto por la cúpula) */
+    transform-origin:50% 53.57%;        /* centro real del stage dentro de la ventana */
+    -webkit-mask:var(--arch) center/100% 100% no-repeat;
+            mask:var(--arch) center/100% 100% no-repeat;
+    visibility:hidden;
+  }
+  #win.open{-webkit-mask:none;mask:none}
+  #s2{
+    position:absolute;
+    width:100cqw;height:100cqh;
+    left:50%;top:53.57%;
+    margin-left:-50cqw;margin-top:-50cqh;
+    transform-origin:50% 50%;
+    overflow:hidden;background:#F4E2D4;
+  }
+  #s2 .pl{position:absolute;inset:-4% -6%}
+  #s2 .pl img{width:100%;height:100%;object-fit:cover}
+  #s2 .pl.cielo{inset:-2% -3%}
+  #archLine{
+    position:absolute;z-index:3;left:50%;top:50%;
+    width:40cqw;height:56cqw;margin:-30cqw 0 0 -20cqw;
+    transform-origin:50% 53.57%;
+    visibility:hidden;opacity:0;
+  }
+  #archLine svg{width:100%;height:100%;overflow:visible}
+
+  #particles{position:absolute;inset:0}
+  .p{position:absolute;width:1.6cqw;height:1.6cqw;border-radius:50%;
+     background:radial-gradient(circle, rgba(255,246,225,.95) 0%, rgba(240,205,160,.45) 40%, rgba(240,205,160,0) 70%)}
+
+  /* marco floral escena 2 */
+  .frame2{position:absolute}
+  .frame2 img{width:100%;height:auto}
+  .frame2.sup{top:0;left:-2%;width:104%}
+  .frame2.inf{bottom:0;left:-2%;width:104%}
+  .frame2.inf img{position:absolute;bottom:0}
+  .frame2.lat{top:0;height:100%;width:22cqw}
+  .frame2.lat img{height:100%;width:100%;object-fit:cover;object-position:left}
+  .frame2.lat.l{left:-3cqw}
+  .frame2.lat.r{right:-3cqw}
+  .frame2.lat.r img{transform:scaleX(-1)}
+
+  /* textos */
+  #texts{
+    position:absolute;left:0;right:0;top:27%;
+    display:flex;flex-direction:column;align-items:center;
+    text-align:center;
+  }
+  #texts::before{
+    content:"";position:absolute;left:50%;top:44%;width:112cqw;height:86cqw;
+    transform:translate(-50%,-50%);z-index:-1;
+    background:radial-gradient(ellipse at center, rgba(255,247,238,.62) 0%, rgba(255,247,238,.3) 45%, rgba(255,247,238,0) 70%);
+  }
+  #kicker{
+    font-family:"Cormorant Garamond",serif;font-weight:300;
+    color:var(--serif-brown);
+    font-size:5.2cqw;letter-spacing:.42em;
+    text-transform:uppercase;
+    padding-left:.42em;               /* compensa el tracking final para centrar */
+    white-space:nowrap;
+  }
+  #kicker .ch{display:inline-block;opacity:0}
+  .ornament{width:34cqw;height:3cqw;margin:2.2cqw 0 1cqw;opacity:0}
+  .names{display:flex;flex-direction:column;align-items:center;line-height:1}
+  .name{
+    font-family:"Pinyon Script","Great Vibes",cursive;
+    color:var(--wine);
+    font-size:17cqw;line-height:1.18;
+    white-space:nowrap;
+    text-shadow:0 .2cqw 1.2cqw rgba(255,248,240,.55);
+  }
+  /* Revelado tipo escritura: máscara que viaja L→R solo con transform */
+  .reveal{display:inline-block;overflow:hidden;
+          padding:0 14cqw 0 3cqw;margin:0 -14cqw 0 -3cqw;
+          -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 14cqw),transparent);
+                  mask-image:linear-gradient(90deg,#000 calc(100% - 14cqw),transparent)}
+  .reveal > span{display:inline-block}
+  .name.big{font-size:21cqw;line-height:1.25}
+  .frase{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:300;
+    color:var(--serif-brown);font-size:5.6cqw;line-height:1.3;margin-top:1.5cqw;
+    opacity:0;white-space:nowrap;
+  }
+  .fecha{
+    font-family:"Cormorant Garamond",serif;font-weight:400;
+    color:var(--serif-brown);font-size:3.6cqw;letter-spacing:.32em;padding-left:.32em;
+    text-transform:uppercase;margin-top:2.4cqw;opacity:0;white-space:nowrap;
+  }
+  .fecha:empty{display:none}
+  #sparkles{position:absolute;inset:0;pointer-events:none}
+  .spk{position:absolute;width:4.2cqw;height:4.2cqw;margin:-2.1cqw 0 0 -2.1cqw;opacity:0}
+  .spk svg{width:100%;height:100%;overflow:visible}
+  #monogram .glyph{font-family:"Cormorant Garamond",serif;font-weight:300;font-style:italic}
+  #monogram .tiara{stroke-linejoin:round}
+
+  #butterflies{position:absolute;inset:0;z-index:6}
+  .bfly{position:absolute;left:0;top:0;width:10cqw;height:8cqw;margin:-4cqw 0 0 -5cqw;opacity:0}
+  .bfly img{width:100%;height:100%}
+
+  /* ---------- ACABADOS ---------- */
+  #paper{
+    z-index:20;opacity:.08;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .3  0 0 0 1.2 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size:240px 240px;
+  }
+  #vignette{z-index:21;background:radial-gradient(ellipse 85% 70% at 50% 48%, rgba(0,0,0,0) 55%, rgba(0,0,0,.42) 100%)}
+  #black{z-index:30;background:#000}
+  #watermark{
+    position:absolute;z-index:25;left:0;right:0;
+    bottom:calc(2.6cqh + env(safe-area-inset-bottom,0px));
+    text-align:center;pointer-events:none;
+    font-family:"Cormorant Garamond",serif;font-weight:400;
+    font-size:2.6cqw;letter-spacing:.24em;
+    color:rgba(255,255,255,.62);
+    text-shadow:0 0 .8cqw rgba(0,0,0,.35);
+    opacity:0;
+  }
+
+  /* UI (oculta con ?reel=1) */
+  .ui{position:absolute;z-index:26}
+  #hint{
+    left:50%;bottom:calc(6.4cqh + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+    font-size:3.4cqw;letter-spacing:.18em;color:#fff;
+    padding:1.4cqw 3.6cqw;border-radius:999px;
+    background:rgba(0,0,0,.18);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,.35);
+    opacity:0;pointer-events:none;white-space:nowrap;
+  }
+  #loader{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+          color:rgba(220,227,195,.75);font-size:3.4cqw;letter-spacing:.3em}
+  body.reel .ui{display:none!important}
+  body.reel{cursor:none}
+
+  /* ---------- SIGUIENTE SECCIÓN (contenedor preparado) ---------- */
+  #invitacion{
+    position:absolute;inset:0;z-index:50;
+    background:#FBF5EE;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    visibility:hidden;opacity:0;
+  }
+  #invitacion .seccion{min-height:100%;padding:12cqw 8cqw;color:var(--serif-brown)}
+</style>
+</head>
+<body>
+<div id="stage" aria-label="Portada animada de invitación de boda">
+
+  <!-- ===== ESCENA 1 ===== -->
+  <section id="s1" class="layer will">
+    <div id="s1Zoom" class="will">
+      <div id="s1Breath" class="will">
+        <div class="bg will" data-depth="0.25"><img data-src="e1_fondo.png" alt=""></div>
+        <div id="s1Shade"></div>
+        <div id="stars"></div>
+        <img class="cenefa l" data-src="e1_cenefa.png" alt="">
+        <img class="cenefa r" data-src="e1_cenefa.png" alt="">
+        <div class="marco1 l will" data-depth="1"><img data-src="e1_marco_izq.png" alt=""></div>
+        <div class="marco1 r will" data-depth="1"><img data-src="e1_marco_der.png" alt=""></div>
+      </div>
+    </div>
+    <div id="monogram" class="will">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <defs><radialGradient id="plate"><stop offset="0" stop-color="#2E3720" stop-opacity=".8"/><stop offset=".7" stop-color="#2E3720" stop-opacity=".55"/><stop offset="1" stop-color="#2E3720" stop-opacity="0"/></radialGradient></defs>
+        <circle class="plate" cx="100" cy="100" r="100" fill="url(#plate)" opacity="0"/>
+        <circle class="ring" cx="100" cy="100" r="88"/>
+        <circle class="ring thin" cx="100" cy="100" r="82"/>
+        <path class="flour" d="M100 6 C 92 14, 92 20, 100 24 C 108 20, 108 14, 100 6 M100 194 C 92 186, 92 180, 100 176 C 108 180, 108 186, 100 194"/>
+        <path class="flour" d="M40 100 C 22 92, 14 100, 8 100 M160 100 C 178 108, 186 100, 192 100"/>
+        <g id="glyphs">
+          <!-- Letras entrelazadas: el "hueco" bajo la 2ª letra simula el cruce de trazos -->
+          <!-- Tiara (se dibuja junto con los anillos) -->
+          <path class="flour tiara" d="M62 74 C 70 70, 76 62, 78 50 C 82 60, 86 64, 90 62 C 92 52, 96 44, 100 34 C 104 44, 108 52, 110 62 C 114 64, 118 60, 122 50 C 124 62, 130 70, 138 74 C 124 70, 112 69, 100 69 C 88 69, 76 70, 62 74 Z"/>
+          <path class="flour tiara" d="M100 42 C 97 46, 97 50, 100 53 C 103 50, 103 46, 100 42 M66 77 C 84 73, 116 73, 134 77"/>
+          <circle class="flour tiara" cx="78" cy="57" r="2.2"/>
+          <circle class="flour tiara" cx="122" cy="57" r="2.2"/>
+          <text class="glyph g1" x="84" y="142" text-anchor="middle" font-size="86"></text>
+          <text class="glyph under g2u" x="118" y="148" text-anchor="middle" font-size="86"></text>
+          <text class="glyph g2" x="118" y="148" text-anchor="middle" font-size="86"></text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===== VENTANA ARCO (contiene ESCENA 2) ===== -->
+  <div id="win">
+    <section id="s2" class="will">
+      <div class="pl cielo will"    data-par="0.12"><img data-src="e2_cielo.png" alt=""></div>
+      <div class="pl montanas will" data-par="0.35"><img data-src="e2_montanas.png" alt=""></div>
+      <div class="pl cascadas will" data-par="0.55"><img data-src="e2_cascadas.png" alt=""></div>
+      <div class="pl hacienda will" data-par="1"><img data-src="e2_hacienda.png" alt=""></div>
+      <div id="particles"></div>
+
+      <div class="frame2 lat l will"><img data-src="e2_marco_lat.png" alt=""></div>
+      <div class="frame2 lat r will"><img data-src="e2_marco_lat.png" alt=""></div>
+      <div class="frame2 inf will"><img data-src="e2_marco_inf.png" alt=""></div>
+      <div class="frame2 sup will"><img data-src="e2_marco_sup.png" alt=""></div>
+
+      <div id="sparkles"></div>
+      <div id="texts" class="will">
+        <div id="kicker" aria-label=""></div>
+        <svg class="ornament" viewBox="0 0 200 18" aria-hidden="true">
+          <path d="M4 9 H80 M120 9 H196" stroke="#8A6A5A" stroke-width=".8" fill="none"/>
+          <path d="M100 2 L107 9 L100 16 L93 9 Z" fill="none" stroke="#8A6A5A" stroke-width=".9"/>
+          <circle cx="86" cy="9" r="1.6" fill="#8A6A5A"/><circle cx="114" cy="9" r="1.6" fill="#8A6A5A"/>
+        </svg>
+        <div class="names">
+          <div class="name big"><span class="reveal r1"><span id="name1"></span></span></div>
+          <div class="frase" id="frase"></div>
+          <div class="fecha" id="fecha"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div id="archLine" aria-hidden="true">
+    <svg viewBox="0 0 100 140" preserveAspectRatio="none">
+      <path id="archPathOuter" fill="none" stroke="#DCE3C3" stroke-width="1.1" vector-effect="non-scaling-stroke"/>
+      <path id="archPathInner" fill="none" stroke="#DCE3C3" stroke-width=".6" stroke-opacity=".7" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </div>
+
+  <div id="butterflies"></div>
+
+  <!-- acabados -->
+  <div id="paper" class="layer"></div>
+  <div id="vignette" class="layer"></div>
+  <div id="watermark"></div>
+
+  <div id="hint" class="ui">Toca para abrir</div>
+  <div id="loader" class="ui">CARGANDO</div>
+  <div id="black" class="layer"></div>
+
+  <!-- ===== SIGUIENTE SECCIÓN DE LA INVITACIÓN (vacía, lista para llenarse) ===== -->
+  <main id="invitacion" aria-hidden="true">
+    <div class="seccion"><!-- Aquí va el contenido de la invitación --></div>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<script>
+/* =====================================================================
+   CONFIG — edita aquí los datos de la invitación
+   ===================================================================== */
+const CONFIG = {
+  quinceanera: "Valentina",
+  iniciales: ["X", "V"],          // letras del monograma (bajo la tiara)
+  textoSuperior: "Mis XV Años",
+  frase: "Te invito a celebrar conmigo",
+  fecha: "",                      // opcional, p. ej. "14 · Marzo · 2027" (vacío = no se muestra)
+  marcaDeAgua: "TU MARCA · @tu_usuario",
+  assetsPath: "../assets/",
+  duracion: 28,              // duración del loop en segundos (la secuencia se escala si lo cambias)
+  numEstrellas: 11,
+  numParticulas: 26,
+  numMariposas: 3,
+  numDestellos: 7
+};
+
+(() => {
+  "use strict";
+  const params = new URLSearchParams(location.search);
+  const REEL = params.get("reel") === "1";
+  if (REEL) document.body.classList.add("reel");
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const stage = $("#stage");
+  const rand = gsap.utils.random;
+
+  gsap.registerPlugin(MotionPathPlugin);
+
+  /* ---------- Forma del arco (palacio: cúpula + hombros) en viewBox 100x140 ---------- */
+  function archPath(inset = 0) {
+    const i = inset, L = 0 + i, R = 100 - i, B = 140 - i;
+    const sh = 38 + i * .4;          // altura de los hombros
+    const nk = 14 + i;               // entrada del cuello
+    const top = 0 + i * 1.2;
+    return `M${L} ${B} L${L} ${sh}
+      C${L} ${sh - 6} ${L + 4} ${sh - 9} ${L + 9} ${sh - 9}
+      C${L + nk - 4} ${sh - 9} ${L + nk} ${sh - 12} ${L + nk} ${sh - 16}
+      C${L + nk + 2} ${top + 10} ${50 - 12} ${top} 50 ${top}
+      C${50 + 12} ${top} ${R - nk - 2} ${top + 10} ${R - nk} ${sh - 16}
+      C${R - nk} ${sh - 12} ${R - nk + 4} ${sh - 9} ${R - 9} ${sh - 9}
+      C${R - 4} ${sh - 9} ${R} ${sh - 6} ${R} ${sh}
+      L${R} ${B} Z`.replace(/\s+/g, " ");
+  }
+  const archSVG = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 140' preserveAspectRatio='none'><path d='${archPath()}' fill='black'/></svg>`;
+  $("#win").style.setProperty("--arch", `url("data:image/svg+xml;utf8,${encodeURIComponent(archSVG)}")`);
+  $("#archPathOuter").setAttribute("d", archPath(-2.2));
+  $("#archPathInner").setAttribute("d", archPath(1.6));
+
+  /* ---------- Textos desde CONFIG ---------- */
+  const kicker = $("#kicker");
+  kicker.setAttribute("aria-label", CONFIG.textoSuperior);
+  kicker.innerHTML = [...CONFIG.textoSuperior].map(c =>
+    `<span class="ch" aria-hidden="true">${c === " " ? "&nbsp;" : c}</span>`).join("");
+  $("#name1").textContent = CONFIG.quinceanera;
+  $("#frase").textContent = CONFIG.frase;
+  $("#fecha").textContent = CONFIG.fecha;
+  $(".g1").textContent = CONFIG.iniciales[0];
+  $(".g2").textContent = CONFIG.iniciales[1];
+  $(".g2u").textContent = CONFIG.iniciales[1];
+  $("#watermark").textContent = CONFIG.marcaDeAgua;
+  document.title = `${CONFIG.textoSuperior} · ${CONFIG.quinceanera}`;
+
+  /* ---------- Precarga ---------- */
+  function placeholderFor(name) {
+    // Si un asset falta, se usa un PNG transparente para no romper la composición
+    return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+  }
+  function loadImg(img) {
+    return new Promise(res => {
+      const src = CONFIG.assetsPath + img.dataset.src;
+      const probe = new Image();
+      probe.decoding = "async";
+      probe.onload = () => { img.src = src; (probe.decode ? probe.decode() : Promise.resolve()).catch(() => {}).then(res); };
+      probe.onerror = () => { console.warn("Falta asset:", src); img.src = placeholderFor(img.dataset.src); res(); };
+      probe.src = src;
+    });
+  }
+
+  function buildStars() {
+    const box = $("#stars");
+    const n = CONFIG.numEstrellas;
+    for (let i = 0; i < n; i++) {
+      const el = document.createElement("div");
+      el.className = "star will";
+      el.innerHTML = `<img data-src="estrella.svg" alt="">`;
+      // reparto en columnas para que no se amontonen ni tapen el monograma
+      const col = i % 2 ? rand(64, 88) : rand(12, 36);
+      el.style.left = (i === n - 1 ? 50 : col) + "%";
+      el.style.top = (i === n - 1 ? 14 : (6 + (i / n) * 86 + rand(-3, 3))) + "%";
+      box.appendChild(el);
+    }
+  }
+  function buildParticles() {
+    const box = $("#particles");
+    for (let i = 0; i < CONFIG.numParticulas; i++) {
+      const p = document.createElement("div");
+      p.className = "p will";
+      p.style.left = rand(4, 96) + "%";
+      p.style.top = rand(10, 95) + "%";
+      box.appendChild(p);
+    }
+  }
+  function buildButterflies() {
+    const box = $("#butterflies");
+    for (let i = 0; i < CONFIG.numMariposas; i++) {
+      const b = document.createElement("div");
+      b.className = "bfly will";
+      b.innerHTML = `<img class="will" data-src="mariposa.png" alt="">`;
+      box.appendChild(b);
+    }
+  }
+  function buildSparkles() {
+    const box = $("#sparkles");
+    const spots = [[16,30],[84,27],[10,45],[90,43],[22,57],[80,58],[50,21],[66,36],[34,36]];
+    for (let i = 0; i < CONFIG.numDestellos; i++) {
+      const [x, y] = spots[i % spots.length];
+      const el = document.createElement("div");
+      el.className = "spk will";
+      el.style.left = x + "%"; el.style.top = y + "%";
+      el.innerHTML = `<svg viewBox="-10 -10 20 20"><path d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10Z" fill="#C9A15A"/><circle r="2.2" fill="#FFF6E0"/></svg>`;
+      box.appendChild(el);
+    }
+  }
+  buildStars(); buildParticles(); buildButterflies(); buildSparkles();
+
+  const fontsReady = Promise.race([
+    Promise.all([
+      document.fonts.load('400 100px "Pinyon Script"', CONFIG.quinceanera),
+      document.fonts.load('italic 300 80px "Cormorant Garamond"', CONFIG.iniciales.join("") + CONFIG.frase),
+      document.fonts.load('300 40px "Cormorant Garamond"', CONFIG.textoSuperior),
+      document.fonts.load('italic 300 40px "Cormorant Garamond"', "&")
+    ]).then(() => document.fonts.ready),
+    new Promise(r => setTimeout(r, 4000))
+  ]);
+  Promise.all([...$$("img[data-src]").map(loadImg), fontsReady]).then(start);
+
+  /* =====================================================================
+     ANIMACIÓN
+     ===================================================================== */
+  function start() {
+    $("#loader").remove();
+    const W = () => stage.clientWidth, H = () => stage.clientHeight;
+
+    /* ---- Monograma: preparar trazos (dash) ---- */
+    const glyphs = $$("#monogram .glyph:not(.under)");
+    const rings = $$("#monogram .ring, #monogram .flour");
+    const GLEN = 900; // longitud generosa para el contorno de cada letra
+    glyphs.forEach(g => gsap.set(g, { strokeDasharray: GLEN, strokeDashoffset: GLEN }));
+    rings.forEach(r => {
+      const len = r.getTotalLength ? r.getTotalLength() : 600;
+      gsap.set(r, { strokeDasharray: len, strokeDashoffset: len });
+      r._len = len;
+    });
+
+    /* ---- Ambientes que viven fuera del loop (nunca saltan) ---- */
+    // Respiración escena 1
+    gsap.fromTo("#s1Breath", { scale: 1 }, { scale: 1.03, duration: 4.5, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    // Parallax sutil escena 1: fondo y marcos en direcciones distintas
+    gsap.to("#s1 .bg", { xPercent: -1.2, yPercent: -.8, duration: 7, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    gsap.to(".marco1.l", { x: () => W() * .012, y: () => -H() * .006, duration: 5.5, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    gsap.to(".marco1.r", { x: () => -W() * .012, y: () => H() * .006, duration: 6.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    // Estrellas flotando
+    $$(".star").forEach((s, i) => {
+      gsap.set(s, { scale: rand(.55, 1.1), rotation: rand(0, 45), opacity: rand(.35, .9) });
+      gsap.to(s, { y: () => rand(-1, 1) * H() * .018, x: () => rand(-1, 1) * W() * .015,
+        duration: rand(4, 7), ease: "sine.inOut", yoyo: true, repeat: -1, delay: -rand(0, 6) });
+      gsap.to(s, { rotation: `+=${rand(25, 50) * (i % 2 ? 1 : -1)}`, duration: rand(10, 16), ease: "none", repeat: -1 });
+      gsap.to(s, { opacity: rand(.2, .45), duration: rand(1.8, 3.2), ease: "sine.inOut", yoyo: true, repeat: -1, delay: -rand(0, 3) });
+    });
+    // Parallax por capas escena 2 (cielo casi fijo, hacienda la que más se mueve)
+    $$("#s2 .pl").forEach(pl => {
+      const k = +pl.dataset.par;
+      gsap.to(pl, { x: () => -W() * .03 * k, y: () => -H() * .008 * k, duration: 9, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    });
+    // Partículas de luz
+    $$(".p").forEach(p => {
+      gsap.set(p, { scale: rand(.4, 1.3), opacity: 0 });
+      const loop = () => {
+        gsap.fromTo(p, { y: 0, x: 0, opacity: 0 },
+          { y: () => -H() * rand(.05, .14), x: () => W() * rand(-.03, .03), duration: rand(5, 9), ease: "sine.inOut",
+            keyframes: { opacity: [0, rand(.45, .9), 0] }, onComplete: loop });
+      };
+      gsap.delayedCall(rand(0, 6), loop);
+    });
+    // Destellos dorados (parpadeo + giro)
+    $$(".spk").forEach(s => {
+      gsap.timeline({ repeat: -1, delay: rand(0, 2.5), repeatDelay: rand(.4, 1.6) })
+        .fromTo(s, { opacity: 0, scale: .2, rotation: 0 }, { opacity: 1, scale: rand(.6, 1.1), rotation: 45, duration: .7, ease: "sine.out" })
+        .to(s, { opacity: 0, scale: .2, rotation: 90, duration: .8, ease: "sine.in" });
+    });
+    // Leve flotación de textos
+    gsap.to("#texts", { y: () => -H() * .006, duration: 3.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+
+    /* ---- Estado inicial del loop ---- */
+    const SCALE = CONFIG.duracion / 28;
+    const t = s => s * SCALE;
+    const COVER = () => { // escala de la ventana para cubrir todo el stage (con margen para la cúpula)
+      const w = $("#win").offsetWidth, h = $("#win").offsetHeight;
+      return Math.max(W() / w, H() / (h * .55)) * 1.25;
+    };
+    const winState = s => {
+      gsap.set("#win", { scale: s });
+      gsap.set("#s2", { scale: 1 / s });
+      gsap.set("#archLine", { scale: s });
+    };
+
+    function resetLoop() {
+      gsap.set("#s1", { yPercent: 0, zIndex: 1 });
+      gsap.set("#s1Zoom", { scale: 1, filter: "none" });
+      gsap.set("#monogram", { opacity: 0, y: 0, scale: 1, filter: "blur(0px)" });
+      glyphs.forEach(g => gsap.set(g, { strokeDashoffset: GLEN, fillOpacity: 0 }));
+      gsap.set(".glyph.under", { strokeOpacity: 0 });
+      rings.forEach(r => gsap.set(r, { strokeDashoffset: r._len }));
+      $("#win").classList.remove("open");
+      gsap.set("#win", { visibility: "hidden", opacity: 1 });
+      gsap.set("#archLine", { visibility: "hidden", opacity: 0 });
+      winState(.02);
+      gsap.set(".frame2.sup", { yPercent: -105 });
+      gsap.set(".frame2.inf", { yPercent: 105 });
+      gsap.set(".frame2.lat.l", { xPercent: -110 });
+      gsap.set(".frame2.lat.r", { xPercent: 110 });
+      gsap.set("#kicker .ch", { opacity: 0, y: 8 });
+      gsap.set(".ornament", { opacity: 0, scaleX: .3 });
+      gsap.set([".frase", ".fecha"], { opacity: 0, y: 10 });
+      gsap.set("#sparkles", { opacity: 0 });
+      gsap.set(".reveal", { xPercent: -100 });
+      gsap.set(".reveal > span", { x: (i, el) => el.parentNode.offsetWidth });
+      gsap.set("#texts", { opacity: 1 });
+      gsap.set(".bfly", { opacity: 0 });
+      gsap.set("#s2", { opacity: 1 });
+    }
+    resetLoop();
+
+    /* ---- Mariposas: trayectorias curvas + aleteo ---- */
+    function butterflyTween(el, i) {
+      const tl = gsap.timeline();
+      const img = el.querySelector("img");
+      const w = W(), h = H();
+      const paths = [
+        [{ x: -.12, y: .78 }, { x: .25, y: .55 }, { x: .55, y: .66 }, { x: .82, y: .40 }, { x: 1.14, y: .30 }],
+        [{ x: 1.12, y: .62 }, { x: .78, y: .74 }, { x: .5, y: .58 }, { x: .2, y: .7 }, { x: -.14, y: .52 }],
+        [{ x: .2, y: 1.08 }, { x: .32, y: .82 }, { x: .12, y: .62 }, { x: .4, y: .44 }, { x: .7, y: .24 }, { x: 1.15, y: .16 }]
+      ];
+      const path = paths[i % paths.length].map(p => ({ x: p.x * w, y: p.y * h }));
+      const dur = [4.2, 3.8, 3.4][i % 3] * SCALE;
+      const sc = [1, .8, .65][i % 3];
+      tl.set(el, { opacity: 1, scale: sc })
+        .to(el, { duration: dur, ease: "sine.inOut",
+          motionPath: { path, curviness: 1.4, autoRotate: 90 } }, 0)
+        .fromTo(img, { scaleX: 1 }, { scaleX: .18, duration: .13, ease: "sine.inOut", yoyo: true,
+          repeat: Math.round(dur / .13) | 1 }, 0)
+        .to(el, { opacity: 0, duration: .3 }, dur - .3);
+      return tl;
+    }
+
+    /* ---- Timeline maestro (28 s) ---- */
+    const tl = gsap.timeline({ repeat: -1, paused: true, onRepeat: resetLoop });
+
+    // 0–3 s: escena 1 sola (el fade desde negro es sólo la primera vez, ver intro)
+    tl.addLabel("s1", 0);
+
+    // 3–7 s: monograma se dibuja trazo a trazo y se rellena
+    tl.set("#monogram", { opacity: 1 }, t(3))
+      .fromTo("#monogram .plate", { opacity: 0 }, { opacity: 1, duration: t(1.2), ease: "sine.out" }, t(3));
+    rings.forEach((r, i) => tl.to(r, { strokeDashoffset: 0, duration: t(1.6), ease: "power2.inOut" }, t(3 + i * .12)));
+    tl.to(glyphs[0], { strokeDashoffset: 0, duration: t(2), ease: "power1.inOut" }, t(3.4))
+      .to(".glyph.under", { strokeOpacity: 1, duration: t(.6) }, t(4.4))
+      .to(glyphs[1], { strokeDashoffset: 0, duration: t(2), ease: "power1.inOut" }, t(4.2))
+      .to(glyphs, { fillOpacity: 1, duration: t(1), ease: "sine.inOut", stagger: t(.2) }, t(5.8));
+
+    // 7–8 s: se va hacia arriba con blur
+    tl.to("#monogram", { y: () => -H() * .08, opacity: 0, filter: "blur(10px)", scale: .96, duration: t(1), ease: "power2.in" }, t(7));
+
+    // 8–11 s: ventana en arco se abre y crece hasta cubrir
+    tl.set("#win", { visibility: "visible" }, t(8))
+      .set("#archLine", { visibility: "visible" }, t(8))
+      .fromTo("#win", { scale: .02 }, { scale: .9, duration: t(1.1), ease: "power3.out",
+        onUpdate() { const s = gsap.getProperty("#win", "scale"); gsap.set("#s2", { scale: 1 / s }); gsap.set("#archLine", { scale: s }); } }, t(8))
+      .to("#archLine", { opacity: 1, duration: t(.6) }, t(8.1))
+      .to("#win", { scale: () => COVER(), duration: t(1.9), ease: "power2.inOut",
+        onUpdate() { const s = gsap.getProperty("#win", "scale"); gsap.set("#s2", { scale: 1 / s }); gsap.set("#archLine", { scale: s }); } }, t(9.1))
+      .to("#archLine", { opacity: 0, duration: t(.9), ease: "power1.in" }, t(9.6))
+      .to("#s1Zoom", { scale: 1.12, duration: t(3), ease: "power1.inOut" }, t(8))
+      .add(() => { // ya cubre todo: quita la máscara y normaliza escalas (idéntico visualmente)
+        if (tl.reversed()) return;
+        $("#win").classList.add("open"); winState(1);
+      }, t(11.02));
+
+    // 14–16 s: marco floral entra desde los bordes
+    tl.to(".frame2.sup", { yPercent: 0, duration: t(2), ease: "power3.out" }, t(14))
+      .to(".frame2.inf", { yPercent: 0, duration: t(2), ease: "power3.out" }, t(14.15))
+      .to(".frame2.lat.l", { xPercent: 0, duration: t(1.9), ease: "power3.out" }, t(14.3))
+      .to(".frame2.lat.r", { xPercent: 0, duration: t(1.9), ease: "power3.out" }, t(14.3));
+
+    // 16–20 s: "Mis XV Años" letra a letra + nombre escrito a mano + frase
+    tl.to("#kicker .ch", { opacity: 1, y: 0, duration: t(.6), ease: "power2.out", stagger: t(.07) }, t(16))
+      .to(".ornament", { opacity: .9, scaleX: 1, duration: t(.8), ease: "power2.out" }, t(16.7))
+      .to(".r1", { xPercent: 0, duration: t(2), ease: "power1.inOut" }, t(17.1))
+      .to(".r1 > span", { x: 0, duration: t(2), ease: "power1.inOut" }, t(17.1))
+      .to("#sparkles", { opacity: 1, duration: t(1) }, t(18.4))
+      .to(".frase", { opacity: 1, y: 0, duration: t(.9), ease: "power2.out" }, t(18.9))
+      .to(".fecha", { opacity: 1, y: 0, duration: t(.9), ease: "power2.out" }, t(19.3));
+    tl.to("#sparkles", { opacity: 0, duration: t(1) }, t(25));
+
+    // 20–25 s: hold + mariposas
+    $$(".bfly").forEach((b, i) => tl.add(() => butterflyTween(b, i), t([20.2, 20.9, 21.5][i % 3])));
+
+    // 25–28 s: textos y escena 2 se desvanecen; escena 1 sube como cortina
+    tl.to("#texts", { opacity: 0, duration: t(1.2), ease: "power1.in" }, t(25))
+      .to("#s2", { opacity: .55, duration: t(2.6), ease: "power1.in" }, t(25.2))
+      .set("#s1Zoom", { scale: 1 }, t(25))
+      .set("#s1", { zIndex: 4, yPercent: 100 }, t(25))
+      .to("#s1", { yPercent: 0, duration: t(2.6), ease: "power3.inOut" }, t(25.4))
+      .set({}, {}, t(28)); // fija la duración exacta
+
+    /* ---- Intro: fade desde negro sólo la primera vez ---- */
+    const intro = gsap.timeline({ onComplete: () => {} });
+    intro.to("#black", { opacity: 0, duration: 2.2, ease: "power1.inOut" }, 0)
+         .to("#watermark", { opacity: 1, duration: 1.5 }, .8)
+         .add(() => tl.play(0), 0)
+         .set("#black", { display: "none" });
+    if (!REEL) gsap.to("#hint", { opacity: .9, duration: 1, delay: 3.2 });
+    if (!REEL) gsap.to("#hint", { opacity: .45, duration: 1.6, delay: 4.2, yoyo: true, repeat: -1, ease: "sine.inOut" });
+
+    /* ---- Tocar = siguiente sección (no en modo reel) ---- */
+    let opened = false;
+    if (!REEL) {
+      stage.addEventListener("click", e => {
+        if (opened || e.target.closest("#invitacion")) return;
+        opened = true;
+        const inv = $("#invitacion");
+        inv.setAttribute("aria-hidden", "false");
+        gsap.timeline()
+          .to("#hint", { opacity: 0, duration: .3 }, 0)
+          .set(inv, { visibility: "visible" }, 0)
+          .fromTo(inv, { opacity: 0, y: () => H() * .04 }, { opacity: 1, y: 0, duration: .9, ease: "power2.out" }, .1)
+          .add(() => tl.pause());
+        document.dispatchEvent(new CustomEvent("invitacion:abrir"));
+      });
+    }
+
+    // Recalcula valores dependientes de tamaño en rotaciones / resize
+    let rz;
+    addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => {
+      if ($("#win").classList.contains("open")) return; tl.invalidate();
+    }, 150); });
+
+    // Hooks para depurar/grabar: window.portada.seek(16)
+    window.portada = { tl, seek: s => tl.seek(t(s), false), play: () => tl.play(), pause: () => tl.pause() };
+  }
+})();
+</script>
+</body>
+</html>

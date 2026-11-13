@@ -9,3 +9,12 @@ Abre `index.html` en un navegador.
 - Para depurar: `portada.seek(16)` en consola salta a ese segundo.
 
 Nota: los archivos deben servirse por HTTP (p. ej. `npx serve .`) o abrirse localmente; GSAP y las fuentes se cargan por CDN.
+
+## Versión XV años
+
+`xv/index.html` es la misma animación adaptada a unos XV años y usa las imágenes de `assets/`. Cambia lo siguiente:
+
+- Monograma: tiara con las letras "XV" entrelazadas.
+- Escena 2: "Mis XV Años", el nombre de la quinceañera escrito a mano, una frase, una fecha opcional y destellos dorados.
+
+Sus datos se editan en el `CONFIG` de ese archivo: `quinceanera`, `iniciales`, `textoSuperior`, `frase`, `fecha` y `marcaDeAgua`. Para grabar el Reel se usa `xv/index.html?reel=1`.
