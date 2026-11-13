@@ -221,7 +221,8 @@
   .arch .lc.r{right:0}
   .arch .lc.l{left:0;transform:scaleX(-1)}
   .lace-row{position:relative;z-index:1;display:block;width:100%;height:auto;margin-top:10cqw}
-  .closing{position:relative;text-align:center;padding:14cqw 6cqw 10cqw}
+  .closing{position:relative;text-align:center;padding:14cqw 6cqw 22cqw}
+  .closing .lace-bot{position:absolute !important;left:0;bottom:0;width:100%;height:auto;transform:scaleY(-1)}
   .closing > *:not(.lace){position:relative;z-index:1}
   .closing .gl{width:28cqw;margin:0 auto}
   .closing .script{font-size:14cqw;margin-top:3cqw}
@@ -659,11 +660,11 @@
 
     <img class="lace-row" src="${IMG("encaje-orilla")}" alt="">
     <footer class="closing">
-      <img class="lace" src="${IMG("encaje-esquina")}" alt="" style="left:0;bottom:0;width:46cqw;transform:rotate(180deg)">
       <img class="gl rv" src="${IMG("globo")}" alt="" id="endGlobo">
       <div class="script rv">${esc(E.cierre)}</div>
       <div class="body rv" style="font-style:italic">${esc(C.padres)}</div>
       <div class="wm">${esc(C.marcaDeAgua)}</div>
+      <img class="lace-bot" src="${IMG("encaje-orilla")}" alt="">
     </footer>`;
 
     // página de confirmación
