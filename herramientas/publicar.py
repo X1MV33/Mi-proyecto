@@ -31,6 +31,7 @@ for f in os.listdir(os.path.join(raiz, "assets")):
 for f in os.listdir(src):   # video de intro, póster, canción…
     if f.lower().endswith((".mp4", ".webm", ".mp3", ".m4a", ".jpg", ".png")):
         shutil.copy(os.path.join(src, f), os.path.join(out, f))
-if os.path.isdir(os.path.join(src, "fotos")):
-    shutil.copytree(os.path.join(src, "fotos"), os.path.join(out, "fotos"), dirs_exist_ok=True)
+for d in ("fotos", "flores"):
+    if os.path.isdir(os.path.join(src, d)):
+        shutil.copytree(os.path.join(src, d), os.path.join(out, d), dirs_exist_ok=True)
 print("Listo:", out)
