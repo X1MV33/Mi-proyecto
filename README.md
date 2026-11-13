@@ -12,9 +12,12 @@ Nota: los archivos deben servirse por HTTP (p. ej. `npx serve .`) o abrirse loca
 
 ## Versión XV años
 
-`xv/index.html` es la misma animación adaptada a unos XV años y usa las imágenes de `assets/`. Cambia lo siguiente:
+`xv/index.html` usa las imágenes de `assets/` y sigue la coreografía del video de ejemplo. El loop dura 20 s y se ajusta con `CONFIG.duracion`:
 
-- Monograma: tiara con las letras "XV" entrelazadas.
-- Escena 2: "Mis XV Años", el nombre de la quinceañera escrito a mano, una frase, una fecha opcional y destellos dorados.
+1. El monograma (tiara con "XV" en serif didone) se dibuja sobre la escena 1.
+2. La ventana en arco abre desde el centro con el monograma encima. Las flores, la cenefa y las estrellas de la escena 1 quedan por delante del arco y luego se abren hacia los lados.
+3. La escena 2 entra con una bruma blanca y un ligero zoom out. Después entra el marco floral.
+4. Aparece "Mis XV Años", el nombre se escribe a mano, sale la frase y brillan los destellos. Las mariposas cruzan durante el hold.
+5. La escena 1 vuelve a subir como cortina y el loop reinicia.
 
 Sus datos se editan en el `CONFIG` de ese archivo: `quinceanera`, `iniciales`, `textoSuperior`, `frase`, `fecha` y `marcaDeAgua`. Para grabar el Reel se usa `xv/index.html?reel=1`.
