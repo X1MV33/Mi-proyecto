@@ -1,6 +1,6 @@
 # Portada animada · Invitación de boda
 
-Abre `index.html` en un navegador.
+Abre `index.html` (boda) o `xv/index.html` (XV años) en un navegador. Las dos versiones comparten la misma coreografía (loop de 20 s, basado en el video de ejemplo) y, al tocar la pantalla, abren la invitación completa: mensaje, familias, cuenta regresiva, ceremonia y recepción con mapa, itinerario, vestimenta, regalos, confirmación por WhatsApp y cierre. Todos los datos están en `CONFIG` (`CONFIG.evento` para las secciones) y son de ejemplo.
 
 - Edita los datos en el objeto `CONFIG` dentro de `index.html` (novios, iniciales, texto superior, marca de agua).
 - Sustituye los PNG de `assets/` por tus ilustraciones finales con los mismos nombres (los actuales son placeholders).
