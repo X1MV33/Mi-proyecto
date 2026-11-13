@@ -361,7 +361,7 @@
       }
       if (C.musica) {
         audio = audio || Object.assign(new Audio(C.musica), { loop: true, volume: 0 });
-        audio.play().then(() => gsap.to(audio, { volume: .8, duration: 2 })).catch(() => { C.musica = ""; synth(); });
+        audio.play().then(() => { gsap.killTweensOf(audio); gsap.timeline().to(audio, { volume: .18, duration: 2.5, ease: "sine.out" }).to(audio, { volume: .8, duration: 7, ease: "sine.inOut" }, "+=1.5"); }).catch(() => { C.musica = ""; synth(); });
       } else synth();
       ui();
     }
@@ -386,7 +386,7 @@
     function toMain() {
       if (!enIntro) return;
       enIntro = false;
-      if (intro) { const a = intro; gsap.killTweensOf(a); gsap.to(a, { volume: 0, duration: 1.6, onComplete: () => a.pause() }); }
+      if (intro) { const a = intro; gsap.killTweensOf(a); gsap.to(a, { volume: 0, duration: 3, ease: "sine.inOut", onComplete: () => a.pause() }); }
       if (on) play();
     }
     return { play, pause, toMain, toggle: () => (on ? pause() : play()), get on() { return on; } };
