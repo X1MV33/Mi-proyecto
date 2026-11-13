@@ -20,6 +20,7 @@ window.CONFIG = {
   fotoCeremonia: 1,                    // polaroid de ceremonia
   fotoRecepcion: 2,                    // polaroid de recepción
   fotoCierre: 3,                       // foto del cierre
+  fotoSobre: 2,                        // foto que sale del sobre
   musica: "",                          // ruta a su canción (p. ej. "cancion.mp3"); vacío = vals de caja musical
   cancion: "Nuestra canción",          // nombre que se muestra en el reproductor
 
@@ -29,6 +30,7 @@ window.CONFIG = {
     fechaTexto: "Sábado 19 de junio de 2027",
     ciudad: "Guadalajara, Jalisco",
     frase: "Y en medio de todo, te encontré a ti.",
+    mensajeTarjeta: "Dos almas, un mismo destino. Acompáñanos a celebrar uno de los días más especiales de nuestras vidas.",
     saludo: "Queridos familiares y amigos",
     cita: { texto: "Ponme como un sello sobre tu corazón", ref: "Cantares 8:6" },   // o null
     mensaje: "Con la bendición de Dios y de nuestros padres, tenemos el honor de invitarte a celebrar el día en que uniremos nuestras vidas. Será un momento muy especial y queremos compartirlo contigo.",
