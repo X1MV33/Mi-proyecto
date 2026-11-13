@@ -131,7 +131,7 @@
   .player svg{width:55%;height:55%}
 
   /* calendario + cuenta */
-  .cal{width:76cqw;margin:6cqw auto 0;border:1px solid #D7D2C6;padding:4cqw 4cqw 3cqw;background:rgba(255,255,255,.45)}
+  .cal{width:76cqw;margin:6cqw auto 0;border:1px solid #D7D2C6;padding:4cqw 4cqw 3cqw;background:#FFFEFA;box-shadow:0 1.4cqw 3cqw rgba(20,33,61,.15)}
   .cal .mh{display:flex;justify-content:space-between;font-size:4.6cqw;letter-spacing:.24em;text-transform:uppercase;padding:0 1cqw 3cqw;border-bottom:1px solid #D7D2C6;margin-bottom:2cqw}
   .cal .g{display:grid;grid-template-columns:repeat(7,1fr);row-gap:1.2cqw;font-size:4cqw}
   .cal .g span{height:8.5cqw;display:grid;place-items:center;position:relative;color:var(--ink)}
@@ -256,7 +256,7 @@
   .renv .back2{position:absolute;z-index:1;left:0;right:0;bottom:0;height:62cqw;background:#1F3766;border-radius:1.4cqw}
   .renv .flap2{position:absolute;z-index:1;left:0;right:0;bottom:61.5cqw;height:34cqw;clip-path:polygon(0 100%,50% 0,100% 100%);overflow:hidden}
   .renv .flap2 svg{width:100%;height:100%}
-  .rsvp-note{margin-top:8cqw;font-size:4.4cqw;letter-spacing:.06em;text-transform:uppercase;line-height:1.55;color:var(--ink)}
+  .rsvp-note{margin:8cqw 2cqw 0;padding:4cqw 3cqw;background:rgba(236,235,231,.85);font-size:4.4cqw;letter-spacing:.06em;text-transform:uppercase;line-height:1.55;color:var(--ink)}
 
   /* cierre */
   .closing{padding:20cqw 7cqw 16cqw;overflow:hidden}
@@ -286,6 +286,91 @@
   #toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:99px;font-size:15px;opacity:0;z-index:50;pointer-events:none;transition:opacity .3s}
 
   @media (prefers-reduced-motion:reduce){.track{animation-duration:120s}.scroll-cue{animation:none}}
+
+  /* ===== estilo toile + papel rasgado ===== */
+  .toile{background:#ECEBE7 url(texturas/toile.jpg) repeat;background-size:118cqw auto}
+  .toile::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(236,235,231,.25),rgba(236,235,231,0) 30%,rgba(236,235,231,0) 70%,rgba(236,235,231,.25))}
+  .toile>*{position:relative;z-index:1}
+  .toile>.lace{position:absolute}
+  .stack{position:relative;text-align:center}
+  .tw{position:relative;z-index:2;filter:drop-shadow(0 1.2cqw 1.6cqw rgba(20,33,61,.22))}
+  .torn{position:relative;background:#FFFEFA linear-gradient(135deg,rgba(255,255,255,.6),rgba(236,232,222,.35));color:var(--ink)}
+  .scrap{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 1cqw 1.4cqw rgba(20,33,61,.18))}
+  .wseal{position:absolute;z-index:3;width:13cqw;filter:drop-shadow(0 .8cqw 1cqw rgba(10,18,40,.4));pointer-events:none}
+  .dark{position:relative;z-index:2;background:var(--navy);color:#EEF2FA;box-shadow:0 2.4cqw 5cqw rgba(20,33,61,.35)}
+  .dark::before{content:"";position:absolute;inset:2cqw;border:1px solid rgba(231,207,151,.28);pointer-events:none}
+  .dark h3{font-family:var(--caps);font-weight:400;font-size:8cqw;letter-spacing:.06em;line-height:1.1}
+  .pill.sm{font-size:3cqw;padding:1.8cqw 4cqw;letter-spacing:.12em;white-space:nowrap}
+  .dark .pill{color:#fff}
+
+  .tag{position:absolute;z-index:5;width:28cqw;aspect-ratio:1;display:grid;place-items:center;text-decoration:none;color:#fff;transform:rotate(-6deg)}
+  .tag svg.sc{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 1cqw 1.4cqw rgba(20,33,61,.32))}
+  .tag span{position:relative;font-family:var(--caps);font-size:3.2cqw;letter-spacing:.1em;line-height:1.3;text-align:center;padding:0 3cqw;margin-top:-1cqw}
+  .tag .tassel{position:absolute;left:50%;top:88%;width:8cqw;margin-left:-4cqw;transform-origin:50% 0;animation:swing 3.4s ease-in-out infinite;pointer-events:none}
+  @keyframes swing{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-6deg)}}
+  a.tag:active{transform:rotate(-6deg) scale(.96)}
+
+  .card-inv{padding:12cqw 8cqw 16cqw}
+  .card-inv .cita{font-style:italic;font-size:4.1cqw;line-height:1.45;color:var(--soft)}
+  .card-inv h5{font-family:var(--caps);font-weight:500;font-size:4.2cqw;letter-spacing:.06em;margin:6cqw 0 4cqw;color:var(--navy)}
+  .padres{display:grid;grid-template-columns:1fr 1fr;gap:5cqw 4cqw}
+  .padres .full{grid-column:1/-1}
+  .padres h6{font-family:var(--caps);font-weight:500;font-size:3.5cqw;letter-spacing:.1em;color:var(--navy);margin-bottom:1cqw}
+  .padres p{font-size:3.9cqw;line-height:1.4;color:var(--soft)}
+  .card-inv .duo{--fs:11.5cqw;width:84%;margin:9cqw auto 6cqw;color:var(--navy)}
+  .card-inv .honor{font-size:4.2cqw;line-height:1.5;color:var(--ink);padding:0 2cqw}
+
+  .bigcount{display:flex;justify-content:center;align-items:flex-start;gap:1.2cqw;color:var(--navy)}
+  .bigcount div{text-align:center;min-width:13cqw}
+  .bigcount b{display:block;font-family:var(--caps);font-weight:400;font-size:11cqw;line-height:1;font-variant-numeric:lining-nums tabular-nums}
+  .bigcount i{font-style:normal;font-family:var(--caps);font-size:9cqw;line-height:1;margin-top:.4cqw}
+  .bigcount small{display:block;font-family:var(--caps);font-size:3.3cqw;letter-spacing:.1em;margin-top:1.5cqw}
+  .ftitle{font-family:var(--caps);font-weight:400;font-size:9cqw;letter-spacing:.12em;color:var(--navy);margin-top:12cqw}
+
+  .place{filter:drop-shadow(0 1.4cqw 2cqw rgba(20,33,61,.16))}
+  .pcard.torn{box-shadow:none;background:#FFFEFA}
+  .pcard h3{font-family:var(--caps);font-weight:400;font-size:4.8cqw;letter-spacing:.08em;padding:0}
+  .prow{display:flex;gap:3cqw;align-items:center;justify-content:center;margin:4cqw 0 5cqw;text-align:left}
+  .ph{font-style:italic;font-weight:600;font-size:4.2cqw;white-space:nowrap;color:var(--ink)}
+  .pl{border-left:1px solid var(--navy);padding-left:3cqw;min-width:0}
+  .pl b{display:block;font-style:italic;font-weight:600;font-size:4.4cqw;color:var(--navy);line-height:1.2}
+  .pl span{display:block;font-size:3.5cqw;font-style:italic;color:var(--soft);margin-top:1cqw;line-height:1.3}
+  .menv{position:absolute;z-index:3;width:30cqw;height:20cqw;background:linear-gradient(170deg,#24396A,#182A52);box-shadow:0 1.6cqw 3cqw rgba(20,33,61,.35);transform:rotate(-4deg)}
+  .menv::before{content:"";position:absolute;inset:0 0 35%;background:linear-gradient(180deg,#2C467C,#1E3462);clip-path:polygon(0 0,100% 0,50% 100%)}
+  .menv .wseal{width:10cqw;left:50%;top:44%;margin:-5cqw 0 0 -5cqw}
+
+  .itin{position:relative;margin:2cqw 3cqw 0;padding:12cqw 5cqw 10cqw}
+  .itin h3{text-align:center}
+  .itin ol{list-style:none;position:relative;margin-top:6cqw}
+  .itin ol::before{content:"";position:absolute;left:50%;top:3cqw;bottom:3cqw;width:1px;background:rgba(255,255,255,.55)}
+  .itin li{display:grid;grid-template-columns:1fr 7cqw 1fr;align-items:center;min-height:18cqw}
+  .itin .dot{width:2.6cqw;height:2.6cqw;border:1px solid #fff;border-radius:50%;background:var(--navy);justify-self:center;position:relative;z-index:1}
+  .itin .txt b{display:block;font-family:var(--caps);font-weight:400;font-size:3.8cqw;letter-spacing:.08em;opacity:.9}
+  .itin .txt small{display:block;font-family:var(--caps);font-size:3.9cqw;letter-spacing:.1em;line-height:1.2;margin-top:.6cqw}
+  .itin .ico{width:12cqw;height:12cqw;color:#fff;display:block}
+  .itin li .a{justify-self:end;text-align:right;padding-right:2cqw}
+  .itin li .b{justify-self:start;text-align:left;padding-left:2cqw}
+
+  .s-dress .ddark,.s-gift .gdark{padding:11cqw 9cqw 10cqw;margin:0 4cqw;text-align:center}
+  .ddark p,.gdark p{font-size:4.2cqw;line-height:1.5;color:#C9D4E8;margin-top:3cqw}
+  .ddark .pal button{box-shadow:0 0 0 1px rgba(255,255,255,.55),0 1.2cqw 2.5cqw rgba(0,0,0,.25)}
+  .ddark .palname{color:#C9D4E8}
+  .dwrap,.gwrap{position:relative;margin-top:-4cqw;min-height:60cqw}
+  .dnote{padding:9cqw 7cqw 8cqw 8cqw;text-align:left}
+  .dnote p{font-size:4.2cqw;line-height:1.5;color:var(--ink)}
+  .dnote .outfit{width:100%;margin:4cqw 0 0}
+  .dnote .reserv{margin-top:2cqw}
+  .gdark .gi{width:10cqw;height:10cqw;margin:0 auto 2cqw;color:#fff;display:block}
+  .gcard2{padding:9cqw 7cqw 9cqw;text-align:center}
+  .gcard2 h4{font-family:var(--caps);font-weight:400;font-size:6.4cqw;letter-spacing:.08em;color:var(--navy);margin-bottom:3cqw}
+  .gcard2 p{font-size:4cqw;line-height:1.7;color:var(--ink);letter-spacing:.04em}
+  .gcard2 .pill{margin-top:4cqw;color:var(--navy)}
+  .quote{margin:14cqw 8cqw 0;padding:10cqw 8cqw;text-align:center}
+  .quote p{font-family:var(--script);font-size:6.6cqw;line-height:1.45;color:#fff}
+  .fin{margin:14cqw 10cqw 0}
+  .fin .torn{padding:9cqw 6cqw;text-align:center}
+  .fin .t-script{font-size:9.5cqw}
+  .fin p{font-family:var(--caps);font-size:3.6cqw;letter-spacing:.1em;margin:2cqw 0 3cqw;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -294,6 +379,8 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <radialGradient id="gNavy" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="#4A66A0"/><stop offset=".5" stop-color="#22366A"/><stop offset="1" stop-color="#101C3C"/></radialGradient>
+    <linearGradient id="gTassel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0DCA6"/><stop offset=".5" stop-color="#C39A4A"/><stop offset="1" stop-color="#8E6A2B"/></linearGradient>
+    <linearGradient id="gTag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7E9AC4"/><stop offset="1" stop-color="#4D6B9D"/></linearGradient>
     <radialGradient id="gNavyIn" cx=".6" cy=".7" r=".8"><stop offset="0" stop-color="#2A4178"/><stop offset="1" stop-color="#17264E"/></radialGradient>
     <symbol id="heart" viewBox="0 0 40 36"><path d="M20 35C8 26 1 19 1 11 1 5 6 1 11 1c4 0 7 2 9 6 2-4 5-6 9-6 5 0 10 4 10 10 0 8-7 15-19 24Z" fill="#14213D"/></symbol>
     <symbol id="spark" viewBox="-10 -10 20 20"><path d="M0-10C1-2 2-1 10 0 2 1 1 2 0 10-1 2-2 1-10 0-2-1-1-2 0-10Z" fill="currentColor"/></symbol>
@@ -383,6 +470,48 @@
     return `<svg class="lace ${pos}" viewBox="0 0 384 28" preserveAspectRatio="none"><defs><pattern id="${id}" width="24" height="28" patternUnits="userSpaceOnUse">
       <path fill-rule="evenodd" fill="${color}" d="M0 28V14A12 12 0 0 1 24 14V28Z ${holes}"/></pattern></defs><rect width="384" height="28" fill="url(#${id})"/></svg>`;
   }
+  const wseal = (style) => seal().replace('class="seal"', `class="wseal" style="${style}"`).replace(' role="button" aria-label="Abrir sobre"', ' aria-hidden="true"');
+  // etiqueta festoneada con borla dorada
+  const scallop = (() => { let d = ""; for (let i = 0; i <= 180; i++) { const a = i / 180 * Math.PI * 2, r = 41 + 6.5 * Math.abs(Math.cos(a * 9)); d += `${i ? "L" : "M"}${(50 + Math.cos(a) * r).toFixed(2)} ${(50 + Math.sin(a) * r).toFixed(2)}`; } return d + "Z"; })();
+  const tassel = `<svg class="tassel" viewBox="0 0 30 84"><path d="M15 0V21" stroke="url(#gTassel)" stroke-width="1.6"/><ellipse cx="15" cy="24" rx="4.2" ry="3.6" fill="url(#gTassel)"/>
+    <path d="M10.5 27H19.5L21 33H9Z" fill="url(#gTassel)"/>${Array.from({ length: 11 }, (_, i) => { const x = 9.5 + i * 1.1, x2 = 6 + i * 1.8; return `<path d="M${x} 33C${x} 50 ${x2} 62 ${x2 + (i % 3 - 1) * .6} ${76 + (i % 4)}" stroke="url(#gTassel)" stroke-width="1.05" fill="none"/>`; }).join("")}
+    <path d="M9.5 36H20.5" stroke="#8E6A2B" stroke-width=".8"/></svg>`;
+  const tag = (txt, style, href) => {
+    const inner = `<svg class="sc" viewBox="0 0 100 100"><path d="${scallop}" fill="url(#gTag)"/><circle cx="50" cy="50" r="34" fill="none" stroke="#fff" stroke-width=".7" stroke-dasharray="1.5 2.2" opacity=".75"/></svg><span>${txt}</span>${tassel}`;
+    return href ? `<a class="tag" id="gcal" style="${style}" target="_blank" rel="noopener">${inner}</a>` : `<div class="tag" style="${style}">${inner}</div>`;
+  };
+  // íconos del itinerario (línea blanca)
+  const IT = {
+    ceremonia: '<path d="M8 40V20L24 8 40 20V40"/><path d="M24 2V8M21 5H27"/><path d="M19 40V30A5 5 0 0 1 29 30V40"/><path d="M4 40H44"/><circle cx="24" cy="20" r="3"/>',
+    coctel: '<path d="M8 8H24L16 20Z"/><path d="M16 20V36M11 37H21"/><path d="M26 12H40L33 22Z"/><path d="M33 22V36M28 37H38"/><circle cx="21" cy="5" r="1.6"/>',
+    brindis: '<g transform="rotate(-14 16 24)"><path d="M10 6H22V16A6 6 0 0 1 10 16Z"/><path d="M16 22V38M11 39H21"/></g><g transform="rotate(14 32 24)"><path d="M26 6H38V16A6 6 0 0 1 26 16Z"/><path d="M32 22V38M27 39H37"/></g><path d="M24 2V0M19 4L17 1M29 4L31 1"/>',
+    baile: '<path d="M18 34V10L38 6V30"/><circle cx="14" cy="34" r="4"/><circle cx="34" cy="30" r="4"/><path d="M18 16L38 12"/>',
+    cena: '<circle cx="24" cy="24" r="12"/><circle cx="24" cy="24" r="8"/><path d="M6 10V20A3 3 0 0 0 9 23V40M6 10V18M9 10V18M12 10V20A3 3 0 0 1 9 23"/><path d="M40 40V8C36 12 35 20 40 24"/>',
+    fiesta: '<path d="M24 24L24 6M24 24L38 12M24 24L42 26M24 24L34 40M24 24L12 40M24 24L6 26M24 24L10 12"/><circle cx="24" cy="24" r="2"/><path d="M24 2V3M44 26H45M3 26H4"/>',
+    cafe: '<path d="M8 18H34V28A10 10 0 0 1 24 38H18A10 10 0 0 1 8 28Z"/><path d="M34 21H38A4 4 0 0 1 38 29H33"/><path d="M4 42H40"/><path d="M16 6C14 9 18 11 16 14M23 6C21 9 25 11 23 14"/>',
+    pastel: '<path d="M8 40V28H40V40"/><path d="M12 28V20H36V28"/><path d="M8 34C12 31 16 37 20 34S28 31 32 34 38 37 40 34"/><path d="M24 20V14"/><path d="M24 9C22 11 24 13 24 13S26 11 24 9Z"/><path d="M4 40H44"/>',
+    anillos: '<circle cx="18" cy="28" r="10"/><circle cx="30" cy="28" r="10"/><path d="M14 14L18 8 22 14Z"/>'
+  };
+  const itIcon = (label, key) => {
+    const t = (key || label).toLowerCase();
+    const k = key && IT[key] ? key : /ceremon|misa|iglesia|civil/.test(t) ? "ceremonia" : /c[oó]ctel|bienvenida|recepci/.test(t) ? "coctel"
+      : /brindis|entrada/.test(t) ? "brindis" : /baile|vals/.test(t) ? "baile" : /cena|comida|banquete/.test(t) ? "cena"
+      : /caf[eé]/.test(t) ? "cafe" : /pastel|postre/.test(t) ? "pastel" : /fiesta|bailar|party/.test(t) ? "fiesta" : "anillos";
+    return `<svg class="ico" viewBox="0 0 48 44" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${IT[k]}</svg>`;
+  };
+  const giftIco = '<svg class="gi" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="6" y="16" width="28" height="20"/><rect x="4" y="11" width="32" height="6"/><path d="M20 11V36"/><path d="M20 11C16 4 9 5 11 9S20 11 20 11ZM20 11C24 4 31 5 29 9S20 11 20 11Z"/></svg>';
+  // bordes de papel rasgado (clip-path aleatorio)
+  function tornify(root) {
+    root.querySelectorAll(".torn").forEach(el => {
+      const pts = [], n = 26; let j = 2;
+      const jit = () => (j = Math.max(0, Math.min(7, j + rand(-2.2, 2.2))));
+      for (let i = 0; i < n; i++) pts.push(`${(i / n * 100).toFixed(2)}% ${jit().toFixed(1)}px`);
+      for (let i = 0; i < n; i++) pts.push(`calc(100% - ${jit().toFixed(1)}px) ${(i / n * 100).toFixed(2)}%`);
+      for (let i = 0; i < n; i++) pts.push(`${(100 - i / n * 100).toFixed(2)}% calc(100% - ${jit().toFixed(1)}px)`);
+      for (let i = 0; i < n; i++) pts.push(`${jit().toFixed(1)}px ${(100 - i / n * 100).toFixed(2)}%`);
+      el.style.clipPath = `polygon(${pts.join(",")})`;
+    });
+  }
   const church = `<svg class="ic" viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round">
     <path d="M50 2V12M45 7H55"/><path d="M38 34V20L50 12 62 20V34"/><path d="M20 78V40L50 26 80 40V78Z"/><path d="M8 78V50L20 44M92 78V50L80 44"/>
     <path d="M42 78V60A8 8 0 0 1 58 60V78"/><circle cx="50" cy="44" r="5"/><path d="M50 39V49M45 44H55" stroke-width=".7"/><path d="M28 60V52A3 3 0 0 1 34 52V60ZM66 60V52A3 3 0 0 1 72 52V60Z"/><path d="M2 78H98"/></svg>`;
@@ -437,8 +566,8 @@
       <span class="scroll-cue"></span>
     </header>
 
-    <section class="sec paper grain" style="padding-top:14cqw;padding-bottom:10cqw">
-      ${lace("#F7F4EE")}
+    <section class="sec toile" style="padding-top:14cqw;padding-bottom:10cqw">
+      ${lace("#ECEBE7")}
       <div class="envwrap" id="envwrap">
         <div class="env" id="env">
           <div class="back"></div>
@@ -462,38 +591,51 @@
       </div>
     </section>
 
-    <section class="sec paper2">
-      <div class="t-script rv" style="font-size:10cqw">${esc(E.saludo)}</div>
-      ${ruleSvg}
-      <p class="t-body rv">${esc(E.mensaje)}</p>
-      ${calendar()}
-      <div class="faltan rv">Faltan</div>
-      <div class="count rv" id="count"><div><b>0</b><small>días</small></div><div><b>00</b><small>horas</small></div><div><b>00</b><small>min</small></div><div><b>00</b><small>seg</small></div></div>
-      <div class="calbtns rv"><a class="pill" id="gcal" target="_blank" rel="noopener">Google Calendar</a><a class="pill" id="ocal" target="_blank" rel="noopener">Outlook</a></div>
+    <section class="sec toile" style="padding:16cqw 6cqw 14cqw">
+      <div class="t-script rv" style="font-size:10cqw;margin-bottom:12cqw">${esc(E.saludo)}</div>
+      <div class="stack">
+        <img class="scrap" src="texturas/carta.webp" alt="" style="right:-5cqw;top:44%;width:36cqw;transform:rotate(7deg)">
+        <div class="bq" style="left:4%;top:-31cqw;width:25cqw;transform:rotate(-16deg);z-index:4"><img src="flores/ramo-blanco.webp" alt=""></div>
+        <div class="tw rv"><div class="torn card-inv">
+          ${E.cita ? `<p class="cita">“${esc(E.cita.texto)}”<br>— ${esc(E.cita.ref)}</p>` : ""}
+          <h5>Con la bendición de Dios y de nuestros padres</h5>
+          <div class="padres">${(() => { const fs = E.familias || []; return fs.map((f, i) => `<div class="${i > 1 || (fs.length % 2 && i === fs.length - 1) ? "full" : ""}"><h6>${esc(f.titulo)}</h6><p>${f.nombres.map(esc).join("<br>")}</p></div>`).join(""); })()}</div>
+          <div class="duo c">${duo()}</div>
+          <p class="honor">${esc(E.mensaje)}</p>
+        </div></div>
+        ${tag("Añádelo<br>a tu<br>calendario", "right:-1cqw;bottom:-10cqw", true)}
+        ${wseal("left:-3cqw;bottom:16cqw;transform:rotate(-12deg)")}
+      </div>
+      <div style="margin-top:20cqw">${calendar()}</div>
     </section>
 
-    <section class="sec navy" style="padding:16cqw 7cqw">
-      ${lace("#14213D")}<div class="stars-css" data-stars="40"></div>
-      <div class="t-script rv" style="font-size:10cqw;color:var(--gold2)">Con la bendición de</div>${ruleSvg}
-      <div class="fam">${E.familias.map(f => `<div class="rv"><h4>${esc(f.titulo)}</h4><p>${f.nombres.map(esc).join("<br>")}</p></div>`).join("")}</div>
-      ${lace("#14213D", "bot")}
-    </section>
-
-    <section class="sec paper grain" style="padding-top:18cqw">
+    <section class="sec toile" style="padding-top:16cqw">
       <div class="t-head rv"><span class="cap">D</span><span>ónde y cuándo</span></div>
-      <p class="t-body rv" style="margin-top:-2cqw">${esc(E.fechaTexto)}</p>
-      ${[["ceremonia", C.fotoCeremonia, church, ""], ["recepcion", C.fotoRecepcion, glasses, "r"]].map(([k, fi, ic, cls]) => { const p = E[k]; return `
+      <p class="t-body rv" style="margin-top:-2cqw;color:var(--ink)">${esc(E.fechaTexto)}</p>
+      ${[["ceremonia", C.fotoCeremonia, ""], ["recepcion", C.fotoRecepcion, "r"]].map(([k, fi, cls], n) => { const p = E[k]; return `
       <div class="place ${cls} rv">
         <div class="pol" data-foto="${fi}"><img src="${esc(F[fi])}" alt="" loading="lazy"><span>${esc(I1)} &amp; ${esc(I2)}</span></div>
-        <div class="pcard">${ic}<h3><b>${esc(p.titulo.charAt(0))}</b>${esc(p.titulo.slice(1).toLowerCase())}</h3><div class="lg">${esc(p.lugar)}</div><div class="dr">${esc(p.direccion)}</div>
-          <div class="hr">${esc(p.hora)}</div><a class="pill" href="${esc(p.mapa)}" target="_blank" rel="noopener">Ubicación</a></div>
+        <div class="pcard torn"><h3>${esc(p.titulo)}</h3>
+          <div class="prow"><div class="ph">${esc(p.hora)}</div><div class="pl"><b>${esc(p.lugar)}</b><span>${esc(p.direccion)}</span></div></div>
+          <a class="pill sm" href="${esc(p.mapa)}" target="_blank" rel="noopener">Ver ubicación</a></div>
+        ${n === 0 ? `<div class="menv" style="right:-4cqw;bottom:-13cqw">${wseal("")}</div>` : wseal("left:36%;bottom:-6cqw")}
       </div>`; }).join("")}
     </section>
 
-    <section class="sec paper2">
-      <div class="t-head rv"><span class="cap">I</span><span>tinerario</span></div>
-      <div class="tl">${E.itinerario.map(([h, t], i) => `<div class="it ${i % 2 ? "r" : "l"} rv"><div class="tx"><b>${esc(h)}</b><small>${esc(t)}</small></div></div>`).join("")}</div>
-      <div class="tower rv">${tower()}</div>
+    <section class="sec toile" style="padding:12cqw 5cqw 16cqw">
+      <div class="stack">
+        <img class="scrap" src="texturas/carta.webp" alt="" style="left:-4cqw;top:22%;width:38cqw;transform:rotate(-5deg)">
+        <img class="scrap" src="texturas/carta.webp" alt="" style="right:-3cqw;top:4%;width:30cqw;transform:rotate(9deg) scaleX(-1)">
+        <div class="dark itin rv">
+          <h3>Itinerario</h3>
+          <ol>${E.itinerario.map(([h, t, ic], i) => { const txt = `<div class="txt"><b>${esc(h)}</b><small>${esc(t)}</small></div>`, icon = itIcon(t, ic);
+            return i % 2 ? `<li><div class="a">${txt}</div><span class="dot"></span><div class="b">${icon}</div></li>` : `<li><div class="a">${icon}</div><span class="dot"></span><div class="b">${txt}</div></li>`; }).join("")}</ol>
+        </div>
+        ${wseal("right:4cqw;bottom:-6cqw;transform:rotate(14deg)")}
+      </div>
+      <div class="ftitle rv">Faltan</div>
+      <div class="bigcount rv" id="count"><div><b>0</b><small>días</small></div><i>:</i><div><b>00</b><small>horas</small></div><i>:</i><div><b>00</b><small>minutos</small></div><i>:</i><div><b>00</b><small>segundos</small></div></div>
+      <div class="calbtns rv"><a class="pill sm" id="ocal" target="_blank" rel="noopener">Agregar a Outlook</a></div>
     </section>
 
     <section class="sec navy film">
@@ -505,30 +647,41 @@
       ${lace("#14213D", "bot")}
     </section>
 
-    <section class="sec paper grain" style="padding-top:20cqw">
-      <div class="badge rv"><div><span class="cap">D</span><span class="w">ress</span><span class="w2">code</span></div></div>
-      <div class="t-caps rv dc-note" style="color:var(--navy)">${esc(E.vestimenta)}</div>
-      <p class="t-body rv" style="margin-top:3cqw">${esc(E.vestimentaNota)}</p>
-      <div class="outfit rv">${outfit}</div>
-      <div class="pal rv" id="pal">${E.paleta.map((p, i) => `<button type="button" style="background:${esc(p.color)}" data-i="${i}" aria-label="${esc(p.nombre)}"></button>`).join("")}</div>
-      <div class="palname" id="palname">Toca un color</div>
-      ${E.reservado ? `<div class="reserv rv"><i style="background:${esc(E.reservado.color)}"></i>${esc(E.reservado.nombre)}</div>` : ""}
-    </section>
-
-    <section class="sec paper2 gift" style="padding-bottom:16cqw">
-      <div class="gcard rv">
-        <p class="t-body">${esc(R.texto)}</p>
-        <div class="gseal"><span><b>R</b>egalos</span></div>
-        <div class="bq" style="left:-5cqw;bottom:-20cqw;width:25cqw;transform:rotate(-12deg)"><img src="flores/alcatraz.webp" alt="" loading="lazy"></div>
+    <section class="sec toile s-dress" style="padding:16cqw 6cqw 18cqw">
+      <div class="dark ddark rv">
+        <h3>${esc(E.vestimenta)}</h3>
+        <p>Te dejamos una sugerencia de colores para acompañarnos.</p>
+        <div class="pal" id="pal">${E.paleta.map((p, i) => `<button type="button" style="background:${esc(p.color)}" data-i="${i}" aria-label="${esc(p.nombre)}"></button>`).join("")}</div>
+        <div class="palname" id="palname">Toca un color</div>
       </div>
-      <div class="gopts rv">
-        ${(R.mesa || []).map(m => `<a class="pill" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.nombre)}</a>`).join("")}
-        ${R.cuenta ? `<button class="pill" type="button" id="bankBtn">Datos bancarios</button>
-        <div class="bank" id="bank"><div>${esc(R.cuenta.banco)}<br>${esc(R.cuenta.titular)}<br>CLABE: <b id="clabe">${esc(R.cuenta.clabe)}</b><br><button type="button" id="copy">Copiar CLABE</button></div></div>` : ""}
+      <div class="dwrap">
+        ${tag("Código<br>de<br>vestimenta", "left:0;top:4cqw;transform:rotate(-8deg)")}
+        <div class="tw rv" style="margin-left:24cqw;margin-right:2cqw"><div class="torn dnote">
+          <p>${esc(E.vestimentaNota)}</p>
+          <div class="outfit">${outfit}</div>
+          ${E.reservado ? `<div class="reserv"><i style="background:${esc(E.reservado.color)}"></i>${esc(E.reservado.nombre)}</div>` : ""}
+        </div></div>
+        <div class="bq" style="left:-4cqw;bottom:-10cqw;width:26cqw;transform:rotate(-10deg);z-index:3"><img src="flores/alcatraz.webp" alt="" loading="lazy"></div>
       </div>
     </section>
 
-    <section class="sec paper grain" style="padding-bottom:16cqw">
+    <section class="sec toile s-gift" style="padding:16cqw 6cqw 18cqw">
+      <div class="dark gdark rv">${giftIco}<p style="margin-top:0">${esc(R.texto)}</p></div>
+      <div class="gwrap">
+        ${tag("Sugerencia<br>de<br>regalos", "left:-1cqw;top:6cqw;transform:rotate(-8deg)")}
+        <div class="tw rv" style="margin-left:24cqw;margin-right:2cqw"><div class="torn gcard2">
+          ${R.cuenta ? `<h4>Transferencia</h4><p>${esc(R.cuenta.banco)}<br>${esc(R.cuenta.titular)}<br>CLABE<br><b id="clabe">${esc(R.cuenta.clabe)}</b></p>
+          <button class="pill sm" type="button" id="copy">Copiar CLABE</button>` : ""}
+          ${(R.mesa || []).map(m => `<br><a class="pill sm" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.nombre)}</a>`).join("")}
+        </div></div>
+        ${wseal("right:-1cqw;top:-2cqw;transform:rotate(10deg)")}
+        <div class="bq" style="right:-5cqw;bottom:-30cqw;width:21cqw;transform:scaleX(-1) rotate(-14deg);z-index:3"><img src="flores/alcatraz.webp" alt="" loading="lazy"></div>
+      </div>
+      ${E.frase2 ? `<div class="dark quote rv"><p>${esc(E.frase2)}</p></div>` : ""}
+      ${E.frase2 ? wseal("right:8cqw;margin-top:-6cqw;position:relative;display:block;margin-left:auto") : ""}
+    </section>
+
+    <section class="sec toile" style="padding-bottom:16cqw">
       <div class="t-script rv" style="font-size:9.5cqw">Para nuestro gran día</div>
       <div class="rsvpwrap rv">
         <div class="callas"><img src="flores/alcatraz.webp" alt="" loading="lazy" style="left:2cqw;transform:scaleX(-1) rotate(-22deg);transform-origin:50% 100%">
@@ -553,6 +706,7 @@
         </div>
       </div>
       <p class="rsvp-note rv">Con mucho cariño, agradeceremos nos confirmes tu asistencia antes del ${esc(E.rsvpFecha)}</p>
+      ${E.notaFinal ? `<div class="tw fin rv"><div class="torn"><div class="t-script">${esc(E.notaFinal.titulo)}</div><p>${esc(E.notaFinal.texto)}</p><div class="t-script">${esc(E.notaFinal.gracias)}</div></div></div>` : ""}
     </section>
 
     <footer class="sec navy closing">
@@ -597,8 +751,8 @@
     }));
 
     // regalos
-    if ($("#bankBtn")) {
-      $("#bankBtn").addEventListener("click", () => $("#bank").classList.toggle("open"));
+    tornify($("#inv"));
+    if ($("#copy")) {
       $("#copy").addEventListener("click", () => {
         const t = $("#clabe").textContent.replace(/\s/g, "");
         (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("CLABE copiada"), () => toast(t));

@@ -83,9 +83,11 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
   - Calendario con corazón en la fecha y cuenta regresiva.
   - Padres y padrinos.
   - Ceremonia y recepción en polaroids.
-  - Itinerario con torre de champaña.
+  - Itinerario en tarjeta azul marino con íconos (se elige solo por la actividad o con un tercer dato: `["22:00", "Fiesta", "fiesta"]`).
+  - Fondo toile azul grisáceo, tarjetas de papel rasgado, cartas antiguas, sellos de cera y etiquetas con borla dorada.
   - Carrete de fotos con visor.
   - Código de vestimenta con paleta.
   - Regalos (mesa de regalos y CLABE para copiar).
   - Confirmación por WhatsApp.
+  - Frase en bloque azul y tarjeta final «Solo adultos / ¡Muchas gracias!» (opcionales en `config.js`).
   - Cierre.

@@ -30,6 +30,7 @@ window.CONFIG = {
     ciudad: "Guadalajara, Jalisco",
     frase: "Y en medio de todo, te encontré a ti.",
     saludo: "Queridos familiares y amigos",
+    cita: { texto: "Ponme como un sello sobre tu corazón", ref: "Cantares 8:6" },   // o null
     mensaje: "Con la bendición de Dios y de nuestros padres, tenemos el honor de invitarte a celebrar el día en que uniremos nuestras vidas. Será un momento muy especial y queremos compartirlo contigo.",
     familias: [
       { titulo: "Padres de la novia", nombres: ["Jorge Salinas", "Elena Ortiz"] },
@@ -40,8 +41,9 @@ window.CONFIG = {
                  mapa: "https://maps.google.com/?q=Parroquia+San+Juan+Bautista" },
     recepcion: { titulo: "Recepción", lugar: "Jardín Los Arcos", direccion: "Camino Real km 4", hora: "19:00 h",
                  mapa: "https://maps.google.com/?q=Jardin+Los+Arcos" },
-    itinerario: [["17:00", "Ceremonia religiosa"], ["18:30", "Cóctel de bienvenida"], ["19:30", "Entrada de los novios"],
-                 ["20:00", "Primer baile"], ["21:00", "Cena"], ["22:00", "¡A bailar!"]],
+    // [hora, actividad, ícono opcional: ceremonia | coctel | brindis | baile | cena | fiesta | cafe | pastel | anillos]
+    itinerario: [["17:00", "Ceremonia religiosa"], ["18:30", "Cóctel de bienvenida"], ["19:30", "Brindis"],
+                 ["20:00", "Primer baile"], ["21:00", "Cena"], ["22:00", "¡A bailar!", "fiesta"], ["00:30", "¿Un café?"]],
     vestimenta: "Formal de noche",
     vestimentaNota: "Caballeros de traje oscuro; damas de vestido largo. Nos encantará verte en tonos azules.",
     paleta: [
@@ -56,6 +58,8 @@ window.CONFIG = {
       mesa: [{ nombre: "Mesa de regalos", url: "https://www.liverpool.com.mx/" }],   // deja [] si no hay
       cuenta: { banco: "BBVA", titular: "Daniela Salinas", clabe: "012 345 678 901 234 567" } // o null
     },
+    frase2: "La vida no sería igual sin familia a la que llamar amigos, y amigos a los que llamar familia.",
+    notaFinal: { titulo: "Solo adultos", texto: "Esperamos contar con tu presencia", gracias: "¡Muchas gracias!" },   // o null
     rsvpWhatsapp: "5210000000000",
     rsvpFecha: "31 de mayo de 2027",
     cierre: "Con amor"
