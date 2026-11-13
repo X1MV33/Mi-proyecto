@@ -321,7 +321,7 @@
   /* ======================= MÚSICA ======================= */
   // canción propia (CONFIG.musica) o canción de cuna original de caja musical generada en vivo
   const Musica = (() => {
-    let ctx, master, timer, audio, intro, enIntro = !!C.musicaInicio, on = false, nextT = 0, beat = 0;
+    let ctx, master, timer, on = false, nextT = 0, beat = 0;
     const SPB = 60 / 76, mtof = n => 440 * Math.pow(2, (n - 69) / 12);
     // Fa mayor, 3/4, melodía original de 8 compases
     const bass = [53, 48, 50, 46, 53, 48, 46, 48];
@@ -351,44 +351,50 @@
       ctx.resume(); master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(.5, ctx.currentTime, .8);
       nextT = ctx.currentTime + .1; clearInterval(timer); timer = setInterval(schedule, 60);
     }
-    // volumen por Web Audio: funciona también en iPhone (donde audio.volume no hace nada)
-    function ac() { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state !== "running") ctx.resume(); return ctx; }
-    function mk(src) {
-      const a = Object.assign(new Audio(src), { loop: true, preload: "auto" });
-      try { const c = ac(), g = c.createGain(); g.gain.value = 0; c.createMediaElementSource(a).connect(g).connect(c.destination); a._g = g; } catch (e) { a.volume = 0; }
-      return a;
+    // Canciones como buffers de Web Audio: suenan en iPhone en cuanto el audio se activa con un toque
+    // y el volumen se controla de verdad (iPhone ignora audio.volume).
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const pista = { inicio: { url: C.musicaInicio }, invitacion: { url: C.musica } };
+    let etapa = C.musicaInicio ? "inicio" : "invitacion", primeraInv = true;
+    function ac() { if (!ctx) ctx = new AC(); return ctx; }
+    function cargar(k) {
+      const t = pista[k]; if (!t.url || t.p) return t.p;
+      t.p = fetch(t.url).then(r => r.arrayBuffer()).then(ab => new Promise((ok, no) => ac().decodeAudioData(ab, ok, no))).then(buf => (t.buf = buf)).catch(() => null);
+      return t.p;
     }
-    // pasos: [[volumen, segundos], ...] uno tras otro; [v, s, "espera"] deja una pausa antes
-    function fade(a, pasos, done) {
-      if (a._g) {
-        const g = a._g.gain, t0 = ctx.currentTime; let t = t0, last = g.value;
-        g.cancelScheduledValues(t0); g.setValueAtTime(last, t0);
-        pasos.forEach(([v, d, w]) => { if (w) { t += w; g.setValueAtTime(last, t); } g.linearRampToValueAtTime(v, t + d); t += d; last = v; });
-        if (done) setTimeout(done, (t - t0) * 1000 + 50);
-      } else {
-        gsap.killTweensOf(a); const tl = gsap.timeline({ onComplete: done });
-        pasos.forEach(([v, d, w]) => tl.to(a, { volume: v, duration: d, ease: "sine.inOut" }, "+=" + (w || 0)));
-      }
+    function rampa(g, pasos) {
+      const t0 = ctx.currentTime; let t = t0, last = g.gain.value;
+      g.gain.cancelScheduledValues(t0); g.gain.setValueAtTime(last, t0);
+      pasos.forEach(([v, d, w]) => { if (w) { t += w; g.gain.setValueAtTime(last, t); } g.gain.linearRampToValueAtTime(v, t + d); t += d; last = v; });
+      return t - t0;
+    }
+    function arrancar(k, pasos) {
+      const t = pista[k]; if (!t.buf || t.src) return;
+      const g = ctx.createGain(); g.gain.value = 0; g.connect(ctx.destination);
+      const src = ctx.createBufferSource(); src.buffer = t.buf; src.loop = true; src.connect(g); src.start();
+      t.src = src; t.g = g; rampa(g, pasos);
+    }
+    function detener(k, seg) {
+      const t = pista[k]; if (!t.src) return;
+      const src = t.src, dur = rampa(t.g, [[0, seg]]); t.src = null;
+      setTimeout(() => { try { src.stop(); } catch (e) {} }, dur * 1000 + 80);
+    }
+    function sonarEtapa() {
+      if (!on || !ctx || ctx.state !== "running") return;
+      if (etapa === "inicio") cargar("inicio").then(() => on && arrancar("inicio", [[.85, 1.5]]));
+      else cargar("invitacion").then(() => { if (!on) return; arrancar("invitacion", primeraInv ? [[.18, 2.5], [.85, 7, 1.5]] : [[.85, 1.2]]); primeraInv = false; });
     }
     function play() {
       on = true;
-      if (enIntro && C.musicaInicio) {
-        ac(); intro = intro || mk(C.musicaInicio);
-        intro.play().then(() => fade(intro, [[.85, 1.5]])).catch(() => {});
-        unlockMain();
-        ui(); return;
-      }
-      if (C.musica) {
-        ac(); audio = audio || mk(C.musica);
-        const primera = !audio._sub; audio._sub = true;
-        audio.play().then(() => fade(audio, primera ? [[.18, 2.5], [.85, 7, 1.5]] : [[.85, 1.2]])).catch(() => { C.musica = ""; synth(); });
-      } else synth();
+      if (!pista.inicio.url && !pista.invitacion.url) { synth(); ui(); return; }
+      ac(); cargar("inicio"); cargar("invitacion");
+      const r = ctx.state !== "running" ? ctx.resume() : Promise.resolve();
+      Promise.resolve(r).then(sonarEtapa).catch(() => {});
       ui();
     }
     function pause() {
       on = false;
-      if (enIntro && intro) { fade(intro, [[0, .5]], () => !on && intro.pause()); ui(); return; }
-      if (audio && C.musica) fade(audio, [[0, .5]], () => !on && audio.pause());
+      if (pista.inicio.src || pista.invitacion.src) { detener("inicio", .5); detener("invitacion", .5); }
       else if (ctx && master) { master.gain.setTargetAtTime(0, ctx.currentTime, .25); setTimeout(() => !on && clearInterval(timer), 900); }
       ui();
     }
@@ -398,27 +404,19 @@
       if (!bars) bars = gsap.timeline({ repeat: -1 }).to("#music .bars rect", { scaleY: .35, duration: .35, stagger: { each: .12, yoyo: true, repeat: 1 }, ease: "sine.inOut" });
       on ? bars.play() : bars.pause();
     }
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) { if (audio) audio.pause(); if (intro) intro.pause(); if (ctx) ctx.suspend(); }
-      else if (on) { if (enIntro && intro) intro.play(); else if (audio && C.musica) audio.play(); if (ctx) ctx.resume(); }
-    });
-    function unlockMain() {
-      if (!C.musica) return;
-      if (!audio) audio = mk(C.musica);
-      if (audio._ok) return;
-      audio.muted = true;
-      const pr = audio.play();
-      if (pr && pr.then) pr.then(() => { if (enIntro) { audio.pause(); audio.currentTime = 0; } audio.muted = false; audio._ok = true; }).catch(() => { audio.muted = false; });
-    }
+    document.addEventListener("visibilitychange", () => { if (!ctx) return; if (document.hidden) ctx.suspend(); else if (on) ctx.resume(); });
     // al abrirse la invitación: la canción de la animación se desvanece y entra la de la invitación
     function toMain() {
-      if (!enIntro) return;
-      enIntro = false;
-      if (intro) { const a = intro; fade(a, [[0, 3]], () => a.pause()); }
-      if (on) play();
+      if (etapa !== "inicio") return;
+      etapa = "invitacion";
+      detener("inicio", 3);
+      if (on) sonarEtapa();
     }
-    const sonando = () => !!((intro && !intro.paused) || (audio && !audio.paused));
-    return { play, pause, toMain, sonando, unlockMain, reset: () => { on = false; ui(); }, toggle: () => (on ? pause() : play()), get on() { return on; } };
+    // el audio quedó activado (el celular ya lo permite); las canciones arrancan en cuanto terminan de cargar
+    const sonando = () => !!(ctx && ctx.state === "running");
+    // precarga para que suene en cuanto se pueda
+    if (pista.inicio.url || pista.invitacion.url) { try { ac(); cargar("inicio"); cargar("invitacion"); } catch (e) {} }
+    return { play, pause, toMain, sonando, unlockMain: () => { if (ctx && ctx.state !== "running") ctx.resume(); }, reset: () => { on = false; ui(); }, toggle: () => (on ? pause() : play()), get on() { return on; } };
   })();
   $("#music").addEventListener("click", () => Musica.toggle());
 
