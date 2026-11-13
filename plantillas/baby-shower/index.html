@@ -204,6 +204,15 @@
   .mph img{display:block;width:100%;height:100%;object-fit:cover}
   .mph small{position:absolute;left:2.4cqw;bottom:2.2cqw;font-family:-apple-system,sans-serif;font-size:2.8cqw;color:#fff;text-shadow:0 0 4px rgba(0,0,0,.6)}
   .mchip{position:absolute;z-index:3;background:#1A73E8;color:#fff;border-radius:2cqw;padding:1.6cqw 3.4cqw;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;font-size:4cqw;box-shadow:0 .8cqw 2cqw rgba(0,0,0,.25)}
+  .filmcard{position:relative;z-index:2;width:78cqw;aspect-ratio:600/960;margin:5cqw auto 0;border-radius:8cqw;overflow:hidden;border:2cqw solid #fff;
+    box-shadow:0 3cqw 6cqw rgba(40,60,90,.25);background:#cfd8e3;transform:rotate(1.5deg)}
+  .filmcard video{width:100%;height:100%;object-fit:cover;display:block}
+  .filmcard .rec{position:absolute;left:4cqw;top:4cqw;display:flex;align-items:center;gap:1.4cqw;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:3cqw;font-weight:600;color:#fff;letter-spacing:.1em;text-shadow:0 0 4px rgba(0,0,0,.5)}
+  .filmcard .rec i{width:2.4cqw;height:2.4cqw;border-radius:50%;background:#FF3B30;animation:blink 1.2s infinite}
+  @keyframes blink{50%{opacity:.2}}
+  .filmcard .fdate{position:absolute;right:4cqw;bottom:6cqw;font-family:"Courier New",monospace;font-size:3.4cqw;color:#FFB347;text-shadow:0 0 6px rgba(255,140,0,.6);letter-spacing:.06em}
+  .filmcard .fbar{position:absolute;left:4cqw;right:4cqw;bottom:3cqw;height:.8cqw;border-radius:1cqw;background:rgba(255,255,255,.35);overflow:hidden}
+  .filmcard .fbar i{display:block;height:100%;width:0;background:#fff;border-radius:1cqw}
   .closing{text-align:center;padding:14cqw 6cqw 10cqw}
   .closing .gl{width:28cqw;margin:0 auto}
   .closing .script{font-size:14cqw;margin-top:3cqw}
@@ -520,6 +529,19 @@
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:10cqw;top:24cqw;width:11cqw" data-flap="1">
     </section>
 
+    ${C.pelicula ? `<section class="blk film" style="padding-top:10cqw;text-align:center">
+      <div class="script rv" style="font-size:12cqw">${esc(C.peliculaTitulo || "Nuestra pequeña película")}</div>
+      <div class="filmcard rv">
+        <video class="auto" src="${esc(C.pelicula)}" ${C.peliculaPoster ? `poster="${esc(C.peliculaPoster)}"` : ""} autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture></video>
+        <span class="rec"><i></i>REC</span>
+        <span class="fdate">${String(fecha.getDate()).padStart(2, "0")} · ${String(fecha.getMonth() + 1).padStart(2, "0")} · ${fecha.getFullYear()}</span>
+        <div class="fbar"><i></i></div>
+      </div>
+      <div class="imsg rv" style="position:relative;display:inline-block;margin-top:-4cqw;right:auto;top:auto;transform:rotate(-2deg)">Esperándote con todo el amor ♥</div>
+      <img class="deco rv" src="${IMG("flores")}" alt="" style="left:-5cqw;top:22cqw;width:30cqw;transform:rotate(-16deg)">
+      <img class="deco" src="${IMG("mariposa")}" alt="" style="right:6cqw;top:12cqw;width:10cqw" data-flap="1">
+    </section>` : ""}
+
     <section class="blk" style="text-align:center;padding-top:2cqw">
       <p class="body rv" style="padding:0 4cqw">${esc(E.mensaje)}</p>
       <div class="script rv" style="font-size:9cqw;color:var(--blue2);margin-top:3cqw">${esc(C.padres)}</div>
@@ -683,7 +705,22 @@
   }
   function toast(t) { const el = $("#toast"); el.textContent = t; el.style.opacity = 1; clearTimeout(toast._t); toast._t = setTimeout(() => el.style.opacity = 0, 1800); }
 
+  function autoVideos() {
+    const vids = $$("#inv video");
+    const go = v => { v.muted = true; v.defaultMuted = true; v.setAttribute("muted", ""); const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    vids.forEach(v => {
+      go(v); v.addEventListener("canplay", () => go(v), { once: true });
+      new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? go(v) : v.pause()), { threshold: .2 }).observe(v);
+    });
+    // si el celular bloquea la reproducción (modo de bajo consumo), arranca con el primer toque o scroll
+    const kick = () => vids.forEach(go);
+    ["touchstart", "scroll", "click"].forEach(ev => addEventListener(ev, kick, { passive: true, once: true }));
+    const fv = $(".filmcard video"), fb = $(".filmcard .fbar i");
+    if (fv && fb) fv.addEventListener("timeupdate", () => { if (fv.duration) fb.style.width = (fv.currentTime / fv.duration * 100) + "%"; });
+  }
+
   function vida() {
+    autoVideos();
     const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); gsap.to(e.target, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }); }), { threshold: .12 });
     $$("#inv .rv").forEach(el => io.observe(el));
     ["#heroGlobo", "#midGlobo", "#endGlobo"].forEach((id, i) => { if ($(id)) gsap.to(id, { y: -12, rotation: i % 2 ? -2 : 2, duration: 2.6 + i * .3, yoyo: true, repeat: -1, ease: "sine.inOut" }); });

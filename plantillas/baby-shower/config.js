@@ -15,6 +15,10 @@ window.CONFIG = {
   // Fotos de las polaroids (opcional). Vacío = ilustración del osito.
   fotos: { papas: "fotos/pareja-campo.jpg", eco: "fotos/espera-1.jpg" },
   // Sección «Te estamos esperando»: video (sin sonido, se repite) y tiras de fotos. Vacíos = no se muestra.
+  // Clip que se reproduce solo, sin sonido y en bucle (después de la portada). Vacío = no se muestra.
+  pelicula: "fotos/pelicula.mp4",
+  peliculaPoster: "fotos/pelicula.jpg",
+  peliculaTitulo: "Nuestra pequeña película",
   esperaTitulo: "Te estamos esperando",
   video: "fotos/espera.mp4",
   videoPoster: "fotos/espera.jpg",
