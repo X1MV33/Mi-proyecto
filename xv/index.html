@@ -155,6 +155,69 @@
   #invitacion{position:absolute;inset:0;z-index:50;background:#FBF5EE;overflow-y:auto;
     -webkit-overflow-scrolling:touch;visibility:hidden;opacity:0}
   #invitacion .seccion{min-height:100%;padding:12cqw 8cqw;color:var(--serif)}
+
+  /* =================== INVITACIÓN (secciones tras tocar la portada) =================== */
+  #invitacion{background:#F6F0E6;color:var(--serif);scroll-behavior:smooth}
+  #invitacion::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .3  0 0 0 1.2 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  .inv{position:relative;text-align:center;font-family:"Cormorant Garamond",serif}
+  .inv-hero{position:relative;height:100cqh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#EEF1EC 0%,#F6F0E6 60%)}
+  .inv-hero .top{position:absolute;top:0;left:-2%;width:104%}
+  .inv-hero .bot{position:absolute;bottom:0;left:-2%;width:104%}
+  .inv-hero .lat{position:absolute;top:0;height:100%;width:18cqw;object-fit:cover;object-position:left}
+  .inv-hero .lat.l{left:-3cqw}.inv-hero .lat.r{right:-3cqw;transform:scaleX(-1)}
+  .inv-hero .tiara{width:22cqw;height:auto;margin-bottom:2cqw}
+  .kick{font-size:5.2cqw;letter-spacing:.18em;padding-left:.18em}
+  .script{font-family:"Pinyon Script",cursive;color:var(--name);font-weight:400;line-height:1.15}
+  .inv-hero .script{font-size:21cqw;margin:1cqw 0}
+  .inv-hero .date{font-size:3.5cqw;letter-spacing:.2em;padding-left:.2em;text-transform:uppercase;white-space:nowrap}
+  .scrollcue{position:absolute;bottom:20cqh;left:50%;transform:translateX(-50%);font-size:3cqw;letter-spacing:.3em;
+    display:flex;flex-direction:column;align-items:center;gap:1.5cqw;opacity:.8}
+  .scrollcue i{display:block;width:1px;height:7cqw;background:linear-gradient(var(--serif),transparent)}
+  .sec{padding:13cqw 9cqw;position:relative}
+  .sec.tint{background:rgba(214,222,200,.28)}
+  .sec h2{font-family:"Pinyon Script",cursive;font-weight:400;color:var(--name);font-size:12.5cqw;line-height:1.1}
+  .sec .cap{font-size:3.3cqw;letter-spacing:.32em;padding-left:.32em;text-transform:uppercase;margin-top:1.5cqw}
+  .sec p{font-size:5cqw;line-height:1.5}
+  .sec p.lead{font-style:italic;font-size:5.4cqw}
+  .orn{display:flex;align-items:center;justify-content:center;gap:3cqw;margin:6cqw auto}
+  .orn::before,.orn::after{content:"";height:1px;width:22cqw;background:linear-gradient(90deg,transparent,#A3A582)}
+  .orn::after{transform:scaleX(-1)}
+  .orn img{width:6cqw;height:6cqw;filter:sepia(.4) saturate(.8) brightness(.72)}
+  .names2{display:grid;grid-template-columns:1fr 1fr;gap:4cqw;margin:5cqw -3cqw 0}
+  .names2 h3{font-size:3.3cqw;letter-spacing:.3em;text-transform:uppercase;font-weight:400;margin-bottom:2cqw}
+  .names2 div{font-size:5cqw;line-height:1.35}
+  .count{display:grid;grid-template-columns:repeat(4,1fr);gap:2.6cqw;margin-top:6cqw}
+  .count div{border:1px solid #B9B596;border-radius:12cqw 12cqw 1.5cqw 1.5cqw;padding:5cqw 0 3cqw;background:rgba(255,255,255,.55)}
+  .count b{display:block;font-family:"Bodoni Moda",serif;font-weight:400;font-size:8.4cqw;color:#5E6B45;line-height:1}
+  .count span{font-size:2.8cqw;letter-spacing:.2em;text-transform:uppercase}
+  .card{position:relative;margin:7cqw auto 0;max-width:80cqw;padding:15cqw 7cqw 8cqw;background:rgba(255,255,255,.62);
+    border:1px solid #B9B596;border-radius:40cqw 40cqw 2cqw 2cqw}
+  .card::before{content:"";position:absolute;inset:1.6cqw;border:1px solid rgba(185,181,150,.55);border-radius:38cqw 38cqw 1.4cqw 1.4cqw;pointer-events:none}
+  .card .ico{width:10cqw;height:10cqw;margin:0 auto 3cqw;color:#7B8A5C}
+  .card h3{font-family:"Pinyon Script",cursive;font-weight:400;color:var(--name);font-size:9.6cqw;line-height:1.1}
+  .card .place{font-size:5.4cqw;font-weight:400;margin-top:2cqw;color:#5C4A48}
+  .card .addr{font-size:4.2cqw;font-style:italic;margin-top:1cqw}
+  .card .time{font-family:"Bodoni Moda",serif;font-size:6cqw;color:#5E6B45;margin-top:3cqw}
+  .btn{display:inline-block;margin-top:5cqw;padding:2.6cqw 7cqw;border-radius:999px;font-family:"Cormorant Garamond",serif;
+    font-size:3.8cqw;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:#fff;background:#6E7B52;
+    box-shadow:0 1cqw 3cqw rgba(80,90,60,.25)}
+  .btn.wine{background:var(--name);box-shadow:0 1cqw 3cqw rgba(158,52,96,.28)}
+  .timeline{position:relative;margin:7cqw auto 0;max-width:74cqw;text-align:left}
+  .timeline::before{content:"";position:absolute;left:21cqw;top:1cqw;bottom:1cqw;width:1px;background:#B9B596}
+  .timeline .it{display:grid;grid-template-columns:18cqw 1fr;gap:8cqw;align-items:center;padding:2.6cqw 0;position:relative}
+  .timeline .it::after{content:"";position:absolute;left:calc(21cqw - 1.2cqw);top:50%;width:2.4cqw;height:2.4cqw;margin-top:-1.2cqw;
+    border-radius:50%;background:#F6F0E6;border:1px solid var(--name)}
+  .timeline .h{font-family:"Bodoni Moda",serif;font-size:4.6cqw;color:#5E6B45;text-align:right}
+  .timeline .w{font-size:5.4cqw}
+  .dress{display:flex;justify-content:center;gap:10cqw;margin-top:6cqw}
+  .dress svg{width:14cqw;height:24cqw;color:#6E7B52}
+  .closing{padding:14cqw 9cqw 62cqw;position:relative;overflow:hidden}
+  .closing .bot{position:absolute;bottom:0;left:-2%;width:104%}
+  .closing .script{font-size:17cqw}
+  .inv-wm{position:absolute;bottom:3cqw;left:0;right:0;font-size:2.6cqw;letter-spacing:.24em;color:rgba(255,255,255,.85);text-shadow:0 0 1cqw rgba(0,0,0,.35)}
+  .rv{opacity:0;transform:translateY(5cqw)}
 </style>
 </head>
 <body>
@@ -229,9 +292,7 @@
   <div id="black" class="layer"></div>
 
   <!-- SIGUIENTE SECCIÓN DE LA INVITACIÓN (vacía, lista para llenarse) -->
-  <main id="invitacion" aria-hidden="true">
-    <div class="seccion"><!-- Aquí va el contenido de la invitación --></div>
-  </main>
+  <main id="invitacion" aria-hidden="true"><div class="inv" id="invContent"></div></main>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -245,8 +306,27 @@ const CONFIG = {
   iniciales: ["X", "V"],          // letras del monograma (bajo la tiara)
   textoSuperior: "Mis XV Años",
   frase: "Te invito a celebrar conmigo",
-  fecha: "",                      // opcional, p. ej. "14 · Marzo · 2027" (vacío = no se muestra)
+  fecha: "14 · Marzo · 2027",     // opcional, p. ej. "14 · Marzo · 2027" (vacío = no se muestra)
   marcaDeAgua: "TU MARCA · @tu_usuario",
+  // ---- Datos de la invitación (secciones tras tocar la portada) — DATOS DE EJEMPLO, edítalos ----
+  evento: {
+    fechaISO: "2027-03-14T19:00:00",          // para la cuenta regresiva
+    fechaTexto: "Sábado 14 de marzo de 2027",
+    mensaje: "Hay momentos que se vuelven inolvidables cuando se comparten con quienes más queremos. Con la bendición de Dios y el amor de mis padres, te invito a celebrar mis quince años.",
+    padres: ["Ricardo Morales", "Gabriela Rivera"],
+    padrinos: ["Andrés Fernández", "Lucía Fernández"],
+    ceremonia: { titulo: "Misa", lugar: "Parroquia de San Juan Bautista", direccion: "Calle Principal 123, Centro", hora: "19:00 h",
+                 mapa: "https://maps.google.com/?q=Parroquia+San+Juan+Bautista" },
+    recepcion: { titulo: "Recepción", lugar: "Hacienda Los Arcos", direccion: "Camino Real km 4", hora: "20:30 h",
+                 mapa: "https://maps.google.com/?q=Hacienda+Los+Arcos" },
+    itinerario: [["19:00", "Misa"], ["20:30", "Recepción"], ["21:15", "Vals"], ["22:00", "Cena"], ["23:00", "¡A bailar!"]],
+    vestimenta: "Formal",
+    vestimentaNota: "El color rosa está reservado para la quinceañera.",
+    regalos: "Tu presencia es mi mejor regalo. Si deseas obsequiarme algo, tendremos lluvia de sobres.",
+    rsvpWhatsapp: "5210000000000",            // número con lada, sin + ni espacios
+    rsvpFecha: "1 de marzo de 2027",
+    cierre: "¡Te espero!"
+  },
   assetsPath: "../assets/",
   duracion: 20,                   // duración del loop (s); toda la secuencia se escala
   numEstrellas: 12,
@@ -284,6 +364,103 @@ const CONFIG = {
   $(".g2u").textContent = CONFIG.iniciales[1];
   $("#watermark").textContent = CONFIG.marcaDeAgua;
   document.title = `${CONFIG.textoSuperior} · ${CONFIG.quinceanera}`;
+
+
+  /* ---------- Invitación: render desde CONFIG ---------- */
+  function renderInvitacion() {
+    const E = CONFIG.evento, A = CONFIG.assetsPath, esc = x => String(x).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const orn = `<div class="orn rv"><img src="${A}estrella.svg" alt=""></div>`;
+    const tiara = `<svg class="tiara" viewBox="60 20 80 46" aria-hidden="true"><g fill="none" stroke="#9E3460" stroke-width="1" stroke-linejoin="round"><path d="M66 58 C 73 55, 78 48, 80 38 C 84 46, 87 50, 91 48 C 93 40, 97 32, 100 24 C 103 32, 107 40, 109 48 C 113 50, 116 46, 120 38 C 122 48, 127 55, 134 58 C 122 55, 111 54, 100 54 C 89 54, 78 55, 66 58 Z"/><path d="M100 31 C 97 35, 97 39, 100 42 C 103 39, 103 35, 100 31 M70 61 C 86 57.5, 114 57.5, 130 61"/><circle cx="80" cy="44" r="2"/><circle cx="120" cy="44" r="2"/></g></svg>`;
+    const ico = {
+      church: `<svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M24 4v8M20 8h8M14 44V22l10-8 10 8v22M6 44V30l8-5M42 44V30l-8-5M4 44h40"/><path d="M20 44v-8a4 4 0 0 1 8 0v8"/></svg>`,
+      glass: `<svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 6h10l-1 12a4 4 0 0 1-8 0zM26 6h10l-1 12a4 4 0 0 1-8 0zM17 22v16M31 22v16M12 40h10M26 40h10M20 4l4-2 4 2"/></svg>`
+    };
+    const card = (c, icon) => `<div class="card rv">${ico[icon]}<h3>${esc(c.titulo)}</h3>
+        <div class="place">${esc(c.lugar)}</div><div class="addr">${esc(c.direccion)}</div>
+        <div class="time">${esc(c.hora)}</div>
+        <a class="btn" href="${esc(c.mapa)}" target="_blank" rel="noopener">Cómo llegar</a></div>`;
+    const wa = `https://wa.me/${E.rsvpWhatsapp}?text=${encodeURIComponent(`Hola, confirmo mi asistencia a los XV años de ${CONFIG.quinceanera}.`)}`;
+    $("#invContent").innerHTML = `
+      <section class="inv-hero">
+        <img class="lat l" src="${A}e2_marco_lat.png" alt=""><img class="lat r" src="${A}e2_marco_lat.png" alt="">
+        <img class="top" src="${A}e2_marco_sup.png" alt=""><img class="bot" src="${A}e2_marco_inf.png" alt="">
+        <div class="rv">${tiara}</div>
+        <div class="kick rv">${esc(CONFIG.textoSuperior)}</div>
+        <div class="script rv">${esc(CONFIG.quinceanera)}</div>
+        <div class="date rv">${esc(E.fechaTexto)}</div>
+        <div class="scrollcue">DESLIZA<i></i></div>
+      </section>
+      <section class="sec">
+        <p class="lead rv">${esc(E.mensaje)}</p>
+        ${orn}
+        <div class="names2">
+          <div class="rv"><h3>Mis padres</h3>${E.padres.map(esc).join("<br>")}</div>
+          <div class="rv"><h3>Mis padrinos</h3>${E.padrinos.map(esc).join("<br>")}</div>
+        </div>
+      </section>
+      <section class="sec tint">
+        <h2 class="rv">Faltan</h2><div class="cap rv">${esc(E.fechaTexto)}</div>
+        <div class="count rv" id="count"><div><b>0</b><span>días</span></div><div><b>0</b><span>horas</span></div><div><b>0</b><span>min</span></div><div><b>0</b><span>seg</span></div></div>
+      </section>
+      <section class="sec">
+        <h2 class="rv">¿Dónde?</h2><div class="cap rv">Ceremonia y recepción</div>
+        ${card(E.ceremonia, "church")}
+        ${card(E.recepcion, "glass")}
+      </section>
+      <section class="sec tint">
+        <h2 class="rv">Itinerario</h2>
+        <div class="timeline">${E.itinerario.map(([h, w]) => `<div class="it rv"><div class="h">${esc(h)}</div><div class="w">${esc(w)}</div></div>`).join("")}</div>
+      </section>
+      <section class="sec">
+        <h2 class="rv">Vestimenta</h2><div class="cap rv">${esc(E.vestimenta)}</div>
+        <div class="dress rv">
+          <svg viewBox="0 0 40 70" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 4h12l-2 8 6 6-4 20 8 30H6l8-30-4-20 6-6z"/></svg>
+          <svg viewBox="0 0 40 70" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 4h16l6 10-4 4v48H10V18l-4-4zM20 4v20M17 8l3 4 3-4"/></svg>
+        </div>
+        <p class="rv" style="margin-top:4cqw;font-style:italic">${esc(E.vestimentaNota)}</p>
+        ${orn}
+        <h2 class="rv">Regalos</h2>
+        <p class="rv" style="margin-top:3cqw">${esc(E.regalos)}</p>
+      </section>
+      <section class="sec tint">
+        <h2 class="rv">Confirma</h2>
+        <p class="rv" style="margin-top:3cqw">Por favor confirma tu asistencia antes del <b style="font-weight:500">${esc(E.rsvpFecha)}</b>.</p>
+        <a class="btn wine rv" href="${wa}" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+      </section>
+      <section class="closing">
+        <div class="kick rv">${esc(E.cierre)}</div>
+        <div class="script rv">${esc(CONFIG.quinceanera)}</div>
+        <div class="rv">${tiara}</div>
+        <img class="bot" src="${A}e2_marco_inf.png" alt="">
+        <div class="inv-wm">${esc(CONFIG.marcaDeAgua)}</div>
+      </section>`;
+
+    // cuenta regresiva
+    const target = new Date(E.fechaISO).getTime(), cells = $$("#count b");
+    const tick = () => {
+      let d = Math.max(0, target - Date.now()) / 1000;
+      const v = [Math.floor(d / 86400), Math.floor(d % 86400 / 3600), Math.floor(d % 3600 / 60), Math.floor(d % 60)];
+      cells.forEach((c, i) => c.textContent = i ? String(v[i]).padStart(2, "0") : v[i]);
+    };
+    tick(); setInterval(tick, 1000);
+  }
+  function revealInvitacion() {
+    const root = $("#invitacion");
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      gsap.to(e.target, { opacity: 1, y: 0, duration: 1, ease: "power2.out" });
+    }), { root, threshold: .15 });
+    $$(".rv", root).forEach((el, i) => io.observe(el));
+    // la portada interna aparece en cascada
+    gsap.to(".inv-hero .rv", { opacity: 1, y: 0, duration: 1.1, ease: "power2.out", stagger: .18, delay: .3 });
+    gsap.fromTo(".inv-hero .top", { yPercent: -30, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.4, ease: "power3.out" });
+    gsap.fromTo(".inv-hero .bot", { yPercent: 30, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.4, ease: "power3.out" });
+    gsap.fromTo(".inv-hero .lat.l", { xPercent: -40, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 1.4, ease: "power3.out" });
+    gsap.fromTo(".inv-hero .lat.r", { xPercent: 40, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 1.4, ease: "power3.out" });
+    gsap.to(".scrollcue i", { scaleY: .4, transformOrigin: "top", duration: 1.2, yoyo: true, repeat: -1, ease: "sine.inOut" });
+  }
+  renderInvitacion();
 
   /* ---------- Construcción de elementos ---------- */
   function buildStars() {
@@ -537,24 +714,27 @@ const CONFIG = {
 
     /* ---- Tocar = siguiente sección ---- */
     let opened = false;
-    if (!REEL) stage.addEventListener("click", e => {
-      if (opened || e.target.closest("#invitacion")) return;
+    const openInv = () => {
+      if (opened) return;
       opened = true;
       const inv = $("#invitacion");
       inv.setAttribute("aria-hidden", "false");
       gsap.timeline()
         .to("#hint", { opacity: 0, duration: .3 }, 0)
         .set(inv, { visibility: "visible" }, 0)
-        .fromTo(inv, { opacity: 0, y: () => H() * .04 }, { opacity: 1, y: 0, duration: .9, ease: "power2.out" }, .1)
+        .fromTo(inv, { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, .1)
+        .add(revealInvitacion, .2)
         .add(() => tl.pause());
       document.dispatchEvent(new CustomEvent("invitacion:abrir"));
-    });
+    };
+    if (!REEL) stage.addEventListener("click", e => { if (!e.target.closest("#invitacion")) openInv(); });
 
     let rz;
     addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => {
       if (!$("#win").classList.contains("open")) tl.invalidate();
     }, 150); });
 
+    window.abrirInvitacion = openInv;
     window.portada = { tl, seek: s => tl.seek(t(s), false), play: () => tl.play(), pause: () => tl.pause() };
   }
 })();
