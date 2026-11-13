@@ -6,15 +6,15 @@
 <title>Invitación Boda Azul</title>
 <meta name="theme-color" content="#0A0814">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=Great+Vibes&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
 <style>
   :root{
     --night:#0A0814; --navy:#14213D; --navy2:#1F3461; --blue:#2C4A7E; --steel:#6F8DB8; --mist:#A9BCD6; --ice:#E6ECF5;
     --paper:#F7F4EE; --paper2:#EFEAE0; --ink:#1B2744; --soft:#5A6784; --gold:#C8A96A; --gold2:#E7CF97;
-    --serif:"Cormorant Garamond", Georgia, serif; --script:"Pinyon Script", cursive;
+    --serif:"Cormorant Garamond", Georgia, serif; --script:"Great Vibes", cursive; --orn:"Monsieur La Doulaise", "Great Vibes", cursive; --caps:"Cormorant SC", "Cormorant Garamond", Georgia, serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html,body{background:var(--night);color:var(--ink);font-family:var(--serif)}
+  html,body{background:var(--night);color:var(--ink);font-family:var(--serif);font-variant-numeric:lining-nums}
   body{overflow:hidden;min-height:100vh}
   body.open{overflow-y:auto;overflow-x:hidden;background:#0B1226}
   img{display:block;max-width:100%}
@@ -28,15 +28,15 @@
   #vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;background:var(--night)}
   #std{position:absolute;left:0;right:0;top:30%;text-align:center;color:#fff;opacity:0;pointer-events:none;text-shadow:0 0 18px rgba(160,190,255,.25)}
   #std small{display:block;font-family:var(--script);font-size:7cqw;opacity:.85}
-  #std h1{font-family:var(--script);font-weight:400;font-size:13.5cqw;line-height:1.1;margin:1cqw 0 2.6cqw}
+  #std h1{font-weight:400;margin:0 auto 4cqw;width:82cqw;--fs:13cqw}
   #std p{font-size:3.5cqw;letter-spacing:.32em;text-transform:uppercase;opacity:.85}
   #hint{position:absolute;left:0;right:0;bottom:12%;text-align:center;color:#DCE6FA;font-size:4.2cqw;letter-spacing:.18em;font-style:italic;opacity:0;pointer-events:none}
   #gate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6cqw;color:#fff;cursor:pointer;
     background:radial-gradient(120% 70% at 50% 40%,rgba(31,52,97,.55),rgba(10,8,20,0) 70%)}
   .mono{width:44cqw;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;position:relative}
   .mono svg{position:absolute;inset:0;width:100%;height:100%}
-  .mono b{font-family:var(--script);font-weight:400;font-size:15cqw;line-height:1;letter-spacing:-.02em}
-  .mono b i{font-style:normal;font-size:.55em;margin:0 .6cqw;color:var(--gold2)}
+  .mono b{font-family:var(--orn);font-weight:400;font-size:17cqw;line-height:1;letter-spacing:-.02em;padding-top:3cqw}
+  .mono b i{font-family:var(--script);font-style:normal;font-size:.45em;margin:0 1cqw;color:var(--gold2)}
   #gate .tap{font-size:4cqw;letter-spacing:.4em;text-transform:uppercase;opacity:.85}
   #gate .tap::after{content:"";display:block;width:12cqw;height:1px;background:var(--gold2);margin:3cqw auto 0;opacity:.7}
   #gate .wm{position:absolute;bottom:4.5cqw;font-size:3.2cqw;letter-spacing:.12em;opacity:.45}
@@ -58,15 +58,21 @@
   .lace{position:absolute;left:0;width:100%;height:7.3cqw;display:block;z-index:2;pointer-events:none}
   .lace.top{top:-7.2cqw}
   .lace.bot{bottom:-7.2cqw;transform:scaleY(-1)}
+  .duo{--fs:15cqw;display:flex;flex-direction:column;font-family:var(--caps);font-weight:300;font-size:var(--fs);line-height:1;letter-spacing:.01em}
+  .duo .a{align-self:flex-start}
+  .duo .s{font-family:var(--script);font-size:.62em;align-self:flex-end;margin:-.2em .1em -.12em 0;opacity:.9;letter-spacing:0;position:relative;z-index:1}
+  .duo .b{align-self:flex-end;display:flex;align-items:baseline;gap:.18em}
+  .duo .b i{font-family:var(--script);font-style:normal;font-size:.5em;opacity:.9}
+  .duo.c .a{align-self:flex-start;margin-left:6%}.duo.c .b{margin-right:4%}
   .t-script{font-family:var(--script);font-weight:400;font-size:12cqw;line-height:1.05;color:var(--navy)}
   .navy .t-script{color:#fff}
   .t-caps{font-size:3.6cqw;letter-spacing:.32em;text-transform:uppercase;font-weight:500}
   .t-body{font-size:4.6cqw;line-height:1.55;color:var(--soft)}
   .navy .t-body{color:#C9D4E8}
-  .t-head{display:flex;align-items:baseline;justify-content:center;gap:.4em;margin-bottom:6cqw}
-  .t-head .cap{font-family:var(--script);font-size:14cqw;line-height:.8;color:var(--navy)}
-  .t-head span:last-child{font-size:5.4cqw;letter-spacing:.24em;text-transform:uppercase;font-weight:500}
-  .navy .t-head .cap{color:var(--gold2)}
+  .t-head{display:flex;align-items:baseline;justify-content:center;gap:0;margin-bottom:6cqw;color:var(--navy)}
+  .t-head .cap{font-family:var(--orn);font-size:17cqw;line-height:.7;margin-right:-.6cqw;position:relative;top:1cqw;padding-left:4cqw}
+  .t-head span:last-child{font-family:var(--caps);font-size:7.6cqw;letter-spacing:.03em;font-weight:400}
+  .navy .t-head{color:#fff}.navy .t-head .cap{color:var(--gold2)}
   .rule{display:block;width:30cqw;height:3cqw;margin:5cqw auto;color:var(--gold)}
   .pill{display:inline-flex;align-items:center;gap:2cqw;padding:2.2cqw 5.5cqw;border:1px solid currentColor;border-radius:99px;font-size:3.5cqw;
     letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .25s,color .25s}
@@ -79,8 +85,7 @@
   .hero img{position:absolute;inset:-4% 0 0;width:100%;height:104%;object-fit:cover;object-position:50% 40%}
   .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,20,.55) 0,rgba(10,8,20,0) 30%,rgba(10,8,20,0) 50%,rgba(14,22,48,.85) 100%)}
   .hero .top{position:absolute;z-index:2;top:8cqw;left:0;right:0;text-align:center;font-size:4.2cqw;letter-spacing:.42em}
-  .hero .names{position:absolute;z-index:2;left:7cqw;right:7cqw;bottom:20cqw;text-align:left}
-  .hero .names h2{font-family:var(--script);font-weight:400;font-size:17cqw;line-height:.95}
+  .hero .names{position:absolute;z-index:2;left:7cqw;right:7cqw;bottom:22cqw;--fs:16cqw;text-shadow:0 2px 18px rgba(10,8,20,.35)}
   .hero .names h2 .amp{display:block;font-size:11cqw;color:var(--gold2);margin:0 0 0 18cqw;line-height:.9}
   .hero .names h2 .n2{display:block;margin-left:9cqw}
   .hero .frase{position:absolute;z-index:2;left:0;right:0;bottom:9cqw;text-align:center;font-style:italic;font-size:4.6cqw;opacity:.9}
@@ -106,7 +111,7 @@
   .card>svg.frame{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 2cqw 3cqw rgba(20,33,61,.18))}
   .card>*:not(svg){position:relative}
   .card .k{font-size:3cqw;letter-spacing:.24em;text-transform:uppercase;line-height:1.6;color:var(--soft)}
-  .card .nm{font-family:var(--script);font-size:10.5cqw;line-height:1.05;color:var(--navy);margin:3cqw 0}
+  .card .nm{width:100%;--fs:9.6cqw;color:var(--navy);margin:4cqw 0}
   .card .nm i{display:block;font-style:normal;font-size:7cqw;color:var(--gold)}
   .card .d{font-size:3.3cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);line-height:1.7}
   .bq{position:absolute;pointer-events:none;z-index:5}
@@ -158,7 +163,8 @@
   .pcard{flex:1;background:#fff;margin-left:-6cqw;padding:7cqw 5cqw 7cqw 10cqw;box-shadow:0 2cqw 6cqw rgba(20,33,61,.1);text-align:center;position:relative}
   .place.r .pcard{margin:0 -6cqw 0 0;padding:7cqw 10cqw 7cqw 5cqw}
   .pcard .ic{width:16cqw;height:13cqw;margin:0 auto 2cqw;color:var(--navy)}
-  .pcard h3{font-family:var(--script);font-weight:400;font-size:9cqw;line-height:1;color:var(--navy)}
+  .pcard h3{font-family:var(--caps);font-weight:400;font-size:6.2cqw;padding-left:3cqw;line-height:1;color:var(--navy)}
+  .pcard h3 b{font-family:var(--orn);font-weight:400;font-size:1.9em;line-height:.6;position:relative;top:.12em;margin-right:-.05em}
   .pcard .lg{font-size:4.4cqw;font-weight:600;margin:2.4cqw 0 .6cqw;line-height:1.3}
   .pcard .dr{font-size:3.8cqw;color:var(--soft);line-height:1.4}
   .pcard .hr{font-size:3.6cqw;letter-spacing:.24em;margin:3cqw 0 4cqw;color:var(--ink)}
@@ -196,9 +202,9 @@
   .badge{width:38cqw;aspect-ratio:1;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;margin:0 auto;position:relative;box-shadow:0 3cqw 6cqw rgba(20,33,61,.3)}
   .badge::before{content:"";position:absolute;inset:2cqw;border:1px solid rgba(231,207,151,.5);border-radius:50%}
   .badge div{line-height:1}
-  .badge .cap{font-family:var(--script);font-size:15cqw;vertical-align:-1.5cqw}
-  .badge .w{font-size:5cqw;letter-spacing:.2em;text-transform:uppercase}
-  .badge .w2{display:block;font-size:4.2cqw;letter-spacing:.3em;text-transform:uppercase;margin-top:1cqw;margin-left:8cqw}
+  .badge .cap{font-family:var(--orn);font-size:19cqw;vertical-align:-3cqw}
+  .badge .w{font-family:var(--caps);font-size:6.4cqw;letter-spacing:.04em}
+  .badge .w2{display:block;font-family:var(--caps);font-size:5.6cqw;letter-spacing:.06em;margin-top:.5cqw;margin-left:8cqw}
   .dc-note{margin-top:6cqw}
   .outfit{width:66cqw;margin:6cqw auto 0;color:var(--navy)}
   .pal{display:flex;justify-content:center;gap:3.4cqw;margin-top:6cqw}
@@ -212,10 +218,10 @@
   .gift{position:relative;padding-top:8cqw}
   .gcard{background:#fff;padding:12cqw 7cqw 24cqw;box-shadow:0 2cqw 6cqw rgba(20,33,61,.1);position:relative;text-align:left}
   .gcard .t-body{text-align:left;font-size:4.2cqw;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);line-height:1.6;padding-right:10cqw}
-  .gcard .t-body::first-letter{font-family:var(--script);font-size:12cqw;float:left;line-height:.8;margin:1cqw 2cqw 0 0;text-transform:none;color:var(--navy)}
+  .gcard .t-body::first-letter{font-family:var(--script);font-size:14cqw;float:left;line-height:.8;margin:1cqw 2cqw 0 0;text-transform:none;color:var(--navy)}
   .gseal{position:absolute;right:-3cqw;bottom:-20cqw;width:40cqw;aspect-ratio:1;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;z-index:3;box-shadow:0 3cqw 6cqw rgba(20,33,61,.3)}
-  .gseal span{font-size:5cqw;letter-spacing:.14em;text-transform:uppercase}
-  .gseal span b{font-family:var(--script);font-weight:400;font-size:14cqw;letter-spacing:0;text-transform:none;vertical-align:-2cqw}
+  .gseal span{font-family:var(--caps);font-size:5.6cqw;letter-spacing:.02em;margin-left:3cqw}
+  .gseal span b{font-family:var(--orn);font-weight:400;font-size:15cqw;letter-spacing:0;vertical-align:-3cqw}
   .gopts{display:flex;flex-direction:column;align-items:flex-start;gap:3cqw;margin-top:26cqw;color:var(--navy)}
   .bank{max-height:0;overflow:hidden;transition:max-height .5s ease;text-align:left;font-size:4.2cqw;line-height:1.6;color:var(--ink)}
   .bank.open{max-height:60cqw}
@@ -253,7 +259,7 @@
   .arch{width:62cqw;aspect-ratio:3/4;margin:0 auto;border-radius:31cqw 31cqw 2cqw 2cqw;overflow:hidden;border:1px solid rgba(231,207,151,.6);padding:2cqw;cursor:zoom-in}
   .arch img{width:100%;height:100%;object-fit:cover;border-radius:29cqw 29cqw 1cqw 1cqw}
   .closing small{display:block;font-family:var(--script);font-size:8cqw;margin-top:9cqw;color:var(--gold2)}
-  .closing h2{font-family:var(--script);font-weight:400;font-size:14cqw;line-height:1.05;margin:1cqw 0 4cqw}
+  .closing h2{width:76cqw;margin:2cqw auto 6cqw;--fs:13cqw}
   .closing .wm{margin-top:12cqw;font-size:3.4cqw;letter-spacing:.16em;opacity:.55}
 
   /* música flotante */
@@ -307,7 +313,7 @@
 <div id="intro">
   <canvas id="sky"></canvas>
   <video id="vid" playsinline webkit-playsinline preload="auto"></video>
-  <div id="std"><small></small><h1></h1><p></p></div>
+  <div id="std"><h1 class="duo"></h1><p></p></div>
   <div id="hint">✦ Toca la estrella ✦</div>
   <div id="gate" role="button" tabindex="0" aria-label="Abrir invitación">
     <div class="mono"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="none" stroke="#E7CF97" stroke-width=".8" opacity=".7"/><circle cx="100" cy="100" r="88" fill="none" stroke="#E7CF97" stroke-width=".5" stroke-dasharray="1 4" opacity=".7"/></svg><b></b></div>
@@ -337,6 +343,7 @@
   const fecha = new Date(E.fechaISO);
   const fechaCorta = `${String(fecha.getDate()).padStart(2, "0")} · ${String(fecha.getMonth() + 1).padStart(2, "0")} · ${fecha.getFullYear()}`;
   const [I1, I2] = C.iniciales;
+  const duo = () => `<span class="a">${esc(C.novia)}</span><span class="s">${esc(C.textoCielo || "Nuestra boda")}</span><span class="b"><i>y</i>${esc(C.novio)}</span>`;
   document.title = `${C.novia} & ${C.novio}`;
 
   /* ======================= ILUSTRACIONES ======================= */
@@ -379,7 +386,7 @@
     for (let i = 0; i <= 24; i++) { const a = i / 24 * Math.PI * 2, r = 46 + (i % 2 ? 2.5 : -1.5) + Math.sin(i * 1.7) * 1.5; d += `${i ? "L" : "M"}${(50 + Math.cos(a) * r).toFixed(1)} ${(50 + Math.sin(a) * r).toFixed(1)}`; }
     return `<svg class="seal" viewBox="0 0 100 100"><path d="${d}Z" fill="url(#gGold)"/><circle cx="50" cy="50" r="34" fill="none" stroke="#9C7B3E" stroke-width="1.6" opacity=".7"/>
       <circle cx="50" cy="50" r="30" fill="none" stroke="#F3E2B3" stroke-width=".6" opacity=".7"/>
-      <text x="50" y="58" text-anchor="middle" font-family="Pinyon Script" font-size="26" fill="#8A6A31">${esc(I1)}&amp;${esc(I2)}</text></svg>`;
+      <text x="50" y="58" text-anchor="middle" font-family="Great Vibes" font-size="26" fill="#8A6A31">${esc(I1)}&amp;${esc(I2)}</text></svg>`;
   }
   // Marco tipo cartela con esquinas cóncavas (como la tarjeta de la referencia)
   function frame() {
@@ -443,14 +450,13 @@
   }
   function render() {
     const F = C.fotos, R = E.regalos || {};
-    const nm = `${esc(C.novia)}<i>&amp;</i>${esc(C.novio)}`;
     const reelImgs = (list) => list.concat(list).map(i => `<img src="${esc(F[i])}" alt="" data-foto="${i}" loading="lazy">`).join("");
     const order = F.map((_, i) => i), order2 = order.slice().reverse();
     $("#inv").innerHTML = `
     <header class="hero">
       <img src="${esc(F[C.fotoPortada])}" alt="${esc(C.novia)} y ${esc(C.novio)}">
       <div class="top">${fechaCorta}</div>
-      <div class="names"><h2>${esc(C.novia)}<span class="amp">&amp;</span><span class="n2">${esc(C.novio)}</span></h2></div>
+      <h2 class="names duo" style="font-weight:300">${duo()}</h2>
       <div class="frase">${esc(E.frase)}</div>
       <span class="scroll-cue"></span>
     </header>
@@ -462,7 +468,7 @@
           <div class="back"></div>
           <div class="card" id="card">${frame()}
             <div class="k">Tenemos el honor de<br>invitarte a la boda de</div>
-            <div class="nm">${nm}</div>
+            <div class="nm duo c">${duo()}</div>
             <div class="d">${esc(E.ciudad)}<br>${fechaCorta}</div>
           </div>
           <div class="front"></div>
@@ -502,7 +508,7 @@
       ${[["ceremonia", C.fotoCeremonia, church, ""], ["recepcion", C.fotoRecepcion, glasses, "r"]].map(([k, fi, ic, cls]) => { const p = E[k]; return `
       <div class="place ${cls} rv">
         <div class="pol" data-foto="${fi}"><img src="${esc(F[fi])}" alt="" loading="lazy"><span>${esc(I1)} &amp; ${esc(I2)}</span></div>
-        <div class="pcard">${ic}<h3>${esc(p.titulo)}</h3><div class="lg">${esc(p.lugar)}</div><div class="dr">${esc(p.direccion)}</div>
+        <div class="pcard">${ic}<h3><b>${esc(p.titulo.charAt(0))}</b>${esc(p.titulo.slice(1).toLowerCase())}</h3><div class="lg">${esc(p.lugar)}</div><div class="dr">${esc(p.direccion)}</div>
           <div class="hr">${esc(p.hora)}</div><a class="pill" href="${esc(p.mapa)}" target="_blank" rel="noopener">Ubicación</a></div>
       </div>`; }).join("")}
     </section>
@@ -574,7 +580,7 @@
       ${lace("#14213D")}<div class="stars-css" data-stars="60"></div>
       <div class="arch rv" data-foto="${C.fotoCierre}"><img src="${esc(F[C.fotoCierre])}" alt="" loading="lazy"></div>
       <small class="rv">${esc(E.cierre)}</small>
-      <h2 class="rv">${esc(C.novia)} &amp; ${esc(C.novio)}</h2>
+      <h2 class="duo c rv">${duo()}</h2>
       <div class="t-caps rv" style="color:#C9D4E8">${fechaCorta}</div>
       <div class="wm">${esc(C.marcaDeAgua)}</div>
     </footer>`;
@@ -854,8 +860,7 @@
   /* ======================= SECUENCIA DE INTRO ======================= */
   const vid = $("#vid");
   let afterDone = false, zoomed = false, armed = false, autoZoom;
-  $("#std small").textContent = C.textoCielo || "";
-  $("#std h1").innerHTML = `${esc(C.novia)} &amp; ${esc(C.novio)}`;
+  $("#std h1").innerHTML = duo();
   $("#std p").textContent = `${E.ciudad.split(",")[0]} · ${fechaCorta.replace(/ · /g, ".")}`;
   $("#gate .mono b").innerHTML = `${esc(I1)}<i>&amp;</i>${esc(I2)}`;
   $("#gate .wm").textContent = C.marcaDeAgua;
