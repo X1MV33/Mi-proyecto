@@ -24,8 +24,8 @@ window.CONFIG = {
   fotoRecorte: "fotos/novios-recorte.webp", // novios recortados con borde blanco (carrete)
   // marcos del carrete: [número de foto, encuadre]
   carrete: [[0, "50% 30%"], [3, "55% 45%"], [1, "50% 40%"], [2, "45% 45%"], [3, "30% 60%"], [0, "60% 55%"]],
-  musica: "",                          // ruta a su canción (p. ej. "cancion.mp3"); vacío = vals de caja musical
-  cancion: "Nuestra canción",          // nombre que se muestra en el reproductor
+  musica: "cancion.mp3",               // su canción (se repite sola); vacío = vals de caja musical
+  cancion: "Young and Beautiful",      // nombre de la canción (referencia)
 
   // ---- Datos de la invitación: DATOS DE EJEMPLO, edítalos ----
   evento: {
