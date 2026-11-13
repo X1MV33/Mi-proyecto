@@ -721,7 +721,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     const historia = E.historia && E.historia.length ? E.historia : [E.mensaje];
     const place = c => `<div class="scal place rv tilt"><div class="in">
         <h3>${esc(c.titulo)}</h3><div class="t">Hora: ${esc(c.hora)}</div><div class="l">${esc(c.lugar)}</div><div class="a">${esc(c.direccion)}</div>
-        <a class="btn-o" href="${esc(c.mapa)}" target="_blank" rel="noopener">Ver mapa</a></div>${bouquet("r", false)}</div>`;
+        <a class="btn-o" href="${esc(c.mapa)}" target="_blank" rel="noopener">Ver mapa</a></div></div>`;
     const foto = i => esc(CONFIG.fotos[i] || CONFIG.fotos[0] || "");
     $("#stage").style.setProperty("--papel", `url("${A}papel_olivo.jpg")`);
     const heartCard = (() => {
@@ -816,7 +816,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
           <div class="cd slide"><strong>Confirma tu<br>asistencia</strong><button class="btn-o" type="button" id="goRsvp">Responder</button></div>
           <div class="fr"></div>${heart()}${bouquet("r")}
         </div>
-        <div class="scal greenp rsvp-intro rv"><div class="in">Acompáñame a celebrar uno de los días más especiales de mi vida.<br>Por favor confirma antes del ${esc(E.rsvpFecha)}.</div>${bouquet("r", false)}</div>
+        <div class="scal greenp rsvp-intro rv"><div class="in">Acompáñame a celebrar uno de los días más especiales de mi vida.<br>Por favor confirma antes del ${esc(E.rsvpFecha)}.</div></div>
         <form class="rsvp rv" id="rsvp" autocomplete="on">
           <label class="q" for="rsvpNombre">Tu nombre completo*</label>
           <input type="text" id="rsvpNombre" name="nombre" required maxlength="80">
@@ -832,7 +832,6 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       </section>
 
       <section class="closing2">
-        <img class="c2-ramo l" src="${A}ramo_alcatraz.png" alt=""><img class="c2-ramo r" src="${A}ramo_alcatraz.png" alt="">
         <svg class="c2-mono rv" data-draw viewBox="40 10 120 120" aria-hidden="true">
           <path d="M66 46 C 73 43, 78 36, 80 26 C 84 34, 87 38, 91 36 C 93 28, 97 20, 100 12 C 103 20, 107 28, 109 36 C 113 38, 116 34, 120 26 C 122 36, 127 43, 134 46 C 122 43, 111 42, 100 42 C 89 42, 78 43, 66 46 Z"/>
           <path d="M100 19 C 97 23, 97 27, 100 30 C 103 27, 103 23, 100 19 M70 49 C 86 45.5, 114 45.5, 130 49"/>
