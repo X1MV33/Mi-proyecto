@@ -351,24 +351,44 @@
       ctx.resume(); master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(.5, ctx.currentTime, .8);
       nextT = ctx.currentTime + .1; clearInterval(timer); timer = setInterval(schedule, 60);
     }
+    // volumen por Web Audio: funciona también en iPhone (donde audio.volume no hace nada)
+    function ac() { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state !== "running") ctx.resume(); return ctx; }
+    function mk(src) {
+      const a = Object.assign(new Audio(src), { loop: true, preload: "auto" });
+      try { const c = ac(), g = c.createGain(); g.gain.value = 0; c.createMediaElementSource(a).connect(g).connect(c.destination); a._g = g; } catch (e) { a.volume = 0; }
+      return a;
+    }
+    // pasos: [[volumen, segundos], ...] uno tras otro; [v, s, "espera"] deja una pausa antes
+    function fade(a, pasos, done) {
+      if (a._g) {
+        const g = a._g.gain, t0 = ctx.currentTime; let t = t0, last = g.value;
+        g.cancelScheduledValues(t0); g.setValueAtTime(last, t0);
+        pasos.forEach(([v, d, w]) => { if (w) { t += w; g.setValueAtTime(last, t); } g.linearRampToValueAtTime(v, t + d); t += d; last = v; });
+        if (done) setTimeout(done, (t - t0) * 1000 + 50);
+      } else {
+        gsap.killTweensOf(a); const tl = gsap.timeline({ onComplete: done });
+        pasos.forEach(([v, d, w]) => tl.to(a, { volume: v, duration: d, ease: "sine.inOut" }, "+=" + (w || 0)));
+      }
+    }
     function play() {
       on = true;
       if (enIntro && C.musicaInicio) {
-        intro = intro || Object.assign(new Audio(C.musicaInicio), { loop: true, volume: 0 });
-        intro.play().then(() => gsap.to(intro, { volume: .8, duration: 1.5 })).catch(() => {});
-        if (C.musica && !audio) { audio = Object.assign(new Audio(C.musica), { loop: true, volume: 0 }); audio.load(); }
+        ac(); intro = intro || mk(C.musicaInicio);
+        intro.play().then(() => fade(intro, [[.85, 1.5]])).catch(() => {});
+        unlockMain();
         ui(); return;
       }
       if (C.musica) {
-        audio = audio || Object.assign(new Audio(C.musica), { loop: true, volume: 0 });
-        audio.play().then(() => { gsap.killTweensOf(audio); gsap.timeline().to(audio, { volume: .18, duration: 2.5, ease: "sine.out" }).to(audio, { volume: .8, duration: 7, ease: "sine.inOut" }, "+=1.5"); }).catch(() => { C.musica = ""; synth(); });
+        ac(); audio = audio || mk(C.musica);
+        const primera = !audio._sub; audio._sub = true;
+        audio.play().then(() => fade(audio, primera ? [[.18, 2.5], [.85, 7, 1.5]] : [[.85, 1.2]])).catch(() => { C.musica = ""; synth(); });
       } else synth();
       ui();
     }
     function pause() {
       on = false;
-      if (enIntro && intro) { gsap.to(intro, { volume: 0, duration: .5, onComplete: () => intro.pause() }); ui(); return; }
-      if (audio && C.musica) gsap.to(audio, { volume: 0, duration: .5, onComplete: () => audio.pause() });
+      if (enIntro && intro) { fade(intro, [[0, .5]], () => !on && intro.pause()); ui(); return; }
+      if (audio && C.musica) fade(audio, [[0, .5]], () => !on && audio.pause());
       else if (ctx && master) { master.gain.setTargetAtTime(0, ctx.currentTime, .25); setTimeout(() => !on && clearInterval(timer), 900); }
       ui();
     }
@@ -382,15 +402,23 @@
       if (document.hidden) { if (audio) audio.pause(); if (intro) intro.pause(); if (ctx) ctx.suspend(); }
       else if (on) { if (enIntro && intro) intro.play(); else if (audio && C.musica) audio.play(); if (ctx) ctx.resume(); }
     });
+    function unlockMain() {
+      if (!C.musica) return;
+      if (!audio) audio = mk(C.musica);
+      if (audio._ok) return;
+      audio.muted = true;
+      const pr = audio.play();
+      if (pr && pr.then) pr.then(() => { if (enIntro) { audio.pause(); audio.currentTime = 0; } audio.muted = false; audio._ok = true; }).catch(() => { audio.muted = false; });
+    }
     // al abrirse la invitación: la canción de la animación se desvanece y entra la de la invitación
     function toMain() {
       if (!enIntro) return;
       enIntro = false;
-      if (intro) { const a = intro; gsap.killTweensOf(a); gsap.to(a, { volume: 0, duration: 3, ease: "sine.inOut", onComplete: () => a.pause() }); }
+      if (intro) { const a = intro; fade(a, [[0, 3]], () => a.pause()); }
       if (on) play();
     }
     const sonando = () => !!((intro && !intro.paused) || (audio && !audio.paused));
-    return { play, pause, toMain, sonando, reset: () => { on = false; ui(); }, toggle: () => (on ? pause() : play()), get on() { return on; } };
+    return { play, pause, toMain, sonando, unlockMain, reset: () => { on = false; ui(); }, toggle: () => (on ? pause() : play()), get on() { return on; } };
   })();
   $("#music").addEventListener("click", () => Musica.toggle());
 
@@ -518,7 +546,15 @@
   $("#gate").remove();
   let musicOn = false;
   const hideChip = () => { const ch = $("#sndChip"); if (ch) gsap.to(ch, { opacity: 0, y: -10, duration: .6, onComplete: () => ch.remove() }); };
-  const startMusic = () => { if (musicOn) return; musicOn = true; Musica.play(); hideChip(); };
+  const gestos = ["pointerup", "touchend", "click", "keydown"];
+  const startMusic = () => {
+    if (musicOn && Musica.sonando()) return;
+    Musica.play();
+    setTimeout(() => {
+      if (Musica.sonando()) { musicOn = true; hideChip(); gestos.forEach(ev => removeEventListener(ev, startMusic)); }
+      else Musica.reset();
+    }, 400);
+  };
   // intenta sonar sola al abrir el link; si el celular lo bloquea, espera el primer toque y muestra el botoncito
   gsap.set("#sndChip", { opacity: 0 });
   Musica.play();
@@ -527,8 +563,10 @@
     else { Musica.reset(); gsap.to("#sndChip", { opacity: 1, duration: .8 }); }
   }, 900);
   $("#sndChip").addEventListener("click", e => { e.stopPropagation(); startMusic(); });
+  $("#env").addEventListener("touchend", () => Musica.unlockMain(), { passive: true });
+  $("#env").addEventListener("click", () => Musica.unlockMain());
   gsap.to("#sndChip svg", { rotation: 10, duration: .5, yoyo: true, repeat: -1, ease: "sine.inOut" });
-  ["pointerdown", "touchend", "click", "keydown"].forEach(ev => addEventListener(ev, startMusic, { once: true, passive: true }));
+  gestos.forEach(ev => addEventListener(ev, startMusic, { passive: true }));
 
   /* ======================= INVITACIÓN ======================= */
   const ico = {
