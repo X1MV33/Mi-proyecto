@@ -71,7 +71,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
 ## Funciones de la plantilla Boda azul
 
 - **Intro:**
-  1. Pantalla con monograma: «Toca para abrir».
+  1. Sobre a pantalla completa con estampado toile azul y sello de cera. Al tocar el sello, este se rompe, se abren las cuatro solapas y aparece la tarjeta con los nombres.
   2. Se reproduce el video animado (`intro.mp4`), ya sin la interfaz de la grabación ni las letras blancas.
   3. La cámara sube al cielo: aparecen los nombres y los fuegos artificiales.
   4. Al tocar la estrella (o solos a los pocos segundos) se hace zoom a la estrella y se abre la invitación.
