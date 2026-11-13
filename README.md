@@ -77,7 +77,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
   4. Al tocar la estrella (o solos a los pocos segundos) se hace zoom a la estrella y se abre la invitación.
 - **Atajo para editar:** `?invitacion=1` salta la intro.
 - **Secciones:**
-  - Portada con foto.
+  - Portada con video en blanco y negro que se repite (`videoPortada` en `config.js`; si se deja vacío, usa la foto).
   - Sobre azul con forro de flores que se abre y saca la tarjeta.
   - Cuenta regresiva.
   - Padres y padrinos.

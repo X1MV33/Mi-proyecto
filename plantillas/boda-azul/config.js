@@ -16,7 +16,9 @@ window.CONFIG = {
 
   // Fotos (carrete). Reemplázalas por las de la pareja.
   fotos: ["fotos/foto1.jpg", "fotos/foto2.jpg", "fotos/foto3.jpg", "fotos/foto4.jpg"],
-  fotoPortada: 0,                      // foto de la portada
+  fotoPortada: 0,                      // foto de la portada (se usa si no hay videoPortada)
+  videoPortada: "portada.mp4",         // video en la portada (sin sonido, se repite); vacío = usa la foto
+  posterPortada: "portada.jpg",
   fotoCeremonia: 1,                    // polaroid de ceremonia
   fotoRecepcion: 2,                    // polaroid de recepción
   fotoCierre: 3,                       // foto del cierre
