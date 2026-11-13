@@ -307,6 +307,21 @@
   .closing .nm i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:"Pinyon Script",cursive;font-style:normal;font-size:15cqw;letter-spacing:0;opacity:.55}
   .inv-wm{position:absolute;bottom:3cqw;left:0;right:0;font-size:2.6cqw;letter-spacing:.24em;color:rgba(255,255,255,.85);text-shadow:0 0 1cqw rgba(0,0,0,.35)}
   .rv{opacity:0;transform:translateY(5cqw)}
+  /* cierre: monograma XV que se dibuja + despedida */
+  .closing2{position:relative;padding:18cqw 9cqw 16cqw;text-align:center;overflow:hidden;
+    background:radial-gradient(ellipse 80% 60% at 50% 40%,#FBF9F3,#F1EEE6)}
+  .c2-mono{width:46cqw;height:46cqw;margin:0 auto;display:block;overflow:visible}
+  .c2-mono path,.c2-mono text{fill:none;stroke:#6F7A40;stroke-width:.9;stroke-linejoin:round}
+  .c2-mono text{font-family:"Bodoni Moda",serif;font-weight:400;fill:#6F7A40;fill-opacity:0;stroke-width:.6}
+  .c2-script{font-family:"Pinyon Script",cursive;font-size:14cqw;color:#6F7A40;line-height:1.1;margin-top:4cqw}
+  .c2-sub{font-size:4.6cqw;font-style:italic;color:#77745C;margin-top:1cqw}
+  .c2-name{margin-top:7cqw;font-size:4cqw;letter-spacing:.42em;padding-left:.42em;color:#6F7A40;display:flex;flex-direction:column;align-items:center;gap:1.6cqw}
+  .c2-name span{font-size:3.4cqw;letter-spacing:.2em;color:#8B8A6E}
+  .c2-name::before{content:"";width:22cqw;height:1px;background:rgba(111,122,64,.5);margin-bottom:4cqw}
+  .c2-ramo{position:absolute;top:8cqw;width:24cqw;height:auto;pointer-events:none;filter:drop-shadow(0 1cqw 1.4cqw rgba(50,50,30,.18))}
+  .c2-ramo.l{left:-7cqw;transform:scaleX(-1) rotate(-6deg)}
+  .c2-ramo.r{right:-7cqw;transform:rotate(-6deg)}
+  .c2-wm{margin-top:12cqw;font-size:2.6cqw;letter-spacing:.24em;color:#9A987F}
 
   /* =================== EXTRAS INTERACTIVOS / 3D =================== */
   /* Puertas de palacio 3D (transición portada → invitación) */
@@ -816,12 +831,18 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
         </form>
       </section>
 
-      <section class="closing">
-        <img class="cl-ramo l" src="${A}ramo_blanco.png" alt=""><img class="cl-ramo r" src="${A}ramo_blanco.png" alt="">
-        <small>${esc(E.cierre)}</small>
-        <div class="nm">${esc(CONFIG.quinceanera.toUpperCase())}<i>${esc(CONFIG.iniciales.join(""))}</i></div>
-        <img class="cl-seal" src="${A}sello_oro.png" alt="">
-        <div class="inv-wm">${esc(CONFIG.marcaDeAgua)}</div>
+      <section class="closing2">
+        <img class="c2-ramo l" src="${A}ramo_alcatraz.png" alt=""><img class="c2-ramo r" src="${A}ramo_alcatraz.png" alt="">
+        <svg class="c2-mono rv" data-draw viewBox="40 10 120 120" aria-hidden="true">
+          <path d="M66 46 C 73 43, 78 36, 80 26 C 84 34, 87 38, 91 36 C 93 28, 97 20, 100 12 C 103 20, 107 28, 109 36 C 113 38, 116 34, 120 26 C 122 36, 127 43, 134 46 C 122 43, 111 42, 100 42 C 89 42, 78 43, 66 46 Z"/>
+          <path d="M100 19 C 97 23, 97 27, 100 30 C 103 27, 103 23, 100 19 M70 49 C 86 45.5, 114 45.5, 130 49"/>
+          <text x="84" y="112" text-anchor="middle" font-size="64">${esc(CONFIG.iniciales[0] || "X")}</text>
+          <text x="114" y="122" text-anchor="middle" font-size="64">${esc(CONFIG.iniciales[1] || "V")}</text>
+        </svg>
+        <div class="c2-script rv">${esc(E.despedida || "Los espero")}</div>
+        <p class="c2-sub rv">${esc(E.despedidaTexto || "con mucho cariño para celebrar juntos")}</p>
+        <div class="c2-name rv">${esc(CONFIG.quinceanera.toUpperCase())}<span>${dd}</span></div>
+        <div class="c2-wm">${esc(CONFIG.marcaDeAgua)}</div>
       </section>`;
 
     // cuenta regresiva
@@ -1114,10 +1135,16 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       if (!e.isIntersecting) return;
       io.unobserve(e.target);
       gsap.to(e.target, { opacity: 1, y: 0, rotationX: 0, duration: 1.1, ease: "power3.out" });
+      if (e.target.hasAttribute("data-draw")) {
+        const parts = [...e.target.querySelectorAll("path,text")];
+        parts.forEach(el => { const L = el.getTotalLength ? (el.getTotalLength() || 600) : 600; gsap.set(el, { strokeDasharray: L, strokeDashoffset: L }); });
+        gsap.to(parts, { strokeDashoffset: 0, duration: 2.2, stagger: .25, ease: "power2.inOut" });
+        gsap.to(e.target.querySelectorAll("text"), { fillOpacity: 1, duration: 1, delay: 2, stagger: .2 });
+      }
       const sl = e.target.hasAttribute("data-rise") && e.target.querySelector(".slide");      // la tarjeta sale del sobre
       if (sl) gsap.fromTo(sl, { yPercent: 38 }, { yPercent: 0, duration: 1.5, delay: .35, ease: "power3.out" });
     }), { root, threshold: .15 });
-    gsap.set($$(".rv", root).filter(el => !el.closest(".inv-hero") && !el.classList.contains("g3d") && !el.hasAttribute("data-rise")), { rotationX: 16, transformPerspective: 800, transformOrigin: "50% 100%" });
+    gsap.set($$(".rv", root).filter(el => !el.closest(".inv-hero") && !el.classList.contains("g3d") && !el.hasAttribute("data-rise") && !el.hasAttribute("data-draw")), { rotationX: 16, transformPerspective: 800, transformOrigin: "50% 100%" });
     $$(".rv", root).forEach((el, i) => io.observe(el));
     // la portada interna aparece en cascada
     gsap.to(".inv-hero .rv", { opacity: 1, y: 0, duration: 1.1, ease: "power2.out", stagger: .18, delay: .3 });
