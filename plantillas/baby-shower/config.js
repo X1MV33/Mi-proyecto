@@ -10,7 +10,8 @@ window.CONFIG = {
   subtitulo: "¡Ya viene en camino!",
   padres: "Ana & Luis",
   marcaDeAgua: "@perlainvitaciones",
-  musica: "",                            // ruta a su canción (p. ej. "cancion.mp3"); vacío = canción de cuna de caja musical
+  musicaInicio: "musica-inicio.mp3",    // canción de la animación del inicio («Honeybee» instrumental); vacío = una sola canción
+  musica: "musica.mp3",                 // canción de la invitación (entra al abrir el sobre)
   assetsArte: "arte/",
   // Fotos de las polaroids (opcional). Vacío = ilustración del osito.
   fotos: { papas: "fotos/pareja-campo.jpg", eco: "fotos/espera-1.jpg" },

@@ -105,5 +105,5 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
 - **Sobre:** azul, con moño, sello dorado con osito y forro de nubes.
 - **Collage tipo álbum del celular** (`album`, `fotoRecorte`, `fondoRecorte`): fotos con esquinas redondeadas, la pareja recortada con borde blanco, carpeta, «escribiendo…», barra Mamá | Papá y mensaje con corazón.
 - **¿Cómo llegar?** (`fotoMapa`): foto con buscador estilo mapa, ruta azul que se dibuja, pin, hora y miniatura; abre la ubicación.
-- **Música:** canción de cuna original de caja musical; o su canción en `musica` de `config.js`.
+- **Música:** `musicaInicio` suena en la animación (desde el primer toque o el botoncito «Toca para música») y al abrir el sobre cambia suave a `musica`. Sin canciones suena una canción de cuna original de caja musical.
 - **Atajo para editar:** `?invitacion=1` salta la escena.

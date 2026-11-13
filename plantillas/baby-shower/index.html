@@ -70,6 +70,9 @@
   #hint{position:absolute;left:50%;bottom:calc(4cqh + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9;white-space:nowrap;font-style:italic;
     font-size:4.2cqw;letter-spacing:.1em;color:var(--navy);background:rgba(255,253,248,.82);padding:1.4cqw 5cqw;border-radius:99px;opacity:0;
     box-shadow:0 .6cqw 2cqw rgba(40,60,90,.12)}
+  #sndChip{position:absolute;z-index:45;top:calc(3cqh + env(safe-area-inset-top));right:4cqw;display:flex;align-items:center;gap:2cqw;padding:2cqw 3.6cqw;border-radius:99px;
+    background:rgba(255,253,248,.85);color:var(--navy);font-family:var(--serif);font-size:3.4cqw;letter-spacing:.06em;box-shadow:0 .8cqw 2.4cqw rgba(40,60,90,.15);border:1px solid rgba(124,155,199,.4)}
+  #sndChip svg{width:4.4cqw;height:4.4cqw}
   #wm{position:absolute;left:0;right:0;bottom:calc(1.4cqh + env(safe-area-inset-bottom));text-align:center;font-size:2.6cqw;letter-spacing:.2em;color:var(--soft);opacity:.6;z-index:9}
   #cardFull{position:fixed;z-index:30;left:50%;top:0;bottom:0;width:min(100vw,480px);transform:translateX(-50%);background:var(--cream) url(arte/papel.jpg) center/90% auto;
     opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}
@@ -283,6 +286,7 @@
     </div>
   </div>
   <div id="hint">Toca el sobre para abrir</div>
+  <button id="sndChip" type="button" aria-label="Activar música"><svg viewBox="0 0 20 20"><path d="M7 14.5V4l9-2v10.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="5" cy="14.5" r="2.4" fill="currentColor"/><circle cx="14" cy="12.5" r="2.4" fill="currentColor"/></svg><span>Toca para música</span></button>
   <div id="wm"></div>
   <div id="gate" role="button" tabindex="0" aria-label="Comenzar">
     <img class="gb" alt="">
@@ -317,7 +321,7 @@
   /* ======================= MÚSICA ======================= */
   // canción propia (CONFIG.musica) o canción de cuna original de caja musical generada en vivo
   const Musica = (() => {
-    let ctx, master, timer, audio, on = false, nextT = 0, beat = 0;
+    let ctx, master, timer, audio, intro, enIntro = !!C.musicaInicio, on = false, nextT = 0, beat = 0;
     const SPB = 60 / 76, mtof = n => 440 * Math.pow(2, (n - 69) / 12);
     // Fa mayor, 3/4, melodía original de 8 compases
     const bass = [53, 48, 50, 46, 53, 48, 46, 48];
@@ -349,6 +353,12 @@
     }
     function play() {
       on = true;
+      if (enIntro && C.musicaInicio) {
+        intro = intro || Object.assign(new Audio(C.musicaInicio), { loop: true, volume: 0 });
+        intro.play().then(() => gsap.to(intro, { volume: .8, duration: 1.5 })).catch(() => {});
+        if (C.musica && !audio) { audio = Object.assign(new Audio(C.musica), { loop: true, volume: 0 }); audio.load(); }
+        ui(); return;
+      }
       if (C.musica) {
         audio = audio || Object.assign(new Audio(C.musica), { loop: true, volume: 0 });
         audio.play().then(() => gsap.to(audio, { volume: .8, duration: 2 })).catch(() => { C.musica = ""; synth(); });
@@ -357,6 +367,7 @@
     }
     function pause() {
       on = false;
+      if (enIntro && intro) { gsap.to(intro, { volume: 0, duration: .5, onComplete: () => intro.pause() }); ui(); return; }
       if (audio && C.musica) gsap.to(audio, { volume: 0, duration: .5, onComplete: () => audio.pause() });
       else if (ctx && master) { master.gain.setTargetAtTime(0, ctx.currentTime, .25); setTimeout(() => !on && clearInterval(timer), 900); }
       ui();
@@ -368,10 +379,17 @@
       on ? bars.play() : bars.pause();
     }
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) { if (audio) audio.pause(); if (ctx) ctx.suspend(); }
-      else if (on) { if (audio && C.musica) audio.play(); if (ctx) ctx.resume(); }
+      if (document.hidden) { if (audio) audio.pause(); if (intro) intro.pause(); if (ctx) ctx.suspend(); }
+      else if (on) { if (enIntro && intro) intro.play(); else if (audio && C.musica) audio.play(); if (ctx) ctx.resume(); }
     });
-    return { play, pause, toggle: () => (on ? pause() : play()) };
+    // al abrirse la invitación: la canción de la animación se desvanece y entra la de la invitación
+    function toMain() {
+      if (!enIntro) return;
+      enIntro = false;
+      if (intro) { const a = intro; gsap.killTweensOf(a); gsap.to(a, { volume: 0, duration: 1.6, onComplete: () => a.pause() }); }
+      if (on) play();
+    }
+    return { play, pause, toMain, toggle: () => (on ? pause() : play()), get on() { return on; } };
   })();
   $("#music").addEventListener("click", () => Musica.toggle());
 
@@ -498,7 +516,13 @@
   // sin pantalla de entrada: la animación arranca sola; la música empieza con el primer toque (los celulares lo exigen)
   $("#gate").remove();
   let musicOn = false;
-  const startMusic = () => { if (musicOn) return; musicOn = true; Musica.play(); };
+  const startMusic = () => {
+    if (musicOn) return; musicOn = true; Musica.play();
+    const ch = $("#sndChip"); if (ch) gsap.to(ch, { opacity: 0, y: -10, duration: .6, onComplete: () => ch.remove() });
+  };
+  gsap.fromTo("#sndChip", { opacity: 0 }, { opacity: 1, duration: .8, delay: .6 });
+  $("#sndChip").addEventListener("click", e => { e.stopPropagation(); startMusic(); });
+  gsap.to("#sndChip svg", { rotation: 10, duration: .5, yoyo: true, repeat: -1, ease: "sine.inOut" });
   ["pointerdown", "touchstart", "keydown"].forEach(ev => addEventListener(ev, startMusic, { once: true, passive: true }));
 
   /* ======================= INVITACIÓN ======================= */
@@ -766,6 +790,7 @@
   }
 
   function abrirInvitacion() {
+    Musica.toMain();
     render();
     document.body.classList.add("open");
     intro.remove(); window.scrollTo(0, 0);
