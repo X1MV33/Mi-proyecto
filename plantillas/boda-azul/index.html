@@ -99,7 +99,10 @@
   .env .flap .f,.env .flap .b,.env .flap .sh{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden;-webkit-backface-visibility:hidden}
   .env .flap .f{background:linear-gradient(180deg,#C2D0E6 0%,#AFC1DE 65%,#A2B6D8 100%)}
   .env .flap .sh{background:rgba(20,33,61,.32);transform:translateY(1.3cqw);filter:blur(.4cqw)}
-  .env .flap .b{transform:rotateX(180deg);background:#fff;overflow:hidden}
+  .env .flap .b{transform:rotateX(180deg);overflow:hidden;
+    background:radial-gradient(circle,rgba(44,74,126,.32) .9px,transparent 1.4px) 0 0/5px 5px,#F5F1E8}
+  .env .flap .b .lin{position:absolute;inset:0;clip-path:polygon(7% 0,93% 0,50% 87%)}
+  .env .flap .b .lin::after{content:"";position:absolute;inset:0;clip-path:polygon(7% 0,93% 0,50% 87%,50% 84%,90.5% 1.5%,9.5% 1.5%,50% 84%,50% 87%);background:rgba(44,74,126,.35)}
   .env .flap .b svg{width:100%;height:100%}
   .env .front{position:absolute;inset:0;z-index:3;clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border-radius:1.6cqw;
     background:linear-gradient(172deg,#A5B9D8 0%,#93AACE 55%,#859DC4 100%)}
@@ -107,7 +110,7 @@
     radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.18),transparent 60%)}
   .env .seal{position:absolute;z-index:6;left:50%;top:62%;width:19cqw;margin:-9.5cqw 0 0 -9.5cqw;filter:drop-shadow(0 .8cqw 1cqw rgba(10,18,40,.45));cursor:pointer}
   .env-hint{position:absolute;left:0;right:0;top:101cqw;text-align:center;font-style:italic;font-size:4.2cqw;color:var(--soft);letter-spacing:.06em}
-  .sfoto{position:absolute;z-index:2;left:50%;bottom:5cqw;width:62cqw;height:44cqw;margin-left:-31cqw;background:#fff;padding:1.8cqw;box-shadow:0 1cqw 3cqw rgba(20,33,61,.25)}
+  .sfoto{position:absolute;z-index:2;left:50%;bottom:4cqw;width:66cqw;height:46cqw;margin-left:-33cqw;background:#fff;padding:1.8cqw;box-shadow:0 1cqw 3cqw rgba(20,33,61,.25)}
   .sfoto img.ph{width:100%;height:100%;object-fit:cover;display:block}
   .sfoto .pearls{position:absolute;left:-6cqw;top:-6cqw;width:36cqw;height:auto;pointer-events:none;opacity:0;filter:drop-shadow(0 .5cqw .6cqw rgba(0,0,0,.25))}
   .env .seal.heart{width:21cqw;margin:-10.5cqw 0 0 -10.5cqw}
@@ -629,7 +632,7 @@
           <div class="back"></div>
           <div class="sfoto" id="sfoto" data-foto="${C.fotoSobre ?? 0}"><img class="ph" src="${esc(F[C.fotoSobre ?? 0])}" alt="">${pearls()}</div>
           <div class="front"></div>
-          <div class="flap" id="flap"><div class="sh"></div><div class="f"></div><div class="b">${toile()}</div></div>
+          <div class="flap" id="flap"><div class="sh"></div><div class="f"></div><div class="b"><div class="lin">${toile()}</div></div></div>
           ${heartSeal()}
         </div>
         <div class="bq" style="left:2cqw;top:30cqw;width:24cqw;transform:rotate(-24deg);z-index:8"><img src="flores/ramo-blanco.webp" alt=""></div>
@@ -857,10 +860,10 @@
       gsap.to("#envHint", { opacity: 0, duration: .4 });
       gsap.timeline()
         .to(".env .seal", { scale: 1.15, duration: .2, ease: "sine.out" })
-        .to(".env .seal", { top: "76%", scale: 1, duration: .55, ease: "back.out(1.6)" }, ">")   // el sello baja al frente del sobre
+        .to(".env .seal", { top: "56%", scale: 1, duration: .55, ease: "back.out(1.6)" }, ">")   // el sello baja al frente del sobre
         .to("#flap", { rotationX: 180, duration: 1.1, ease: "power2.inOut" }, "-=.2")
         .set("#flap", { zIndex: 1 }, "-=.45")
-        .to("#sfoto", { y: -27 * u, duration: 1.5, ease: "power3.out" }, "-=.25")
+        .to("#sfoto", { y: -26 * u, duration: 1.5, ease: "power3.out" }, "-=.25")
         .to("#sfoto .pearls", { opacity: 1, duration: .8 }, "-=1.1");
     };
     $(".env .seal").addEventListener("click", openEnv);
