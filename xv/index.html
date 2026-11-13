@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
-<title>Mis XV Años</title>
+<title>XV de Valentina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Pinyon+Script&display=block" rel="stylesheet">
@@ -25,7 +25,7 @@
      Todo se mide en cqw/cqh (unidades del stage). */
   #stage{position:relative;
     width:min(100vw,56.25vh);width:min(100vw,56.25dvh);
-    height:100vh;height:100dvh;
+    height:100%;
     overflow:hidden;container-type:size;background:#000;isolation:isolate;
     user-select:none;-webkit-user-select:none}
   .layer{position:absolute;inset:0;pointer-events:none}
@@ -545,7 +545,7 @@ const CONFIG = {
       <section class="sec tint">
         <h2 class="rv">Faltan</h2><div class="cap rv">${esc(E.fechaTexto)}</div>
         <div class="count rv tilt" id="count"><div><b>0</b><span>días</span></div><div><b>0</b><span>horas</span></div><div><b>0</b><span>min</span></div><div><b>0</b><span>seg</span></div></div>
-        <div class="cal rv"><a class="btn small" id="gcal" target="_blank" rel="noopener">Google Calendar</a><button class="btn small ghost" id="icsBtn" type="button">iPhone / Outlook</button></div>
+        <div class="cal rv"><a class="btn small" id="gcal" target="_blank" rel="noopener">Google Calendar</a><a class="btn small ghost" id="ocal" target="_blank" rel="noopener">Outlook</a></div>
       </section>
       <section class="sec">
         <h2 class="rv">¿Dónde?</h2><div class="cap rv">Ceremonia y recepción</div>
@@ -574,7 +574,7 @@ const CONFIG = {
           <input name="nombre" placeholder="Tu nombre completo" required maxlength="80">
           <div class="stepper"><span>Personas</span><div><button type="button" data-d="-1" aria-label="Menos">−</button><b id="pax">1</b><button type="button" data-d="1" aria-label="Más">+</button></div></div>
           <textarea name="msg" rows="2" maxlength="300" placeholder="Un mensaje para ${esc(CONFIG.quinceanera)} (opcional)"></textarea>
-          <button class="btn wine" type="submit">Confirmar por WhatsApp</button>
+          <a class="btn wine" id="rsvpLink" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
         </form>
       </section>
       <section class="closing">
@@ -607,15 +607,8 @@ const CONFIG = {
     const f = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
     const titulo = `XV años de ${CONFIG.quinceanera}`, lugar = `${E.recepcion.lugar}, ${E.recepcion.direccion}`;
     $("#gcal").href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${f(start)}/${f(end)}&location=${encodeURIComponent(lugar)}&details=${encodeURIComponent(`${E.ceremonia.titulo}: ${E.ceremonia.lugar} · ${E.ceremonia.hora}`)}`;
-    $("#icsBtn").addEventListener("click", () => {
-      const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Invitacion XV//ES", "BEGIN:VEVENT",
-        `UID:${Date.now()}@invitacion`, `DTSTAMP:${f(new Date())}`, `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
-        `SUMMARY:${titulo}`, `LOCATION:${lugar}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
-      a.download = `XV-${CONFIG.quinceanera}.ics`; a.click();
-      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-    });
+    const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:00`;
+    $("#ocal").href = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(titulo)}&startdt=${iso(start)}&enddt=${iso(end)}&location=${encodeURIComponent(lugar)}`;
 
     // formulario RSVP → WhatsApp
     let pax = 1;
@@ -624,12 +617,16 @@ const CONFIG = {
       $("#pax").textContent = pax;
       gsap.fromTo("#pax", { scale: 1.5 }, { scale: 1, duration: .4, ease: "back.out(2)" });
     }));
-    $("#rsvp").addEventListener("submit", e => {
-      e.preventDefault();
-      const fd = new FormData(e.target), nombre = String(fd.get("nombre")).trim(), msg = String(fd.get("msg") || "").trim();
-      const texto = `Hola, soy ${nombre}. Confirmo mi asistencia a los XV años de ${CONFIG.quinceanera} (${pax} ${pax === 1 ? "persona" : "personas"}).${msg ? `\n\nMensaje: ${msg}` : ""}`;
-      window.open(`https://wa.me/${E.rsvpWhatsapp}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
-    });
+    const form = $("#rsvp"), link = $("#rsvpLink");
+    const updateLink = () => {
+      const fd = new FormData(form), nombre = String(fd.get("nombre") || "").trim(), msg = String(fd.get("msg") || "").trim();
+      const texto = `Hola${nombre ? `, soy ${nombre}` : ""}. Confirmo mi asistencia a los XV años de ${CONFIG.quinceanera} (${pax} ${pax === 1 ? "persona" : "personas"}).${msg ? `\n\nMensaje: ${msg}` : ""}`;
+      link.href = `https://wa.me/${E.rsvpWhatsapp}?text=${encodeURIComponent(texto)}`;
+    };
+    form.addEventListener("input", updateLink);
+    form.addEventListener("submit", e => { e.preventDefault(); updateLink(); link.click(); });
+    $$(".stepper button").forEach(b => b.addEventListener("click", updateLink));
+    updateLink();
   }
 
   /* ---------- Galería 3D en anillo ---------- */
@@ -864,7 +861,8 @@ const CONFIG = {
     gsap.fromTo(".inv-hero .lat.r", { xPercent: 40, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 1.4, ease: "power3.out" });
     gsap.to(".scrollcue i", { scaleY: .4, transformOrigin: "top", duration: 1.2, yoyo: true, repeat: -1, ease: "sine.inOut" });
     gsap.fromTo(".hero-photo img", { scale: 1.25 }, { scale: 1.08, duration: 2.4, ease: "power2.out" });
-    initGallery(); initLightbox(); initTilt(); initPetals();
+    initGallery(); initLightbox(); initTilt();
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) initPetals();
     gsap.set("#petals", { visibility: "visible" });
     root.addEventListener("click", e => {
       if (e.target.closest("a,button,input,textarea,form,.g3d,.gdots")) return;
