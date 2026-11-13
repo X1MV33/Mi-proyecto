@@ -172,7 +172,7 @@
   .script{font-family:"Pinyon Script",cursive;color:var(--name);font-weight:400;line-height:1.15}
   .inv-hero .script{font-size:21cqw;margin:1cqw 0}
   .inv-hero .date{font-size:3.5cqw;letter-spacing:.2em;padding-left:.2em;text-transform:uppercase;white-space:nowrap}
-  .scrollcue{position:absolute;bottom:20cqh;left:50%;transform:translateX(-50%);font-size:3cqw;letter-spacing:.3em;
+  .scrollcue{position:absolute;bottom:14cqh;left:50%;transform:translateX(-50%);font-size:3cqw;letter-spacing:.3em;
     display:flex;flex-direction:column;align-items:center;gap:1.5cqw;opacity:.8}
   .scrollcue i{display:block;width:1px;height:7cqw;background:linear-gradient(var(--serif),transparent)}
   .sec{padding:13cqw 9cqw;position:relative}
@@ -219,6 +219,107 @@
   .closing .script{font-size:17cqw}
   .inv-wm{position:absolute;bottom:3cqw;left:0;right:0;font-size:2.6cqw;letter-spacing:.24em;color:rgba(255,255,255,.85);text-shadow:0 0 1cqw rgba(0,0,0,.35)}
   .rv{opacity:0;transform:translateY(5cqw)}
+
+  /* =================== EXTRAS INTERACTIVOS / 3D =================== */
+  /* Puertas de palacio 3D (transición portada → invitación) */
+  #doors{position:absolute;inset:0;z-index:58;perspective:150cqw;visibility:hidden;pointer-events:none}
+  .door{position:absolute;top:0;width:50.2%;height:100%;transform-style:preserve-3d;backface-visibility:hidden;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% 45%, rgba(255,255,255,.08), rgba(0,0,0,.25)),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0 .4cqw, rgba(255,255,255,.03) .4cqw 1.1cqw),
+      #4C5A36;box-shadow:inset 0 0 6cqw rgba(0,0,0,.35)}
+  .door.l{left:0;transform-origin:0 50%}
+  .door.r{right:0;transform-origin:100% 50%}
+  .door .dp{position:absolute;inset:9cqh 6cqw 7cqh;border:1px solid rgba(230,232,207,.6);border-radius:22cqw 22cqw 1cqw 1cqw}
+  .door .dp::before{content:"";position:absolute;inset:1.6cqw;border:1px solid rgba(201,161,90,.55);border-radius:20cqw 20cqw .6cqw .6cqw}
+  .door .dp::after{content:"";position:absolute;left:50%;top:38%;width:9cqw;height:9cqw;margin-left:-4.5cqw;opacity:.7;
+    background:url("../assets/estrella.svg") center/contain no-repeat}
+  .door .knob{position:absolute;top:52%;width:3.4cqw;height:3.4cqw;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#F6E3A8,#C9A15A 55%,#7E6230);box-shadow:0 .4cqw .8cqw rgba(0,0,0,.4)}
+  .door.l .knob{right:3cqw}.door.r .knob{left:3cqw}
+  .door .shade{position:absolute;inset:0;background:#000;opacity:0}
+  .seal{position:absolute;left:50%;top:50%;width:34cqw;height:34cqw;margin:-17cqw 0 0 -17cqw;border-radius:50%;
+    background:radial-gradient(circle at 40% 35%,#FBF6EA,#EDE4CF);box-shadow:0 1.5cqw 5cqw rgba(0,0,0,.45),inset 0 0 0 1.2cqw #F6EEDC,inset 0 0 0 1.5cqw #C9A15A;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--name)}
+  .seal svg{width:15cqw;height:auto}
+  .seal b{font-family:"Bodoni Moda",serif;font-weight:400;font-size:10cqw;line-height:1;letter-spacing:.04em}
+  .seal span{font-size:2.6cqw;letter-spacing:.3em;margin-top:1cqw;color:var(--serif)}
+
+  /* Pétalos 3D y destellos al tocar */
+  #petals,#fx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  #petals{z-index:52;visibility:hidden;perspective:80cqw}
+  #fx{z-index:53}
+  .petal{position:absolute;left:0;top:0;width:4.2cqw;height:5.4cqw}
+  .petal svg{width:100%;height:100%;display:block}
+  .burst{position:absolute;width:3.4cqw;height:3.4cqw;margin:-1.7cqw 0 0 -1.7cqw}
+
+  /* Música */
+  #musicBtn{position:absolute;z-index:55;top:calc(3cqw + env(safe-area-inset-top,0px));right:3.5cqw;
+    width:12cqw;height:12cqw;border-radius:50%;border:1px solid rgba(158,52,96,.35);cursor:pointer;
+    background:rgba(255,252,246,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    box-shadow:0 1cqw 3cqw rgba(60,40,40,.18);display:flex;align-items:center;justify-content:center;
+    visibility:hidden;opacity:0;padding:0}
+  #musicBtn svg{width:7.4cqw;height:7.4cqw}
+  #musicBtn .slash{opacity:0;transition:opacity .3s}
+  #musicBtn.off .slash{opacity:1}
+  #musicBtn .bars rect{transform-box:fill-box;transform-origin:50% 100%}
+  #musicTip{position:absolute;z-index:55;top:calc(5.6cqw + env(safe-area-inset-top,0px));right:17.5cqw;
+    font-size:3cqw;letter-spacing:.12em;color:var(--serif);background:rgba(255,252,246,.85);padding:1cqw 2.4cqw;border-radius:99px;
+    opacity:0;visibility:hidden;white-space:nowrap}
+
+  /* Foto de portada interna en arco con marco dorado (inclinación 3D) */
+  .inv-hero > :not(img):not(.scrollcue){position:relative;z-index:2}
+  .inv-hero .scrollcue{z-index:2}
+  .hero-photo{width:46cqw;height:58cqw;border-radius:23cqw 23cqw 1.6cqw 1.6cqw;overflow:hidden;margin-bottom:4cqw;
+    border:1.1cqw solid #FFFDF8;box-shadow:0 0 0 .5cqw #C9A15A,0 3cqw 7cqw rgba(70,50,40,.3)}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
+  .tilt{transform-style:preserve-3d;will-change:transform}
+
+  /* Galería 3D (carrusel en anillo) */
+  .g3d{position:relative;height:96cqw;margin:4cqw -9cqw 0;perspective:170cqw;touch-action:pan-y;cursor:grab;user-select:none}
+  .g3d:active{cursor:grabbing}
+  .ring{position:absolute;left:50%;top:46%;width:46cqw;height:62cqw;margin:-31cqw 0 0 -23cqw;transform-style:preserve-3d}
+  .gitem{position:absolute;inset:0;margin:0;border-radius:23cqw 23cqw 1.6cqw 1.6cqw;overflow:hidden;
+    border:1cqw solid #FFFDF8;box-shadow:0 0 0 .4cqw #C9A15A,0 3cqw 6cqw rgba(60,45,35,.28);background:#ddd;
+    -webkit-box-reflect:below 2cqw linear-gradient(transparent 72%, rgba(255,255,255,.28))}
+  .gitem img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+  .ghint{font-size:3.3cqw;letter-spacing:.18em;opacity:.75;margin-top:1cqw}
+  .gdots{display:flex;justify-content:center;gap:2.4cqw;margin-top:1cqw}
+  .gdots i{width:2cqw;height:2cqw;border-radius:50%;border:1px solid var(--name);transition:background .3s}
+  .gdots i.on{background:var(--name)}
+
+  /* Visor de fotos */
+  #lightbox{position:absolute;inset:0;z-index:60;background:rgba(24,20,16,.94);visibility:hidden;opacity:0;
+    display:flex;align-items:center;justify-content:center;touch-action:none}
+  #lightbox img{max-width:90cqw;max-height:78cqh;border-radius:1.6cqw;box-shadow:0 3cqw 8cqw rgba(0,0,0,.5);user-select:none;-webkit-user-drag:none}
+  #lightbox button{position:absolute;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;
+    width:11cqw;height:11cqw;border-radius:50%;font-size:5.5cqw;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  #lbClose{top:calc(4cqw + env(safe-area-inset-top,0px));right:4cqw}
+  #lbPrev{left:3cqw;top:50%;margin-top:-5.5cqw}#lbNext{right:3cqw;top:50%;margin-top:-5.5cqw}
+  #lbCount{position:absolute;bottom:calc(5cqw + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:rgba(255,255,255,.8);
+    font-size:3.4cqw;letter-spacing:.3em}
+
+  /* Calendario, formulario RSVP */
+  .cal{display:flex;flex-wrap:wrap;justify-content:center;gap:2.4cqw;margin-top:5cqw}
+  .btn.small{margin-top:0;padding:2.2cqw 4.6cqw;font-size:3.1cqw}
+  .btn.ghost{background:transparent;color:#5E6B45;border:1px solid #6E7B52;box-shadow:none}
+  button.btn{border:0;cursor:pointer}
+  .rsvp{display:flex;flex-direction:column;gap:3cqw;margin:6cqw auto 0;max-width:78cqw;text-align:left}
+  .rsvp input,.rsvp textarea{font:inherit;font-size:4.6cqw;color:#5C4A48;background:rgba(255,255,255,.75);
+    border:1px solid #C9C3A4;border-radius:2cqw;padding:3cqw 3.6cqw;outline:none;width:100%;resize:none}
+  .rsvp input:focus,.rsvp textarea:focus{border-color:var(--name);box-shadow:0 0 0 .6cqw rgba(158,52,96,.12)}
+  .stepper{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.75);
+    border:1px solid #C9C3A4;border-radius:2cqw;padding:1.6cqw 2cqw 1.6cqw 3.6cqw;font-size:4.6cqw}
+  .stepper div{display:flex;align-items:center;gap:3cqw}
+  .stepper button{width:9cqw;height:9cqw;border-radius:50%;border:1px solid var(--name);background:#fff;color:var(--name);font-size:5cqw;cursor:pointer;line-height:1}
+  .stepper b{font-family:"Bodoni Moda",serif;font-weight:400;font-size:6cqw;min-width:6cqw;text-align:center;color:var(--name)}
+  .rsvp .btn{align-self:center}
+
+  /* Cierre con foto */
+  .closing{background:
+    linear-gradient(180deg,#F6F0E6 0%,rgba(246,240,230,.82) 26%,rgba(246,240,230,.15) 52%,rgba(246,240,230,0) 70%),
+    var(--closing-photo) center 30%/cover no-repeat}
+  .count b{display:block;transform-style:preserve-3d}
 </style>
 </head>
 <body>
@@ -294,6 +395,32 @@
 
   <!-- SIGUIENTE SECCIÓN DE LA INVITACIÓN (vacía, lista para llenarse) -->
   <main id="invitacion" aria-hidden="true"><div class="inv" id="invContent"></div></main>
+
+  <!-- Capas interactivas -->
+  <div id="petals" aria-hidden="true"></div>
+  <div id="fx" aria-hidden="true"></div>
+  <button id="musicBtn" aria-label="Activar o pausar la música">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <g class="bars" fill="#9E3460"><rect x="9" y="12" width="3.2" height="16" rx="1.6"/><rect x="15.4" y="8" width="3.2" height="20" rx="1.6"/><rect x="21.8" y="14" width="3.2" height="14" rx="1.6"/><rect x="28.2" y="10" width="3.2" height="18" rx="1.6"/></g>
+      <path d="M8 31h24" stroke="#C9A15A" stroke-width="1.4" stroke-linecap="round"/>
+      <path class="slash" d="M7 7 L33 33" stroke="#8A5A5E" stroke-width="2.2" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <div id="musicTip">Toca para música ♪</div>
+  <div id="lightbox" role="dialog" aria-label="Visor de fotos">
+    <img id="lbImg" alt="">
+    <button id="lbPrev" aria-label="Anterior">‹</button><button id="lbNext" aria-label="Siguiente">›</button>
+    <button id="lbClose" aria-label="Cerrar">×</button>
+    <div id="lbCount"></div>
+  </div>
+  <div id="doors" aria-hidden="true">
+    <div class="door l"><div class="dp"></div><div class="knob"></div><div class="shade"></div></div>
+    <div class="door r"><div class="dp"></div><div class="knob"></div><div class="shade"></div></div>
+    <div class="seal">
+      <svg viewBox="60 20 80 46"><g fill="none" stroke="#9E3460" stroke-width="1.2" stroke-linejoin="round"><path d="M66 58 C 73 55, 78 48, 80 38 C 84 46, 87 50, 91 48 C 93 40, 97 32, 100 24 C 103 32, 107 40, 109 48 C 113 50, 116 46, 120 38 C 122 48, 127 55, 134 58 C 122 55, 111 54, 100 54 C 89 54, 78 55, 66 58 Z"/><circle cx="80" cy="44" r="2"/><circle cx="120" cy="44" r="2"/></g></svg>
+      <b id="sealText">XV</b><span id="sealName"></span>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -329,6 +456,12 @@ const CONFIG = {
     cierre: "¡Te espero!"
   },
   assetsPath: "../assets/",
+  // Fotos de la quinceañera (galería 3D, portada interna y cierre). Reemplázalas por las reales.
+  fotos: ["fotos/foto1.jpg", "fotos/foto2.jpg", "fotos/foto3.jpg", "fotos/foto4.jpg", "fotos/foto5.jpg"],
+  fotoPortada: 0,                 // índice de la foto en arco al abrir la invitación
+  fotoCierre: 4,                  // índice de la foto de fondo del cierre
+  // Música: pon la ruta a tu canción (p. ej. "musica.mp3" dentro de /xv). Vacío = vals de caja musical generado en vivo.
+  musica: "",
   duracion: 20,                   // duración del loop (s); toda la secuencia se escala
   numEstrellas: 12,
   numParticulas: 22,
@@ -364,6 +497,8 @@ const CONFIG = {
   $(".g2").textContent = CONFIG.iniciales[1];
   $(".g2u").textContent = CONFIG.iniciales[1];
   $("#watermark").textContent = CONFIG.marcaDeAgua;
+  $("#sealName").textContent = CONFIG.quinceanera.toUpperCase();
+  $("#sealText").textContent = CONFIG.iniciales.join("");
   document.title = `${CONFIG.textoSuperior} · ${CONFIG.quinceanera}`;
 
 
@@ -376,7 +511,7 @@ const CONFIG = {
       church: `<svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M24 4v8M20 8h8M14 44V22l10-8 10 8v22M6 44V30l8-5M42 44V30l-8-5M4 44h40"/><path d="M20 44v-8a4 4 0 0 1 8 0v8"/></svg>`,
       glass: `<svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 6h10l-1 12a4 4 0 0 1-8 0zM26 6h10l-1 12a4 4 0 0 1-8 0zM17 22v16M31 22v16M12 40h10M26 40h10M20 4l4-2 4 2"/></svg>`
     };
-    const card = (c, icon) => `<div class="card rv">${ico[icon]}<h3>${esc(c.titulo)}</h3>
+    const card = (c, icon) => `<div class="card rv tilt">${ico[icon]}<h3>${esc(c.titulo)}</h3>
         <div class="place">${esc(c.lugar)}</div><div class="addr">${esc(c.direccion)}</div>
         <div class="time">${esc(c.hora)}</div>
         <a class="btn" href="${esc(c.mapa)}" target="_blank" rel="noopener">Cómo llegar</a></div>`;
@@ -385,7 +520,7 @@ const CONFIG = {
       <section class="inv-hero">
         <img class="lat l" src="${A}e2_marco_lat.png" alt=""><img class="lat r" src="${A}e2_marco_lat.png" alt="">
         <img class="top" src="${A}e2_marco_sup.png" alt=""><img class="bot" src="${A}e2_marco_inf.png" alt="">
-        <div class="rv">${tiara}</div>
+        <div class="hero-photo tilt rv"><img src="${esc(CONFIG.fotos[CONFIG.fotoPortada] || "")}" alt="${esc(CONFIG.quinceanera)}"></div>
         <div class="kick rv">${esc(CONFIG.textoSuperior)}</div>
         <div class="script rv">${esc(CONFIG.quinceanera)}</div>
         <div class="date rv">${esc(E.fechaTexto)}</div>
@@ -399,9 +534,18 @@ const CONFIG = {
           <div class="rv"><h3>Mis padrinos</h3>${E.padrinos.map(esc).join("<br>")}</div>
         </div>
       </section>
+      <section class="sec tint" id="galeria">
+        <h2 class="rv">Mis recuerdos</h2>
+        <div class="ghint rv">DESLIZA PARA GIRAR · TOCA PARA VER</div>
+        <div class="g3d rv" id="g3d"><div class="ring" id="ring">
+          ${CONFIG.fotos.map((f, i) => `<figure class="gitem" data-i="${i}"><img src="${esc(f)}" alt="Foto ${i + 1}" loading="lazy" decoding="async"></figure>`).join("")}
+        </div></div>
+        <div class="gdots" id="gdots">${CONFIG.fotos.map(() => "<i></i>").join("")}</div>
+      </section>
       <section class="sec tint">
         <h2 class="rv">Faltan</h2><div class="cap rv">${esc(E.fechaTexto)}</div>
-        <div class="count rv" id="count"><div><b>0</b><span>días</span></div><div><b>0</b><span>horas</span></div><div><b>0</b><span>min</span></div><div><b>0</b><span>seg</span></div></div>
+        <div class="count rv tilt" id="count"><div><b>0</b><span>días</span></div><div><b>0</b><span>horas</span></div><div><b>0</b><span>min</span></div><div><b>0</b><span>seg</span></div></div>
+        <div class="cal rv"><a class="btn small" id="gcal" target="_blank" rel="noopener">Google Calendar</a><button class="btn small ghost" id="icsBtn" type="button">iPhone / Outlook</button></div>
       </section>
       <section class="sec">
         <h2 class="rv">¿Dónde?</h2><div class="cap rv">Ceremonia y recepción</div>
@@ -426,12 +570,16 @@ const CONFIG = {
       <section class="sec tint">
         <h2 class="rv">Confirma</h2>
         <p class="rv" style="margin-top:3cqw">Por favor confirma tu asistencia antes del <b style="font-weight:500">${esc(E.rsvpFecha)}</b>.</p>
-        <a class="btn wine rv" href="${wa}" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+        <form class="rsvp rv" id="rsvp" autocomplete="on">
+          <input name="nombre" placeholder="Tu nombre completo" required maxlength="80">
+          <div class="stepper"><span>Personas</span><div><button type="button" data-d="-1" aria-label="Menos">−</button><b id="pax">1</b><button type="button" data-d="1" aria-label="Más">+</button></div></div>
+          <textarea name="msg" rows="2" maxlength="300" placeholder="Un mensaje para ${esc(CONFIG.quinceanera)} (opcional)"></textarea>
+          <button class="btn wine" type="submit">Confirmar por WhatsApp</button>
+        </form>
       </section>
       <section class="closing">
         <div class="kick rv">${esc(E.cierre)}</div>
         <div class="script rv">${esc(CONFIG.quinceanera)}</div>
-        <div class="rv">${tiara}</div>
         <img class="bot" src="${A}e2_marco_inf.png" alt="">
         <div class="inv-wm">${esc(CONFIG.marcaDeAgua)}</div>
       </section>`;
@@ -441,17 +589,272 @@ const CONFIG = {
     const tick = () => {
       let d = Math.max(0, target - Date.now()) / 1000;
       const v = [Math.floor(d / 86400), Math.floor(d % 86400 / 3600), Math.floor(d % 3600 / 60), Math.floor(d % 60)];
-      cells.forEach((c, i) => c.textContent = i ? String(v[i]).padStart(2, "0") : v[i]);
+      cells.forEach((c, i) => {
+        const txt = i ? String(v[i]).padStart(2, "0") : String(v[i]);
+        if (c.textContent === txt) return;
+        c.textContent = txt;
+        if (c._ready) gsap.fromTo(c, { rotationX: -90, opacity: .2 }, { rotationX: 0, opacity: 1, duration: .55, ease: "back.out(1.6)", transformPerspective: 260 });
+        c._ready = true;
+      });
     };
-    tick(); setInterval(tick, 1000);
+    tick(); (function loop() { gsap.delayedCall(1, () => { tick(); loop(); }); })();   // reloj de GSAP (se puede grabar cuadro a cuadro)
+
+    // foto del cierre
+    $(".closing").style.setProperty("--closing-photo", `url("${CONFIG.fotos[CONFIG.fotoCierre] || ""}")`);
+
+    // calendario
+    const start = new Date(E.fechaISO), end = new Date(start.getTime() + 7 * 3600e3);
+    const f = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
+    const titulo = `XV años de ${CONFIG.quinceanera}`, lugar = `${E.recepcion.lugar}, ${E.recepcion.direccion}`;
+    $("#gcal").href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${f(start)}/${f(end)}&location=${encodeURIComponent(lugar)}&details=${encodeURIComponent(`${E.ceremonia.titulo}: ${E.ceremonia.lugar} · ${E.ceremonia.hora}`)}`;
+    $("#icsBtn").addEventListener("click", () => {
+      const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Invitacion XV//ES", "BEGIN:VEVENT",
+        `UID:${Date.now()}@invitacion`, `DTSTAMP:${f(new Date())}`, `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
+        `SUMMARY:${titulo}`, `LOCATION:${lugar}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+      a.download = `XV-${CONFIG.quinceanera}.ics`; a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    });
+
+    // formulario RSVP → WhatsApp
+    let pax = 1;
+    $$(".stepper button").forEach(b => b.addEventListener("click", () => {
+      pax = Math.min(10, Math.max(1, pax + +b.dataset.d));
+      $("#pax").textContent = pax;
+      gsap.fromTo("#pax", { scale: 1.5 }, { scale: 1, duration: .4, ease: "back.out(2)" });
+    }));
+    $("#rsvp").addEventListener("submit", e => {
+      e.preventDefault();
+      const fd = new FormData(e.target), nombre = String(fd.get("nombre")).trim(), msg = String(fd.get("msg") || "").trim();
+      const texto = `Hola, soy ${nombre}. Confirmo mi asistencia a los XV años de ${CONFIG.quinceanera} (${pax} ${pax === 1 ? "persona" : "personas"}).${msg ? `\n\nMensaje: ${msg}` : ""}`;
+      window.open(`https://wa.me/${E.rsvpWhatsapp}?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
+    });
   }
+
+  /* ---------- Galería 3D en anillo ---------- */
+  function initGallery() {
+    const g = $("#g3d"), ring = $("#ring"), items = $$(".gitem", ring), dots = $$("#gdots i");
+    const N = items.length, step = 360 / N, st = { a: 0 };
+    let R = 0, auto, dragging = false, moved = 0, lastX = 0, vel = 0;
+    const layout = () => {
+      R = (ring.offsetWidth / 2) / Math.tan(Math.PI / N) * 1.35;
+      items.forEach((it, i) => { it.style.transform = `rotateY(${i * step}deg) translateZ(${R}px)`; });   // orden: girar y luego alejar
+      render();
+    };
+    const front = () => ((Math.round(-st.a / step) % N) + N) % N;
+    function render() {
+      gsap.set(ring, { z: -R, rotationY: st.a });
+      items.forEach((it, i) => {
+        const ang = ((i * step + st.a) % 360 + 540) % 360 - 180;          // -180..180, 0 = al frente
+        const k = Math.cos(ang * Math.PI / 180);
+        it.style.opacity = (.35 + .65 * Math.max(0, (k + 1) / 2)).toFixed(3);
+        it.style.filter = `brightness(${(.55 + .45 * Math.max(0, k)).toFixed(3)})`;
+      });
+      const fi = front(); dots.forEach((d, i) => d.classList.toggle("on", i === fi));
+    }
+    const goTo = (a, d = 1) => gsap.to(st, { a, duration: d, ease: "power3.out", onUpdate: render, overwrite: true });
+    const snap = a => Math.round(a / step) * step;
+    const startAuto = () => {
+      if (auto) auto.kill();
+      auto = gsap.delayedCall(3.6, () => { if (!dragging && !$("#lightbox").classList.contains("on")) goTo(snap(st.a) - step, 1.3); startAuto(); });
+    };
+    g.addEventListener("pointerdown", e => { dragging = true; moved = 0; lastX = e.clientX; vel = 0; gsap.killTweensOf(st); g.setPointerCapture(e.pointerId); });
+    g.addEventListener("pointermove", e => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX; lastX = e.clientX; moved += Math.abs(dx);
+      vel = dx; st.a += dx * .32; render();
+    });
+    const end = e => {
+      if (!dragging) return; dragging = false;
+      if (moved < 6) {                                   // toque → abrir foto
+        const el = document.elementFromPoint(e.clientX, e.clientY)?.closest(".gitem");
+        const i = el ? +el.dataset.i : front();
+        if (i === front()) openLightbox(i); else goTo(snap(-i * step + Math.round((st.a + i * step) / 360) * 360));
+      } else goTo(snap(st.a + vel * 4), 1.1);
+      startAuto();
+    };
+    g.addEventListener("pointerup", end); g.addEventListener("pointercancel", end);
+    dots.forEach((d, i) => d.addEventListener("click", () => goTo(snap(-i * step))));
+    addEventListener("resize", layout);
+    layout(); startAuto();
+    gsap.to(ring, { y: "-=8", duration: 3, yoyo: true, repeat: -1, ease: "sine.inOut" });
+  }
+
+  /* ---------- Visor de fotos ---------- */
+  let lbIndex = 0;
+  function openLightbox(i) {
+    const lb = $("#lightbox"); lbIndex = i; showLb(0);
+    lb.classList.add("on");
+    gsap.set(lb, { visibility: "visible" });
+    gsap.to(lb, { opacity: 1, duration: .35 });
+    gsap.fromTo("#lbImg", { scale: .86, rotationY: -12, transformPerspective: 900 }, { scale: 1, rotationY: 0, duration: .6, ease: "power3.out" });
+  }
+  function closeLightbox() {
+    const lb = $("#lightbox"); lb.classList.remove("on");
+    gsap.to(lb, { opacity: 0, duration: .3, onComplete: () => gsap.set(lb, { visibility: "hidden" }) });
+  }
+  function showLb(dir) {
+    const n = CONFIG.fotos.length; lbIndex = (lbIndex + dir + n) % n;
+    const img = $("#lbImg");
+    const swap = () => { img.src = CONFIG.fotos[lbIndex]; $("#lbCount").textContent = `${lbIndex + 1} / ${n}`; };
+    if (!dir) return swap();
+    gsap.timeline().to(img, { x: -dir * 60, opacity: 0, duration: .2, onComplete: swap })
+      .fromTo(img, { x: dir * 60, opacity: 0 }, { x: 0, opacity: 1, duration: .3, ease: "power2.out" });
+  }
+  function initLightbox() {
+    const lb = $("#lightbox");
+    $("#lbPrev").addEventListener("click", e => { e.stopPropagation(); showLb(-1); });
+    $("#lbNext").addEventListener("click", e => { e.stopPropagation(); showLb(1); });
+    $("#lbClose").addEventListener("click", e => { e.stopPropagation(); closeLightbox(); });
+    lb.addEventListener("click", e => { if (e.target === lb) closeLightbox(); });
+    let sx = null;
+    lb.addEventListener("pointerdown", e => { sx = e.clientX; });
+    lb.addEventListener("pointerup", e => { if (sx === null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 40) showLb(dx < 0 ? 1 : -1); });
+    addEventListener("keydown", e => {
+      if (!lb.classList.contains("on")) return;
+      if (e.key === "Escape") closeLightbox(); if (e.key === "ArrowRight") showLb(1); if (e.key === "ArrowLeft") showLb(-1);
+    });
+  }
+
+  /* ---------- Inclinación 3D (dedo/ratón y giroscopio) ---------- */
+  function initTilt() {
+    const els = $$(".tilt");
+    const qs = els.map(el => ({ el, rx: gsap.quickTo(el, "rotationX", { duration: .6, ease: "power3.out" }), ry: gsap.quickTo(el, "rotationY", { duration: .6, ease: "power3.out" }) }));
+    els.forEach(el => gsap.set(el, { transformPerspective: 700 }));
+    qs.forEach(({ el, rx, ry }) => {
+      el.addEventListener("pointermove", e => {
+        const r = el.getBoundingClientRect();
+        ry(((e.clientX - r.left) / r.width - .5) * 16); rx(-((e.clientY - r.top) / r.height - .5) * 12);
+      });
+      el.addEventListener("pointerleave", () => { rx(0); ry(0); });
+    });
+    addEventListener("deviceorientation", e => {
+      if (e.beta == null) return;
+      const ry = gsap.utils.clamp(-12, 12, e.gamma * .5), rx = gsap.utils.clamp(-10, 10, (e.beta - 45) * -.3);
+      qs.forEach(q => { q.rx(rx); q.ry(ry); });
+    });
+  }
+
+  /* ---------- Pétalos que caen en 3D ---------- */
+  function initPetals() {
+    const box = $("#petals"), cols = [["#F4C6D3", "#E79AB2"], ["#FFF4EA", "#F2DCCB"], ["#F7D9C4", "#EDB8A0"]];
+    for (let i = 0; i < 16; i++) {
+      const [a, b] = cols[i % 3], el = document.createElement("div");
+      el.className = "petal";
+      el.innerHTML = `<svg viewBox="0 0 20 26"><defs><linearGradient id="pg${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><path d="M10 1 C 17 6, 19 15, 10 25 C 1 15, 3 6, 10 1Z" fill="url(#pg${i})"/><path d="M10 4 C 10 12, 10 18, 10 23" stroke="${b}" stroke-width=".6" fill="none" opacity=".7"/></svg>`;
+      box.appendChild(el);
+      const W = () => box.clientWidth, H = () => box.clientHeight;
+      gsap.set(el, { x: () => gsap.utils.random(0, W()), y: () => gsap.utils.random(-H() * .2, H()), scale: gsap.utils.random(.55, 1.1) });
+      gsap.to(el, { y: () => H() + 60, x: () => `+=${gsap.utils.random(-W() * .25, W() * .25)}`, duration: () => gsap.utils.random(8, 14),
+        ease: "none", repeat: -1, repeatRefresh: true, delay: -gsap.utils.random(0, 10),
+        onRepeat() { gsap.set(el, { y: -40, x: gsap.utils.random(0, W()) }); } });
+      gsap.to(el, { rotationX: () => gsap.utils.random(180, 540), rotationY: () => gsap.utils.random(-360, 360), rotationZ: () => gsap.utils.random(-180, 180),
+        duration: () => gsap.utils.random(4, 8), ease: "sine.inOut", repeat: -1, yoyo: true, repeatRefresh: true });
+    }
+  }
+
+  /* ---------- Destellos al tocar ---------- */
+  function burst(x, y) {
+    const fx = $("#fx");
+    for (let i = 0; i < 9; i++) {
+      const el = document.createElement("div");
+      el.className = "burst";
+      el.innerHTML = `<svg viewBox="-10 -10 20 20"><path d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10Z" fill="${i % 3 ? "#C9A15A" : "#E79AB2"}"/></svg>`;
+      el.style.left = x + "px"; el.style.top = y + "px"; fx.appendChild(el);
+      const a = i / 9 * Math.PI * 2 + Math.random() * .5, d = 30 + Math.random() * 45;
+      gsap.fromTo(el, { scale: 0, rotation: 0 }, { x: Math.cos(a) * d, y: Math.sin(a) * d, scale: gsap.utils.random(.5, 1.1), rotation: 180,
+        duration: .8, ease: "power2.out" });
+      gsap.to(el, { opacity: 0, duration: .5, delay: .45, onComplete: () => el.remove() });
+    }
+  }
+
+  /* ---------- Música: canción propia o vals de caja musical generado (composición original) ---------- */
+  const Musica = (() => {
+    let ctx, master, timer, audio, on = false, nextT = 0, beat = 0;
+    const BPM = 88, SPB = 60 / BPM;
+    const mtof = n => 440 * Math.pow(2, (n - 69) / 12);
+    // Re mayor, 3/4 — progresión de 8 compases y melodía original
+    const chords = [[50, 62, 66, 69], [47, 62, 66, 71], [43, 62, 67, 71], [45, 61, 64, 69], [50, 62, 66, 69], [42, 61, 66, 69], [43, 62, 67, 71], [45, 61, 64, 67]];
+    const melody = [[78, 76, 74], [74, 78, 83], [81, 79, 78], [76, 0, 73], [78, 81, 86], [85, 81, 78], [79, 78, 76], [76, 73, 69]];
+    function reverb() {
+      const len = ctx.sampleRate * 2.6, buf = ctx.createBuffer(2, len, ctx.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+      const cv = ctx.createConvolver(); cv.buffer = buf; return cv;
+    }
+    function bell(note, t, vel, dur = 1.8) {
+      const g = ctx.createGain(); g.connect(master);
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vel, t + .006); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+      [[1, 1], [2, .28], [3.01, .08]].forEach(([m, a]) => {
+        const o = ctx.createOscillator(), og = ctx.createGain();
+        o.type = "sine"; o.frequency.value = mtof(note) * m; og.gain.value = a;
+        o.connect(og).connect(g); o.start(t); o.stop(t + dur + .05);
+      });
+    }
+    function schedule() {
+      while (nextT < ctx.currentTime + .25) {
+        const bar = Math.floor(beat / 3) % 8, b = beat % 3, pass = Math.floor(beat / 24);
+        const ch = chords[bar];
+        if (b === 0) bell(ch[0], nextT, .22, 2.4); else bell(ch[b], nextT, .07, 1.2), bell(ch[b + 1] || ch[1], nextT + .01, .05, 1.2);
+        const m = melody[bar][b];
+        if (m) bell(m + (pass % 2 ? 12 : 0), nextT, pass % 2 ? .1 : .14, 2);
+        if (pass % 2 && b === 2 && m) bell(m + 7, nextT + SPB / 2, .06, 1.2);   // adorno en la segunda vuelta
+        nextT += SPB; beat++;
+      }
+    }
+    function startSynth() {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      if (!master) {
+        master = ctx.createGain(); master.gain.value = 0;
+        const dry = ctx.createGain(), wet = ctx.createGain(), rv = reverb();
+        dry.gain.value = .8; wet.gain.value = .45;
+        master.connect(dry).connect(ctx.destination); master.connect(rv).connect(wet).connect(ctx.destination);
+      }
+      ctx.resume();
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setTargetAtTime(.55, ctx.currentTime, .6);
+      nextT = ctx.currentTime + .1; clearInterval(timer); timer = setInterval(schedule, 60);
+    }
+    function stopSynth() {
+      if (!ctx) return;
+      master.gain.setTargetAtTime(0, ctx.currentTime, .25);
+      setTimeout(() => clearInterval(timer), 900);
+    }
+    function play() {
+      on = true;
+      if (CONFIG.musica) {
+        audio = audio || Object.assign(new Audio(CONFIG.musica), { loop: true, volume: 0 });
+        audio.play().then(() => gsap.to(audio, { volume: .8, duration: 2 })).catch(() => { CONFIG.musica = ""; startSynth(); });
+      } else startSynth();
+      ui();
+    }
+    function pause() {
+      on = false;
+      if (audio && CONFIG.musica) gsap.to(audio, { volume: 0, duration: .6, onComplete: () => audio.pause() }); else stopSynth();
+      ui();
+    }
+    let barsTl;
+    function ui() {
+      const btn = $("#musicBtn"); btn.classList.toggle("off", !on);
+      if (!barsTl) barsTl = gsap.timeline({ repeat: -1 }).to("#musicBtn .bars rect", { scaleY: .35, duration: .35, stagger: { each: .12, yoyo: true, repeat: 1 }, ease: "sine.inOut" });
+      on ? barsTl.play() : (barsTl.pause(), gsap.to("#musicBtn .bars rect", { scaleY: .5, duration: .3 }));
+    }
+    document.addEventListener("visibilitychange", () => {
+      if (!ctx && !audio) return;
+      if (document.hidden) { if (audio) audio.pause(); if (ctx) ctx.suspend(); }
+      else if (on) { if (audio && CONFIG.musica) audio.play(); if (ctx) ctx.resume(); }
+    });
+    return { play, pause, toggle: () => (on ? pause() : play()), get on() { return on; } };
+  })();
+
   function revealInvitacion() {
     const root = $("#invitacion");
     const io = new IntersectionObserver(entries => entries.forEach(e => {
       if (!e.isIntersecting) return;
       io.unobserve(e.target);
-      gsap.to(e.target, { opacity: 1, y: 0, duration: 1, ease: "power2.out" });
+      gsap.to(e.target, { opacity: 1, y: 0, rotationX: 0, duration: 1.1, ease: "power3.out" });
     }), { root, threshold: .15 });
+    gsap.set($$(".rv", root).filter(el => !el.closest(".inv-hero") && !el.classList.contains("g3d")), { rotationX: 16, transformPerspective: 800, transformOrigin: "50% 100%" });
     $$(".rv", root).forEach((el, i) => io.observe(el));
     // la portada interna aparece en cascada
     gsap.to(".inv-hero .rv", { opacity: 1, y: 0, duration: 1.1, ease: "power2.out", stagger: .18, delay: .3 });
@@ -460,6 +863,18 @@ const CONFIG = {
     gsap.fromTo(".inv-hero .lat.l", { xPercent: -40, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 1.4, ease: "power3.out" });
     gsap.fromTo(".inv-hero .lat.r", { xPercent: 40, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 1.4, ease: "power3.out" });
     gsap.to(".scrollcue i", { scaleY: .4, transformOrigin: "top", duration: 1.2, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.fromTo(".hero-photo img", { scale: 1.25 }, { scale: 1.08, duration: 2.4, ease: "power2.out" });
+    initGallery(); initLightbox(); initTilt(); initPetals();
+    gsap.set("#petals", { visibility: "visible" });
+    root.addEventListener("click", e => {
+      if (e.target.closest("a,button,input,textarea,form,.g3d,.gdots")) return;
+      const r = stage.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top);
+    });
+    // botón de música
+    gsap.set("#musicBtn", { visibility: "visible" });
+    gsap.to("#musicBtn", { opacity: 1, duration: .6, delay: .6 });
+    $("#musicBtn").addEventListener("click", e => { e.stopPropagation(); Musica.toggle(); gsap.to("#musicTip", { opacity: 0, duration: .3 }); });
+    if (!Musica.on) gsap.timeline({ delay: 1.2 }).set("#musicTip", { visibility: "visible" }).to("#musicTip", { opacity: 1, duration: .5 }).to("#musicTip", { opacity: 0, duration: .5 }, "+=3.5");
   }
   renderInvitacion();
 
@@ -720,12 +1135,23 @@ const CONFIG = {
       opened = true;
       const inv = $("#invitacion");
       inv.setAttribute("aria-hidden", "false");
+      // gesto del usuario: arranca la música y pide permiso de giroscopio (iOS)
+      if (!REEL) Musica.play();
+      try { if (window.DeviceOrientationEvent && DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(() => {}); } catch (e) {}
       gsap.timeline()
         .to("#hint", { opacity: 0, duration: .3 }, 0)
-        .set(inv, { visibility: "visible" }, 0)
-        .fromTo(inv, { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power2.out" }, .1)
-        .add(revealInvitacion, .2)
-        .add(() => tl.pause());
+        .set("#doors", { visibility: "visible" }, 0)
+        .fromTo(".door", { opacity: 0 }, { opacity: 1, duration: .5, ease: "power1.out" }, 0)
+        .fromTo(".seal", { scale: .4, opacity: 0, rotationY: -90, transformPerspective: 600 }, { scale: 1, opacity: 1, rotationY: 0, duration: .9, ease: "back.out(1.5)" }, .25)
+        .set(inv, { visibility: "visible", opacity: 1 }, .8)
+        .add(() => tl.pause(), .8)
+        .to(".seal", { scale: 1.25, opacity: 0, duration: .5, ease: "power2.in" }, 1.5)
+        .to(".door.l", { rotationY: -108, duration: 1.9, ease: "power3.inOut" }, 1.7)
+        .to(".door.r", { rotationY: 108, duration: 1.9, ease: "power3.inOut" }, 1.7)
+        .to(".door .shade", { opacity: .55, duration: 1.9, ease: "power2.in" }, 1.7)
+        .fromTo(inv, { scale: .92 }, { scale: 1, duration: 2.2, ease: "power2.out" }, 1.6)
+        .add(revealInvitacion, 2)
+        .set("#doors", { visibility: "hidden" }, 3.7);
       document.dispatchEvent(new CustomEvent("invitacion:abrir"));
     };
     if (!REEL) stage.addEventListener("click", e => { if (!e.target.closest("#invitacion")) openInv(); });
