@@ -47,6 +47,7 @@
   #plane .av{width:100%;height:auto}
   #plane .hel{position:absolute;left:2.4%;top:56.2%;height:34%;width:auto;transform:translate(-50%,-50%)}
   #plane .trail{position:absolute;right:-30%;top:28%;width:40%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,0));filter:blur(1px);opacity:.8}
+  #stork{position:absolute;left:0;top:0;width:40cqw;z-index:9;opacity:0;will-change:transform}
   #rig{position:absolute;left:50%;bottom:0;width:48cqw;margin-left:-24cqw;z-index:8;will-change:transform}
   #rig .gl{width:100%;height:auto;position:relative;z-index:2}
   #strings{position:absolute;left:0;top:100%;width:100%;height:9cqw;overflow:visible;z-index:1}
@@ -200,6 +201,7 @@
   <img id="pueblo" alt="">
   <div class="lay" id="near" style="z-index:5"></div>
   <div id="title"><div class="k"></div><div class="nm"></div><div class="fr"></div></div>
+  <img id="stork" alt="">
   <div id="plane"><img class="av" alt=""><img class="hel" alt=""><i class="trail"></i></div>
   <div id="rig">
     <img class="gl" alt="">
@@ -308,7 +310,7 @@
   /* ======================= ESCENA ======================= */
   const intro = $("#intro"), W = () => intro.clientWidth, H = () => intro.clientHeight;
   $("#pueblo").src = IMG("pueblo");
-  $("#plane .av").src = IMG("avion"); $("#plane .hel").src = IMG("helice");
+  $("#plane .av").src = IMG("avion"); $("#stork").src = IMG("ciguena"); $("#plane .hel").src = IMG("helice");
   $("#rig .gl").src = IMG("globo"); $("#bow").src = IMG("mono"); $("#seal").src = IMG("sello");
   $("#gate .gb").src = IMG("globo");
   $("#gate small").textContent = C.textoSuperior; $("#gate strong").textContent = C.bebe; $("#gate .wm2").textContent = C.marcaDeAgua;
@@ -352,6 +354,7 @@
     const w = W(), h = H(), pw = $("#plane").offsetWidth, ph = $("#plane").offsetHeight;
     gsap.set("#plane", { x: w * 1.1, y: h * .02, scale: .22, rotation: -10, opacity: 0 });
     gsap.set("#rig", { y: h * .2 + $("#rig").offsetHeight * 1.6 });
+    gsap.set("#stork", { x: w * 1.05, y: h * .38, scale: .85 });
     gsap.to("#plane .hel", { scaleY: -1, duration: .045, repeat: -1, yoyo: true, ease: "none" });
     const tl = gsap.timeline();
     tl.to("#sun", { opacity: 1, duration: 3, ease: "sine.out" }, 0)
@@ -366,6 +369,10 @@
       .to("#plane", { y: "-=" + h * .015, rotation: -2, duration: 1.1, yoyo: true, repeat: 1, ease: "sine.inOut" }, 6.6)
       // y se va de paso por la cámara
       .to("#plane", { duration: 2, ease: "power2.in", x: -w * 1.3, y: h * .36, scale: 1.5, rotation: -8 }, 8.8)
+      // la cigüeña cruza el cielo llevando al bebé
+      .to("#stork", { opacity: 1, duration: .6 }, 9.4)
+      .to("#stork", { duration: 5.6, ease: "none", motionPath: { path: [{ x: w * 1.05, y: h * .38 }, { x: w * .3, y: h * .33 }, { x: -w * .5, y: h * .36 }], curviness: 1.2 } }, 9.4)
+      .to("#stork", { y: "+=" + h * .012, duration: .7, yoyo: true, repeat: 7, ease: "sine.inOut" }, 9.4)
       // sube el globo con el sobre
       .to("#title", { y: -h * .03, scale: .9, duration: 2.4, ease: "power2.inOut" }, 9)
       .to("#rig", { y: -(w * .4 + h * .075), duration: 3.6, ease: "power2.out" }, 9.3)
@@ -461,7 +468,7 @@
         <div class="btns"><a class="btn f" href="${esc(E.mapa)}" target="_blank" rel="noopener">Ver ubicación</a><a class="btn" id="gcal" target="_blank" rel="noopener">Agendar</a></div>
       </div>
       <img class="deco rv" src="${IMG("flores")}" alt="" style="left:-4cqw;top:30cqw;width:40cqw;transform:rotate(-12deg)">
-      <img class="deco rv" src="${IMG("osito")}" alt="" style="right:0;bottom:2cqw;width:22cqw">
+      <img class="deco rv" src="${IMG("elefante")}" alt="" style="right:-1cqw;bottom:0;width:25cqw">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:10cqw;top:24cqw;width:11cqw" data-flap="1">
     </section>
 
@@ -502,7 +509,7 @@
       </div>
       <div class="side">
         <img class="deco rv" src="${IMG("globo")}" alt="" style="left:2cqw;top:4cqw;width:24cqw" id="midGlobo">
-        <img class="deco rv" src="${IMG("osito")}" alt="" style="left:6cqw;top:30cqw;width:15cqw">
+        <img class="deco rv" src="${IMG("patito")}" alt="" style="left:4cqw;top:34cqw;width:20cqw" id="patito">
       </div>
       <img class="deco rv" src="${IMG("regalo")}" alt="" style="right:2cqw;bottom:-4cqw;width:24cqw">
       <img class="deco rv" src="${IMG("flores")}" alt="" style="right:12cqw;bottom:-8cqw;width:26cqw;transform:scaleX(-1) rotate(-8deg)">
@@ -524,7 +531,7 @@
         <ul class="tl">${E.itinerario.map(([h, t]) => `<li><b>${esc(h)}</b><span>${esc(t)}</span></li>`).join("")}</ul>
         ${E.vestimenta ? `<div class="orn">✦</div><div class="small">Vestimenta</div><div class="body" style="font-style:italic">${esc(E.vestimenta)}</div>` : ""}
       </div>
-      <div class="side"><img class="deco rv" src="${IMG("avion")}" alt="" style="left:-6cqw;top:18cqw;width:40cqw" id="sideAvion"></div>
+      <div class="side"><img class="deco rv" src="${IMG("ciguena")}" alt="" style="left:-4cqw;top:16cqw;width:42cqw" id="sideAvion"></div>
     </section>` : ""}
 
     <section class="blk" style="padding-top:10cqw">
@@ -604,7 +611,8 @@
     ["#heroGlobo", "#midGlobo", "#endGlobo"].forEach((id, i) => { if ($(id)) gsap.to(id, { y: -12, rotation: i % 2 ? -2 : 2, duration: 2.6 + i * .3, yoyo: true, repeat: -1, ease: "sine.inOut" }); });
     $$("[data-drift]").forEach(el => gsap.to(el, { x: 22 * +el.dataset.drift, duration: rand(6, 9), yoyo: true, repeat: -1, ease: "sine.inOut" }));
     $$("[data-flap]").forEach(el => { gsap.to(el, { scaleX: .55, duration: .28, yoyo: true, repeat: -1, ease: "sine.inOut" }); gsap.to(el, { y: -10, x: 8, duration: 2.2, yoyo: true, repeat: -1, ease: "sine.inOut" }); });
-    if ($("#sideAvion")) { gsap.set("#sideAvion", { scaleX: -1 }); gsap.to("#sideAvion", { y: -8, rotation: -3, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }); }
+    if ($("#sideAvion")) gsap.to("#sideAvion", { y: -10, rotation: -3, duration: 2.2, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    if ($("#patito")) gsap.to("#patito", { rotation: 4, y: -3, duration: .9, yoyo: true, repeat: -1, ease: "sine.inOut", transformOrigin: "50% 100%" });
   }
 
   function abrirInvitacion() {
