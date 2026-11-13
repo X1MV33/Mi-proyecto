@@ -6,7 +6,7 @@
 <title>Invitación Boda Azul</title>
 <meta name="theme-color" content="#0A0814">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=Great+Vibes&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=Great+Vibes&family=Monsieur+La+Doulaise&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
   :root{
     --night:#0A0814; --navy:#14213D; --navy2:#1F3461; --blue:#2C4A7E; --steel:#6F8DB8; --mist:#A9BCD6; --ice:#E6ECF5;
@@ -42,9 +42,8 @@
   .gfl.t{transform-origin:50% 0;z-index:3}.gfl.t i{clip-path:polygon(0 0,100% 0,50% 53%)}.gfl.t i::after{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(20,33,61,.08))}
   .gs{position:absolute;left:50%;top:52%;width:30cqw;height:30cqw;margin:-15cqw 0 0 -15cqw;z-index:5}
   .gs span{position:absolute;inset:0}
-  .gs span.h{opacity:0}
-  .gs span.h1{clip-path:polygon(0 0,54% 0,46% 38%,56% 62%,47% 100%,0 100%)}
-  .gs span.h2{clip-path:polygon(54% 0,100% 0,100% 100%,47% 100%,56% 62%,46% 38%)}
+  .gglow{position:absolute;left:50%;top:52%;width:64cqw;height:64cqw;margin:-32cqw 0 0 -32cqw;border-radius:50%;z-index:4;pointer-events:none;opacity:0;transform:scale(.2);
+    background:radial-gradient(circle,rgba(255,255,255,.95) 0,rgba(240,226,190,.5) 28%,rgba(255,255,255,.12) 52%,rgba(255,255,255,0) 68%)}
   .gs svg{width:100%;height:100%;filter:drop-shadow(0 1.2cqw 1.6cqw rgba(10,18,40,.45))}
   .ghint{position:absolute;left:50%;top:calc(52% + 19cqw);transform:translateX(-50%);z-index:5;white-space:nowrap;font-style:italic;font-size:4.4cqw;letter-spacing:.08em;color:var(--navy);
     background:rgba(247,249,252,.78);padding:1.4cqw 4.5cqw;border-radius:99px;box-shadow:0 .6cqw 2cqw rgba(20,33,61,.12)}
@@ -396,6 +395,20 @@
   .fin .torn{padding:9cqw 6cqw;text-align:center}
   .fin .t-script{font-size:9.5cqw}
   .fin p{font-family:var(--caps);font-size:3.6cqw;letter-spacing:.1em;margin:2cqw 0 3cqw;color:var(--ink)}
+  /* carrete tipo collage */
+  .collage{position:relative;width:calc(100% - 14cqw);aspect-ratio:4/5;margin:7cqw 7cqw 0}
+  .frames{position:absolute;left:0;top:0;width:68%;height:100%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);background:#0B0B0F;padding:1.4cqw 0;box-shadow:0 3cqw 7cqw rgba(0,0,0,.45)}
+  .fr{position:relative;padding:2.2cqw 3.2cqw;overflow:hidden;cursor:zoom-in;min-width:0;min-height:0}
+  .fr img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);display:block}
+  .fr::before,.fr::after{position:absolute;top:0;bottom:0;writing-mode:vertical-rl;display:flex;align-items:center;font-family:"Courier New",monospace;font-size:1.5cqw;letter-spacing:.18em;color:#C9B27A;opacity:.85}
+  .fr::before{content:"AZUL 200 PLUS";left:.6cqw}
+  .fr::after{content:"19 · 06 · 27  ▲";right:.6cqw}
+  .cut{position:absolute;right:-8%;bottom:-3%;height:80%;width:auto;max-width:none;z-index:2;filter:drop-shadow(0 2.4cqw 3cqw rgba(0,0,0,.5));pointer-events:none}
+  .tape-w{position:absolute;left:24%;bottom:7%;z-index:3;transform:rotate(-4deg);filter:drop-shadow(0 1cqw 1.4cqw rgba(0,0,0,.35))}
+  .tape{background:#EFE8DA;padding:2.4cqw 5cqw;font-family:"Special Elite","Courier New",monospace;font-size:3.5cqw;color:#2A2A2A;line-height:1.55;text-align:center}
+  .tape span{display:block}
+  .words{display:flex;justify-content:space-between;margin:12cqw 8cqw 0;font-family:var(--caps);font-size:6.6cqw;letter-spacing:.06em;color:var(--gold2)}
+  .story{margin:5cqw 7cqw 0;font-size:4.1cqw}
 </style>
 </head>
 <body>
@@ -623,8 +636,8 @@
   /* ======================= INVITACIÓN ======================= */
   function render() {
     const F = C.fotos, R = E.regalos || {};
-    const reelImgs = (list) => list.concat(list).map(i => `<img src="${esc(F[i])}" alt="" data-foto="${i}" loading="lazy">`).join("");
-    const order = F.map((_, i) => i), order2 = order.slice().reverse();
+    const marcos = (C.carrete || [[0, "50% 30%"], [3, "55% 45%"], [1, "50% 40%"], [2, "45% 45%"], [3, "30% 60%"], [0, "60% 55%"]])
+      .map(([i, pos]) => `<div class="fr" data-foto="${i}"><img src="${esc(F[i])}" alt="" loading="lazy" style="object-position:${pos}"></div>`).join("");
     $("#inv").innerHTML = `
     <header class="hero">
       <img src="${esc(F[C.fotoPortada])}" alt="${esc(C.novia)} y ${esc(C.novio)}">
@@ -701,9 +714,14 @@
     <section class="sec navy film">
       ${lace("#14213D")}<div class="stars-css" data-stars="30"></div>
       <div class="t-head rv"><span class="cap">N</span><span>uestros momentos</span></div>
-      <p class="t-body rv">Un pedacito de nuestra historia. Toca una foto para verla completa.</p>
-      <div class="reel rv"><div class="track">${reelImgs(order.concat(order))}</div></div>
-      <div class="reel b rv"><div class="track">${reelImgs(order2.concat(order2))}</div></div>
+      <p class="t-body rv">Un pedacito de nuestra historia.</p>
+      <div class="collage rv">
+        <div class="frames">${marcos}</div>
+        ${C.fotoRecorte ? `<img class="cut" src="${esc(C.fotoRecorte)}" alt="${esc(C.novia)} y ${esc(C.novio)}" loading="lazy">` : ""}
+        <div class="tape-w"><div class="tape torn"><span>#NuestraBoda</span><span>${esc(C.novia)} &amp; ${esc(C.novio)}</span></div></div>
+      </div>
+      <div class="words rv"><span>Juntos</span><span>para</span><span>siempre</span></div>
+      ${E.historia ? `<p class="t-body rv story">${esc(E.historia)}</p>` : ""}
       ${lace("#14213D", "bot")}
     </section>
 
@@ -1063,7 +1081,7 @@
     <path d="M30 30C24 28 20 24 18 18M30 22C36 20 40 16 42 10M30 14C26 12 24 9 24 5"/><path d="M18 18c-4 0-7-3-7-6 4 0 7 3 7 6ZM42 10c4 0 7-3 7-6-4 0-7 3-7 6ZM24 5c-2-1-3-4-2-5 2 1 3 3 2 5Z" fill="currentColor"/><path d="M8 38H52" opacity=".5"/></svg>`;
   $("#gate").innerHTML = `
     <div class="gfl l"><i></i></div><div class="gfl r"><i></i></div><div class="gfl b"><i></i></div><div class="gfl t"><i></i></div>
-    <div class="gs" id="gseal"><span class="full">${seal()}</span><span class="h h1">${seal()}</span><span class="h h2">${seal()}</span></div>
+    <div class="gglow"></div><div class="gs" id="gseal"><span class="full">${seal()}</span></div>
     <div class="ghint">Toca el sello para abrir</div>
     <div class="wm">${esc(C.marcaDeAgua)}</div>`;
   tornify($("#gate"));
@@ -1079,18 +1097,19 @@
     $("#gate").style.background = "transparent";
     beginVideo();
     gsap.timeline()
-      .to("#gseal", { scale: 1.12, duration: .18, ease: "sine.out" })
-      .set("#gseal .full", { opacity: 0 }).set("#gseal .h", { opacity: 1 })
-      .to("#gseal .h1", { x: "-9cqw", y: "4cqw", rotation: -24, opacity: 0, duration: .7, ease: "power2.in" }, ">")
-      .to("#gseal .h2", { x: "9cqw", y: "5cqw", rotation: 22, opacity: 0, duration: .7, ease: "power2.in" }, "<")
-      .to(".ghint, #gate .wm", { opacity: 0, duration: .4 }, "<")
-      .to(".gfl.t", { rotationX: -176, duration: 1.15, ease: "power2.inOut" }, "-=.35")
-      .to(".gfl.t", { opacity: 0, duration: .3 }, "-=.3")
-      .to(".gfl.l", { rotationY: -176, duration: 1.15, ease: "power2.inOut" }, "-=.75")
-      .to(".gfl.r", { rotationY: 176, duration: 1.15, ease: "power2.inOut" }, "<")
-      .to(".gfl.l, .gfl.r", { opacity: 0, duration: .3 }, "-=.3")
-      .to(".gfl.b", { rotationX: 176, duration: 1.15, ease: "power2.inOut" }, "-=.8")
-      .to(".gfl.b", { opacity: 0, duration: .3 }, "-=.3")
+      // el sello se ilumina, se eleva suavemente y se desvanece; luego las solapas se despliegan despacio
+      .to("#gseal", { scale: 1.05, duration: .45, ease: "sine.inOut" })
+      .to(".gglow", { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }, "-=.2")
+      .to("#gseal", { y: "-6cqw", scale: .9, opacity: 0, duration: 1.1, ease: "power2.inOut" }, "<.2")
+      .to(".ghint, #gate .wm", { opacity: 0, duration: .7 }, "<")
+      .to(".gglow", { opacity: 0, scale: 2.4, duration: 1.3, ease: "power1.out" }, "-=.5")
+      .to(".gfl.t", { rotationX: -176, duration: 1.8, ease: "power3.inOut" }, "-=1.2")
+      .to(".gfl.t", { opacity: 0, duration: .5 }, "-=.5")
+      .to(".gfl.l", { rotationY: -176, duration: 1.8, ease: "power3.inOut" }, "-=1.35")
+      .to(".gfl.r", { rotationY: 176, duration: 1.8, ease: "power3.inOut" }, "<")
+      .to(".gfl.l, .gfl.r", { opacity: 0, duration: .5 }, "-=.5")
+      .to(".gfl.b", { rotationX: 176, duration: 1.8, ease: "power3.inOut" }, "-=1.4")
+      .to(".gfl.b", { opacity: 0, duration: .5 }, "-=.5")
       .call(() => $("#gate").remove());
   }
 

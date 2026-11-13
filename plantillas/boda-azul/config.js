@@ -21,6 +21,9 @@ window.CONFIG = {
   fotoRecepcion: 2,                    // polaroid de recepción
   fotoCierre: 3,                       // foto del cierre
   fotoSobre: 2,                        // foto que sale del sobre
+  fotoRecorte: "fotos/novios-recorte.webp", // novios recortados con borde blanco (carrete)
+  // marcos del carrete: [número de foto, encuadre]
+  carrete: [[0, "50% 30%"], [3, "55% 45%"], [1, "50% 40%"], [2, "45% 45%"], [3, "30% 60%"], [0, "60% 55%"]],
   musica: "",                          // ruta a su canción (p. ej. "cancion.mp3"); vacío = vals de caja musical
   cancion: "Nuestra canción",          // nombre que se muestra en el reproductor
 
@@ -60,6 +63,7 @@ window.CONFIG = {
       mesa: [{ nombre: "Mesa de regalos", url: "https://www.liverpool.com.mx/" }],   // deja [] si no hay
       cuenta: { banco: "BBVA", titular: "Daniela Salinas", clabe: "012 345 678 901 234 567" } // o null
     },
+    historia: "Desde que estamos juntos, todo tiene otro color. Cada foto guarda un recuerdo, una risa, un momento que no queremos olvidar. Gracias por acompañarnos en esta historia.",
     frase2: "La vida no sería igual sin familia a la que llamar amigos, y amigos a los que llamar familia.",
     notaFinal: { titulo: "Solo adultos", texto: "Esperamos contar con tu presencia", gracias: "¡Muchas gracias!" },   // o null
     rsvpWhatsapp: "5210000000000",

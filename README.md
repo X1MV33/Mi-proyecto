@@ -71,7 +71,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
 ## Funciones de la plantilla Boda azul
 
 - **Intro:**
-  1. Sobre a pantalla completa con estampado toile azul y sello de cera. Al tocar el sello, este se rompe y se abren las cuatro solapas.
+  1. Sobre a pantalla completa con estampado toile azul y sello de cera. Al tocar el sello, se ilumina, se eleva y se desvanece, y las cuatro solapas se abren despacio.
   2. Detrás de las solapas ya está corriendo el video animado (`intro.mp4`), sin la interfaz de la grabación ni las letras blancas.
   3. La cámara sube al cielo: aparecen los nombres y los fuegos artificiales.
   4. Al tocar la estrella (o solos a los pocos segundos) se hace zoom a la estrella y se abre la invitación.
@@ -84,7 +84,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
   - Ceremonia y recepción en polaroids.
   - Itinerario en tarjeta azul marino con íconos (se elige solo por la actividad o con un tercer dato: `["22:00", "Fiesta", "fiesta"]`).
   - Fondo toile azul grisáceo, tarjetas de papel rasgado, cartas antiguas, sellos de cera y etiquetas con borla dorada.
-  - Carrete de fotos con visor.
+  - Carrete tipo collage: marcos de película en blanco y negro, los novios recortados con borde blanco y una etiqueta con sus nombres (`fotoRecorte` y `carrete` en `config.js`).
   - Código de vestimenta con paleta.
   - Regalos (mesa de regalos y CLABE para copiar).
   - Confirmación por WhatsApp.
