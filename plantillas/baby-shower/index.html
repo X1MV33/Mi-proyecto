@@ -214,6 +214,7 @@
   .filmcard .fbar{position:absolute;left:4cqw;right:4cqw;bottom:3cqw;height:.8cqw;border-radius:1cqw;background:rgba(255,255,255,.35);overflow:hidden}
   .filmcard .fbar i{display:block;height:100%;width:0;background:#fff;border-radius:1cqw}
   .lace{position:absolute;z-index:0;pointer-events:none;opacity:.9}
+  .garland{display:block;width:78cqw;height:auto;margin:0 auto;pointer-events:none}
   .lace-top{position:absolute;left:0;top:0;width:100%;height:auto;z-index:4;pointer-events:none;filter:drop-shadow(0 .6cqw .8cqw rgba(40,60,90,.15))}
   .arch.lacey{overflow:hidden}
   .arch.lacey > *:not(.lc){position:relative;z-index:1}
@@ -534,7 +535,7 @@
         <div class="small">${esc(E.direccion)}</div>
         <div class="btns"><a class="btn f" href="${esc(E.mapa)}" target="_blank" rel="noopener">Ver ubicación</a><a class="btn" id="gcal" target="_blank" rel="noopener">Agendar</a></div>
       </div>
-      <img class="deco rv" src="${IMG("lirios")}" alt="" style="left:-3cqw;top:31cqw;width:30cqw;transform:rotate(-24deg)">
+      <img class="deco rv" src="${IMG("flores-azules")}" alt="" style="left:-4cqw;top:30cqw;width:30cqw;transform:rotate(-8deg)">
       <img class="deco rv" src="${IMG("elefante")}" alt="" style="right:-1cqw;bottom:0;width:25cqw">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:10cqw;top:24cqw;width:11cqw" data-flap="1">
     </section>
@@ -548,7 +549,7 @@
         <div class="fbar"><i></i></div>
       </div>
       <div class="imsg rv" style="position:relative;display:inline-block;margin-top:-4cqw;right:auto;top:auto;transform:rotate(-2deg)">Esperándote con todo el amor ♥</div>
-      <img class="deco rv" src="${IMG("flores-perlas")}" alt="" style="left:-7cqw;top:96cqw;width:30cqw;transform:rotate(-10deg)">
+      <img class="deco rv" src="${IMG("flores-azules")}" alt="" style="left:-7cqw;top:100cqw;width:26cqw;transform:rotate(14deg)">
       <img class="deco rv" src="${IMG("liston")}" alt="" style="right:4cqw;bottom:6cqw;width:12cqw;transform:rotate(8deg)">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:6cqw;top:12cqw;width:10cqw" data-flap="1">
     </section>` : ""}
@@ -556,14 +557,15 @@
     <section class="blk" style="text-align:center;padding-top:2cqw">
       <p class="body rv" style="padding:0 4cqw">${esc(E.mensaje)}</p>
       <div class="script rv" style="font-size:9cqw;color:var(--blue2);margin-top:3cqw">${esc(C.padres)}</div>
-      <div class="script rv" style="font-size:12cqw;margin-top:9cqw">Faltan</div>
+      <img class="garland rv" src="${IMG("guirnalda")}" alt="" style="margin-top:8cqw">
+      <div class="script rv" style="font-size:12cqw;margin-top:1cqw">Faltan</div>
       <div class="count rv" id="count">${["días", "horas", "min", "seg"].map(u => `<div><img src="${IMG("nube3")}" alt=""><b>00</b><small>${u}</small></div>`).join("")}</div>
     </section>
 
     ${(C.video || (C.galeria || []).length) ? `<section class="blk espera" style="padding-top:12cqw">
       <div class="script rv" style="font-size:12cqw;text-align:center">${esc(C.esperaTitulo || "Te estamos esperando")}</div>
       ${C.video ? `<div class="vframe rv"><video src="${esc(C.video)}" ${C.videoPoster ? `poster="${esc(C.videoPoster)}"` : ""} autoplay muted loop playsinline webkit-playsinline preload="metadata"></video></div>` : ""}
-      <img class="deco rv" src="${IMG("lirios")}" alt="" style="left:-8cqw;top:30cqw;width:28cqw;transform:rotate(-18deg)">
+      <img class="deco rv" src="${IMG("flores-azules")}" alt="" style="left:-6cqw;top:28cqw;width:24cqw;transform:rotate(-14deg)">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:9cqw;top:30cqw;width:10cqw" data-flap="1">
       ${(C.album || []).length ? (() => { const a = C.album, P = i => esc(a[i % a.length]); return `<div class="album" id="album">
         <div class="ph pop" style="left:3cqw;top:0;width:56cqw;height:76cqw"><img src="${P(0)}" alt="" loading="lazy"></div>
@@ -624,7 +626,7 @@
         <img class="deco rv" src="${IMG("patito")}" alt="" style="left:4cqw;top:34cqw;width:20cqw" id="patito">
       </div>
       <img class="deco rv" src="${IMG("regalo")}" alt="" style="right:2cqw;bottom:-4cqw;width:24cqw">
-      <img class="deco rv" src="${IMG("flores-perlas")}" alt="" style="right:14cqw;bottom:-10cqw;width:26cqw;transform:scaleX(-1) rotate(-8deg)">
+      <img class="deco rv" src="${IMG("flores-azules")}" alt="" style="right:16cqw;bottom:-10cqw;width:22cqw;transform:scaleX(-1) rotate(-6deg)">
     </section>` : ""}
 
     <section class="blk" style="padding-top:12cqw">
@@ -647,19 +649,20 @@
     </section>` : ""}
 
     <section class="blk" style="padding-top:10cqw">
-      <div class="arch rv">
+      <div class="arch rv" style="margin-top:30cqw">
         <div class="kick">Por favor confirma antes del</div>
         <div class="small" style="color:var(--navy);margin-top:1cqw">${esc(E.rsvpFecha)}</div>
         <div class="script" style="margin-top:3cqw">Confirma tu asistencia</div>
         <div class="btns"><button class="btn f" type="button" id="openRsvp">Toca aquí</button></div>
       </div>
-      <img class="deco rv" src="${IMG("lirios")}" alt="" style="right:-8cqw;top:-6cqw;width:30cqw;transform:rotate(14deg)">
+      <img class="deco rv" src="${IMG("guirnalda")}" alt="" style="left:50%;top:-2cqw;width:76cqw;margin-left:-38cqw;z-index:4">
     </section>
 
     <img class="lace-row" src="${IMG("encaje-orilla")}" alt="">
     <footer class="closing">
       <img class="gl rv" src="${IMG("globo")}" alt="" id="endGlobo">
       <div class="script rv">${esc(E.cierre)}</div>
+      <img class="garland rv" src="${IMG("guirnalda")}" alt="" style="width:62cqw;margin-top:2cqw">
       <div class="body rv" style="font-style:italic">${esc(C.padres)}</div>
       <div class="wm">${esc(C.marcaDeAgua)}</div>
       <img class="lace-bot" src="${IMG("encaje-orilla")}" alt="">
