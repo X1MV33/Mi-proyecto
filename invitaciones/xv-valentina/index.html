@@ -11,8 +11,8 @@
 <style>
   :root{
     --olive-cream:#E6E8CF;
-    --serif:#8A5A5E;
-    --name:#9E3460;
+    --serif:#6E6A4E;
+    --name:#5E6B32;
     --gold:#C9A15A;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -296,9 +296,12 @@
 
   /* cierre con paisaje */
   .closing{position:relative;height:84cqw;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#FFFDF6}
-  .closing .ly{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover}
-  .closing .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(236,232,220,.25),rgba(120,130,90,.35))}
-  .closing > :not(img):not(.veil){position:relative;z-index:1}
+  .closing{background:linear-gradient(rgba(40,48,18,.22),rgba(40,48,18,.38)),var(--papel) center/cover}
+  .closing > :not(img){position:relative;z-index:1}
+  .cl-ramo{position:absolute;top:-6cqw;width:22cqw;height:auto;filter:drop-shadow(0 1cqw 1.4cqw rgba(0,0,0,.3))}
+  .cl-ramo.l{left:-4cqw;transform:rotate(-8deg)}
+  .cl-ramo.r{right:-4cqw;transform:scaleX(-1) rotate(-8deg)}
+  .cl-seal{position:relative;width:13cqw;margin-top:5cqw;filter:drop-shadow(0 .6cqw .8cqw rgba(0,0,0,.35))}
   .closing small{font-size:3.6cqw;letter-spacing:.2em;text-shadow:0 0 2cqw rgba(60,60,40,.5)}
   .closing .nm{font-family:"Cormorant Garamond",serif;font-size:8cqw;letter-spacing:.2em;padding-left:.2em;text-shadow:0 0 2cqw rgba(60,60,40,.5);position:relative}
   .closing .nm i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:"Pinyon Script",cursive;font-style:normal;font-size:15cqw;letter-spacing:0;opacity:.55}
@@ -676,8 +679,8 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
   /* ---------- Invitación: render desde CONFIG ---------- */
   function renderInvitacion() {
     const E = CONFIG.evento, A = CONFIG.assetsPath, esc = x => String(x).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-    const paleta = E.paleta || [{ color: "#6E7B52", nombre: "Verde olivo" }, { color: "#C9A15A", nombre: "Dorado" }, { color: "#B9A6C9", nombre: "Lavanda" }, { color: "#E9D9C2", nombre: "Champaña" }, { color: "#6B3A4A", nombre: "Vino" }];
-    const reservado = E.reservado === undefined ? { color: "#E79AB2", nombre: "Rosa: reservado para la quinceañera" } : E.reservado;
+    const paleta = E.paleta || [{ color: "#5E6B32", nombre: "Verde olivo" }, { color: "#7B8A4B", nombre: "Oliva" }, { color: "#9DA77A", nombre: "Salvia" }, { color: "#B8BC8E", nombre: "Pistache" }, { color: "#DCD8C2", nombre: "Marfil" }];
+    const reservado = E.reservado === undefined ? null : E.reservado;
     // ---------- piezas gráficas (SVG generado: alcatraces, sello de corazón, perlas, íconos) ----------
     let uid = 0;
     const heart = () => `<img class="hseal gold" src="${A}sello_oro.png" alt="">`;
@@ -814,10 +817,10 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       </section>
 
       <section class="closing">
-        <img class="ly" src="${A}e2_cielo.png" alt=""><img class="ly" src="${A}e2_montanas.png" alt=""><img class="ly" src="${A}e2_cascadas.png" alt=""><img class="ly" src="${A}e2_hacienda.png" alt="">
-        <div class="veil"></div>
+        <img class="cl-ramo l" src="${A}ramo_blanco.png" alt=""><img class="cl-ramo r" src="${A}ramo_blanco.png" alt="">
         <small>${esc(E.cierre)}</small>
         <div class="nm">${esc(CONFIG.quinceanera.toUpperCase())}<i>${esc(CONFIG.iniciales.join(""))}</i></div>
+        <img class="cl-seal" src="${A}sello_oro.png" alt="">
         <div class="inv-wm">${esc(CONFIG.marcaDeAgua)}</div>
       </section>`;
 

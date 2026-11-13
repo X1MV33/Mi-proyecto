@@ -28,16 +28,16 @@ window.CONFIG = {
                  mapa: "https://maps.google.com/?q=Hacienda+Los+Arcos" },
     itinerario: [["19:00", "Misa"], ["20:30", "Recepción"], ["21:15", "Vals"], ["22:00", "Cena"], ["23:00", "¡A bailar!"]],
     vestimenta: "Formal",
-    vestimentaNota: "Te sugerimos estos tonos para acompañarme en mi gran día.",
+    vestimentaNota: "Te sugerimos tonos verde oliva y neutros para acompañarme en mi gran día.",
     // Colores sugeridos para los invitados (se tocan y tiñen el atuendo de ejemplo)
     paleta: [
-      { color: "#6E7B52", nombre: "Verde olivo" },
-      { color: "#C9A15A", nombre: "Dorado" },
-      { color: "#B9A6C9", nombre: "Lavanda" },
-      { color: "#E9D9C2", nombre: "Champaña" },
-      { color: "#6B3A4A", nombre: "Vino" }
+      { color: "#5E6B32", nombre: "Verde olivo" },
+      { color: "#7B8A4B", nombre: "Oliva" },
+      { color: "#9DA77A", nombre: "Salvia" },
+      { color: "#B8BC8E", nombre: "Pistache" },
+      { color: "#DCD8C2", nombre: "Marfil" }
     ],
-    reservado: { color: "#E79AB2", nombre: "Rosa: reservado para la quinceañera" },   // null si no hay color reservado
+    reservado: null,                // p. ej. { color: "#5E6B32", nombre: "Verde olivo: reservado para la quinceañera" }
     regalos: "Tu presencia es mi mejor regalo. Si deseas obsequiarme algo, tendremos lluvia de sobres.",
     rsvpWhatsapp: "5210000000000",            // número con lada, sin + ni espacios
     rsvpFecha: "1 de marzo de 2027",
