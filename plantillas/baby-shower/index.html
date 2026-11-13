@@ -39,7 +39,7 @@
   #title .k{font-size:3.6cqw;letter-spacing:.5em;padding-left:.5em;text-transform:uppercase;color:var(--soft)}
   #title .k span{display:inline-block;opacity:0}
   #title .nm{font-family:var(--script);font-size:24cqw;line-height:1.05;color:var(--navy);margin-top:1cqh;
-    text-shadow:0 .4cqw 1.6cqw rgba(255,255,255,.8);clip-path:inset(0 100% 0 0)}
+    text-shadow:0 .4cqw 1.6cqw rgba(255,255,255,.8);clip-path:inset(-40% 120% -40% -30%)}
   #title .fr{display:inline-flex;align-items:center;gap:2.4cqw;margin-top:1.6cqh;font-size:3.3cqw;letter-spacing:.16em;white-space:nowrap;text-transform:uppercase;color:var(--blue2);opacity:0}
   #title .fr::before,#title .fr::after{content:"";width:7cqw;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
   #title .fr::after{transform:scaleX(-1)}
@@ -356,7 +356,7 @@
     const tl = gsap.timeline();
     tl.to("#sun", { opacity: 1, duration: 3, ease: "sine.out" }, 0)
       .to("#title .k span", { opacity: 1, duration: .8, stagger: .06, ease: "sine.out" }, .4)
-      .to("#title .nm", { clipPath: "inset(0 0% 0 0)", duration: 2.2, ease: "power2.inOut" }, 1)
+      .fromTo("#title .nm", { clipPath: "inset(-40% 120% -40% -30%)" }, { clipPath: "inset(-40% -30% -40% -30%)", duration: 2.2, ease: "power2.inOut", onComplete: () => { $("#title .nm").style.clipPath = "none"; } }, 1)
       .fromTo("#title .nm", { y: 14 }, { y: 0, duration: 2.2, ease: "power2.out" }, 1)
       .to("#title .fr", { opacity: 1, duration: 1.2 }, 2.6)
       // el avión llega desde lejos en curva, se acerca y saluda
