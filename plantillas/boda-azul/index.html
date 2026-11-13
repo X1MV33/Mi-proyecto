@@ -414,7 +414,8 @@
   .outfit-svg .ofill path{fill:var(--dc);opacity:0;transition:fill .5s ease,opacity .5s ease}
   .outfit.tinted .outfit-svg .ofill path{opacity:.92}
   .outfit.tinted .outfit-svg{color:var(--dl);transition:color .5s ease}
-  .outfit .dimg{display:none;width:100%;height:auto;border-radius:1cqw}
+  .outfit .dimg{display:none;width:auto;max-width:100%;max-height:100%;height:auto;margin:0 auto}
+  .outfit.con-diseno{height:92cqw;display:flex;align-items:flex-end;justify-content:center}
   .outfit.con-diseno .outfit-svg{display:none}
   .outfit.con-diseno .dimg{display:block}
 </style>
@@ -832,6 +833,7 @@
     // paleta
     // al tocar un color, el vestido y el traje se pintan de ese color (o se muestra su diseño si tiene uno)
     const outfitBox = $(".dnote .outfit");
+    E.paleta.forEach(c => { if (c.diseno) { const im = new Image(); im.src = c.diseno; } });
     const luminancia = hex => {
       let h = hex.replace("#", "");
       if (h.length === 3) h = h.split("").map(ch => ch + ch).join("");
@@ -847,7 +849,8 @@
       outfitBox.style.setProperty("--dl", luminancia(c.color) < .45 ? "#F4F6FA" : "#14213D");
       outfitBox.classList.add("tinted");
       const img = outfitBox.querySelector(".dimg");
-      if (c.diseno) { img.src = c.diseno; outfitBox.classList.add("con-diseno"); } else outfitBox.classList.remove("con-diseno");
+      if (c.diseno) { img.src = c.diseno; outfitBox.classList.add("con-diseno"); gsap.fromTo(img, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .55, ease: "power2.out" }); }
+      else outfitBox.classList.remove("con-diseno");
       gsap.fromTo(outfitBox, { scale: .96 }, { scale: 1, duration: .6, ease: "back.out(2)" });
     }));
 

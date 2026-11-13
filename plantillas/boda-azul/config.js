@@ -53,10 +53,10 @@ window.CONFIG = {
     vestimentaNota: "Caballeros de traje oscuro; damas de vestido largo. Nos encantará verte en tonos azules.",
     // al tocar un color, el dibujo se pinta de ese color; si agregas  diseno: "disenos/archivo.jpg"  se muestra esa imagen
     paleta: [
-      { color: "#14213D", nombre: "Azul marino" },
-      { color: "#2C4A7E", nombre: "Azul rey" },
-      { color: "#6F8DB8", nombre: "Azul acero" },
-      { color: "#A9BCD6", nombre: "Azul cielo" }
+      { color: "#14213D", nombre: "Azul marino", diseno: "disenos/dc-0.webp" },
+      { color: "#2C4A7E", nombre: "Azul rey", diseno: "disenos/dc-1.webp" },
+      { color: "#6F8DB8", nombre: "Azul acero", diseno: "disenos/dc-2.webp" },
+      { color: "#A9BCD6", nombre: "Azul cielo", diseno: "disenos/dc-3.webp" }
     ],
     reservado: { color: "#FAF8F2", nombre: "Blanco: reservado para la novia" },
     regalos: {
