@@ -213,7 +213,10 @@
   .filmcard .fdate{position:absolute;right:4cqw;bottom:6cqw;font-family:"Courier New",monospace;font-size:3.4cqw;color:#FFB347;text-shadow:0 0 6px rgba(255,140,0,.6);letter-spacing:.06em}
   .filmcard .fbar{position:absolute;left:4cqw;right:4cqw;bottom:3cqw;height:.8cqw;border-radius:1cqw;background:rgba(255,255,255,.35);overflow:hidden}
   .filmcard .fbar i{display:block;height:100%;width:0;background:#fff;border-radius:1cqw}
-  .closing{text-align:center;padding:14cqw 6cqw 10cqw}
+  .lace{position:absolute;z-index:0;pointer-events:none;opacity:.9}
+  .lace-row{position:relative;z-index:1;display:block;width:100%;height:auto;margin-top:10cqw}
+  .closing{position:relative;text-align:center;padding:14cqw 6cqw 10cqw}
+  .closing > *:not(.lace){position:relative;z-index:1}
   .closing .gl{width:28cqw;margin:0 auto}
   .closing .script{font-size:14cqw;margin-top:3cqw}
   .closing .wm{margin-top:20cqw;font-size:3cqw;letter-spacing:.2em;color:var(--soft);position:relative;z-index:2}
@@ -524,7 +527,8 @@
         <div class="small">${esc(E.direccion)}</div>
         <div class="btns"><a class="btn f" href="${esc(E.mapa)}" target="_blank" rel="noopener">Ver ubicación</a><a class="btn" id="gcal" target="_blank" rel="noopener">Agendar</a></div>
       </div>
-      <img class="deco rv" src="${IMG("flores")}" alt="" style="left:-4cqw;top:30cqw;width:40cqw;transform:rotate(-12deg)">
+      <img class="lace" src="${IMG("encaje-esquina")}" alt="" style="right:0;top:0;width:52cqw">
+      <img class="deco rv" src="${IMG("lirios")}" alt="" style="left:-9cqw;top:24cqw;width:36cqw;transform:rotate(-14deg)">
       <img class="deco rv" src="${IMG("elefante")}" alt="" style="right:-1cqw;bottom:0;width:25cqw">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:10cqw;top:24cqw;width:11cqw" data-flap="1">
     </section>
@@ -538,7 +542,8 @@
         <div class="fbar"><i></i></div>
       </div>
       <div class="imsg rv" style="position:relative;display:inline-block;margin-top:-4cqw;right:auto;top:auto;transform:rotate(-2deg)">Esperándote con todo el amor ♥</div>
-      <img class="deco rv" src="${IMG("flores")}" alt="" style="left:-5cqw;top:22cqw;width:30cqw;transform:rotate(-16deg)">
+      <img class="deco rv" src="${IMG("flores-perlas")}" alt="" style="left:-7cqw;top:96cqw;width:30cqw;transform:rotate(-10deg)">
+      <img class="deco rv" src="${IMG("liston")}" alt="" style="right:4cqw;bottom:6cqw;width:12cqw;transform:rotate(8deg)">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:6cqw;top:12cqw;width:10cqw" data-flap="1">
     </section>` : ""}
 
@@ -552,7 +557,7 @@
     ${(C.video || (C.galeria || []).length) ? `<section class="blk espera" style="padding-top:12cqw">
       <div class="script rv" style="font-size:12cqw;text-align:center">${esc(C.esperaTitulo || "Te estamos esperando")}</div>
       ${C.video ? `<div class="vframe rv"><video src="${esc(C.video)}" ${C.videoPoster ? `poster="${esc(C.videoPoster)}"` : ""} autoplay muted loop playsinline webkit-playsinline preload="metadata"></video></div>` : ""}
-      <img class="deco rv" src="${IMG("flores")}" alt="" style="left:-4cqw;top:34cqw;width:32cqw;transform:rotate(-14deg)">
+      <img class="deco rv" src="${IMG("lirios")}" alt="" style="left:-8cqw;top:30cqw;width:28cqw;transform:rotate(-18deg)">
       <img class="deco" src="${IMG("mariposa")}" alt="" style="right:9cqw;top:30cqw;width:10cqw" data-flap="1">
       ${(C.album || []).length ? (() => { const a = C.album, P = i => esc(a[i % a.length]); return `<div class="album" id="album">
         <div class="ph pop" style="left:3cqw;top:0;width:56cqw;height:76cqw"><img src="${P(0)}" alt="" loading="lazy"></div>
@@ -596,6 +601,7 @@
       </div>
       <div class="side">
         ${pol(F.papas, "Papá & Mamá", "right:-2cqw;top:6cqw;width:32cqw;height:40cqw", 5)}
+        <img class="deco rv" src="${IMG("liston")}" alt="" style="right:1cqw;top:0;width:11cqw;transform:rotate(-12deg);z-index:6">
         ${pol(F.eco, F.eco ? "Esperándote" : "Mi primera foto", "left:-4cqw;top:44cqw;width:24cqw;height:26cqw", -8)}
       </div>
     </section>` : ""}
@@ -612,7 +618,7 @@
         <img class="deco rv" src="${IMG("patito")}" alt="" style="left:4cqw;top:34cqw;width:20cqw" id="patito">
       </div>
       <img class="deco rv" src="${IMG("regalo")}" alt="" style="right:2cqw;bottom:-4cqw;width:24cqw">
-      <img class="deco rv" src="${IMG("flores")}" alt="" style="right:12cqw;bottom:-8cqw;width:26cqw;transform:scaleX(-1) rotate(-8deg)">
+      <img class="deco rv" src="${IMG("flores-perlas")}" alt="" style="right:14cqw;bottom:-10cqw;width:26cqw;transform:scaleX(-1) rotate(-8deg)">
     </section>` : ""}
 
     <section class="blk" style="padding-top:12cqw">
@@ -641,10 +647,12 @@
         <div class="script" style="margin-top:3cqw">Confirma tu asistencia</div>
         <div class="btns"><button class="btn f" type="button" id="openRsvp">Toca aquí</button></div>
       </div>
-      <img class="deco rv" src="${IMG("flores")}" alt="" style="right:-4cqw;top:2cqw;width:36cqw;transform:rotate(10deg)">
+      <img class="deco rv" src="${IMG("lirios")}" alt="" style="right:-8cqw;top:-6cqw;width:30cqw;transform:rotate(14deg)">
     </section>
 
+    <img class="lace-row" src="${IMG("encaje-orilla")}" alt="">
     <footer class="closing">
+      <img class="lace" src="${IMG("encaje-esquina")}" alt="" style="left:0;bottom:0;width:46cqw;transform:rotate(180deg)">
       <img class="gl rv" src="${IMG("globo")}" alt="" id="endGlobo">
       <div class="script rv">${esc(E.cierre)}</div>
       <div class="body rv" style="font-style:italic">${esc(C.padres)}</div>
@@ -654,7 +662,8 @@
     // página de confirmación
     let page = $("#rsvpPage");
     if (!page) { page = document.createElement("div"); page.id = "rsvpPage"; document.body.appendChild(page); }
-    page.innerHTML = `<div class="in">
+    page.innerHTML = `<img src="${IMG("encaje-orilla")}" alt="" style="display:block;width:100%;height:auto;position:relative">
+    <div class="in" style="padding-top:8cqw">
       <div class="kick">${esc(C.textoSuperior)}</div>
       <div class="script">${esc(C.bebe)}</div>
       <div class="orn">✦</div>
