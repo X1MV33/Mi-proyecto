@@ -51,20 +51,21 @@
   #rig .gl{width:100%;height:auto;position:relative;z-index:2}
   #strings{position:absolute;left:0;top:100%;width:100%;height:9cqw;overflow:visible;z-index:1}
   #env{position:absolute;left:50%;top:calc(100% + 8.4cqw);width:38cqw;height:26cqw;margin-left:-19cqw;z-index:3;perspective:120cqw;cursor:pointer;transform-origin:50% 0}
-  .e-back{position:absolute;inset:0;border-radius:1cqw;background:linear-gradient(160deg,#EADFCB,#DCCDB2);box-shadow:0 2cqw 4cqw rgba(60,70,90,.25)}
+  .e-back{position:absolute;inset:0;border-radius:1cqw;background:linear-gradient(160deg,#9EB8DC,#7C9BC7);box-shadow:0 2cqw 4cqw rgba(40,60,90,.3)}
   .e-card{position:absolute;z-index:2;left:6%;right:6%;top:6%;height:88%;border-radius:.6cqw;background:#FFFDF8;display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;box-shadow:0 .4cqw 1cqw rgba(0,0,0,.1)}
   .e-card::before{content:"";position:absolute;inset:1.4cqw;border:1px dashed rgba(124,155,199,.7);border-radius:.4cqw}
   .e-card small{font-size:2cqw;letter-spacing:.3em;color:var(--soft);text-transform:uppercase}
   .e-card b{font-family:var(--script);font-weight:400;font-size:8cqw;color:var(--navy);line-height:1.1}
   .e-front{position:absolute;inset:0;border-radius:1cqw;clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);
-    background:linear-gradient(170deg,#F4EBDB,#E7DAC2);z-index:3}
+    background:linear-gradient(170deg,#B9CDE8,#93AFD6 60%,#87A4CE);z-index:3}
   .e-front::after{content:"";position:absolute;inset:0;background:linear-gradient(33deg,transparent 49.6%,rgba(120,100,70,.16) 50%,transparent 50.4%),linear-gradient(-33deg,transparent 49.6%,rgba(120,100,70,.16) 50%,transparent 50.4%)}
   .e-flap{position:absolute;left:0;right:0;top:0;height:58%;transform-origin:50% 0;transform-style:preserve-3d;z-index:4}
   .e-flap i{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden;-webkit-backface-visibility:hidden}
-  .e-flap .o{background:linear-gradient(180deg,#EFE4D1,#E0D2B9)}
-  .e-flap .in{transform:rotateX(180deg);background:#A9BFDD url(arte/papel.jpg) center/30cqw auto;background-blend-mode:multiply}
-  #bow{position:absolute;left:50%;top:44%;width:17cqw;margin-left:-8.5cqw;z-index:6;filter:drop-shadow(0 .6cqw .8cqw rgba(40,60,90,.3))}
+  .e-flap .o{background:linear-gradient(180deg,#A9C0E1,#8EABD4)}
+  .e-flap .in{transform:rotateX(180deg);background:url(arte/nube3.webp) 10% 20%/45% auto no-repeat,url(arte/nube2.webp) 90% 8%/50% auto no-repeat,url(arte/nube3.webp) 55% 60%/38% auto no-repeat,linear-gradient(180deg,#C9DAEF,#E8EEF6)}
+  #bow{position:absolute;left:50%;top:38%;width:22cqw;margin-left:-11cqw;z-index:6;filter:drop-shadow(0 .6cqw .8cqw rgba(40,60,90,.3)) saturate(.9) brightness(1.06)}
+  #seal{position:absolute;left:50%;top:44%;width:9cqw;margin-left:-4.5cqw;z-index:7;filter:drop-shadow(0 .5cqw .7cqw rgba(60,50,20,.35))}
   #hint{position:absolute;left:50%;bottom:calc(4cqh + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9;white-space:nowrap;font-style:italic;
     font-size:4.2cqw;letter-spacing:.1em;color:var(--navy);background:rgba(255,253,248,.82);padding:1.4cqw 5cqw;border-radius:99px;opacity:0;
     box-shadow:0 .6cqw 2cqw rgba(40,60,90,.12)}
@@ -85,81 +86,94 @@
   #gate .pl svg{width:5.4cqw;height:5.4cqw;margin-left:.8cqw}
   #gate .wm2{position:absolute;bottom:calc(3cqh + env(safe-area-inset-bottom));font-size:2.6cqw;letter-spacing:.2em;color:var(--soft);opacity:.7}
 
-  /* ================= INVITACIÓN ================= */
+  /* ================= INVITACIÓN · cielo de nubes y tarjetas en arco ================= */
   #inv{display:none;width:min(100vw,480px);margin:0 auto;container-type:inline-size;position:relative;overflow:hidden;overflow:clip;
-    background:var(--cream) url(arte/papel.jpg) center top/100% auto repeat-y;box-shadow:0 0 60px rgba(40,60,90,.15)}
+    background:linear-gradient(180deg,#CBDBEE 0%,#DDE7F3 18%,#EEF1F4 40%,#DFE8F3 62%,#EEF1F4 82%,#D6E2F0 100%);box-shadow:0 0 60px rgba(40,60,90,.15)}
+  #inv::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:multiply;background:url(arte/papel.jpg) center top/100% auto repeat-y}
   body.open #inv{display:block}
-  .sec{position:relative;padding:14cqw 8cqw;text-align:center}
-  .kick{font-size:3.3cqw;letter-spacing:.28em;padding-left:.28em;text-transform:uppercase;color:var(--soft)}
-  .script{font-family:var(--script);font-weight:400;color:var(--navy);line-height:1.05}
-  .body{font-size:4.6cqw;line-height:1.6;color:var(--ink)}
-  .rule{display:flex;align-items:center;justify-content:center;gap:3cqw;margin:5cqw auto;color:var(--gold)}
-  .rule::before,.rule::after{content:"";width:16cqw;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
-  .rule::after{transform:scaleX(-1)}
-  .rule img{width:6cqw;height:auto}
+  .sky{position:absolute;pointer-events:none;z-index:0}
+  .blk{position:relative;z-index:1;padding:8cqw 6cqw}
   .rv{opacity:0;transform:translateY(24px)}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:2cqw;padding:3cqw 7cqw;border-radius:99px;background:var(--blue2);color:#fff;text-decoration:none;
-    font-size:3.6cqw;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 1.2cqw 3cqw rgba(62,88,132,.25);transition:transform .2s}
+  .script{font-family:var(--script);font-weight:400;color:var(--navy);line-height:1.05}
+  .kick{font-size:3cqw;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;color:var(--soft)}
+  .caps{font-size:7cqw;letter-spacing:.14em;padding-left:.14em;text-transform:uppercase;color:var(--navy);font-weight:500;line-height:1.15}
+  .body{font-size:4.2cqw;line-height:1.55;color:var(--ink)}
+  .deco{position:absolute;pointer-events:none;z-index:3;filter:drop-shadow(0 1.2cqw 1.6cqw rgba(40,60,90,.16))}
+
+  /* tarjeta en arco con filo dorado */
+  .arch{position:relative;z-index:2;text-align:center;color:var(--ink);background:#FBF6EC;border-radius:50% 50% 5cqw 5cqw / 18cqw 18cqw 5cqw 5cqw;
+    padding:16cqw 8cqw 11cqw;box-shadow:0 2.4cqw 5cqw rgba(40,60,90,.18),inset 0 0 0 1.6cqw #FBF6EC,inset 0 0 0 1.9cqw #D9C28C}
+  .arch::before{content:"";position:absolute;inset:3.2cqw;border:1px solid rgba(201,162,90,.55);border-radius:50% 50% 3cqw 3cqw / 15cqw 15cqw 3cqw 3cqw;pointer-events:none}
+  .arch::after{content:"✦";position:absolute;left:0;right:0;top:4.6cqw;color:var(--gold);font-size:3.6cqw}
+  .arch .script{font-size:12cqw}
+  .orn{display:flex;align-items:center;justify-content:center;gap:2.4cqw;margin:3cqw auto;color:var(--gold);font-size:3cqw}
+  .orn::before,.orn::after{content:"";width:14cqw;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .orn::after{transform:scaleX(-1)}
+  .date{display:flex;justify-content:center;align-items:center;gap:3cqw;margin:4cqw 0 2cqw;color:var(--navy)}
+  .date span{font-size:3.2cqw;letter-spacing:.24em;text-transform:uppercase;width:20cqw}
+  .date span:first-child{text-align:right}.date span:last-child{text-align:left}
+  .date b{font-size:12cqw;font-weight:500;line-height:1;padding:0 3.4cqw;border-left:1px solid var(--gold);border-right:1px solid var(--gold)}
+  .small{font-size:3.5cqw;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);line-height:1.7}
+  .heart{display:block;margin:3cqw auto 0;color:var(--navy);font-size:3.4cqw}
+  .btns{display:flex;flex-wrap:wrap;gap:2.6cqw;justify-content:center;margin-top:6cqw}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:2.6cqw 6cqw;border-radius:99px;border:1px solid var(--blue2);color:var(--navy);text-decoration:none;
+    font-size:3.2cqw;letter-spacing:.2em;text-transform:uppercase;background:rgba(255,255,255,.4);white-space:nowrap}
+  .btn.f{background:var(--blue2);color:#fff;border-color:var(--blue2);box-shadow:0 1cqw 2.4cqw rgba(62,88,132,.25)}
   .btn:active{transform:scale(.97)}
-  .btn.o{background:transparent;color:var(--navy);border:1px solid var(--blue2);box-shadow:none}
-  .floaty{position:absolute;pointer-events:none}
 
-  .hero{padding:18cqw 6cqw 10cqw;background:linear-gradient(180deg,#DCE6F2,rgba(220,230,242,0) 70%)}
-  .hero .gl{width:40cqw;margin:4cqw auto 0;filter:drop-shadow(0 2cqw 3cqw rgba(40,60,90,.18))}
-  .hero .bnd{width:70cqw;margin:-2cqw auto 0}
-  .hero .script{font-size:24cqw;margin-top:2cqw}
-  .hero .sub{font-size:5cqw;font-style:italic;color:var(--blue2);margin-top:1cqw}
-  .hero .dt{display:flex;justify-content:center;align-items:center;gap:4cqw;margin-top:6cqw;color:var(--navy)}
-  .hero .dt span{font-size:3.6cqw;letter-spacing:.3em;text-transform:uppercase}
-  .hero .dt b{font-size:13cqw;font-weight:500;line-height:1;padding:0 4cqw;border-left:1px solid var(--gold);border-right:1px solid var(--gold)}
+  .hero{padding-top:20cqw}
+  .hero .arch{padding-top:20cqw}
+  .hero .gl{width:24cqw;margin:0 auto -4cqw;position:relative;z-index:3}
+  .hero .nm{font-family:var(--serif);font-size:9cqw;letter-spacing:.16em;padding-left:.16em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-top:3cqw;line-height:1.1}
 
-  .card{position:relative;background:#FFFDF9;border-radius:2cqw;padding:10cqw 7cqw;box-shadow:0 2cqw 5cqw rgba(40,60,90,.1)}
-  .card::before{content:"";position:absolute;inset:2.6cqw;border:1.5px dashed rgba(124,155,199,.55);border-radius:1.2cqw;pointer-events:none}
-  .card .script{font-size:12cqw}
-  .card .sign{font-family:var(--script);font-size:9cqw;color:var(--blue2);margin-top:4cqw}
+  .zz{display:flex;align-items:flex-start;position:relative}
+  .zz .arch{flex:0 0 62cqw;padding:15cqw 7cqw 10cqw}
+  .zz .arch .script{font-size:10.5cqw}
+  .zz.r{flex-direction:row-reverse}
+  .side{position:relative;flex:1;min-height:60cqw}
+  .pol{position:absolute;background:#fff;padding:1.8cqw 1.8cqw 6cqw;box-shadow:0 1.6cqw 3.4cqw rgba(40,60,90,.22);z-index:4}
+  .pol img{display:block;width:100%;height:100%;object-fit:cover}
+  .pol .ph{width:100%;height:100%;background:linear-gradient(180deg,#CFDDEE,#F4EFE6);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+  .pol .ph img{width:80%;height:auto;object-fit:contain}
+  .pol span{position:absolute;left:0;right:0;bottom:1.4cqw;text-align:center;font-family:var(--script);font-size:4.6cqw;color:var(--navy)}
 
-  .count{display:flex;justify-content:center;gap:1cqw;margin-top:6cqw}
+  .count{display:flex;justify-content:center;gap:1cqw;margin-top:4cqw}
   .count div{position:relative;width:21.5cqw;height:18cqw;display:flex;flex-direction:column;align-items:center;justify-content:center}
   .count div img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
   .count b{position:relative;font-size:6.6cqw;font-weight:500;line-height:1;color:var(--navy);margin-top:4cqw;font-variant-numeric:tabular-nums}
   .count small{position:relative;font-size:2.4cqw;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
 
-  .info{display:grid;gap:6cqw;margin-top:6cqw}
-  .info .row{display:flex;flex-direction:column;align-items:center;gap:1cqw}
-  .info svg{width:9cqw;height:9cqw;color:var(--blue2)}
-  .info h4{font-size:3.4cqw;letter-spacing:.34em;text-transform:uppercase;color:var(--soft);font-weight:500}
-  .info p{font-size:5cqw;color:var(--navy);line-height:1.35}
-  .info p small{display:block;font-size:4cqw;color:var(--soft);font-style:italic}
-  .btns{display:flex;flex-wrap:wrap;gap:3cqw;justify-content:center;margin-top:7cqw}
-
-  .tl{list-style:none;margin:7cqw auto 0;max-width:70cqw;text-align:left}
-  .tl li{display:flex;align-items:center;gap:5cqw;padding:2.6cqw 0;border-bottom:1px dashed rgba(124,155,199,.45)}
+  .tl{list-style:none;margin:5cqw auto 0;text-align:left}
+  .tl li{display:flex;align-items:baseline;gap:4cqw;padding:2.2cqw 0;border-bottom:1px dashed rgba(201,162,90,.5)}
   .tl li:last-child{border:0}
-  .tl b{font-size:5cqw;font-weight:500;color:var(--navy);min-width:18cqw}
-  .tl span{font-size:4.6cqw;color:var(--ink)}
+  .tl b{font-size:4.4cqw;font-weight:500;color:var(--navy);min-width:15cqw}
+  .tl span{font-size:4.2cqw}
+  .sug{display:inline-block;margin-top:4cqw;padding:2cqw 4.4cqw;border-radius:99px;background:rgba(169,191,221,.3);font-size:3.8cqw;color:var(--navy);font-style:italic}
 
-  .gift .osito{width:30cqw;margin:0 auto 4cqw}
-  .gift .sug{display:inline-block;margin-top:5cqw;padding:2.4cqw 5cqw;border-radius:99px;background:rgba(169,191,221,.28);font-size:4cqw;color:var(--navy);font-style:italic}
+  .closing{text-align:center;padding:14cqw 6cqw 10cqw}
+  .closing .gl{width:28cqw;margin:0 auto}
+  .closing .script{font-size:14cqw;margin-top:3cqw}
+  .closing .wm{margin-top:20cqw;font-size:3cqw;letter-spacing:.2em;color:var(--soft);position:relative;z-index:2}
 
-  .rsvp{text-align:left;margin-top:7cqw;display:grid;gap:3.4cqw}
-  .rsvp label.q{font-size:3.8cqw;color:var(--soft)}
-  .rsvp input[type=text],.rsvp textarea{width:100%;font:inherit;font-size:4.6cqw;color:var(--ink);border:1px solid #D5DCE7;background:#FFFEFB;padding:2.6cqw 3.4cqw;border-radius:1.6cqw;outline:none;resize:none}
+  /* página de confirmación (se abre encima) */
+  #rsvpPage{position:fixed;z-index:25;left:50%;top:0;bottom:0;width:min(100vw,480px);transform:translate(-50%,100%);overflow-y:auto;container-type:inline-size;
+    background:linear-gradient(180deg,#CBDBEE,#EEF1F4 45%,#DCE6F2);visibility:hidden}
+  #rsvpPage::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background:url(arte/papel.jpg) center/100% auto}
+  #rsvpPage .in{position:relative;padding:16cqw 8cqw 12cqw;text-align:center}
+  #rsvpPage .script{font-size:15cqw}
+  .rsvp{text-align:left;margin-top:7cqw;display:grid;gap:3.2cqw}
+  .rsvp label.q{font-size:3.6cqw;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+  .rsvp input[type=text],.rsvp textarea{width:100%;font:inherit;font-size:4.6cqw;color:var(--ink);border:1px solid #D5DCE7;background:rgba(255,254,251,.9);padding:2.6cqw 3.4cqw;border-radius:1.6cqw;outline:none;resize:none}
   .rsvp input[type=text]:focus,.rsvp textarea:focus{border-color:var(--blue)}
-  .opt{display:flex;align-items:center;gap:3cqw;padding:3cqw 4cqw;border-radius:1.6cqw;background:#F1F4F9;border:1px solid transparent;font-size:4.2cqw;cursor:pointer}
+  .opt{display:flex;align-items:center;gap:3cqw;padding:3cqw 4cqw;border-radius:1.6cqw;background:rgba(241,244,249,.9);border:1px solid transparent;font-size:4.2cqw;cursor:pointer}
   .opt:has(input:checked){border-color:var(--blue);background:#E7EEF7}
   .opt input{accent-color:var(--blue2);width:4.6cqw;height:4.6cqw}
-  .stepper{display:flex;align-items:center;justify-content:space-between;padding:2cqw 2cqw 2cqw 4cqw;border-radius:1.6cqw;background:#F1F4F9;font-size:4.2cqw}
+  .stepper{display:flex;align-items:center;justify-content:space-between;padding:2cqw 2cqw 2cqw 4cqw;border-radius:1.6cqw;background:rgba(241,244,249,.9);font-size:4.2cqw}
   .stepper div{display:flex;align-items:center;gap:4cqw}
   .stepper button{width:9cqw;height:9cqw;border-radius:50%;border:1px solid var(--blue2);color:var(--blue2);font-size:5cqw;line-height:1;background:#fff}
   .stepper b{font-size:6cqw;font-weight:500;min-width:6cqw;text-align:center;color:var(--navy)}
-  .rsvp .btn{width:100%;margin-top:2cqw;white-space:nowrap;letter-spacing:.12em;padding:3.4cqw 4cqw}
-
-  .closing{padding:16cqw 8cqw 12cqw;background:linear-gradient(180deg,rgba(220,230,242,0),#DCE6F2)}
-  .closing .gl{width:30cqw;margin:0 auto}
-  .closing .script{font-size:15cqw;margin-top:4cqw}
-  .closing .nubes{position:relative;height:30cqw;margin:6cqw -8cqw 0}
-  .closing .nubes img{position:absolute;bottom:0}
-  .closing .wm{margin-top:6cqw;font-size:3cqw;letter-spacing:.2em;color:var(--soft)}
+  .rsvp .btn{width:100%;margin-top:2cqw;padding:3.4cqw 4cqw}
+  .back{display:inline-block;margin-top:7cqw;font-size:3.6cqw;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);text-decoration:underline;text-underline-offset:1.4cqw}
 
   #music{position:fixed;z-index:20;top:calc(3.5vw + env(safe-area-inset-top));right:max(3.5vw,calc(50vw - 240px + 14px));width:44px;height:44px;border-radius:50%;
     background:rgba(255,253,248,.9);box-shadow:0 4px 14px rgba(40,60,90,.18);display:none;place-items:center;border:1px solid rgba(124,155,199,.5)}
@@ -190,7 +204,7 @@
       <div class="e-card" id="eCard"><small></small><b></b></div>
       <div class="e-front"></div>
       <div class="e-flap" id="eFlap"><i class="o"></i><i class="in"></i></div>
-      <img id="bow" alt="">
+      <img id="bow" alt=""><img id="seal" alt="">
     </div>
   </div>
   <div id="hint">Toca el sobre para abrir</div>
@@ -290,7 +304,7 @@
   const intro = $("#intro"), W = () => intro.clientWidth, H = () => intro.clientHeight;
   $("#pueblo").src = IMG("pueblo");
   $("#plane .av").src = IMG("avion"); $("#plane .hel").src = IMG("helice");
-  $("#rig .gl").src = IMG("globo"); $("#bow").src = IMG("mono");
+  $("#rig .gl").src = IMG("globo"); $("#bow").src = IMG("mono"); $("#seal").src = IMG("sello");
   $("#gate .gb").src = IMG("globo");
   $("#gate small").textContent = C.textoSuperior; $("#gate strong").textContent = C.bebe; $("#gate .wm2").textContent = C.marcaDeAgua;
   $("#wm").textContent = C.marcaDeAgua;
@@ -374,6 +388,8 @@
       .to(env, { x: dx, y: dy, scale: k, duration: 1.6, ease: "power3.inOut" }, .3)
       .to("#title", { opacity: 0, y: -h * .06, duration: 1 }, .3)
       // el moño se desata y cae
+      .to("#seal", { scale: 1.15, duration: .2, ease: "sine.out" }, 1.75)
+      .to("#seal", { y: -h * .04 / k, rotation: -25, opacity: 0, duration: .6, ease: "power2.in" }, 1.95)
       .to("#bow", { scale: 1.12, duration: .25, ease: "sine.out" }, 1.9)
       .to("#bow", { y: h * .5 / k, rotation: 40, opacity: 0, duration: 1.2, ease: "power2.in" }, 2.15)
       // se abre la solapa y sale la carta
@@ -415,88 +431,128 @@
     ropa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 3l3 2 3-2 5 3-2 5-2-1v11H8V10l-2 1-2-5z"/></svg>'
   };
   function render() {
-    const R = E.regalos || {}, star = `<img src="${IMG("estrella")}" alt="">`;
+    const R = E.regalos || {}, F = C.fotos || {};
     const dia = fecha.getDate(), mes = MESES[fecha.getMonth()], diaS = DIAS[fecha.getDay()];
+    const pol = (src, cap, style, rot) => `<div class="pol rv" style="${style};transform:rotate(${rot}deg)">${src ? `<img src="${esc(src)}" alt="">` : `<div class="ph"><img src="${IMG("osito")}" alt=""></div>`}<span>${esc(cap)}</span></div>`;
+    const sky = (img, style) => `<img class="sky" src="${IMG(img)}" alt="" style="${style}" data-drift="${Math.random() < .5 ? 1 : -1}">`;
     $("#inv").innerHTML = `
-    <header class="sec hero">
-      <img class="floaty" src="${IMG("nube3")}" alt="" style="left:-6cqw;top:8cqw;width:34cqw;opacity:.8" data-drift="1">
-      <img class="floaty" src="${IMG("nube2")}" alt="" style="right:-8cqw;top:40cqw;width:40cqw;opacity:.8" data-drift="-1">
-      <div class="kick rv">${esc(C.kicker)}</div>
-      <img class="gl rv" src="${IMG("globo")}" alt="" id="heroGlobo">
-      <img class="bnd rv" src="${IMG("banderin")}" alt="">
-      <div class="script rv">${esc(C.bebe)}</div>
-      <div class="sub rv">${esc(C.subtitulo)}</div>
-      <div class="dt rv"><span>${esc(diaS)}</span><b>${dia}</b><span>${esc(mes)}</span></div>
-      <div class="kick rv" style="margin-top:3cqw">${fecha.getFullYear()}</div>
-    </header>
+    ${sky("nube1", "left:-20cqw;top:6cqw;width:70cqw;opacity:.9")}${sky("nube2", "right:-18cqw;top:60cqw;width:56cqw;opacity:.85")}
+    ${sky("nube3", "left:-10cqw;top:150cqw;width:40cqw;opacity:.8")}${sky("nube1", "right:-26cqw;top:250cqw;width:72cqw;opacity:.8")}
+    ${sky("nube2", "left:-22cqw;top:360cqw;width:60cqw;opacity:.85")}${sky("nube3", "right:-8cqw;top:470cqw;width:38cqw;opacity:.8")}
+    ${sky("nube1", "left:-24cqw;top:560cqw;width:74cqw;opacity:.8")}${sky("nube2", "right:-20cqw;top:660cqw;width:58cqw;opacity:.85")}
 
-    <section class="sec" style="padding-top:4cqw">
-      <div class="card rv">
-        <div class="kick">${esc(C.textoSuperior)}</div>
-        <div class="rule">${star}</div>
-        <p class="body">${esc(E.mensaje)}</p>
-        <div class="sign">${esc(C.padres)}</div>
+    <section class="blk hero">
+      <img class="gl rv" src="${IMG("globo")}" alt="" id="heroGlobo">
+      <div class="arch rv">
+        <div class="kick">${esc(C.kicker)}</div>
+        <div class="script" style="font-size:14cqw;margin-top:3cqw">${esc(C.textoSuperior)}</div>
+        <div class="orn">✦</div>
+        <div class="nm">${esc(C.bebe)}</div>
+        <div class="date"><span>${esc(diaS)}</span><b>${dia}</b><span>${esc(mes)}</span></div>
+        <div class="small">${fecha.getFullYear()} · ${esc(E.hora)}</div>
+        <div class="orn">✦</div>
+        <div class="small" style="color:var(--navy)">${esc(E.lugar)}</div>
+        <div class="small">${esc(E.direccion)}</div>
+        <div class="btns"><a class="btn f" href="${esc(E.mapa)}" target="_blank" rel="noopener">Ver ubicación</a><a class="btn" id="gcal" target="_blank" rel="noopener">Agendar</a></div>
       </div>
+      <img class="deco rv" src="${IMG("flores")}" alt="" style="left:-4cqw;top:30cqw;width:40cqw;transform:rotate(-12deg)">
+      <img class="deco rv" src="${IMG("osito")}" alt="" style="right:0;bottom:2cqw;width:22cqw">
+      <img class="deco" src="${IMG("mariposa")}" alt="" style="right:10cqw;top:24cqw;width:11cqw" data-flap="1">
     </section>
 
-    <section class="sec" style="padding-top:2cqw">
-      <img class="floaty" src="${IMG("avion")}" alt="" id="flyBy" style="left:0;top:2cqw;width:36cqw">
-      <div class="script rv" style="font-size:13cqw;margin-top:16cqw">Faltan</div>
+    <section class="blk" style="text-align:center;padding-top:2cqw">
+      <p class="body rv" style="padding:0 4cqw">${esc(E.mensaje)}</p>
+      <div class="script rv" style="font-size:9cqw;color:var(--blue2);margin-top:3cqw">${esc(C.padres)}</div>
+      <div class="script rv" style="font-size:12cqw;margin-top:9cqw">Faltan</div>
       <div class="count rv" id="count">${["días", "horas", "min", "seg"].map(u => `<div><img src="${IMG("nube3")}" alt=""><b>00</b><small>${u}</small></div>`).join("")}</div>
     </section>
 
-    <section class="sec">
-      <div class="card rv">
-        <div class="script">Cuándo y dónde</div>
-        <div class="info">
-          <div class="row">${ico.cal}<h4>Fecha</h4><p>${esc(E.fechaTexto)}</p></div>
-          <div class="row">${ico.hora}<h4>Hora</h4><p>${esc(E.hora)}</p></div>
-          <div class="row">${ico.pin}<h4>Lugar</h4><p>${esc(E.lugar)}<small>${esc(E.direccion)}</small></p></div>
-          ${E.vestimenta ? `<div class="row">${ico.ropa}<h4>Vestimenta</h4><p>${esc(E.vestimenta)}</p></div>` : ""}
-        </div>
-        <div class="btns"><a class="btn" href="${esc(E.mapa)}" target="_blank" rel="noopener">Ver ubicación</a><a class="btn o" id="gcal" target="_blank" rel="noopener">Agendar</a></div>
+    ${E.rifa ? `<section class="blk zz">
+      <div class="arch rv">
+        <div class="script">${esc(E.rifa.titulo.split(" ")[0])}</div>
+        <div class="caps" style="font-size:5.6cqw;margin-top:1cqw">${esc(E.rifa.titulo.split(" ").slice(1).join(" "))}</div>
+        <p class="body" style="margin-top:4cqw;font-size:3.9cqw">${esc(E.rifa.texto)}</p>
+        <span class="heart">♥</span>
       </div>
-    </section>
-
-    ${(E.itinerario || []).length ? `<section class="sec" style="padding-top:2cqw">
-      <img class="floaty" src="${IMG("estrella")}" alt="" style="right:10cqw;top:2cqw;width:9cqw" data-spin="1">
-      <div class="script rv" style="font-size:13cqw">Itinerario</div>
-      <ul class="tl rv">${E.itinerario.map(([h, t]) => `<li><b>${esc(h)}</b><span>${esc(t)}</span></li>`).join("")}</ul>
+      <div class="side">
+        ${pol(F.papas, "Papá & Mamá", "right:-2cqw;top:6cqw;width:32cqw;height:40cqw", 5)}
+        ${pol(F.eco, "Mi primera foto", "left:-4cqw;top:44cqw;width:24cqw;height:26cqw", -8)}
+      </div>
     </section>` : ""}
 
-    <section class="sec gift">
-      <div class="card rv">
-        <img class="osito" src="${IMG("osito")}" alt="">
+    ${E.cuentos ? `<section class="blk zz r" style="padding-top:2cqw">
+      <div class="arch rv">
+        <div class="script">${esc(E.cuentos.titulo.split(" ")[0])}</div>
+        <div class="caps" style="font-size:5.4cqw;margin-top:1cqw">${esc(E.cuentos.titulo.split(" ").slice(1).join(" "))}</div>
+        <p class="body" style="margin-top:4cqw;font-size:3.9cqw">${esc(E.cuentos.texto)}</p>
+        <span class="heart">✦</span>
+      </div>
+      <div class="side">
+        <img class="deco rv" src="${IMG("globo")}" alt="" style="left:2cqw;top:4cqw;width:24cqw" id="midGlobo">
+        <img class="deco rv" src="${IMG("osito")}" alt="" style="left:6cqw;top:30cqw;width:15cqw">
+      </div>
+      <img class="deco rv" src="${IMG("regalo")}" alt="" style="right:2cqw;bottom:-4cqw;width:24cqw">
+      <img class="deco rv" src="${IMG("flores")}" alt="" style="right:12cqw;bottom:-8cqw;width:26cqw;transform:scaleX(-1) rotate(-8deg)">
+    </section>` : ""}
+
+    <section class="blk" style="padding-top:12cqw">
+      <div class="arch rv">
         <div class="script">Mesa de regalos</div>
         <p class="body" style="margin-top:4cqw">${esc(R.texto)}</p>
         ${R.sugerencia ? `<div class="sug">${esc(R.sugerencia)}</div>` : ""}
-        <div class="btns">${(R.mesa || []).map(m => `<a class="btn o" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.nombre)}</a>`).join("")}</div>
+        <div class="btns">${(R.mesa || []).map(m => `<a class="btn" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.nombre)}</a>`).join("")}</div>
       </div>
+      <img class="deco" src="${IMG("mariposa")}" alt="" style="left:6cqw;top:6cqw;width:10cqw" data-flap="1">
     </section>
 
-    <section class="sec">
-      <img class="floaty" src="${IMG("mono")}" alt="" style="left:50%;top:4cqw;width:20cqw;margin-left:-10cqw">
-      <div class="card rv" style="margin-top:12cqw">
-        <div class="script">Confirma tu asistencia</div>
-        <p class="body" style="margin-top:3cqw">Por favor confírmanos antes del ${esc(E.rsvpFecha)}.</p>
-        <form class="rsvp" id="rsvp" onsubmit="return false" autocomplete="on">
-          <label class="q" for="rn">Tu nombre</label><input type="text" id="rn" maxlength="80">
-          <label class="opt"><input type="radio" name="as" value="si" checked><span>¡Sí, ahí estaré!</span></label>
-          <label class="opt"><input type="radio" name="as" value="no"><span>No podré asistir</span></label>
-          <div id="paxRow"><div class="stepper"><span>Personas</span><div><button type="button" data-d="-1" aria-label="Menos">−</button><b id="pax">1</b><button type="button" data-d="1" aria-label="Más">+</button></div></div></div>
-          <label class="q" for="rm">Un mensaje para el bebé (opcional)</label><textarea id="rm" rows="2" maxlength="300"></textarea>
-          <a class="btn" id="send" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
-        </form>
+    ${(E.itinerario || []).length ? `<section class="blk zz" style="padding-top:4cqw">
+      <div class="arch rv">
+        <div class="script">Itinerario</div>
+        <ul class="tl">${E.itinerario.map(([h, t]) => `<li><b>${esc(h)}</b><span>${esc(t)}</span></li>`).join("")}</ul>
+        ${E.vestimenta ? `<div class="orn">✦</div><div class="small">Vestimenta</div><div class="body" style="font-style:italic">${esc(E.vestimenta)}</div>` : ""}
       </div>
+      <div class="side"><img class="deco rv" src="${IMG("avion")}" alt="" style="left:-6cqw;top:18cqw;width:40cqw" id="sideAvion"></div>
+    </section>` : ""}
+
+    <section class="blk" style="padding-top:10cqw">
+      <div class="arch rv">
+        <div class="kick">Por favor confirma antes del</div>
+        <div class="small" style="color:var(--navy);margin-top:1cqw">${esc(E.rsvpFecha)}</div>
+        <div class="script" style="margin-top:3cqw">Confirma tu asistencia</div>
+        <div class="btns"><button class="btn f" type="button" id="openRsvp">Toca aquí</button></div>
+      </div>
+      <img class="deco rv" src="${IMG("flores")}" alt="" style="right:-4cqw;top:2cqw;width:36cqw;transform:rotate(10deg)">
     </section>
 
-    <footer class="sec closing">
+    <footer class="closing">
       <img class="gl rv" src="${IMG("globo")}" alt="" id="endGlobo">
       <div class="script rv">${esc(E.cierre)}</div>
       <div class="body rv" style="font-style:italic">${esc(C.padres)}</div>
-      <div class="nubes"><img src="${IMG("nube1")}" alt="" style="left:-10cqw;width:70cqw"><img src="${IMG("nube2")}" alt="" style="right:-12cqw;width:60cqw"></div>
       <div class="wm">${esc(C.marcaDeAgua)}</div>
     </footer>`;
+
+    // página de confirmación
+    let page = $("#rsvpPage");
+    if (!page) { page = document.createElement("div"); page.id = "rsvpPage"; document.body.appendChild(page); }
+    page.innerHTML = `<div class="in">
+      <div class="kick">${esc(C.textoSuperior)}</div>
+      <div class="script">${esc(C.bebe)}</div>
+      <div class="orn">✦</div>
+      <form class="rsvp" id="rsvp" onsubmit="return false" autocomplete="on">
+        <label class="q" for="rn">Tu nombre</label><input type="text" id="rn" maxlength="80">
+        <label class="q">¿Nos acompañas?</label>
+        <label class="opt"><input type="radio" name="as" value="si" checked><span>¡Sí, ahí estaré!</span></label>
+        <label class="opt"><input type="radio" name="as" value="no"><span>No podré asistir</span></label>
+        <div id="paxRow"><div class="stepper"><span>Personas</span><div><button type="button" data-d="-1" aria-label="Menos">−</button><b id="pax">1</b><button type="button" data-d="1" aria-label="Más">+</button></div></div></div>
+        <label class="q" for="rm">Un mensaje para el bebé (opcional)</label><textarea id="rm" rows="2" maxlength="300"></textarea>
+        <a class="btn f" id="send" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+      </form>
+      <button class="back" type="button" id="closeRsvp">‹ Volver a la invitación</button>
+    </div>`;
+    const abrirRsvp = () => { gsap.set(page, { visibility: "visible" }); page.scrollTop = 0; gsap.to(page, { yPercent: 0, y: 0, transform: "translate(-50%,0)", duration: .8, ease: "power3.out" }); };
+    const cerrarRsvp = () => gsap.to(page, { transform: "translate(-50%,100%)", duration: .6, ease: "power2.in", onComplete: () => gsap.set(page, { visibility: "hidden" }) });
+    $("#openRsvp").addEventListener("click", abrirRsvp);
+    $("#closeRsvp").addEventListener("click", cerrarRsvp);
 
     // cuenta regresiva
     const cells = $$("#count b");
@@ -532,17 +588,10 @@
   function vida() {
     const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); gsap.to(e.target, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }); }), { threshold: .12 });
     $$("#inv .rv").forEach(el => io.observe(el));
-    gsap.to("#heroGlobo", { y: -12, rotation: 1.5, duration: 2.6, yoyo: true, repeat: -1, ease: "sine.inOut" });
-    gsap.to("#endGlobo", { y: -14, rotation: -2, duration: 2.8, yoyo: true, repeat: -1, ease: "sine.inOut" });
-    $$("[data-drift]").forEach(el => gsap.to(el, { x: 18 * +el.dataset.drift, duration: 6, yoyo: true, repeat: -1, ease: "sine.inOut" }));
-    $$("[data-spin]").forEach(el => gsap.to(el, { rotation: 18, scale: 1.1, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }));
-    // el avión cruza la sección al hacer scroll
-    const fly = $("#flyBy");
-    if (fly) {
-      const sec = fly.parentElement;
-      const upd = () => { const r = sec.getBoundingClientRect(), p = Math.min(1, Math.max(0, 1 - (r.top + r.height * .3) / innerHeight)); fly.style.transform = `translateX(${(-30 + p * 110) * sec.clientWidth / 100}px) translateY(${Math.sin(p * Math.PI) * -12}px) scaleX(-1)`; };
-      addEventListener("scroll", upd, { passive: true }); upd();
-    }
+    ["#heroGlobo", "#midGlobo", "#endGlobo"].forEach((id, i) => { if ($(id)) gsap.to(id, { y: -12, rotation: i % 2 ? -2 : 2, duration: 2.6 + i * .3, yoyo: true, repeat: -1, ease: "sine.inOut" }); });
+    $$("[data-drift]").forEach(el => gsap.to(el, { x: 22 * +el.dataset.drift, duration: rand(6, 9), yoyo: true, repeat: -1, ease: "sine.inOut" }));
+    $$("[data-flap]").forEach(el => { gsap.to(el, { scaleX: .55, duration: .28, yoyo: true, repeat: -1, ease: "sine.inOut" }); gsap.to(el, { y: -10, x: 8, duration: 2.2, yoyo: true, repeat: -1, ease: "sine.inOut" }); });
+    if ($("#sideAvion")) { gsap.set("#sideAvion", { scaleX: -1 }); gsap.to("#sideAvion", { y: -8, rotation: -3, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }); }
   }
 
   function abrirInvitacion() {

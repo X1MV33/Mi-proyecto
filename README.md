@@ -101,6 +101,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
   3. El avión con el osito llega volando en curva, saluda y se va.
   4. Sube el globo grande con el sobre colgando.
 - **Apertura:** al tocar el sobre, el globo lo suelta, el moño se desata, se abre la solapa y la carta crece hasta ser la invitación.
-- **Invitación:** mensaje, cuenta regresiva en nubes, cuándo y dónde, itinerario, mesa de regalos, confirmación por WhatsApp y cierre.
+- **Invitación:** cielo de nubes con tarjetas en arco y filo dorado en zigzag: portada con nombre y fecha, mensaje, cuenta regresiva en nubes, rifa de pañales con polaroids (`fotos.papas` y `fotos.eco`), cuentos para el bebé, mesa de regalos, itinerario y página de confirmación por WhatsApp que se abre encima.
+- **Sobre:** azul, con moño, sello dorado con osito y forro de nubes.
 - **Música:** canción de cuna original de caja musical; o su canción en `musica` de `config.js`.
 - **Atajo para editar:** `?invitacion=1` salta la escena.

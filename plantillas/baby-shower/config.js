@@ -12,6 +12,8 @@ window.CONFIG = {
   marcaDeAgua: "@perlainvitaciones",
   musica: "",                            // ruta a su canción (p. ej. "cancion.mp3"); vacío = canción de cuna de caja musical
   assetsArte: "arte/",
+  // Fotos de las polaroids (opcional). Vacío = ilustración del osito.
+  fotos: { papas: "", eco: "" },
 
   // ---- Datos del evento: DATOS DE EJEMPLO, edítalos ----
   evento: {
@@ -24,6 +26,8 @@ window.CONFIG = {
     mensaje: "Con mucha ilusión esperamos la llegada de nuestro bebé y queremos compartir contigo este momento tan especial. ¡Acompáñanos a celebrar!",
     itinerario: [["16:00", "Bienvenida"], ["16:45", "Juegos"], ["17:30", "Merienda"], ["18:30", "Apertura de regalos"]],
     vestimenta: "Casual · tonos pastel",
+    rifa: { titulo: "Rifa de pañales", texto: "Trae un paquete de pañales de cualquier etapa y participa en la rifa de un regalo sorpresa." },   // o null
+    cuentos: { titulo: "Cuentos para el bebé", texto: "En lugar de tarjeta, regálale un cuento con una dedicatoria para empezar su librero." },  // o null
     regalos: {
       texto: "Tu presencia es nuestro mejor regalo. Si deseas consentir a nuestro bebé, aquí tienes algunas opciones.",
       mesa: [{ nombre: "Mesa de regalos", url: "https://www.amazon.com.mx/baby-reg/homepage" }],   // deja [] si no hay
