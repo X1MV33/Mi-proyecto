@@ -21,3 +21,22 @@ Nota: los archivos deben servirse por HTTP (p. ej. `npx serve .`) o abrirse loca
 5. La escena 1 vuelve a subir como cortina y el loop reinicia.
 
 Sus datos se editan en el `CONFIG` de ese archivo: `quinceanera`, `iniciales`, `textoSuperior`, `frase`, `fecha` y `marcaDeAgua`. Para grabar el Reel se usa `xv/index.html?reel=1`.
+
+### Extras de la invitación XV
+
+- **Apertura:** al tocar la portada se abren unas puertas de palacio en 3D con un sello "XV". En ese momento empieza la música y, en iPhone, se pide permiso para usar el giroscopio.
+- **Fotos** (`xv/fotos/`, lista en `CONFIG.fotos`):
+  - La foto en arco con marco dorado (`fotoPortada`) se inclina en 3D al mover el dedo o el teléfono.
+  - La galería es un carrusel 3D en anillo: se gira arrastrando, gira sola, y al tocar una foto se abre un visor con deslizar, flechas y teclado.
+  - La foto de fondo del cierre se elige con `fotoCierre`.
+- **Música:**
+  - Botón flotante para pausar o reanudar.
+  - Si `CONFIG.musica` tiene la ruta a tu canción (por ejemplo `"musica.mp3"` dentro de `xv/`), suena en loop.
+  - Si está vacío, suena un vals de caja musical original generado en vivo, sin archivo.
+- **Más interacciones:**
+  - Pétalos que caen en 3D.
+  - Destellos dorados al tocar la pantalla.
+  - Las secciones aparecen con un giro 3D al bajar.
+  - La cuenta regresiva cambia los números con un giro tipo reloj de cartel.
+  - Botones para "Google Calendar" y para descargar un `.ics` (iPhone/Outlook).
+  - Formulario de confirmación (nombre, número de personas y mensaje) que abre WhatsApp con el texto ya armado.
