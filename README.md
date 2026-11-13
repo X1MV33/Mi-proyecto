@@ -10,6 +10,7 @@ assets/                    ilustraciones compartidas (escenas, marcos, estrella,
 plantillas/
   xv/                      plantilla XV años  → index.html (motor) + config.js (datos) + fotos/
   boda/                    plantilla boda     → index.html (motor) + config.js (datos)
+  boda-azul/               plantilla boda azul → index.html + config.js + intro.mp4 + fotos/
 invitaciones/
   xv-valentina/            una invitación real: copia de la plantilla con sus datos y fotos
 herramientas/publicar.py   prepara una invitación para publicarla como página web
@@ -66,3 +67,25 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
 
 - **Escena 1:** `e1_fondo`, `e1_marco_izq`, `e1_marco_der`, `e1_cenefa`, `estrella.svg`.
 - **Escena 2:** `e2_cielo`, `e2_montanas`, `e2_cascadas`, `e2_hacienda`, `e2_marco_sup`, `e2_marco_inf`, `e2_marco_lat`, `mariposa`.
+
+## Funciones de la plantilla Boda azul
+
+- **Intro:**
+  1. Pantalla con monograma: «Toca para abrir».
+  2. Se reproduce el video animado (`intro.mp4`), ya sin la interfaz de la grabación ni las letras blancas.
+  3. La cámara sube al cielo: aparecen los nombres y los fuegos artificiales.
+  4. Al tocar la estrella (o solos a los pocos segundos) se hace zoom a la estrella y se abre la invitación.
+- **Atajo para editar:** `?invitacion=1` salta la intro.
+- **Secciones:**
+  - Portada con foto.
+  - Sobre azul con forro de flores que se abre y saca la tarjeta.
+  - Reproductor de música.
+  - Calendario con corazón en la fecha y cuenta regresiva.
+  - Padres y padrinos.
+  - Ceremonia y recepción en polaroids.
+  - Itinerario con torre de champaña.
+  - Carrete de fotos con visor.
+  - Código de vestimenta con paleta.
+  - Regalos (mesa de regalos y CLABE para copiar).
+  - Confirmación por WhatsApp.
+  - Cierre.
