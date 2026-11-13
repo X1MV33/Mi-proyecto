@@ -320,6 +320,58 @@
     linear-gradient(180deg,#F6F0E6 0%,rgba(246,240,230,.82) 26%,rgba(246,240,230,.15) 52%,rgba(246,240,230,0) 70%),
     var(--closing-photo) center 30%/cover no-repeat}
   .count b{display:block;transform-style:preserve-3d}
+
+  /* =================== SOBRE CON SELLO DE CERA (antes de las puertas) =================== */
+  #envelope{position:absolute;inset:0;z-index:57;visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(ellipse at 50% 45%, rgba(30,36,20,.35), rgba(16,20,10,.78));touch-action:none}
+  .env{position:relative;width:80cqw;height:54cqw;perspective:320cqw;transform-style:preserve-3d}
+  .env-back{position:absolute;inset:0;border-radius:1.4cqw;background:linear-gradient(160deg,#E9DFC8,#DCCFB2);
+    box-shadow:0 4cqw 9cqw rgba(0,0,0,.45)}
+  .env-card{position:absolute;left:5cqw;right:5cqw;top:3cqw;height:48cqw;border-radius:1cqw;background:#FFFDF8;
+    box-shadow:0 .5cqw 2cqw rgba(0,0,0,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    border:1px solid #E5DCC6}
+  .env-card::before{content:"";position:absolute;inset:1.8cqw;border:1px solid rgba(201,161,90,.6);border-radius:.6cqw;pointer-events:none}
+  .env-card small{font-size:3.2cqw;letter-spacing:.3em;color:var(--serif);text-transform:uppercase}
+  .env-card b{font-family:"Pinyon Script",cursive;font-weight:400;font-size:12cqw;color:var(--name);line-height:1.15}
+  .env-card span{font-size:3.4cqw;color:var(--serif);font-style:italic}
+  .env-front{position:absolute;inset:0;border-radius:1.4cqw;pointer-events:none;
+    background:linear-gradient(170deg,#EFE6D0,#E2D6BB);
+    clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);
+    box-shadow:inset 0 -1cqw 3cqw rgba(0,0,0,.08)}
+  .env-front::after{content:"";position:absolute;inset:0;background:
+    linear-gradient(to top right, transparent 49.6%, rgba(150,130,95,.25) 50%, transparent 50.4%) left/50% 100% no-repeat,
+    linear-gradient(to top left, transparent 49.6%, rgba(150,130,95,.25) 50%, transparent 50.4%) right/50% 100% no-repeat}
+  .env-flap{position:absolute;left:0;right:0;top:0;height:62%;transform-origin:50% 0;transform-style:preserve-3d;z-index:3}
+  .env-flap i{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden}
+  .env-flap .out{background:linear-gradient(180deg,#E6DBC1,#D8CAA9)}
+  .env-flap .in{background:linear-gradient(180deg,#F3ECDC,#E9DFC8);transform:rotateX(180deg)}
+  .wax{position:absolute;left:50%;top:62%;width:17cqw;height:17cqw;margin:-8.5cqw 0 0 -8.5cqw;z-index:4;border-radius:50%;cursor:pointer;
+    background:radial-gradient(circle at 38% 32%,#C8577E,#9E3460 48%,#6E1F40);
+    box-shadow:0 .8cqw 2cqw rgba(60,10,30,.45),inset 0 0 0 1.1cqw rgba(255,255,255,.08),inset 0 -.6cqw 1.2cqw rgba(0,0,0,.25);
+    display:flex;align-items:center;justify-content:center;font-family:"Bodoni Moda",serif;color:#F7D7E2;font-size:6.4cqw;
+    text-shadow:0 -.15cqw 0 rgba(0,0,0,.35),0 .15cqw 0 rgba(255,255,255,.25);border:0}
+  .wax::before{content:"";position:absolute;inset:1.6cqw;border-radius:50%;border:1px dashed rgba(255,220,235,.45)}
+  .env-hint{margin-top:9cqw;color:#F4EEDC;font-size:3.6cqw;letter-spacing:.24em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:2cqw}
+  .env-hint svg{width:6cqw;height:6cqw}
+
+  /* =================== PALETA DE VESTIMENTA =================== */
+  .dress svg{transition:color .6s}
+  .dress svg path{transition:fill .6s}
+  .swatches{display:flex;flex-wrap:wrap;justify-content:center;gap:3.4cqw;margin-top:6cqw;perspective:90cqw}
+  .sw{position:relative;width:15cqw;height:15cqw;border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d}
+  .sw .f,.sw .b{position:absolute;inset:0;border-radius:50%;backface-visibility:hidden;display:flex;align-items:center;justify-content:center}
+  .sw .f{background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 .5cqw, rgba(0,0,0,.05) .5cqw 1cqw),
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,.45), transparent 55%), var(--c);
+    box-shadow:0 1.2cqw 2.4cqw rgba(60,45,35,.28), inset 0 0 0 .5cqw rgba(255,255,255,.55)}
+  .sw .b{background:#FFFDF8;transform:rotateY(180deg);font-size:2.7cqw;line-height:1.1;color:var(--serif);padding:1cqw;text-align:center;
+    box-shadow:0 1.2cqw 2.4cqw rgba(60,45,35,.2), inset 0 0 0 .5cqw var(--c)}
+  .sw.on .f{box-shadow:0 1.2cqw 2.4cqw rgba(60,45,35,.28), inset 0 0 0 .5cqw rgba(255,255,255,.55), 0 0 0 .7cqw #FFFDF8, 0 0 0 1cqw var(--name)}
+  .swname{margin-top:4cqw;font-size:4.6cqw;font-style:italic;min-height:6cqw}
+  .reserved{display:inline-flex;align-items:center;gap:2.4cqw;margin-top:3cqw;font-size:4.2cqw;padding:1.6cqw 3.6cqw 1.6cqw 1.6cqw;
+    border:1px dashed #C9C3A4;border-radius:99px;background:rgba(255,255,255,.5)}
+  .reserved i{position:relative;width:7cqw;height:7cqw;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 .4cqw rgba(255,255,255,.6)}
+  .reserved i::after{content:"";position:absolute;left:-10%;right:-10%;top:50%;height:.5cqw;margin-top:-.25cqw;background:var(--name);transform:rotate(-40deg);border-radius:1cqw}
 </style>
 </head>
 <body>
@@ -413,6 +465,16 @@
     <button id="lbClose" aria-label="Cerrar">×</button>
     <div id="lbCount"></div>
   </div>
+  <div id="envelope" aria-hidden="true">
+    <div class="env" id="env">
+      <div class="env-back"></div>
+      <div class="env-card"><small id="envKick"></small><b id="envName"></b><span>Abre tu invitación</span></div>
+      <div class="env-front"></div>
+      <div class="env-flap" id="envFlap"><i class="out"></i><i class="in"></i></div>
+      <button class="wax" id="wax" aria-label="Abrir el sobre">XV</button>
+    </div>
+    <div class="env-hint" id="envHint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20V5M6 11l6-6 6 6"/></svg>Desliza el sello hacia arriba</div>
+  </div>
   <div id="doors" aria-hidden="true">
     <div class="door l"><div class="dp"></div><div class="knob"></div><div class="shade"></div></div>
     <div class="door r"><div class="dp"></div><div class="knob"></div><div class="shade"></div></div>
@@ -458,6 +520,9 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
   $(".g2u").textContent = CONFIG.iniciales[1];
   $("#watermark").textContent = CONFIG.marcaDeAgua;
   $("#sealName").textContent = CONFIG.quinceanera.toUpperCase();
+  $("#envKick").textContent = CONFIG.textoSuperior;
+  $("#envName").textContent = CONFIG.quinceanera;
+  $("#wax").textContent = CONFIG.iniciales.join("");
   $("#sealText").textContent = CONFIG.iniciales.join("");
   document.title = `${CONFIG.textoSuperior} · ${CONFIG.quinceanera}`;
 
@@ -465,6 +530,8 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
   /* ---------- Invitación: render desde CONFIG ---------- */
   function renderInvitacion() {
     const E = CONFIG.evento, A = CONFIG.assetsPath, esc = x => String(x).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+    const paleta = E.paleta || [{ color: "#6E7B52", nombre: "Verde olivo" }, { color: "#C9A15A", nombre: "Dorado" }, { color: "#B9A6C9", nombre: "Lavanda" }, { color: "#E9D9C2", nombre: "Champaña" }, { color: "#6B3A4A", nombre: "Vino" }];
+    const reservado = E.reservado === undefined ? { color: "#E79AB2", nombre: "Rosa: reservado para la quinceañera" } : E.reservado;
     const orn = `<div class="orn rv"><img src="${A}estrella.svg" alt=""></div>`;
     const tiara = `<svg class="tiara" viewBox="60 20 80 46" aria-hidden="true"><g fill="none" stroke="#9E3460" stroke-width="1" stroke-linejoin="round"><path d="M66 58 C 73 55, 78 48, 80 38 C 84 46, 87 50, 91 48 C 93 40, 97 32, 100 24 C 103 32, 107 40, 109 48 C 113 50, 116 46, 120 38 C 122 48, 127 55, 134 58 C 122 55, 111 54, 100 54 C 89 54, 78 55, 66 58 Z"/><path d="M100 31 C 97 35, 97 39, 100 42 C 103 39, 103 35, 100 31 M70 61 C 86 57.5, 114 57.5, 130 61"/><circle cx="80" cy="44" r="2"/><circle cx="120" cy="44" r="2"/></g></svg>`;
     const ico = {
@@ -519,9 +586,12 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       <section class="sec">
         <h2 class="rv">Vestimenta</h2><div class="cap rv">${esc(E.vestimenta)}</div>
         <div class="dress rv">
-          <svg viewBox="0 0 40 70" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 4h12l-2 8 6 6-4 20 8 30H6l8-30-4-20 6-6z"/></svg>
-          <svg viewBox="0 0 40 70" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 4h16l6 10-4 4v48H10V18l-4-4zM20 4v20M17 8l3 4 3-4"/></svg>
+          <svg viewBox="0 0 40 70" stroke="currentColor" stroke-width="1.2"><path id="dressA" fill="rgba(110,123,82,.12)" d="M14 4h12l-2 8 6 6-4 20 8 30H6l8-30-4-20 6-6z"/></svg>
+          <svg viewBox="0 0 40 70" stroke="currentColor" stroke-width="1.2"><path id="suitA" fill="rgba(110,123,82,.12)" d="M12 4h16l6 10-4 4v48H10V18l-4-4z"/><path d="M20 4v20M17 8l3 4 3-4" fill="none"/></svg>
         </div>
+        <div class="swatches rv" id="swatches">${paleta.map(c => `<button class="sw" type="button" style="--c:${esc(c.color)}" data-c="${esc(c.color)}" data-n="${esc(c.nombre)}" aria-label="${esc(c.nombre)}"><span class="f"></span><span class="b">${esc(c.nombre)}</span></button>`).join("")}</div>
+        <p class="swname rv" id="swname">Toca un color para verlo en el atuendo</p>
+        ${reservado ? `<div class="reserved rv"><i style="--c:${esc(reservado.color)}"></i>${esc(reservado.nombre)}</div>` : ""}
         <p class="rv" style="margin-top:4cqw;font-style:italic">${esc(E.vestimentaNota)}</p>
         ${orn}
         <h2 class="rv">Regalos</h2>
@@ -569,6 +639,18 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     $("#gcal").href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${f(start)}/${f(end)}&location=${encodeURIComponent(lugar)}&details=${encodeURIComponent(`${E.ceremonia.titulo}: ${E.ceremonia.lugar} · ${E.ceremonia.hora}`)}`;
     const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:00`;
     $("#ocal").href = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(titulo)}&startdt=${iso(start)}&enddt=${iso(end)}&location=${encodeURIComponent(lugar)}`;
+
+    // paleta de vestimenta: girar muestra y teñir el atuendo
+    $$(".sw").forEach(sw => sw.addEventListener("click", () => {
+      $$(".sw").forEach(o => o.classList.toggle("on", o === sw));
+      gsap.to(sw, { rotationY: "+=180", duration: .7, ease: "back.out(1.4)" });
+      gsap.to(sw, { rotationY: Math.round((gsap.getProperty(sw, "rotationY") + 360) / 360) * 360, duration: .7, delay: 1.6, ease: "power2.inOut" });
+      $("#dressA").setAttribute("fill", sw.dataset.c); $("#suitA").setAttribute("fill", sw.dataset.c);
+      gsap.fromTo(".dress svg", { y: 0 }, { y: -8, duration: .25, yoyo: true, repeat: 1, ease: "power1.out", stagger: .08 });
+      $("#swname").textContent = sw.dataset.n;
+      gsap.fromTo("#swname", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .4 });
+    }));
+    gsap.set(".sw", { transformPerspective: 500 });
 
     // formulario RSVP → WhatsApp
     let pax = 1;
@@ -1096,8 +1178,48 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       // gesto del usuario: arranca la música y pide permiso de giroscopio (iOS)
       if (!REEL) Musica.play();
       try { if (window.DeviceOrientationEvent && DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(() => {}); } catch (e) {}
+      showEnvelope();
+      document.dispatchEvent(new CustomEvent("invitacion:abrir"));
+    };
+    // El sobre: se abre arrastrando el sello hacia arriba o tocándolo
+    const showEnvelope = () => {
+      const flap = $("#envFlap"), card = $(".env-card"), wax = $("#wax");
+      gsap.set("#envelope", { visibility: "visible" });
       gsap.timeline()
         .to("#hint", { opacity: 0, duration: .3 }, 0)
+        .fromTo("#envelope", { opacity: 0 }, { opacity: 1, duration: .5 }, 0)
+        .fromTo("#env", { y: 120, rotationX: 35, scale: .8, transformPerspective: 900 }, { y: 0, rotationX: 0, scale: 1, duration: 1, ease: "back.out(1.3)" }, .1)
+        .fromTo(wax, { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: .6, ease: "back.out(2)" }, .7)
+        .add(() => gsap.to("#envHint svg", { y: -8, duration: .7, yoyo: true, repeat: -1, ease: "sine.inOut" }), 1);
+      let y0 = null, prog = 0, done = false;
+      const setProg = k => { prog = k; gsap.set(flap, { rotationX: 180 * k }); gsap.set(wax, { y: -k * 60, opacity: 1 - k * 1.4, rotation: k * 40 }); };
+      const finish = () => {
+        if (done) return; done = true;
+        gsap.timeline()
+          .to(wax, { scale: 1.4, opacity: 0, rotation: 60, duration: .35, ease: "power2.out" }, 0)
+          .to(flap, { rotationX: 180, duration: .7, ease: "power2.inOut", onUpdate() { flap.style.zIndex = gsap.getProperty(flap, "rotationX") > 90 ? 0 : 3; } }, 0)
+          .to("#envHint", { opacity: 0, duration: .3 }, 0)
+          .to(card, { y: "-62%", duration: .9, ease: "power3.out" }, .55)
+          .to(card, { scale: 1.06, duration: .4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.3)
+          .to("#env", { scale: 2.6, opacity: 0, y: -80, duration: .8, ease: "power2.in" }, 2.05)
+          .add(doorsSequence, 2.2)
+          .to("#envelope", { opacity: 0, duration: .5, onComplete: () => gsap.set("#envelope", { visibility: "hidden" }) }, 2.4);
+      };
+      const env = $("#envelope");
+      env.addEventListener("pointerdown", e => { if (done) return; y0 = e.clientY; env.setPointerCapture(e.pointerId); });
+      env.addEventListener("pointermove", e => { if (y0 === null || done) return; setProg(gsap.utils.clamp(0, 1, (y0 - e.clientY) / 160)); });
+      const up = () => {
+        if (y0 === null || done) return; y0 = null;
+        if (prog > .3 || prog === 0) finish();          // arrastre suficiente o toque simple → abrir
+        else gsap.to({ k: prog }, { k: 0, duration: .4, ease: "power2.out", onUpdate() { setProg(this.targets()[0].k); } });
+      };
+      env.addEventListener("pointerup", up); env.addEventListener("pointercancel", up);
+      window.abrirSobre = finish;
+    };
+    // Las puertas de palacio
+    const doorsSequence = () => {
+      const inv = $("#invitacion");
+      gsap.timeline()
         .set("#doors", { visibility: "visible" }, 0)
         .fromTo(".door", { opacity: 0 }, { opacity: 1, duration: .5, ease: "power1.out" }, 0)
         .fromTo(".seal", { scale: .4, opacity: 0, rotationY: -90, transformPerspective: 600 }, { scale: 1, opacity: 1, rotationY: 0, duration: .9, ease: "back.out(1.5)" }, .25)
@@ -1110,9 +1232,8 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
         .fromTo(inv, { scale: .92 }, { scale: 1, duration: 2.2, ease: "power2.out" }, 1.6)
         .add(revealInvitacion, 2)
         .set("#doors", { visibility: "hidden" }, 3.7);
-      document.dispatchEvent(new CustomEvent("invitacion:abrir"));
     };
-    if (!REEL) stage.addEventListener("click", e => { if (!e.target.closest("#invitacion")) openInv(); });
+    if (!REEL) stage.addEventListener("click", e => { if (!e.target.closest("#invitacion, #envelope")) openInv(); });
 
     let rz;
     addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => {
