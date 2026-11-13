@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baby Shower Aviador</title>
+<meta name="theme-color" content="#EEF2F7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  /* Plantilla Baby Shower · acuarela azul empolvado y crema. Ilustraciones originales en arte/. */
+  :root{
+    --cream:#FBF7F0; --cream2:#F3ECE0; --sky:#E3EBF5; --blue:#7C9BC7; --blue2:#5D7DAD; --navy:#3E5884; --ink:#4A5A78;
+    --soft:#7B8496; --gold:#C9A25A; --gold2:#E6C77E; --tan:#B98B62;
+    --serif:"Cormorant Garamond", Georgia, serif; --script:"Great Vibes", cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:#E9EEF5;color:var(--ink);font-family:var(--serif);font-variant-numeric:lining-nums}
+  body{overflow:hidden}
+  body.open{overflow-y:auto;overflow-x:hidden;background:#DDE5EF}
+  img{display:block;max-width:none;-webkit-user-drag:none;user-select:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  /* ================= ESCENA DE APERTURA (9:16) ================= */
+  #intro{position:fixed;top:0;bottom:0;left:50%;width:min(100vw,56.25vh);width:min(100vw,56.25dvh);transform:translateX(-50%);
+    overflow:hidden;container-type:size;z-index:10;background:linear-gradient(180deg,#DCE6F2 0%,#EEF1F4 38%,#F8F3EA 70%,#F1ECE4 100%)}
+  #intro::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:40;opacity:.5;mix-blend-mode:multiply;
+    background:url(arte/papel.jpg) center/90cqw auto}
+  .lay{position:absolute;inset:0;pointer-events:none}
+  .cl{position:absolute;will-change:transform}
+  #sun{position:absolute;left:50%;top:30%;width:120cqw;height:120cqw;margin:-60cqw 0 0 -60cqw;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,250,236,.95) 0,rgba(255,246,226,.55) 28%,rgba(255,246,226,0) 62%);opacity:0}
+  #spk i{position:absolute;width:2.6cqw;height:2.6cqw;margin:-1.3cqw 0 0 -1.3cqw;opacity:0;
+    background:radial-gradient(circle,#FFF6D8 0,#E6C77E 35%,rgba(230,199,126,0) 70%)}
+  #spk b{position:absolute;width:3.4cqw;height:3.4cqw;margin:-1.7cqw 0 0 -1.7cqw;opacity:0;
+    clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);background:linear-gradient(135deg,#F7DE95,#C9A25A)}
+  #pueblo{position:absolute;left:-8%;width:116%;bottom:9cqh;opacity:.55}
+  #title{position:absolute;left:0;right:0;top:11cqh;text-align:center;z-index:6;color:var(--ink)}
+  #title .k{font-size:3.6cqw;letter-spacing:.5em;padding-left:.5em;text-transform:uppercase;color:var(--soft)}
+  #title .k span{display:inline-block;opacity:0}
+  #title .nm{font-family:var(--script);font-size:24cqw;line-height:1.05;color:var(--navy);margin-top:1cqh;
+    text-shadow:0 .4cqw 1.6cqw rgba(255,255,255,.8);clip-path:inset(0 100% 0 0)}
+  #title .fr{display:inline-flex;align-items:center;gap:2.4cqw;margin-top:1.6cqh;font-size:3.3cqw;letter-spacing:.16em;white-space:nowrap;text-transform:uppercase;color:var(--blue2);opacity:0}
+  #title .fr::before,#title .fr::after{content:"";width:7cqw;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  #title .fr::after{transform:scaleX(-1)}
+  #plane{position:absolute;left:0;top:0;width:62cqw;z-index:7;will-change:transform;transform-origin:50% 50%}
+  #plane .av{width:100%;height:auto}
+  #plane .hel{position:absolute;left:2.4%;top:56.2%;height:34%;width:auto;transform:translate(-50%,-50%)}
+  #plane .trail{position:absolute;right:-30%;top:28%;width:40%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(255,255,255,0));filter:blur(1px);opacity:.8}
+  #rig{position:absolute;left:50%;bottom:0;width:48cqw;margin-left:-24cqw;z-index:8;will-change:transform}
+  #rig .gl{width:100%;height:auto;position:relative;z-index:2}
+  #strings{position:absolute;left:0;top:100%;width:100%;height:9cqw;overflow:visible;z-index:1}
+  #env{position:absolute;left:50%;top:calc(100% + 8.4cqw);width:38cqw;height:26cqw;margin-left:-19cqw;z-index:3;perspective:120cqw;cursor:pointer;transform-origin:50% 0}
+  .e-back{position:absolute;inset:0;border-radius:1cqw;background:linear-gradient(160deg,#EADFCB,#DCCDB2);box-shadow:0 2cqw 4cqw rgba(60,70,90,.25)}
+  .e-card{position:absolute;z-index:2;left:6%;right:6%;top:6%;height:88%;border-radius:.6cqw;background:#FFFDF8;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;box-shadow:0 .4cqw 1cqw rgba(0,0,0,.1)}
+  .e-card::before{content:"";position:absolute;inset:1.4cqw;border:1px dashed rgba(124,155,199,.7);border-radius:.4cqw}
+  .e-card small{font-size:2cqw;letter-spacing:.3em;color:var(--soft);text-transform:uppercase}
+  .e-card b{font-family:var(--script);font-weight:400;font-size:8cqw;color:var(--navy);line-height:1.1}
+  .e-front{position:absolute;inset:0;border-radius:1cqw;clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);
+    background:linear-gradient(170deg,#F4EBDB,#E7DAC2);z-index:3}
+  .e-front::after{content:"";position:absolute;inset:0;background:linear-gradient(33deg,transparent 49.6%,rgba(120,100,70,.16) 50%,transparent 50.4%),linear-gradient(-33deg,transparent 49.6%,rgba(120,100,70,.16) 50%,transparent 50.4%)}
+  .e-flap{position:absolute;left:0;right:0;top:0;height:58%;transform-origin:50% 0;transform-style:preserve-3d;z-index:4}
+  .e-flap i{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .e-flap .o{background:linear-gradient(180deg,#EFE4D1,#E0D2B9)}
+  .e-flap .in{transform:rotateX(180deg);background:#A9BFDD url(arte/papel.jpg) center/30cqw auto;background-blend-mode:multiply}
+  #bow{position:absolute;left:50%;top:44%;width:17cqw;margin-left:-8.5cqw;z-index:6;filter:drop-shadow(0 .6cqw .8cqw rgba(40,60,90,.3))}
+  #hint{position:absolute;left:50%;bottom:calc(4cqh + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9;white-space:nowrap;font-style:italic;
+    font-size:4.2cqw;letter-spacing:.1em;color:var(--navy);background:rgba(255,253,248,.82);padding:1.4cqw 5cqw;border-radius:99px;opacity:0;
+    box-shadow:0 .6cqw 2cqw rgba(40,60,90,.12)}
+  #wm{position:absolute;left:0;right:0;bottom:calc(1.4cqh + env(safe-area-inset-bottom));text-align:center;font-size:2.6cqw;letter-spacing:.2em;color:var(--soft);opacity:.6;z-index:9}
+  #cardFull{position:fixed;z-index:30;left:50%;top:0;bottom:0;width:min(100vw,480px);transform:translateX(-50%);background:var(--cream) url(arte/papel.jpg) center/90% auto;
+    opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}
+  #cardFull b{font-family:var(--script);font-weight:400;font-size:min(22vw,106px);color:var(--navy)}
+
+  /* entrada (para que la música suene desde el inicio) */
+  #gate{position:absolute;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3cqh;cursor:pointer;text-align:center;
+    background:radial-gradient(ellipse 90% 70% at 50% 42%,#FDFBF6,#EDE6DA)}
+  #gate::after{content:"";position:absolute;inset:0;opacity:.55;mix-blend-mode:multiply;background:url(arte/papel.jpg) center/90cqw auto;pointer-events:none}
+  #gate .gb{width:26cqw;height:auto}
+  #gate small{font-size:3.6cqw;letter-spacing:.5em;padding-left:.5em;text-transform:uppercase;color:var(--soft)}
+  #gate strong{font-family:var(--script);font-weight:400;font-size:17cqw;line-height:1;color:var(--navy)}
+  #gate .go{display:flex;flex-direction:column;align-items:center;gap:2.4cqw;margin-top:2cqh;font-size:3.4cqw;letter-spacing:.32em;padding-left:.32em;text-transform:uppercase;color:var(--ink)}
+  #gate .pl{width:15cqw;height:15cqw;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center}
+  #gate .pl svg{width:5.4cqw;height:5.4cqw;margin-left:.8cqw}
+  #gate .wm2{position:absolute;bottom:calc(3cqh + env(safe-area-inset-bottom));font-size:2.6cqw;letter-spacing:.2em;color:var(--soft);opacity:.7}
+
+  /* ================= INVITACIÓN ================= */
+  #inv{display:none;width:min(100vw,480px);margin:0 auto;container-type:inline-size;position:relative;overflow:hidden;overflow:clip;
+    background:var(--cream) url(arte/papel.jpg) center top/100% auto repeat-y;box-shadow:0 0 60px rgba(40,60,90,.15)}
+  body.open #inv{display:block}
+  .sec{position:relative;padding:14cqw 8cqw;text-align:center}
+  .kick{font-size:3.3cqw;letter-spacing:.28em;padding-left:.28em;text-transform:uppercase;color:var(--soft)}
+  .script{font-family:var(--script);font-weight:400;color:var(--navy);line-height:1.05}
+  .body{font-size:4.6cqw;line-height:1.6;color:var(--ink)}
+  .rule{display:flex;align-items:center;justify-content:center;gap:3cqw;margin:5cqw auto;color:var(--gold)}
+  .rule::before,.rule::after{content:"";width:16cqw;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .rule::after{transform:scaleX(-1)}
+  .rule img{width:6cqw;height:auto}
+  .rv{opacity:0;transform:translateY(24px)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:2cqw;padding:3cqw 7cqw;border-radius:99px;background:var(--blue2);color:#fff;text-decoration:none;
+    font-size:3.6cqw;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 1.2cqw 3cqw rgba(62,88,132,.25);transition:transform .2s}
+  .btn:active{transform:scale(.97)}
+  .btn.o{background:transparent;color:var(--navy);border:1px solid var(--blue2);box-shadow:none}
+  .floaty{position:absolute;pointer-events:none}
+
+  .hero{padding:18cqw 6cqw 10cqw;background:linear-gradient(180deg,#DCE6F2,rgba(220,230,242,0) 70%)}
+  .hero .gl{width:40cqw;margin:4cqw auto 0;filter:drop-shadow(0 2cqw 3cqw rgba(40,60,90,.18))}
+  .hero .bnd{width:70cqw;margin:-2cqw auto 0}
+  .hero .script{font-size:24cqw;margin-top:2cqw}
+  .hero .sub{font-size:5cqw;font-style:italic;color:var(--blue2);margin-top:1cqw}
+  .hero .dt{display:flex;justify-content:center;align-items:center;gap:4cqw;margin-top:6cqw;color:var(--navy)}
+  .hero .dt span{font-size:3.6cqw;letter-spacing:.3em;text-transform:uppercase}
+  .hero .dt b{font-size:13cqw;font-weight:500;line-height:1;padding:0 4cqw;border-left:1px solid var(--gold);border-right:1px solid var(--gold)}
+
+  .card{position:relative;background:#FFFDF9;border-radius:2cqw;padding:10cqw 7cqw;box-shadow:0 2cqw 5cqw rgba(40,60,90,.1)}
+  .card::before{content:"";position:absolute;inset:2.6cqw;border:1.5px dashed rgba(124,155,199,.55);border-radius:1.2cqw;pointer-events:none}
+  .card .script{font-size:12cqw}
+  .card .sign{font-family:var(--script);font-size:9cqw;color:var(--blue2);margin-top:4cqw}
+
+  .count{display:flex;justify-content:center;gap:1cqw;margin-top:6cqw}
+  .count div{position:relative;width:21.5cqw;height:18cqw;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .count div img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  .count b{position:relative;font-size:6.6cqw;font-weight:500;line-height:1;color:var(--navy);margin-top:4cqw;font-variant-numeric:tabular-nums}
+  .count small{position:relative;font-size:2.4cqw;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+
+  .info{display:grid;gap:6cqw;margin-top:6cqw}
+  .info .row{display:flex;flex-direction:column;align-items:center;gap:1cqw}
+  .info svg{width:9cqw;height:9cqw;color:var(--blue2)}
+  .info h4{font-size:3.4cqw;letter-spacing:.34em;text-transform:uppercase;color:var(--soft);font-weight:500}
+  .info p{font-size:5cqw;color:var(--navy);line-height:1.35}
+  .info p small{display:block;font-size:4cqw;color:var(--soft);font-style:italic}
+  .btns{display:flex;flex-wrap:wrap;gap:3cqw;justify-content:center;margin-top:7cqw}
+
+  .tl{list-style:none;margin:7cqw auto 0;max-width:70cqw;text-align:left}
+  .tl li{display:flex;align-items:center;gap:5cqw;padding:2.6cqw 0;border-bottom:1px dashed rgba(124,155,199,.45)}
+  .tl li:last-child{border:0}
+  .tl b{font-size:5cqw;font-weight:500;color:var(--navy);min-width:18cqw}
+  .tl span{font-size:4.6cqw;color:var(--ink)}
+
+  .gift .osito{width:30cqw;margin:0 auto 4cqw}
+  .gift .sug{display:inline-block;margin-top:5cqw;padding:2.4cqw 5cqw;border-radius:99px;background:rgba(169,191,221,.28);font-size:4cqw;color:var(--navy);font-style:italic}
+
+  .rsvp{text-align:left;margin-top:7cqw;display:grid;gap:3.4cqw}
+  .rsvp label.q{font-size:3.8cqw;color:var(--soft)}
+  .rsvp input[type=text],.rsvp textarea{width:100%;font:inherit;font-size:4.6cqw;color:var(--ink);border:1px solid #D5DCE7;background:#FFFEFB;padding:2.6cqw 3.4cqw;border-radius:1.6cqw;outline:none;resize:none}
+  .rsvp input[type=text]:focus,.rsvp textarea:focus{border-color:var(--blue)}
+  .opt{display:flex;align-items:center;gap:3cqw;padding:3cqw 4cqw;border-radius:1.6cqw;background:#F1F4F9;border:1px solid transparent;font-size:4.2cqw;cursor:pointer}
+  .opt:has(input:checked){border-color:var(--blue);background:#E7EEF7}
+  .opt input{accent-color:var(--blue2);width:4.6cqw;height:4.6cqw}
+  .stepper{display:flex;align-items:center;justify-content:space-between;padding:2cqw 2cqw 2cqw 4cqw;border-radius:1.6cqw;background:#F1F4F9;font-size:4.2cqw}
+  .stepper div{display:flex;align-items:center;gap:4cqw}
+  .stepper button{width:9cqw;height:9cqw;border-radius:50%;border:1px solid var(--blue2);color:var(--blue2);font-size:5cqw;line-height:1;background:#fff}
+  .stepper b{font-size:6cqw;font-weight:500;min-width:6cqw;text-align:center;color:var(--navy)}
+  .rsvp .btn{width:100%;margin-top:2cqw;white-space:nowrap;letter-spacing:.12em;padding:3.4cqw 4cqw}
+
+  .closing{padding:16cqw 8cqw 12cqw;background:linear-gradient(180deg,rgba(220,230,242,0),#DCE6F2)}
+  .closing .gl{width:30cqw;margin:0 auto}
+  .closing .script{font-size:15cqw;margin-top:4cqw}
+  .closing .nubes{position:relative;height:30cqw;margin:6cqw -8cqw 0}
+  .closing .nubes img{position:absolute;bottom:0}
+  .closing .wm{margin-top:6cqw;font-size:3cqw;letter-spacing:.2em;color:var(--soft)}
+
+  #music{position:fixed;z-index:20;top:calc(3.5vw + env(safe-area-inset-top));right:max(3.5vw,calc(50vw - 240px + 14px));width:44px;height:44px;border-radius:50%;
+    background:rgba(255,253,248,.9);box-shadow:0 4px 14px rgba(40,60,90,.18);display:none;place-items:center;border:1px solid rgba(124,155,199,.5)}
+  body.open #music{display:grid}
+  #music svg{width:20px;height:20px}
+  #music .bars rect{fill:var(--blue2);transform-origin:50% 100%;transform-box:fill-box}
+  #music.off::after{content:"";position:absolute;width:26px;height:1.5px;background:var(--blue2);transform:rotate(-45deg)}
+  #toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:99px;font-size:15px;opacity:0;z-index:50;pointer-events:none;transition:opacity .3s}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="lay" id="sunL"><div id="sun"></div></div>
+  <div class="lay" id="far"></div>
+  <div class="lay" id="balloonsFar"></div>
+  <div class="lay" id="spk"></div>
+  <img id="pueblo" alt="">
+  <div class="lay" id="near" style="z-index:5"></div>
+  <div id="title"><div class="k"></div><div class="nm"></div><div class="fr"></div></div>
+  <div id="plane"><img class="av" alt=""><img class="hel" alt=""><i class="trail"></i></div>
+  <div id="rig">
+    <img class="gl" alt="">
+    <svg id="strings" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M44 0L30 19M56 0L70 19" stroke="#B49A78" stroke-width=".6" fill="none" vector-effect="non-scaling-stroke"/></svg>
+    <div id="env" role="button" aria-label="Abrir invitación" tabindex="0">
+      <div class="e-back"></div>
+      <div class="e-card" id="eCard"><small></small><b></b></div>
+      <div class="e-front"></div>
+      <div class="e-flap" id="eFlap"><i class="o"></i><i class="in"></i></div>
+      <img id="bow" alt="">
+    </div>
+  </div>
+  <div id="hint">Toca el sobre para abrir</div>
+  <div id="wm"></div>
+  <div id="gate" role="button" tabindex="0" aria-label="Comenzar">
+    <img class="gb" alt="">
+    <small></small><strong></strong>
+    <div class="go"><div class="pl"><svg viewBox="0 0 20 20"><path d="M5 3L16 10 5 17Z" fill="#5D7DAD"/></svg></div>Toca para comenzar</div>
+    <div class="wm2"></div>
+  </div>
+</div>
+<div id="cardFull"><b></b></div>
+
+<main id="inv"></main>
+<button id="music" type="button" aria-label="Música"><svg viewBox="0 0 20 20" class="bars"><rect x="2" y="4" width="3" height="13" rx="1"/><rect x="8.5" y="2" width="3" height="15" rx="1"/><rect x="15" y="6" width="3" height="11" rx="1"/></svg></button>
+<div id="toast"></div>
+
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<script>
+(() => {
+  "use strict";
+  gsap.registerPlugin(MotionPathPlugin);
+  const C = window.CONFIG, E = C.evento, A = C.assetsArte || "arte/";
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const fecha = new Date(E.fechaISO);
+  const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  document.title = `${C.textoSuperior} · ${C.bebe}`;
+  const IMG = n => A + n + ".webp";
+
+  /* ======================= MÚSICA ======================= */
+  // canción propia (CONFIG.musica) o canción de cuna original de caja musical generada en vivo
+  const Musica = (() => {
+    let ctx, master, timer, audio, on = false, nextT = 0, beat = 0;
+    const SPB = 60 / 76, mtof = n => 440 * Math.pow(2, (n - 69) / 12);
+    // Fa mayor, 3/4, melodía original de 8 compases
+    const bass = [53, 48, 50, 46, 53, 48, 46, 48];
+    const chords = [[65, 69, 72], [64, 67, 72], [62, 65, 69], [62, 65, 70], [65, 69, 72], [64, 67, 70], [62, 65, 70], [64, 67, 72]];
+    const mel = [[81, 0, 79], [77, 76, 77], [74, 0, 77], [79, 77, 74], [81, 84, 81], [79, 0, 76], [77, 79, 82], [81, 0, 0]];
+    function reverb() {
+      const len = ctx.sampleRate * 3, buf = ctx.createBuffer(2, len, ctx.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+      const cv = ctx.createConvolver(); cv.buffer = buf; return cv;
+    }
+    function bell(note, t, vel, dur = 2.2) {
+      const g = ctx.createGain(); g.connect(master);
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vel, t + .005); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+      [[1, 1], [2.01, .3], [3.98, .07]].forEach(([m, a]) => { const o = ctx.createOscillator(), og = ctx.createGain(); o.type = "sine"; o.frequency.value = mtof(note) * m; og.gain.value = a; o.connect(og).connect(g); o.start(t); o.stop(t + dur + .05); });
+    }
+    function schedule() {
+      while (nextT < ctx.currentTime + .25) {
+        const bar = Math.floor(beat / 3) % 8, b = beat % 3, pass = Math.floor(beat / 24) % 2;
+        if (b === 0) bell(bass[bar], nextT, .16, 2.6); else bell(chords[bar][b], nextT, .05, 1.4);
+        const m = mel[bar][b]; if (m) bell(m + (pass ? 12 : 0), nextT, pass ? .08 : .12, 2.4);
+        nextT += SPB; beat++;
+      }
+    }
+    function synth() {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      if (!master) { master = ctx.createGain(); master.gain.value = 0; const dry = ctx.createGain(), wet = ctx.createGain(), rv = reverb(); dry.gain.value = .75; wet.gain.value = .5; master.connect(dry).connect(ctx.destination); master.connect(rv).connect(wet).connect(ctx.destination); }
+      ctx.resume(); master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(.5, ctx.currentTime, .8);
+      nextT = ctx.currentTime + .1; clearInterval(timer); timer = setInterval(schedule, 60);
+    }
+    function play() {
+      on = true;
+      if (C.musica) {
+        audio = audio || Object.assign(new Audio(C.musica), { loop: true, volume: 0 });
+        audio.play().then(() => gsap.to(audio, { volume: .8, duration: 2 })).catch(() => { C.musica = ""; synth(); });
+      } else synth();
+      ui();
+    }
+    function pause() {
+      on = false;
+      if (audio && C.musica) gsap.to(audio, { volume: 0, duration: .5, onComplete: () => audio.pause() });
+      else if (ctx && master) { master.gain.setTargetAtTime(0, ctx.currentTime, .25); setTimeout(() => !on && clearInterval(timer), 900); }
+      ui();
+    }
+    let bars;
+    function ui() {
+      $("#music").classList.toggle("off", !on);
+      if (!bars) bars = gsap.timeline({ repeat: -1 }).to("#music .bars rect", { scaleY: .35, duration: .35, stagger: { each: .12, yoyo: true, repeat: 1 }, ease: "sine.inOut" });
+      on ? bars.play() : bars.pause();
+    }
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) { if (audio) audio.pause(); if (ctx) ctx.suspend(); }
+      else if (on) { if (audio && C.musica) audio.play(); if (ctx) ctx.resume(); }
+    });
+    return { play, pause, toggle: () => (on ? pause() : play()) };
+  })();
+  $("#music").addEventListener("click", () => Musica.toggle());
+
+  /* ======================= ESCENA ======================= */
+  const intro = $("#intro"), W = () => intro.clientWidth, H = () => intro.clientHeight;
+  $("#pueblo").src = IMG("pueblo");
+  $("#plane .av").src = IMG("avion"); $("#plane .hel").src = IMG("helice");
+  $("#rig .gl").src = IMG("globo"); $("#bow").src = IMG("mono");
+  $("#gate .gb").src = IMG("globo");
+  $("#gate small").textContent = C.textoSuperior; $("#gate strong").textContent = C.bebe; $("#gate .wm2").textContent = C.marcaDeAgua;
+  $("#wm").textContent = C.marcaDeAgua;
+  $("#title .k").innerHTML = [...C.textoSuperior].map(ch => `<span>${ch === " " ? "&nbsp;" : esc(ch)}</span>`).join("");
+  $("#title .nm").textContent = C.bebe; $("#title .fr").textContent = C.frase;
+  $("#eCard small").textContent = C.textoSuperior; $("#eCard b").textContent = C.bebe;
+  $("#cardFull b").textContent = C.bebe;
+
+  // nubes en capas (lejos / cerca) que se deslizan sin fin
+  const cloud = (parent, img, w, top, dur, op, dir = 1, z = 0) => {
+    const el = document.createElement("img"); el.className = "cl"; el.src = IMG(img); el.alt = "";
+    el.style.cssText = `width:${w}cqw;top:${top}cqh;opacity:${op};z-index:${z}`; $(parent).appendChild(el);
+    const span = 100 + w, start = rand(-w, 100);
+    gsap.fromTo(el, { x: () => (dir > 0 ? start : 100 - start) / 100 * W() }, { x: () => (dir > 0 ? 100 : -w) / 100 * W(), duration: dur * ((dir > 0 ? 100 - start : 100 - start + w) / span), ease: "none",
+      onComplete: function loop() { gsap.fromTo(el, { x: (dir > 0 ? -w : 100) / 100 * W() }, { x: (dir > 0 ? 100 : -w) / 100 * W(), duration: dur, ease: "none", onComplete: loop }); } });
+    return el;
+  };
+  cloud("#far", "nube3", 30, 6, 90, .75, 1); cloud("#far", "nube2", 40, 22, 120, .6, -1); cloud("#far", "nube3", 24, 40, 80, .55, 1);
+  cloud("#near", "nube1", 78, 84, 70, .95, 1); cloud("#near", "nube2", 64, 88, 60, .95, -1); cloud("#near", "nube1", 60, 90, 75, 1, 1);
+
+  // globos lejanos que suben despacio
+  [[14, 9, "", 26], [80, 7, "sepia(.35) saturate(.6)", 32], [66, 6, "hue-rotate(-10deg) saturate(.7)", 38]].forEach(([x, w, f, d], i) => {
+    const el = document.createElement("img"); el.className = "cl"; el.src = IMG("globo"); el.alt = "";
+    el.style.cssText = `width:${w}cqw;left:${x}cqw;top:0;opacity:.8;filter:${f} blur(${i ? .4 : 0}px)`; $("#balloonsFar").appendChild(el);
+    gsap.fromTo(el, { y: () => H() * rand(.55, .9) }, { y: () => -H() * .25, duration: d, ease: "none", repeat: -1, delay: -rand(0, d) });
+    gsap.to(el, { x: () => rand(-3, 3) / 100 * W(), rotation: rand(-4, 4), duration: rand(3, 5), yoyo: true, repeat: -1, ease: "sine.inOut" });
+  });
+
+  // destellos dorados
+  for (let i = 0; i < 26; i++) {
+    const el = document.createElement(i % 3 ? "i" : "b"); el.style.left = rand(4, 96) + "%"; el.style.top = rand(3, 80) + "%"; $("#spk").appendChild(el);
+    gsap.timeline({ repeat: -1, delay: rand(0, 5), repeatDelay: rand(1, 4) })
+      .fromTo(el, { opacity: 0, scale: .3, rotation: 0 }, { opacity: rand(.5, 1), scale: rand(.7, 1.3), rotation: 45, duration: 1.2, ease: "sine.out" })
+      .to(el, { opacity: 0, scale: .4, y: "+=" + rand(6, 20), duration: 1.6, ease: "sine.in" });
+  }
+
+  /* -------- secuencia -------- */
+  const S = {};
+  function scene() {
+    const w = W(), h = H(), pw = $("#plane").offsetWidth, ph = $("#plane").offsetHeight;
+    gsap.set("#plane", { x: w * 1.1, y: h * .02, scale: .22, rotation: -10, opacity: 0 });
+    gsap.set("#rig", { y: h * .2 + $("#rig").offsetHeight * 1.6 });
+    gsap.to("#plane .hel", { scaleY: -1, duration: .045, repeat: -1, yoyo: true, ease: "none" });
+    const tl = gsap.timeline();
+    tl.to("#sun", { opacity: 1, duration: 3, ease: "sine.out" }, 0)
+      .to("#title .k span", { opacity: 1, duration: .8, stagger: .06, ease: "sine.out" }, .4)
+      .to("#title .nm", { clipPath: "inset(0 0% 0 0)", duration: 2.2, ease: "power2.inOut" }, 1)
+      .fromTo("#title .nm", { y: 14 }, { y: 0, duration: 2.2, ease: "power2.out" }, 1)
+      .to("#title .fr", { opacity: 1, duration: 1.2 }, 2.6)
+      // el avión llega desde lejos en curva, se acerca y saluda
+      .to("#plane", { opacity: 1, duration: .5 }, 3)
+      .to("#plane", { duration: 3.6, ease: "power1.inOut", scale: 1, rotation: 4,
+        motionPath: { path: [{ x: w * 1.1, y: h * .02 }, { x: w * .62, y: h * .14 }, { x: w * .5 - pw / 2 + w * .12, y: h * .42 - ph / 2 }, { x: w * .5 - pw / 2, y: h * .5 - ph / 2 }], curviness: 1.4 } }, 3)
+      .to("#plane", { y: "-=" + h * .015, rotation: -2, duration: 1.1, yoyo: true, repeat: 1, ease: "sine.inOut" }, 6.6)
+      // y se va de paso por la cámara
+      .to("#plane", { duration: 2, ease: "power2.in", x: -w * 1.3, y: h * .36, scale: 1.5, rotation: -8 }, 8.8)
+      // sube el globo con el sobre
+      .to("#title", { y: -h * .03, scale: .9, duration: 2.4, ease: "power2.inOut" }, 9)
+      .to("#rig", { y: -(w * .4 + h * .075), duration: 3.6, ease: "power2.out" }, 9.3)
+      .add(() => { S.sway = gsap.to("#rig", { rotation: 1.6, y: "-=" + h * .012, duration: 2.4, yoyo: true, repeat: -1, ease: "sine.inOut", transformOrigin: "50% 0" }); S.armed = true; }, 12.9)
+      .to("#hint", { opacity: 1, duration: .8 }, 12.4)
+      .add(() => { S.auto = gsap.delayedCall(9, abrir); }, 13);
+    gsap.to("#hint", { opacity: .55, duration: 1.4, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 13.4 });
+    gsap.to("#bow", { rotation: 4, duration: 1.8, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 12 });
+  }
+
+  /* -------- apertura del sobre -------- */
+  function abrir() {
+    if (S.opened) return; S.opened = true;
+    if (S.auto) S.auto.kill(); if (S.sway) S.sway.kill();
+    gsap.killTweensOf("#hint"); gsap.killTweensOf("#bow");
+    const w = W(), h = H(), env = $("#env"), r = env.getBoundingClientRect(), ir = intro.getBoundingClientRect();
+    const k = (w * .78) / r.width, dx = ir.left + w / 2 - (r.left + r.width / 2), dy = ir.top + h * .5 - (r.top + r.height / 2);
+    gsap.timeline()
+      .to("#hint", { opacity: 0, duration: .4 }, 0)
+      // el globo suelta el sobre y se va flotando
+      .to("#strings", { opacity: 0, duration: .5 }, 0)
+      .to("#rig .gl", { y: -h * 1.1, x: w * .08, rotation: 6, duration: 3.4, ease: "power1.in" }, .15)
+      .to("#rig", { rotation: 0, duration: .5 }, 0)
+      // el sobre viene al centro y crece
+      .to(env, { x: dx, y: dy, scale: k, duration: 1.6, ease: "power3.inOut" }, .3)
+      .to("#title", { opacity: 0, y: -h * .06, duration: 1 }, .3)
+      // el moño se desata y cae
+      .to("#bow", { scale: 1.12, duration: .25, ease: "sine.out" }, 1.9)
+      .to("#bow", { y: h * .5 / k, rotation: 40, opacity: 0, duration: 1.2, ease: "power2.in" }, 2.15)
+      // se abre la solapa y sale la carta
+      .to("#eFlap", { rotationX: 180, duration: 1.1, ease: "power2.inOut" }, 2.4)
+      .set("#eFlap", { zIndex: 1 }, 2.95)
+      .to("#eCard", { yPercent: -62, duration: 1.2, ease: "power2.out" }, 3.2)
+      .set("#eCard", { zIndex: 5 }, 4.1)
+      .to("#eCard", { yPercent: -20, duration: .6, ease: "power2.inOut" }, 4.1)
+      // la carta se convierte en la invitación
+      .add(() => {
+        const cr = $("#eCard").getBoundingClientRect(), cf = $("#cardFull"), fr = cf.getBoundingClientRect();
+        gsap.fromTo(cf, { opacity: 0, scaleX: cr.width / fr.width, scaleY: cr.height / fr.height, x: cr.left + cr.width / 2 - (fr.left + fr.width / 2), y: cr.top + cr.height / 2 - (fr.top + fr.height / 2), xPercent: -50 },
+          { opacity: 1, scaleX: 1, scaleY: 1, x: 0, y: 0, xPercent: -50, duration: 1.3, ease: "power3.inOut", onComplete: abrirInvitacion });
+      }, 4.6);
+  }
+  $("#env").addEventListener("click", e => { e.stopPropagation(); if (S.armed) abrir(); });
+  $("#env").addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && S.armed) abrir(); });
+  intro.addEventListener("click", () => { if (S.armed) abrir(); });
+
+  // entrada: con este toque suena la música y empieza la escena
+  let started = false;
+  function comenzar() {
+    if (started) return; started = true;
+    Musica.play();
+    gsap.to("#gate", { opacity: 0, duration: 1, ease: "power1.inOut", onComplete: () => $("#gate").remove() });
+    scene();
+  }
+  $("#gate").addEventListener("click", e => { e.stopPropagation(); comenzar(); });
+  $("#gate").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") comenzar(); });
+  gsap.from("#gate > *", { opacity: 0, y: 14, duration: 1.2, stagger: .15, ease: "power2.out" });
+  gsap.to("#gate .gb", { y: -10, rotation: 2, duration: 2.4, yoyo: true, repeat: -1, ease: "sine.inOut" });
+  gsap.to("#gate .pl", { scale: 1.08, duration: .9, yoyo: true, repeat: -1, ease: "sine.inOut" });
+
+  /* ======================= INVITACIÓN ======================= */
+  const ico = {
+    cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+    hora: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+    ropa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 3l3 2 3-2 5 3-2 5-2-1v11H8V10l-2 1-2-5z"/></svg>'
+  };
+  function render() {
+    const R = E.regalos || {}, star = `<img src="${IMG("estrella")}" alt="">`;
+    const dia = fecha.getDate(), mes = MESES[fecha.getMonth()], diaS = DIAS[fecha.getDay()];
+    $("#inv").innerHTML = `
+    <header class="sec hero">
+      <img class="floaty" src="${IMG("nube3")}" alt="" style="left:-6cqw;top:8cqw;width:34cqw;opacity:.8" data-drift="1">
+      <img class="floaty" src="${IMG("nube2")}" alt="" style="right:-8cqw;top:40cqw;width:40cqw;opacity:.8" data-drift="-1">
+      <div class="kick rv">${esc(C.kicker)}</div>
+      <img class="gl rv" src="${IMG("globo")}" alt="" id="heroGlobo">
+      <img class="bnd rv" src="${IMG("banderin")}" alt="">
+      <div class="script rv">${esc(C.bebe)}</div>
+      <div class="sub rv">${esc(C.subtitulo)}</div>
+      <div class="dt rv"><span>${esc(diaS)}</span><b>${dia}</b><span>${esc(mes)}</span></div>
+      <div class="kick rv" style="margin-top:3cqw">${fecha.getFullYear()}</div>
+    </header>
+
+    <section class="sec" style="padding-top:4cqw">
+      <div class="card rv">
+        <div class="kick">${esc(C.textoSuperior)}</div>
+        <div class="rule">${star}</div>
+        <p class="body">${esc(E.mensaje)}</p>
+        <div class="sign">${esc(C.padres)}</div>
+      </div>
+    </section>
+
+    <section class="sec" style="padding-top:2cqw">
+      <img class="floaty" src="${IMG("avion")}" alt="" id="flyBy" style="left:0;top:2cqw;width:36cqw">
+      <div class="script rv" style="font-size:13cqw;margin-top:16cqw">Faltan</div>
+      <div class="count rv" id="count">${["días", "horas", "min", "seg"].map(u => `<div><img src="${IMG("nube3")}" alt=""><b>00</b><small>${u}</small></div>`).join("")}</div>
+    </section>
+
+    <section class="sec">
+      <div class="card rv">
+        <div class="script">Cuándo y dónde</div>
+        <div class="info">
+          <div class="row">${ico.cal}<h4>Fecha</h4><p>${esc(E.fechaTexto)}</p></div>
+          <div class="row">${ico.hora}<h4>Hora</h4><p>${esc(E.hora)}</p></div>
+          <div class="row">${ico.pin}<h4>Lugar</h4><p>${esc(E.lugar)}<small>${esc(E.direccion)}</small></p></div>
+          ${E.vestimenta ? `<div class="row">${ico.ropa}<h4>Vestimenta</h4><p>${esc(E.vestimenta)}</p></div>` : ""}
+        </div>
+        <div class="btns"><a class="btn" href="${esc(E.mapa)}" target="_blank" rel="noopener">Ver ubicación</a><a class="btn o" id="gcal" target="_blank" rel="noopener">Agendar</a></div>
+      </div>
+    </section>
+
+    ${(E.itinerario || []).length ? `<section class="sec" style="padding-top:2cqw">
+      <img class="floaty" src="${IMG("estrella")}" alt="" style="right:10cqw;top:2cqw;width:9cqw" data-spin="1">
+      <div class="script rv" style="font-size:13cqw">Itinerario</div>
+      <ul class="tl rv">${E.itinerario.map(([h, t]) => `<li><b>${esc(h)}</b><span>${esc(t)}</span></li>`).join("")}</ul>
+    </section>` : ""}
+
+    <section class="sec gift">
+      <div class="card rv">
+        <img class="osito" src="${IMG("osito")}" alt="">
+        <div class="script">Mesa de regalos</div>
+        <p class="body" style="margin-top:4cqw">${esc(R.texto)}</p>
+        ${R.sugerencia ? `<div class="sug">${esc(R.sugerencia)}</div>` : ""}
+        <div class="btns">${(R.mesa || []).map(m => `<a class="btn o" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.nombre)}</a>`).join("")}</div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <img class="floaty" src="${IMG("mono")}" alt="" style="left:50%;top:4cqw;width:20cqw;margin-left:-10cqw">
+      <div class="card rv" style="margin-top:12cqw">
+        <div class="script">Confirma tu asistencia</div>
+        <p class="body" style="margin-top:3cqw">Por favor confírmanos antes del ${esc(E.rsvpFecha)}.</p>
+        <form class="rsvp" id="rsvp" onsubmit="return false" autocomplete="on">
+          <label class="q" for="rn">Tu nombre</label><input type="text" id="rn" maxlength="80">
+          <label class="opt"><input type="radio" name="as" value="si" checked><span>¡Sí, ahí estaré!</span></label>
+          <label class="opt"><input type="radio" name="as" value="no"><span>No podré asistir</span></label>
+          <div id="paxRow"><div class="stepper"><span>Personas</span><div><button type="button" data-d="-1" aria-label="Menos">−</button><b id="pax">1</b><button type="button" data-d="1" aria-label="Más">+</button></div></div></div>
+          <label class="q" for="rm">Un mensaje para el bebé (opcional)</label><textarea id="rm" rows="2" maxlength="300"></textarea>
+          <a class="btn" id="send" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+        </form>
+      </div>
+    </section>
+
+    <footer class="sec closing">
+      <img class="gl rv" src="${IMG("globo")}" alt="" id="endGlobo">
+      <div class="script rv">${esc(E.cierre)}</div>
+      <div class="body rv" style="font-style:italic">${esc(C.padres)}</div>
+      <div class="nubes"><img src="${IMG("nube1")}" alt="" style="left:-10cqw;width:70cqw"><img src="${IMG("nube2")}" alt="" style="right:-12cqw;width:60cqw"></div>
+      <div class="wm">${esc(C.marcaDeAgua)}</div>
+    </footer>`;
+
+    // cuenta regresiva
+    const cells = $$("#count b");
+    const tick = () => {
+      const s = Math.max(0, fecha - Date.now()) / 1000;
+      [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), Math.floor(s % 60)].forEach((v, i) => {
+        const t = String(v).padStart(2, "0");
+        if (cells[i].textContent !== t) { cells[i].textContent = t; if (cells[i]._r) gsap.fromTo(cells[i], { y: -6, opacity: .3 }, { y: 0, opacity: 1, duration: .4 }); cells[i]._r = true; }
+      });
+    };
+    tick(); setInterval(tick, 1000);
+
+    // calendario
+    const pad = n => String(n).padStart(2, "0"), end = new Date(fecha.getTime() + 3 * 3600e3);
+    const f = d => `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+    $("#gcal").href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`${C.textoSuperior} de ${C.bebe}`)}&dates=${f(fecha)}/${f(end)}&location=${encodeURIComponent(`${E.lugar}, ${E.direccion}`)}`;
+
+    // confirmación por WhatsApp
+    let pax = 1;
+    const upd = () => {
+      const si = $("input[name=as]:checked").value === "si", n = $("#rn").value.trim() || "(sin nombre)", m = $("#rm").value.trim();
+      $("#paxRow").style.display = si ? "" : "none";
+      const txt = `¡Hola! Soy ${n}. ` + (si ? `Confirmo mi asistencia al ${C.textoSuperior} de ${C.bebe}: ${pax} ${pax === 1 ? "persona" : "personas"}.` : `No podré asistir al ${C.textoSuperior} de ${C.bebe}, pero les mando mucho cariño.`) + (m ? `\n\nMensaje para el bebé: ${m}` : "");
+      $("#send").href = `https://wa.me/${E.rsvpWhatsapp}?text=${encodeURIComponent(txt)}`;
+    };
+    $$("#rsvp input, #rsvp textarea").forEach(el => el.addEventListener("input", upd));
+    $$(".stepper button").forEach(b => b.addEventListener("click", () => { pax = Math.min(20, Math.max(1, pax + +b.dataset.d)); $("#pax").textContent = pax; upd(); }));
+    $("#send").addEventListener("click", e => { if (!$("#rn").value.trim()) { e.preventDefault(); $("#rn").focus(); toast("Escribe tu nombre"); } });
+    upd();
+  }
+  function toast(t) { const el = $("#toast"); el.textContent = t; el.style.opacity = 1; clearTimeout(toast._t); toast._t = setTimeout(() => el.style.opacity = 0, 1800); }
+
+  function vida() {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); gsap.to(e.target, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out" }); }), { threshold: .12 });
+    $$("#inv .rv").forEach(el => io.observe(el));
+    gsap.to("#heroGlobo", { y: -12, rotation: 1.5, duration: 2.6, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to("#endGlobo", { y: -14, rotation: -2, duration: 2.8, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    $$("[data-drift]").forEach(el => gsap.to(el, { x: 18 * +el.dataset.drift, duration: 6, yoyo: true, repeat: -1, ease: "sine.inOut" }));
+    $$("[data-spin]").forEach(el => gsap.to(el, { rotation: 18, scale: 1.1, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }));
+    // el avión cruza la sección al hacer scroll
+    const fly = $("#flyBy");
+    if (fly) {
+      const sec = fly.parentElement;
+      const upd = () => { const r = sec.getBoundingClientRect(), p = Math.min(1, Math.max(0, 1 - (r.top + r.height * .3) / innerHeight)); fly.style.transform = `translateX(${(-30 + p * 110) * sec.clientWidth / 100}px) translateY(${Math.sin(p * Math.PI) * -12}px) scaleX(-1)`; };
+      addEventListener("scroll", upd, { passive: true }); upd();
+    }
+  }
+
+  function abrirInvitacion() {
+    render();
+    document.body.classList.add("open");
+    intro.remove(); window.scrollTo(0, 0);
+    vida();
+    gsap.to("#cardFull", { opacity: 0, duration: 1.2, delay: .2, ease: "power1.out", onComplete: () => $("#cardFull").remove() });
+  }
+
+  // ?invitacion=1 salta la escena (útil para revisar y editar)
+  if (/[?&](invitacion|skip)=1/.test(location.search)) { $("#gate").remove(); abrirInvitacion(); }
+})();
+</script>
+</body>
+</html>

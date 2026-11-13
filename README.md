@@ -11,6 +11,7 @@ plantillas/
   xv/                      plantilla XV años  → index.html (motor) + config.js (datos) + fotos/
   boda/                    plantilla boda     → index.html (motor) + config.js (datos)
   boda-azul/               plantilla boda azul → index.html + config.js + intro.mp4 + fotos/
+  baby-shower/             plantilla baby shower → index.html + config.js + arte/ (ilustraciones originales)
 invitaciones/
   xv-valentina/            una invitación real: copia de la plantilla con sus datos y fotos
 herramientas/publicar.py   prepara una invitación para publicarla como página web
@@ -90,3 +91,16 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
   - Confirmación por WhatsApp.
   - Frase en bloque azul y tarjeta final «Solo adultos / ¡Muchas gracias!» (opcionales en `config.js`).
   - Cierre.
+
+## Funciones de la plantilla Baby shower
+
+- **Ilustraciones:** todas originales, en acuarela (globo, nubes, osito aviador, avión, estrella, moño, banderín, pueblo, papel). Están en `arte/`.
+- **Inicio:**
+  1. Pantalla «Toca para comenzar» (así la música suena desde el principio).
+  2. Cielo con nubes en capas, globos a lo lejos y destellos dorados; se escribe el nombre en cursiva.
+  3. El avión con el osito llega volando en curva, saluda y se va.
+  4. Sube el globo grande con el sobre colgando.
+- **Apertura:** al tocar el sobre, el globo lo suelta, el moño se desata, se abre la solapa y la carta crece hasta ser la invitación.
+- **Invitación:** mensaje, cuenta regresiva en nubes, cuándo y dónde, itinerario, mesa de regalos, confirmación por WhatsApp y cierre.
+- **Música:** canción de cuna original de caja musical; o su canción en `musica` de `config.js`.
+- **Atajo para editar:** `?invitacion=1` salta la escena.
