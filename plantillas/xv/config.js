@@ -50,6 +50,7 @@ window.CONFIG = {
   fotoOvalo: 1,                   // índice de la foto en el marco ovalado
   // Música: pon la ruta a tu canción (p. ej. "musica.mp3" dentro de /xv). Vacío = vals de caja musical generado en vivo.
   musica: "",
+  puertas: false,                 // true = después del sobre se abren las puertas de palacio en 3D
   duracion: 20,                   // duración del loop (s); toda la secuencia se escala
   numEstrellas: 12,
   numParticulas: 22,

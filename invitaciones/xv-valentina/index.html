@@ -454,6 +454,72 @@
     -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 54'><path d='M30 53 C 8 37 0 25 4 13 C 8 2 22 0 30 11 C 38 0 52 2 56 13 C 60 25 52 37 30 53Z'/></svg>") center/contain no-repeat;
             mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 54'><path d='M30 53 C 8 37 0 25 4 13 C 8 2 22 0 30 11 C 38 0 52 2 56 13 C 60 25 52 37 30 53Z'/></svg>") center/contain no-repeat}
   .wax::before{display:none}
+
+  /* =================== SOBRE DE APERTURA (imagen real: sobre olivo + ramo blanco + sello dorado) =================== */
+  #envelope{background:radial-gradient(ellipse 90% 70% at 50% 42%,#FCFAF5,#EEE9DF)!important;flex-direction:column}
+  #envelope::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  .op-kick{text-align:center;color:#6F7A40;margin-bottom:36cqw}
+  .op-kick small{display:block;font-size:3.4cqw;letter-spacing:.32em;text-transform:uppercase;padding-left:.32em}
+  .op-kick b{display:block;font-family:"Pinyon Script",cursive;font-weight:400;font-size:13cqw;line-height:1.1;color:#6F7A40}
+  .env2{position:relative;width:70cqw;margin-left:12cqw;transform-origin:50.6% 60%}
+  .env2-sobre{display:block;width:100%;height:auto;filter:drop-shadow(0 2.4cqw 3cqw rgba(60,60,30,.28))}
+  .env2-ramo{position:absolute;left:-15cqw;top:-27cqw;width:31cqw;height:auto;z-index:2;transform-origin:50% 30%;pointer-events:none;
+    filter:drop-shadow(0 1.4cqw 1.6cqw rgba(50,50,30,.25))}
+  .env2-seal{position:absolute;left:50.6%;top:60%;width:24%;aspect-ratio:1;transform:translate(-50%,-50%);border:0;padding:0;background:none;cursor:pointer;z-index:3;border-radius:50%}
+  .env2-seal .pulse{position:absolute;inset:-14%;border-radius:50%;border:1.5px solid rgba(201,161,90,.85);opacity:0}
+  .env2-seal .shine{position:absolute;inset:8%;border-radius:50%;background:linear-gradient(115deg,transparent 35%,rgba(255,250,225,.75) 50%,transparent 65%) -150% 0/250% 100% no-repeat;mix-blend-mode:screen}
+  #envHint{color:#6F7A40;margin-top:22cqw;font-size:4.4cqw;letter-spacing:.24em;text-transform:uppercase}
+  #envHint small{display:block;font-size:3cqw;letter-spacing:.18em;opacity:.7;margin-top:1.4cqw;text-transform:none;font-style:italic}
+
+  /* =================== PORTADA INTERNA: sobre abierto con piezas encimadas (parallax) =================== */
+  .hero2{padding:12cqw 3cqw 14cqw!important;background:linear-gradient(#F7F4EE,#F3F0EA)!important;overflow:hidden}
+  .stack{position:relative;width:94cqw;height:104cqw;margin:0 auto}
+  .stack > *{position:absolute}
+  .sk-back{left:9%;right:9%;top:36%;height:50%;border-radius:.8cqw;background:linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.24)),var(--papel) center/cover;box-shadow:0 2cqw 4cqw rgba(60,60,30,.25)}
+  .sk-flap{left:9%;right:9%;top:12%;height:24.2%;background:linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,.16)),var(--papel) center/cover;clip-path:polygon(0 100%,50% 0,100% 100%)}
+  .sk-flap::after{content:"";position:absolute;inset:10% 10% 0;background:linear-gradient(rgba(0,0,0,.26),rgba(0,0,0,.18)),var(--papel) center/cover;clip-path:polygon(0 100%,50% 0,100% 100%)}
+  .sk-card{right:13%;top:5%;width:45%;height:58%;padding:2.2cqw;background:repeating-linear-gradient(90deg,#7B8A4B 0 1.1cqw,#FBF8F1 1.1cqw 2.2cqw);box-shadow:0 1cqw 2cqw rgba(0,0,0,.18)}
+  .sk-card .in2{height:100%;background:#FBF8F1;outline:1px solid rgba(123,138,75,.5);outline-offset:-1.2cqw;display:flex;flex-direction:column;align-items:center;padding-top:6cqw;text-align:center}
+  .sk-card small{font-size:2.3cqw;letter-spacing:.24em;color:#6F7A40}
+  .sk-card b{font-family:"Pinyon Script",cursive;font-weight:400;font-size:9.6cqw;line-height:1.1;color:#6F7A40;margin-top:2cqw}
+  .sk-card span{font-size:3.3cqw;font-style:italic;color:#77745C;margin-top:1cqw}
+  .sk-photo{left:8%;top:7%;width:41%;aspect-ratio:946/1231;transform:rotate(-5deg);cursor:zoom-in;filter:drop-shadow(0 1.2cqw 1.6cqw rgba(0,0,0,.22))}
+  .sk-photo .ph,.lace-oval .ph{position:absolute;left:16.5%;top:14.5%;width:67%;height:71%;border-radius:50%;object-fit:cover}
+  .sk-photo .lace,.lace-oval .lace{position:absolute;inset:0;width:100%;height:100%}
+  .sk-heart{left:28%;top:41%;width:44%;filter:drop-shadow(0 1.2cqw 1.6cqw rgba(0,0,0,.2));cursor:pointer}
+  .sk-heart svg{width:100%;height:auto;display:block;overflow:visible}
+  .sk-front{left:9%;right:9%;top:54%;height:32%;border-radius:0 0 .8cqw .8cqw;background:linear-gradient(170deg,rgba(255,255,255,.08),rgba(0,0,0,.06)),var(--papel) center/cover;
+    clip-path:polygon(0 0,50% 42%,100% 0,100% 100%,0 100%);box-shadow:inset 0 -1cqw 2cqw rgba(0,0,0,.1)}
+  .sk-front::after{content:"";position:absolute;inset:0;background:
+    linear-gradient(to top right,transparent 49.6%,rgba(0,0,0,.14) 50%,transparent 50.5%) left/50% 100% no-repeat,
+    linear-gradient(to top left,transparent 49.6%,rgba(0,0,0,.14) 50%,transparent 50.5%) right/50% 100% no-repeat}
+  .sk-seal{left:42.5%;top:61%;width:15%;cursor:pointer;filter:drop-shadow(0 .6cqw .8cqw rgba(0,0,0,.3))}
+  .sk-ramo{left:-3%;top:26%;width:29%;pointer-events:none;transform-origin:50% 20%;filter:drop-shadow(0 1.2cqw 1.4cqw rgba(50,50,30,.25))}
+  .meet{margin-top:2cqw;color:var(--ink)}
+  .meet small{font-size:3.2cqw;letter-spacing:.3em;text-transform:uppercase;padding-left:.3em}
+  .meet .venue{font-family:"Pinyon Script",cursive;font-size:11cqw;line-height:1.2;margin:1.4cqw 0 4cqw}
+  .meet .sc{font-size:3.4cqw;letter-spacing:.16em;text-transform:uppercase;line-height:1.7;color:#6E6A52}
+  .meet .sc + .sc{margin-top:3cqw}
+  .hero2 .count{margin-top:8cqw}
+  .hero2 .count b{font-size:9.6cqw}
+  .btn-solid{display:inline-block;margin-top:7cqw;padding:3cqw 7cqw;border:0;border-radius:1cqw;background:var(--ol);color:#FBF8EF;font-family:"Cormorant Garamond",serif;
+    font-size:3.4cqw;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;box-shadow:0 1.2cqw 2.4cqw rgba(90,100,50,.3)}
+  .closing-line{margin-top:5cqw;font-size:3.6cqw;letter-spacing:.14em;text-transform:uppercase;color:#6E6A52}
+
+  /* marco de encaje en la franja verde */
+  .lace-oval{position:relative;width:72cqw;aspect-ratio:946/1231;margin:0 auto;cursor:zoom-in;filter:drop-shadow(0 1.6cqw 2.4cqw rgba(0,0,0,.25))}
+  /* sellos dorados y ramos blancos reales en las demás secciones */
+  .hseal.gold{width:14cqw;margin-left:-7cqw;filter:drop-shadow(0 .6cqw .8cqw rgba(0,0,0,.3))}
+  img.bq{height:auto}
+  .place img.bq{right:-9cqw;bottom:-10cqw;width:17cqw}
+  .envc img.bq.r{right:-12cqw;top:-20cqw;width:23cqw}
+  .rsvp-intro img.bq{right:-8cqw;bottom:-20cqw;width:16cqw}
+  .envt .bk{background:linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.18)),var(--papel) center/cover!important}
+  .envt .bk::after{background:var(--papel) center/cover!important}
+  .envc .bk,.envc .fl{background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),var(--papel) center/cover!important}
+  .envc .fl::after{background:linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.22)),var(--papel) center/cover!important}
+  .envc .fr{background:linear-gradient(170deg,rgba(255,255,255,.08),rgba(0,0,0,.05)),var(--papel) center/cover!important}
 </style>
 </head>
 <body>
@@ -548,14 +614,13 @@
     <div id="lbCount"></div>
   </div>
   <div id="envelope" aria-hidden="true">
-    <div class="env" id="env">
-      <div class="env-back"></div>
-      <div class="env-card"><small id="envKick"></small><b id="envName"></b><span>Abre tu invitación</span></div>
-      <div class="env-front"></div>
-      <div class="env-flap" id="envFlap"><i class="out"></i><i class="in"></i></div>
-      <button class="wax" id="wax" aria-label="Abrir el sobre">XV</button>
+    <div class="op-kick" id="opKick"><small id="envKick"></small><b id="envName"></b></div>
+    <div class="env2" id="env">
+      <img class="env2-sobre" data-src="sobre_olivo.png" alt="">
+      <img class="env2-ramo" data-src="ramo_blanco.png" alt="">
+      <button class="env2-seal" id="wax" aria-label="Abrir la invitación"><i class="pulse"></i><i class="shine"></i></button>
     </div>
-    <div class="env-hint" id="envHint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20V5M6 11l6-6 6 6"/></svg>Desliza el sello hacia arriba</div>
+    <div id="envHint">Abre tu invitación<small>Toca el sello o desliza hacia arriba</small></div>
   </div>
   <div id="doors" aria-hidden="true">
     <div class="door l"><div class="dp"></div><div class="knob"></div><div class="shade"></div></div>
@@ -604,7 +669,6 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
   $("#sealName").textContent = CONFIG.quinceanera.toUpperCase();
   $("#envKick").textContent = CONFIG.textoSuperior;
   $("#envName").textContent = CONFIG.quinceanera;
-  $("#wax").textContent = CONFIG.iniciales.join("");
   $("#sealText").textContent = CONFIG.iniciales.join("");
   document.title = `${CONFIG.textoSuperior} · ${CONFIG.quinceanera}`;
 
@@ -616,28 +680,9 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     const reservado = E.reservado === undefined ? { color: "#E79AB2", nombre: "Rosa: reservado para la quinceañera" } : E.reservado;
     // ---------- piezas gráficas (SVG generado: alcatraces, sello de corazón, perlas, íconos) ----------
     let uid = 0;
-    const heart = (txt = CONFIG.iniciales.join("")) => { const k = ++uid; return `<svg class="hseal" viewBox="0 0 60 54" aria-hidden="true"><defs><radialGradient id="hs${k}" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#FCF8EE"/><stop offset=".65" stop-color="#E8DEC7"/><stop offset="1" stop-color="#CDBF9F"/></radialGradient></defs><path d="M30 53 C 8 37 0 25 4 13 C 8 2 22 0 30 11 C 38 0 52 2 56 13 C 60 25 52 37 30 53Z" fill="url(#hs${k})"/><path d="M30 46 C 13 34 7 25 10 16 C 13 8 24 7 30 15 C 36 7 47 8 50 16 C 53 25 47 34 30 46Z" fill="none" stroke="rgba(160,140,100,.45)" stroke-width=".8"/><text x="30" y="32" text-anchor="middle" font-family="Pinyon Script, cursive" font-size="13" fill="#B4A47E">${esc(txt)}</text></svg>`; };
+    const heart = () => `<img class="hseal gold" src="${A}sello_oro.png" alt="">`;
     const calla = (x, y, rot, sc, k) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${sc})"><path d="M0 0 C -15 -10 -17 -40 2 -64 C 12 -48 20 -32 15 -13 C 11 -4 6 -1 0 0Z" fill="url(#cp${k})"/><path d="M2 -60 C -6 -46 -8 -26 0 -6" stroke="rgba(255,255,255,.55)" stroke-width="1.6" fill="none"/><path d="M1 -3 C 0 -16 2 -30 6 -40" stroke="#E7C34E" stroke-width="3" stroke-linecap="round" fill="none"/></g>`;
-    const bouquet = (cls, big = true) => {
-      const k = ++uid;
-      let g = `<svg class="bq ${cls}" viewBox="0 0 130 230" aria-hidden="true"><defs><linearGradient id="cp${k}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7B9CB"/><stop offset=".6" stop-color="#E07A9C"/><stop offset="1" stop-color="#B9466F"/></linearGradient></defs>`;
-      g += `<g stroke="#7E9B4E" stroke-width="2.2" fill="none" stroke-linecap="round"><path d="M64 226 C 62 180 52 120 40 70"/><path d="M66 226 C 68 170 76 120 86 62"/><path d="M65 226 C 64 160 64 110 62 50"/></g>`;
-      g += `<g fill="#8FAE58"><path d="M60 170 C 36 150 28 120 34 100 C 48 120 58 140 60 170Z"/><path d="M70 180 C 96 160 102 132 96 110 C 82 130 72 150 70 180Z"/></g>`;
-      g += calla(40, 72, -28, 1, k) + calla(62, 52, -4, 1.1, k) + calla(88, 64, 24, .95, k);
-      if (big) {
-        const cols = ["#E58AA8", "#D45E86", "#F2B6C8", "#C9497A"];
-        for (let i = 0; i < 26; i++) {
-          const a = i * 2.4, r = 4 + (i % 7) * 3.2, cx = 64 + Math.cos(a) * r * 1.2, cy = 98 + Math.sin(a) * r * .8, c = cols[i % 4];
-          g += `<g transform="translate(${cx.toFixed(1)} ${cy.toFixed(1)}) rotate(${i * 23})"><ellipse rx="3.6" ry="2" fill="${c}"/><ellipse rx="2" ry="3.6" fill="${c}"/><circle r="1" fill="#F7E3A0"/></g>`;
-        }
-        g += `<g transform="translate(46 104)" fill="#9BB860">`;
-        for (let i = 0; i < 16; i++) g += `<ellipse cx="${(Math.sin(i * .5) * 5).toFixed(1)}" cy="${i * 6.4}" rx="${(4.2 - i * .2).toFixed(1)}" ry="3.2"/>`;
-        g += `</g><g transform="translate(78 108)" fill="#B3C878">`;
-        for (let i = 0; i < 13; i++) g += `<ellipse cx="${(Math.sin(i * .6 + 1) * 4).toFixed(1)}" cy="${i * 6.6}" rx="${(3.6 - i * .2).toFixed(1)}" ry="2.8"/>`;
-        g += `</g>`;
-      }
-      return g + `</svg>`;
-    };
+    const bouquet = cls => `<img class="bq ${cls}" src="${A}ramo_blanco.png" alt="">`;
     const pearls = () => { let g = `<svg class="pearls" viewBox="0 0 110 120" aria-hidden="true"><defs><radialGradient id="pr"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#DCD6CA"/></radialGradient></defs><path d="M8 8 C 40 50 70 30 104 8" stroke="#D8CFC0" stroke-width=".6" fill="none"/>`;
       for (let i = 0; i <= 22; i++) { const t = i / 22, x = 8 + 96 * t, y = 8 + Math.sin(t * Math.PI) * 30; g += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.6" fill="url(#pr)"/>`; }
       for (let i = 0; i < 14; i++) g += `<circle cx="56" cy="${40 + i * 5.4}" r="${i === 13 ? 4 : 2.4}" fill="url(#pr)"/>`;
@@ -660,24 +705,43 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
         <h3>${esc(c.titulo)}</h3><div class="t">Hora: ${esc(c.hora)}</div><div class="l">${esc(c.lugar)}</div><div class="a">${esc(c.direccion)}</div>
         <a class="btn-o" href="${esc(c.mapa)}" target="_blank" rel="noopener">Ver mapa</a></div>${bouquet("r", false)}</div>`;
     const foto = i => esc(CONFIG.fotos[i] || CONFIG.fotos[0] || "");
+    $("#stage").style.setProperty("--papel", `url("${A}papel_olivo.jpg")`);
+    const heartCard = (() => {
+      const H = "M60 104 C 22 78 4 58 8 34 C 12 12 38 6 60 28 C 82 6 108 12 112 34 C 116 58 98 78 60 104Z";
+      return `<svg viewBox="0 0 120 112" aria-hidden="true"><path d="${H}" fill="#FBF8F1" stroke="#FBF8F1" stroke-width="9" stroke-linejoin="round"/>
+        <path d="${H}" fill="none" stroke="#E2DCCB" stroke-width="7" stroke-dasharray=".1 5.2" stroke-linecap="round"/>
+        <path d="${H}" fill="none" stroke="#FBF8F1" stroke-width="3.4"/>
+        <path d="M60 94 C 28 72 15 56 18 37 C 21 20 41 15 60 34 C 79 15 99 20 102 37 C 105 56 92 72 60 94Z" fill="none" stroke="rgba(123,138,75,.45)" stroke-width=".7"/>
+        <path d="M60 89 C 31 69 20 55 23 39 C 26 25 43 21 60 38 C 77 21 94 25 97 39 C 100 55 89 69 60 89Z" fill="none" stroke="rgba(123,138,75,.3)" stroke-width=".6" stroke-dasharray="1.2 1.6"/>
+        <text x="60" y="58" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="12.5" letter-spacing=".5" fill="#5E6838">${esc(dd.replace(/ /g, ""))}</text></svg>`;
+    })();
 
     $("#invContent").innerHTML = `
-      <section class="inv-hero">
-        <div class="envl rv" id="heroEnv">
-          <div class="fl"></div><div class="bk"></div>
-          <div class="ph" data-foto="${CONFIG.fotoPortada}"><img src="${foto(CONFIG.fotoPortada)}" alt="${esc(CONFIG.quinceanera)}"></div>
-          <div class="fr"></div>${heart()}${bouquet("r")}${bouquet("l", false)}${pearls()}
+      <section class="inv-hero hero2">
+        <div class="stack" id="heroEnv">
+          <div class="sk-back"></div>
+          <div class="sk-flap"></div>
+          <div class="sk-card sk-item" data-par=".10"><div class="in2"><small>RESERVA LA FECHA</small><b>${esc(CONFIG.quinceanera)}</b><span>${esc(CONFIG.textoSuperior)}</span></div></div>
+          <div class="sk-photo sk-item" data-par=".2" data-foto="${CONFIG.fotoPortada}"><img class="ph" src="${foto(CONFIG.fotoPortada)}" alt="${esc(CONFIG.quinceanera)}"><img class="lace" src="${A}marco_encaje.png" alt=""></div>
+          <div class="sk-heart sk-item" data-par=".3">${heartCard}</div>
+          <div class="sk-front"></div>
+          <img class="sk-seal" src="${A}sello_oro.png" alt="">
+          <img class="sk-ramo" src="${A}ramo_blanco.png" alt="">
         </div>
-        <div class="scal namecard rv tilt"><div class="in">
-          <div class="kick">${esc(CONFIG.textoSuperior)}</div>
-          <div class="script">${esc(CONFIG.quinceanera)}</div>
-          <div class="dt">${dd}</div>
-          <p>${esc(CONFIG.frase || "")}</p>
-        </div></div>
+        <div class="meet rv">
+          <small>Nos vemos en</small>
+          <div class="venue">${esc(E.recepcion.lugar)}</div>
+          <p class="sc">${esc(E.fechaTexto)}<br>${esc(E.ceremonia.titulo)} ${esc(E.ceremonia.hora)} · ${esc(E.recepcion.titulo)} ${esc(E.recepcion.hora)}</p>
+          <p class="sc">Celebración ${esc(String(E.vestimenta).toLowerCase())}</p>
+        </div>
+        <div class="count rv tilt" id="count"><div><b>0</b><span>días</span></div><i>:</i><div><b>0</b><span>horas</span></div><i>:</i><div><b>0</b><span>minutos</span></div><i>:</i><div><b>0</b><span>segundos</span></div></div>
+        <div class="cal rv"><a class="btn-o" id="gcal" target="_blank" rel="noopener">Google Calendar</a><a class="btn-o" id="ocal" target="_blank" rel="noopener">Outlook</a></div>
+        <button class="btn-solid rv" type="button" id="goRsvp2">Confirma tu asistencia</button>
+        <p class="closing-line rv">${esc(E.cierre)}</p>
       </section>
 
       <section class="sec green">
-        <div class="oval rv tilt"><img src="${foto(CONFIG.fotoOvalo ?? 1)}" alt="${esc(CONFIG.quinceanera)}" data-foto="${CONFIG.fotoOvalo ?? 1}"></div>
+        <div class="lace-oval rv tilt" data-foto="${CONFIG.fotoOvalo ?? 1}"><img class="ph" src="${foto(CONFIG.fotoOvalo ?? 1)}" alt="${esc(CONFIG.quinceanera)}"><img class="lace" src="${A}marco_encaje.png" alt=""></div>
         <div class="story">
           <h2 class="rv">${esc(E.historiaTitulo || "Mi historia")}</h2>${divider}
           ${historia.map(t => `<p class="rv">${esc(t)}</p>`).join("")}
@@ -724,10 +788,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       </section>
 
       <section class="sec" style="padding-top:4cqw">
-        <h2 class="rv">Cuenta regresiva</h2>
-        <div class="count rv tilt" id="count"><div><b>0</b><span>días</span></div><i>:</i><div><b>0</b><span>horas</span></div><i>:</i><div><b>0</b><span>min</span></div><i>:</i><div><b>0</b><span>seg</span></div></div>
-        <div class="cal rv"><a class="btn-o" id="gcal" target="_blank" rel="noopener">Google Calendar</a><a class="btn-o" id="ocal" target="_blank" rel="noopener">Outlook</a></div>
-        <h2 class="rv" style="margin-top:14cqw">Regalos</h2>
+        <h2 class="rv">Regalos</h2>
         <p class="rv" style="margin-top:2cqw">${esc(E.regalos)}</p>
       </section>
 
@@ -779,9 +840,12 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     // fotos tocables (sobre y óvalo) → visor
     $$("[data-foto]").forEach(el => el.addEventListener("click", () => openLightbox(+el.dataset.foto || 0)));
     // botón Responder → baja al formulario
+    $("#goRsvp2").addEventListener("click", () => { const r = $("#invitacion"); r.scrollTo({ top: $("#rsvp").offsetTop - 40, behavior: "smooth" }); });
+    $(".sk-heart").addEventListener("click", e => { e.stopPropagation(); gsap.fromTo(".sk-heart", { rotation: 0 }, { rotation: 6, duration: .12, yoyo: true, repeat: 5, ease: "sine.inOut" }); const r = stage.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top); });
+    $(".sk-seal").addEventListener("click", e => { e.stopPropagation(); gsap.fromTo(".sk-seal", { scale: 1 }, { scale: 1.2, duration: .18, yoyo: true, repeat: 3 }); const r = stage.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top); });
     $("#goRsvp").addEventListener("click", () => { const r = $("#invitacion"); r.scrollTo({ top: $("#rsvp").offsetTop - 40, behavior: "smooth" }); });
     // los sellos de corazón laten al tocarlos
-    $$(".hseal").forEach(h => h.addEventListener("click", e => { e.stopPropagation(); gsap.fromTo(h, { scale: 1 }, { scale: 1.25, duration: .18, yoyo: true, repeat: 3, ease: "sine.inOut", transformOrigin: "50% 60%" }); const r = stage.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top); }));
+    $$(".hseal").forEach(h => h.addEventListener("click", e => { e.stopPropagation(); gsap.fromTo(h, { scale: 1 }, { scale: 1.2, duration: .18, yoyo: true, repeat: 3, ease: "sine.inOut" }); const r = stage.getBoundingClientRect(); burst(e.clientX - r.left, e.clientY - r.top); }));
 
     // calendario
     const start = new Date(E.fechaISO), end = new Date(start.getTime() + 7 * 3600e3);
@@ -932,7 +996,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
 
   /* ---------- Pétalos que caen en 3D ---------- */
   function initPetals() {
-    const box = $("#petals"), cols = [["#F4C6D3", "#E79AB2"], ["#FFF4EA", "#F2DCCB"], ["#F7D9C4", "#EDB8A0"]];
+    const box = $("#petals"), cols = [["#FFFFFF", "#E9E6DA"], ["#F4F6EA", "#D6DFB8"], ["#FBF8EE", "#E8E1C8"]];
     for (let i = 0; i < 16; i++) {
       const [a, b] = cols[i % 3], el = document.createElement("div");
       el.className = "petal";
@@ -954,7 +1018,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     for (let i = 0; i < 9; i++) {
       const el = document.createElement("div");
       el.className = "burst";
-      el.innerHTML = `<svg viewBox="-10 -10 20 20"><path d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10Z" fill="${i % 3 ? "#C9A15A" : "#E79AB2"}"/></svg>`;
+      el.innerHTML = `<svg viewBox="-10 -10 20 20"><path d="M0 -10 C1 -2 2 -1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0 -10Z" fill="${i % 3 ? "#C9A15A" : "#B9C78A"}"/></svg>`;
       el.style.left = x + "px"; el.style.top = y + "px"; fx.appendChild(el);
       const a = i / 9 * Math.PI * 2 + Math.random() * .5, d = 30 + Math.random() * 45;
       gsap.fromTo(el, { scale: 0, rotation: 0 }, { x: Math.cos(a) * d, y: Math.sin(a) * d, scale: gsap.utils.random(.5, 1.1), rotation: 180,
@@ -1055,8 +1119,14 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     // la portada interna aparece en cascada
     gsap.to(".inv-hero .rv", { opacity: 1, y: 0, duration: 1.1, ease: "power2.out", stagger: .18, delay: .3 });
     // la foto sale del sobre y el ramo se mece
-    gsap.fromTo("#heroEnv .ph", { yPercent: 45, rotation: 2 }, { yPercent: 0, rotation: -1.5, duration: 1.6, delay: .5, ease: "power3.out" });
-    gsap.fromTo("#heroEnv .hseal", { scale: 0 }, { scale: 1, duration: .6, delay: 1.4, ease: "back.out(2.2)" });
+    gsap.fromTo("#heroEnv .sk-item", { yPercent: 38, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.5, stagger: .2, delay: .45, ease: "power3.out" });
+    gsap.fromTo("#heroEnv .sk-seal", { scale: 0, rotation: -30 }, { scale: 1, rotation: 0, duration: .7, delay: 1.3, ease: "back.out(2.2)" });
+    gsap.fromTo("#heroEnv .sk-ramo", { x: -40, opacity: 0, rotation: -6 }, { x: 0, opacity: 1, rotation: 0, duration: 1.5, delay: .6, ease: "power3.out" });
+    gsap.to("#heroEnv .sk-ramo", { rotation: 2, duration: 3, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 2.2 });
+    // parallax: al bajar, las piezas se separan del sobre a distinta velocidad
+    const parItems = $$("#heroEnv [data-par]").map(el => ({ el, k: +el.dataset.par, set: gsap.quickSetter(el, "y", "px") }));
+    const ramoSet = gsap.quickSetter("#heroEnv .sk-ramo", "y", "px");
+    root.addEventListener("scroll", () => { const y = root.scrollTop; if (y > 1400) return; parItems.forEach(q => q.set(-y * q.k)); ramoSet(y * .05); }, { passive: true });
     $$(".bq").forEach((q, i) => gsap.to(q, { rotation: i % 2 ? -2.5 : 2.5, transformOrigin: "50% 100%", duration: 3 + i % 3, yoyo: true, repeat: -1, ease: "sine.inOut" }));
     initGallery(); initLightbox(); initTilt();
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) initPetals();
@@ -1336,39 +1406,40 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       showEnvelope();
       document.dispatchEvent(new CustomEvent("invitacion:abrir"));
     };
-    // El sobre: se abre arrastrando el sello hacia arriba o tocándolo
+    // El sobre: se abre tocando el sello o deslizando hacia arriba; la "cámara" entra al sello y aparece la invitación
     const showEnvelope = () => {
-      const flap = $("#envFlap"), card = $(".env-card"), wax = $("#wax");
-      gsap.set("#envelope", { visibility: "visible" });
+      const env = $("#envelope");
+      gsap.set(env, { visibility: "visible" });
       gsap.timeline()
         .to("#hint", { opacity: 0, duration: .3 }, 0)
-        .fromTo("#envelope", { opacity: 0 }, { opacity: 1, duration: .5 }, 0)
-        .fromTo("#env", { y: 120, rotationX: 35, scale: .8, transformPerspective: 900 }, { y: 0, rotationX: 0, scale: 1, duration: 1, ease: "back.out(1.3)" }, .1)
-        .fromTo(wax, { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: .6, ease: "back.out(2)" }, .7)
-        .add(() => gsap.to("#envHint svg", { y: -8, duration: .7, yoyo: true, repeat: -1, ease: "sine.inOut" }), 1);
-      let y0 = null, prog = 0, done = false;
-      const setProg = k => { prog = k; gsap.set(flap, { rotationX: 180 * k }); gsap.set(wax, { y: -k * 60, opacity: 1 - k * 1.4, rotation: k * 40 }); };
+        .fromTo(env, { opacity: 0 }, { opacity: 1, duration: .6 }, 0)
+        .fromTo("#env", { y: 60, scale: 1.12, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.3, ease: "power3.out" }, .15)
+        .fromTo(".env2-ramo", { x: -50, rotation: -8, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: 1.3, ease: "power3.out" }, .45)
+        .fromTo("#opKick", { y: -14, opacity: 0 }, { y: 0, opacity: 1, duration: .9 }, .5)
+        .fromTo("#envHint", { opacity: 0 }, { opacity: 1, duration: .8 }, 1);
+      gsap.to(".env2-ramo", { rotation: 2.5, duration: 2.6, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 1.6 });
+      gsap.fromTo("#wax .pulse", { scale: .8, opacity: .9 }, { scale: 1.35, opacity: 0, duration: 1.6, repeat: -1, ease: "power1.out", delay: 1.2 });
+      gsap.to("#wax .shine", { backgroundPosition: "150% 0", duration: 1.6, repeat: -1, repeatDelay: 1.4, ease: "power1.inOut", delay: 1.5 });
+      let y0 = null, done = false;
       const finish = () => {
         if (done) return; done = true;
+        const inv = $("#invitacion");
         gsap.timeline()
-          .to(wax, { scale: 1.4, opacity: 0, rotation: 60, duration: .35, ease: "power2.out" }, 0)
-          .to(flap, { rotationX: 180, duration: .7, ease: "power2.inOut", onUpdate() { flap.style.zIndex = gsap.getProperty(flap, "rotationX") > 90 ? 0 : 3; } }, 0)
-          .to("#envHint", { opacity: 0, duration: .3 }, 0)
-          .to(card, { y: "-62%", duration: .9, ease: "power3.out" }, .55)
-          .to(card, { scale: 1.06, duration: .4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.3)
-          .to("#env", { scale: 2.6, opacity: 0, y: -80, duration: .8, ease: "power2.in" }, 2.05)
-          .add(doorsSequence, 2.2)
-          .to("#envelope", { opacity: 0, duration: .5, onComplete: () => gsap.set("#envelope", { visibility: "hidden" }) }, 2.4);
+          .to(["#envHint", "#opKick"], { opacity: 0, duration: .3 }, 0)
+          .to("#wax", { scale: 1.2, duration: .22, yoyo: true, repeat: 1, ease: "sine.inOut" }, 0)
+          .to(".env2-ramo", { x: -160, rotation: -14, opacity: 0, duration: .9, ease: "power2.in" }, .35)
+          .to("#env", { scale: 7, duration: 1.25, ease: "power2.in" }, .4)
+          .add(() => {
+            if (CONFIG.puertas) return doorsSequence();
+            gsap.set(inv, { visibility: "visible", opacity: 1 }); tl.pause();
+            gsap.fromTo(inv, { scale: 1.18 }, { scale: 1, duration: 1.8, ease: "power3.out" });
+            revealInvitacion();
+          }, 1.25)
+          .to(env, { opacity: 0, duration: .7, onComplete: () => gsap.set(env, { visibility: "hidden" }) }, 1.3);
       };
-      const env = $("#envelope");
-      env.addEventListener("pointerdown", e => { if (done) return; y0 = e.clientY; env.setPointerCapture(e.pointerId); });
-      env.addEventListener("pointermove", e => { if (y0 === null || done) return; setProg(gsap.utils.clamp(0, 1, (y0 - e.clientY) / 160)); });
-      const up = () => {
-        if (y0 === null || done) return; y0 = null;
-        if (prog > .3 || prog === 0) finish();          // arrastre suficiente o toque simple → abrir
-        else gsap.to({ k: prog }, { k: 0, duration: .4, ease: "power2.out", onUpdate() { setProg(this.targets()[0].k); } });
-      };
-      env.addEventListener("pointerup", up); env.addEventListener("pointercancel", up);
+      env.addEventListener("pointerdown", e => { if (done) return; y0 = e.clientY; });
+      env.addEventListener("pointermove", e => { if (y0 !== null && !done && y0 - e.clientY > 50) { y0 = null; finish(); } });
+      env.addEventListener("pointerup", () => { if (y0 === null || done) return; y0 = null; finish(); });
       window.abrirSobre = finish;
     };
     // Las puertas de palacio
