@@ -389,7 +389,8 @@
       if (intro) { const a = intro; gsap.killTweensOf(a); gsap.to(a, { volume: 0, duration: 3, ease: "sine.inOut", onComplete: () => a.pause() }); }
       if (on) play();
     }
-    return { play, pause, toMain, toggle: () => (on ? pause() : play()), get on() { return on; } };
+    const sonando = () => !!((intro && !intro.paused) || (audio && !audio.paused));
+    return { play, pause, toMain, sonando, reset: () => { on = false; ui(); }, toggle: () => (on ? pause() : play()), get on() { return on; } };
   })();
   $("#music").addEventListener("click", () => Musica.toggle());
 
@@ -516,14 +517,18 @@
   // sin pantalla de entrada: la animación arranca sola; la música empieza con el primer toque (los celulares lo exigen)
   $("#gate").remove();
   let musicOn = false;
-  const startMusic = () => {
-    if (musicOn) return; musicOn = true; Musica.play();
-    const ch = $("#sndChip"); if (ch) gsap.to(ch, { opacity: 0, y: -10, duration: .6, onComplete: () => ch.remove() });
-  };
-  gsap.fromTo("#sndChip", { opacity: 0 }, { opacity: 1, duration: .8, delay: .6 });
+  const hideChip = () => { const ch = $("#sndChip"); if (ch) gsap.to(ch, { opacity: 0, y: -10, duration: .6, onComplete: () => ch.remove() }); };
+  const startMusic = () => { if (musicOn) return; musicOn = true; Musica.play(); hideChip(); };
+  // intenta sonar sola al abrir el link; si el celular lo bloquea, espera el primer toque y muestra el botoncito
+  gsap.set("#sndChip", { opacity: 0 });
+  Musica.play();
+  setTimeout(() => {
+    if (Musica.sonando()) { musicOn = true; $("#sndChip") && $("#sndChip").remove(); }
+    else { Musica.reset(); gsap.to("#sndChip", { opacity: 1, duration: .8 }); }
+  }, 900);
   $("#sndChip").addEventListener("click", e => { e.stopPropagation(); startMusic(); });
   gsap.to("#sndChip svg", { rotation: 10, duration: .5, yoyo: true, repeat: -1, ease: "sine.inOut" });
-  ["pointerdown", "touchstart", "keydown"].forEach(ev => addEventListener(ev, startMusic, { once: true, passive: true }));
+  ["pointerdown", "touchend", "click", "keydown"].forEach(ev => addEventListener(ev, startMusic, { once: true, passive: true }));
 
   /* ======================= INVITACIÓN ======================= */
   const ico = {
