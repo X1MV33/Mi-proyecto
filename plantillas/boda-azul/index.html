@@ -743,13 +743,15 @@
       <div class="dark ddark rv">
         <h3>${esc(E.vestimenta)}</h3>
         <p>Te dejamos una sugerencia de colores para acompañarnos.</p>
-        <div class="pal" id="pal">${E.paleta.map((p, i) => `<button type="button" style="background:${esc(p.color)}" data-i="${i}" aria-label="${esc(p.nombre)}"></button>`).join("")}</div>
-        <div class="palname" id="palname">Toca un color</div>
+        <div class="pal" id="pal">${E.paleta.map((p, i) => `<button type="button" class="${i === 0 ? "on" : ""}" style="background:${esc(p.color)}" data-i="${i}" aria-label="${esc(p.nombre)}"></button>`).join("")}</div>
+        <div class="palname" id="palname">${esc(E.paleta[0].nombre)}</div>
       </div>
       <div class="dwrap">
         <div class="tw rv" style="margin:0 4cqw"><div class="torn dnote">
           <p>${esc(E.vestimentaNota)}</p>
-          <div class="outfit">${outfit}<img class="dimg" alt="Sugerencia de vestimenta"></div>
+          ${E.paleta[0].diseno
+            ? `<div class="outfit con-diseno">${outfit}<img class="dimg" src="${esc(E.paleta[0].diseno)}" alt="Sugerencia de vestimenta"></div>`
+            : `<div class="outfit">${outfit}<img class="dimg" alt="Sugerencia de vestimenta"></div>`}
           ${E.reservado ? `<div class="reserv"><i style="background:${esc(E.reservado.color)}"></i>${esc(E.reservado.nombre)}</div>` : ""}
         </div></div>
       </div>
