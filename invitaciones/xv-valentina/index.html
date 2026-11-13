@@ -146,6 +146,16 @@
     font-size:3.4cqw;letter-spacing:.18em;color:#fff;padding:1.4cqw 3.6cqw;border-radius:999px;
     background:rgba(0,0,0,.18);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
     border:1px solid rgba(255,255,255,.35);opacity:0;pointer-events:none;white-space:nowrap}
+  #gate2{position:absolute;inset:0;z-index:35;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4cqw;cursor:pointer;
+    background:radial-gradient(ellipse 90% 70% at 50% 45%,#55633A,#2E3720 75%,#1F2616);color:#EEF0DC;text-align:center}
+  #gate2 small{font-size:3.6cqw;letter-spacing:.42em;padding-left:.42em;text-transform:uppercase;opacity:.85}
+  #gate2 b{font-family:"Pinyon Script",cursive;font-weight:400;font-size:20cqw;line-height:1.1;color:#F4F1DC}
+  #gate2 .ln{width:26cqw;height:1px;background:linear-gradient(90deg,transparent,#C9A15A,transparent)}
+  #gate2 .go{margin-top:6cqw;display:flex;flex-direction:column;align-items:center;gap:2.6cqw;font-size:3.6cqw;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase}
+  #gate2 .g2ring{width:15cqw;height:15cqw;border-radius:50%;border:1px solid rgba(201,161,90,.8);display:flex;align-items:center;justify-content:center}
+  #gate2 .g2ring svg{width:6cqw;height:6cqw;margin-left:.8cqw}
+  #gate2 .wm{position:absolute;bottom:calc(3cqh + env(safe-area-inset-bottom,0px));font-size:2.6cqw;letter-spacing:.24em;opacity:.55}
+  body.reel #gate2{display:none}
   #loader{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
     color:rgba(230,232,207,.75);font-size:3.4cqw;letter-spacing:.3em}
   body.reel .ui{display:none!important}
@@ -609,6 +619,11 @@
   <div id="watermark"></div>
   <div id="hint" class="ui">Toca para abrir</div>
   <div id="loader" class="ui">CARGANDO</div>
+  <div id="gate2" role="button" tabindex="0" aria-label="Comenzar invitación" style="display:none">
+    <small id="g2k"></small><b id="g2n"></b><div class="ln"></div>
+    <div class="go"><div class="g2ring"><svg viewBox="0 0 20 20"><path d="M5 3L16 10 5 17Z" fill="#EEF0DC"/></svg></div>Toca para comenzar</div>
+    <div class="wm" id="g2w"></div>
+  </div>
   <div id="black" class="layer"></div>
 
   <!-- SIGUIENTE SECCIÓN DE LA INVITACIÓN (vacía, lista para llenarse) -->
@@ -1103,7 +1118,8 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     }
     // pedazo de la portada: suena desde el primer toque hasta que se abre la invitación
     function playIntro() {
-      if (!CONFIG.musicaPortada) return play();
+      if (enIntro && intro && !intro.paused) return;
+      if (!CONFIG.musicaPortada) { if (!on) play(); return; }
       enIntro = true; on = true;
       intro = intro || Object.assign(new Audio(CONFIG.musicaPortada), { loop: true, volume: 0 });
       intro.play().then(() => gsap.to(intro, { volume: .8, duration: 1.5 })).catch(() => {});
@@ -1431,14 +1447,37 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       .set({}, {}, t(20));
 
     /* ---- Intro desde negro (sólo la primera vez) ---- */
-    gsap.timeline()
-      .to("#black", { opacity: 0, duration: 1.6, ease: "power1.inOut" }, 0)
-      .to("#watermark", { opacity: 1, duration: 1.5 }, .8)
-      .add(() => tl.play(0), 0)
-      .set("#black", { display: "none" });
-    if (!REEL) {
-      gsap.to("#hint", { opacity: .9, duration: 1, delay: 3 });
-      gsap.to("#hint", { opacity: .45, duration: 1.6, delay: 4, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    const introGo = () => {
+      gsap.timeline()
+        .to("#black", { opacity: 0, duration: 1.6, ease: "power1.inOut" }, 0)
+        .to("#watermark", { opacity: 1, duration: 1.5 }, .8)
+        .add(() => tl.play(0), 0)
+        .set("#black", { display: "none" });
+      if (!REEL) {
+        gsap.to("#hint", { opacity: .9, duration: 1, delay: 3 });
+        gsap.to("#hint", { opacity: .45, duration: 1.6, delay: 4, yoyo: true, repeat: -1, ease: "sine.inOut" });
+      }
+    };
+    // Pantalla de entrada: el toque permite que la música suene desde el inicio de la portada
+    let gateUp = false;
+    if (REEL) introGo();
+    else {
+      const g = $("#gate2"); gateUp = true;
+      $("#g2k").textContent = CONFIG.textoSuperior || "";
+      $("#g2n").textContent = CONFIG.quinceanera || "";
+      $("#g2w").textContent = CONFIG.marcaDeAgua || "";
+      g.style.display = "flex";
+      gsap.from("#gate2 > *", { opacity: 0, y: 14, duration: 1.2, stagger: .18, ease: "power2.out" });
+      gsap.to("#gate2 .g2ring", { scale: 1.08, duration: .9, yoyo: true, repeat: -1, ease: "sine.inOut", delay: 1.2 });
+      const go = e => {
+        if (e) { e.stopPropagation(); e.preventDefault(); }
+        if (!gateUp) return; gateUp = false;
+        Musica.playIntro();
+        gsap.to(g, { opacity: 0, duration: .9, ease: "power1.inOut", onComplete: () => g.remove() });
+        introGo();
+      };
+      g.addEventListener("click", go);
+      g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") go(e); });
     }
 
     /* ---- Tocar = siguiente sección ---- */
@@ -1507,7 +1546,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
         .add(revealInvitacion, 2)
         .set("#doors", { visibility: "hidden" }, 3.7);
     };
-    if (!REEL) stage.addEventListener("click", e => { if (!e.target.closest("#invitacion, #envelope")) openInv(); });
+    if (!REEL) stage.addEventListener("click", e => { if (!gateUp && !e.target.closest("#invitacion, #envelope, #gate2")) openInv(); });
 
     let rz;
     addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => {
