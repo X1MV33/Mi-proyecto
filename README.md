@@ -103,5 +103,7 @@ Los PNG de `assets/` son placeholders. Para cambiarlos, reemplaza cada archivo p
 - **Apertura:** al tocar el sobre, el globo lo suelta, el moño se desata, se abre la solapa y la carta crece hasta ser la invitación.
 - **Invitación:** cielo de nubes con tarjetas en arco y filo dorado en zigzag: portada con nombre y fecha, mensaje, cuenta regresiva en nubes, rifa de pañales con polaroids (`fotos.papas` y `fotos.eco`), cuentos para el bebé, mesa de regalos, itinerario y página de confirmación por WhatsApp que se abre encima.
 - **Sobre:** azul, con moño, sello dorado con osito y forro de nubes.
+- **Collage tipo álbum del celular** (`album`, `fotoRecorte`, `fondoRecorte`): fotos con esquinas redondeadas, la pareja recortada con borde blanco, carpeta, «escribiendo…», barra Mamá | Papá y mensaje con corazón.
+- **¿Cómo llegar?** (`fotoMapa`): foto con buscador estilo mapa, ruta azul que se dibuja, pin, hora y miniatura; abre la ubicación.
 - **Música:** canción de cuna original de caja musical; o su canción en `musica` de `config.js`.
 - **Atajo para editar:** `?invitacion=1` salta la escena.

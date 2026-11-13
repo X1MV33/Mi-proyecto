@@ -13,12 +13,16 @@ window.CONFIG = {
   musica: "",                            // ruta a su canción (p. ej. "cancion.mp3"); vacío = canción de cuna de caja musical
   assetsArte: "arte/",
   // Fotos de las polaroids (opcional). Vacío = ilustración del osito.
-  fotos: { papas: "fotos/espera-2.jpg", eco: "fotos/espera-1.jpg" },
+  fotos: { papas: "fotos/pareja-campo.jpg", eco: "fotos/espera-1.jpg" },
   // Sección «Te estamos esperando»: video (sin sonido, se repite) y tiras de fotos. Vacíos = no se muestra.
   esperaTitulo: "Te estamos esperando",
   video: "fotos/espera.mp4",
   videoPoster: "fotos/espera.jpg",
-  galeria: ["fotos/espera-1.jpg", "fotos/espera-2.jpg", "fotos/espera-3.jpg", "fotos/espera-4.jpg"],
+  // Collage tipo álbum del celular (5 fotos) + pareja recortada con borde blanco
+  album: ["fotos/pareja-beso.jpg", "fotos/pareja-corren.jpg", "fotos/pareja-manos.jpg", "fotos/pareja-abrazo.jpg", "fotos/pareja-sepia.jpg"],
+  fotoRecorte: "fotos/pareja-recorte.webp",
+  fondoRecorte: "fotos/pareja-mar.jpg",     // foto detrás del recorte (se usa solo su parte de arriba: cielo)
+  fotoMapa: "fotos/pareja-mar.jpg",      // fondo de la sección «¿Cómo llegar?» (vacío = no se muestra)
 
   // ---- Datos del evento: DATOS DE EJEMPLO, edítalos ----
   evento: {
