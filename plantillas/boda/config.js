@@ -9,7 +9,7 @@ window.CONFIG = {
   textoSuperior: "Nuestra Boda",
   frase: "Dos almas, un mismo destino.",
   fecha: "22 · Mayo · 2027",       // opcional en la portada animada
-  marcaDeAgua: "TU MARCA · @tu_usuario",
+  marcaDeAgua: "@perlainvitaciones",
   assetsPath: "../../assets/",
   // Fotos de la pareja (galería 3D, sobre y óvalo). Reemplázalas por las reales.
   fotos: ["fotos/foto1.jpg", "fotos/foto2.jpg", "fotos/foto3.jpg", "fotos/foto4.jpg", "fotos/foto5.jpg"],

@@ -8,7 +8,7 @@ window.CONFIG = {
   textoSuperior: "Mis XV Años",
   frase: "Te invito a celebrar conmigo",
   fecha: "14 · Marzo · 2027",     // opcional, p. ej. "14 · Marzo · 2027" (vacío = no se muestra)
-  marcaDeAgua: "TU MARCA · @tu_usuario",
+  marcaDeAgua: "@perlainvitaciones",
   // ---- Datos de la invitación (secciones tras tocar la portada) — DATOS DE EJEMPLO, edítalos ----
   evento: {
     fechaISO: "2027-03-14T19:00:00",          // para la cuenta regresiva
