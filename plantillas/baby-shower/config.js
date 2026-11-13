@@ -20,8 +20,8 @@ window.CONFIG = {
   peliculaPoster: "fotos/pelicula.jpg",
   peliculaTitulo: "Nuestra pequeña película",
   esperaTitulo: "Te estamos esperando",
-  video: "fotos/espera.mp4",
-  videoPoster: "fotos/espera.jpg",
+  video: "",                          // video de «Te estamos esperando» (vacío = sin video)
+  videoPoster: "",
   // Collage tipo álbum del celular (5 fotos) + pareja recortada con borde blanco
   album: ["fotos/pareja-beso.jpg", "fotos/pareja-corren.jpg", "fotos/pareja-manos.jpg", "fotos/pareja-abrazo.jpg", "fotos/pareja-sepia.jpg"],
   fotoRecorte: "fotos/pareja-recorte.webp",
