@@ -150,6 +150,11 @@
   .tl span{font-size:4.2cqw}
   .sug{display:inline-block;margin-top:4cqw;padding:2cqw 4.4cqw;border-radius:99px;background:rgba(169,191,221,.3);font-size:3.8cqw;color:var(--navy);font-style:italic}
 
+  .vframe{position:relative;z-index:2;width:74cqw;aspect-ratio:4/5;margin:5cqw auto 0;padding:2.4cqw;background:#FBF6EC;
+    border-radius:50% 50% 4cqw 4cqw / 30% 30% 4cqw 4cqw;box-shadow:0 2.4cqw 5cqw rgba(40,60,90,.2),inset 0 0 0 1px #D9C28C}
+  .vframe video{width:100%;height:100%;object-fit:cover;display:block;border-radius:50% 50% 3cqw 3cqw / 30% 30% 3cqw 3cqw;filter:saturate(.9)}
+  .strips{position:relative;z-index:2;display:flex;flex-direction:column;gap:2.6cqw;margin:9cqw 2cqw 0}
+  .strips img{width:84cqw;max-width:100%;height:auto;display:block;border:1.6cqw solid #fff;box-shadow:0 1.6cqw 3.4cqw rgba(40,60,90,.2)}
   .closing{text-align:center;padding:14cqw 6cqw 10cqw}
   .closing .gl{width:28cqw;margin:0 auto}
   .closing .script{font-size:14cqw;margin-top:3cqw}
@@ -467,6 +472,14 @@
       <div class="count rv" id="count">${["días", "horas", "min", "seg"].map(u => `<div><img src="${IMG("nube3")}" alt=""><b>00</b><small>${u}</small></div>`).join("")}</div>
     </section>
 
+    ${(C.video || (C.galeria || []).length) ? `<section class="blk espera" style="padding-top:12cqw">
+      <div class="script rv" style="font-size:12cqw;text-align:center">${esc(C.esperaTitulo || "Te estamos esperando")}</div>
+      ${C.video ? `<div class="vframe rv"><video src="${esc(C.video)}" ${C.videoPoster ? `poster="${esc(C.videoPoster)}"` : ""} autoplay muted loop playsinline webkit-playsinline preload="metadata"></video></div>` : ""}
+      <img class="deco rv" src="${IMG("flores")}" alt="" style="left:-4cqw;top:34cqw;width:32cqw;transform:rotate(-14deg)">
+      <img class="deco" src="${IMG("mariposa")}" alt="" style="right:9cqw;top:30cqw;width:10cqw" data-flap="1">
+      ${(C.galeria || []).length ? `<div class="strips">${C.galeria.map((g, i) => `<img class="rv" src="${esc(g)}" alt="" loading="lazy" style="transform:rotate(${[-1.6, 1.2, -1, 1.6][i % 4]}deg);margin-left:${i % 2 ? 4 : -2}cqw">`).join("")}</div>` : ""}
+    </section>` : ""}
+
     ${E.rifa ? `<section class="blk zz">
       <div class="arch rv">
         <div class="script">${esc(E.rifa.titulo.split(" ")[0])}</div>
@@ -476,7 +489,7 @@
       </div>
       <div class="side">
         ${pol(F.papas, "Papá & Mamá", "right:-2cqw;top:6cqw;width:32cqw;height:40cqw", 5)}
-        ${pol(F.eco, "Mi primera foto", "left:-4cqw;top:44cqw;width:24cqw;height:26cqw", -8)}
+        ${pol(F.eco, F.eco ? "Esperándote" : "Mi primera foto", "left:-4cqw;top:44cqw;width:24cqw;height:26cqw", -8)}
       </div>
     </section>` : ""}
 

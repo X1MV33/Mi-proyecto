@@ -13,7 +13,12 @@ window.CONFIG = {
   musica: "",                            // ruta a su canción (p. ej. "cancion.mp3"); vacío = canción de cuna de caja musical
   assetsArte: "arte/",
   // Fotos de las polaroids (opcional). Vacío = ilustración del osito.
-  fotos: { papas: "", eco: "" },
+  fotos: { papas: "fotos/espera-2.jpg", eco: "fotos/espera-1.jpg" },
+  // Sección «Te estamos esperando»: video (sin sonido, se repite) y tiras de fotos. Vacíos = no se muestra.
+  esperaTitulo: "Te estamos esperando",
+  video: "fotos/espera.mp4",
+  videoPoster: "fotos/espera.jpg",
+  galeria: ["fotos/espera-1.jpg", "fotos/espera-2.jpg", "fotos/espera-3.jpg", "fotos/espera-4.jpg"],
 
   // ---- Datos del evento: DATOS DE EJEMPLO, edítalos ----
   evento: {
