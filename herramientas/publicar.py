@@ -7,7 +7,7 @@ Uso:
 Qué hace:
   - mete config.js dentro de la página (algunos hosts solo permiten scripts de CDNs),
   - cambia las rutas ../../assets/ por assets/ y copia ahí las ilustraciones,
-  - copia la carpeta fotos/ y quita el esqueleto <html><head><body> (el host de Claude lo añade).
+  - copia fotos/ y los archivos de video/música de la carpeta, y quita el esqueleto <html><head><body> (el host de Claude lo añade).
 """
 import os, re, shutil, sys
 
@@ -28,6 +28,10 @@ os.makedirs(os.path.join(out, "assets"), exist_ok=True)
 open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(html)
 for f in os.listdir(os.path.join(raiz, "assets")):
     shutil.copy(os.path.join(raiz, "assets", f), os.path.join(out, "assets", f))
-if os.path.isdir(os.path.join(src, "fotos")):
-    shutil.copytree(os.path.join(src, "fotos"), os.path.join(out, "fotos"), dirs_exist_ok=True)
+for f in os.listdir(src):   # video de intro, póster, canción…
+    if f.lower().endswith((".mp4", ".webm", ".mp3", ".m4a", ".jpg", ".png")):
+        shutil.copy(os.path.join(src, f), os.path.join(out, f))
+for d in ("fotos", "flores", "texturas", "disenos", "arte"):
+    if os.path.isdir(os.path.join(src, d)):
+        shutil.copytree(os.path.join(src, d), os.path.join(out, d), dirs_exist_ok=True)
 print("Listo:", out)
