@@ -15,7 +15,8 @@ plantillas/
 invitaciones/
   xv-valentina/            una invitación real: copia de la plantilla con sus datos y fotos
 herramientas/publicar.py   prepara una invitación para publicarla como página web
-index.html                 catálogo en carpetas (Bodas, XV, Baby shower, Infantiles) con paletas de color
+index.html                 catálogo interno en carpetas (Bodas, XV, Cumpleaños, Baby shower, Infantiles) con paletas de color
+elige.html                 catálogo para clientas: carpetas + formulario de pedido por WhatsApp (https://claude.ai/artifact/ENP3He4gGPgYmacHohM6L1)
 catalogo/                  portadas de cada plantilla para el catálogo
 ```
 
@@ -28,7 +29,7 @@ catalogo/                  portadas de cada plantilla para el catálogo
 1. Copia una plantilla dentro de `invitaciones/` con un nombre claro: `invitaciones/boda-ana-luis/`.
 2. Edita `config.js` con los datos reales.
 3. Pon las fotos en `fotos/` y escribe sus nombres en `CONFIG.fotos`.
-4. Agrega una línea en el catálogo (`index.html` de la raíz).
+4. Agrega una línea en el catálogo (`index.html` de la raíz) y, si es una plantilla para mostrar, también en `PLANTILLAS` de `elige.html` (con su portada en `catalogo/` y su link publicado) y vuelve a publicar ese catálogo en el mismo link.
 5. Guarda los cambios en GitHub (commit + push).
 
 También puedes pedírselo a Claude: «crea la invitación de XV de Sofía con estos datos…».
