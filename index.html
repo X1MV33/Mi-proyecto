@@ -126,6 +126,7 @@
 const CARPETAS = [
   { id: "bodas", nombre: "Bodas", etiqueta: "bodas" },
   { id: "xv", nombre: "XV años", etiqueta: "xv años" },
+  { id: "cumple", nombre: "Cumpleaños", etiqueta: "cumpleaños" },
   { id: "baby", nombre: "Baby shower", etiqueta: "baby shower" },
   { id: "infantil", nombre: "Infantiles", etiqueta: "infantiles" }
 ];
@@ -134,6 +135,10 @@ const PLANTILLAS = [
     texto: "Sobre toile azul, video animado de los novios, cielo con fuegos artificiales, tarjetas de papel rasgado y dress code con diseños por color.",
     paleta: [["#14213D", "Azul marino"], ["#6F8DB8", "Azul acero"], ["#A9BCD6", "Azul cielo"], ["#ECEBE7", "Toile"], ["#E7CF97", "Dorado"]],
     ruta: "plantillas/boda-azul/", url: "https://claude.ai/artifact/VhbjzC6hav3BuAT3T8WJ6g" },
+  { carpeta: "bodas", nombre: "Encaje azul", estado: "Plantilla", img: "catalogo/encaje-azul.webp",
+    texto: "Satén azul drapeado con óvalo de encaje y flores en relieve, papel lino, horario con perlas, etiqueta para confirmar y cierre en sobre con sello de cera.",
+    paleta: [["#9EB4CC", "Satén azul"], ["#C9D6E4", "Azul lino"], ["#F3F2EF", "Marfil"], ["#2C3A4C", "Azul tinta"], ["#D6E0EA", "Perla"]],
+    ruta: "plantillas/encaje-azul/", url: "https://claude.ai/artifact/LuCRhgUyW8efzK8MtQsm8U" },
   { carpeta: "bodas", nombre: "Jardín olivo", estado: "Plantilla", img: "catalogo/boda-olivo.webp",
     texto: "Portada animada con hacienda y alcatraces, sobre olivo con sello dorado, puertas 3D, galería y RSVP.",
     paleta: [["#5E6B32", "Olivo"], ["#8E9C7C", "Salvia"], ["#F5F1E6", "Marfil"], ["#9E3460", "Vino"], ["#C9A15A", "Dorado"]],
@@ -146,6 +151,10 @@ const PLANTILLAS = [
     texto: "La base de XV: monograma con tiara, mariposas, música y puertas de palacio.",
     paleta: [["#5E6B32", "Olivo"], ["#7B8A4B", "Musgo"], ["#E6E8CF", "Crema"], ["#C9A15A", "Dorado"]],
     ruta: "plantillas/xv/" },
+  { carpeta: "cumple", nombre: "Encaje rosa", estado: "Plantilla", img: "catalogo/encaje-rosa.webp",
+    texto: "Satén rosa drapeado con óvalo de encaje, papel lino, horario con perlas, etiqueta para confirmar y cierre en sobre con sello de cera.",
+    paleta: [["#C396A3", "Satén rosa"], ["#E9CDD5", "Rosa lino"], ["#F5F1ED", "Marfil"], ["#4A2E36", "Ciruela"], ["#EDCBD5", "Perla"]],
+    ruta: "plantillas/encaje-rosa/", url: "https://claude.ai/artifact/5C9XuE9hBrrCKgeu8bowRi" },
   { carpeta: "baby", nombre: "Aviador", estado: "Plantilla", img: "catalogo/baby-shower.webp",
     texto: "Acuarela azul con avión y cigüeña, sobre con sello dorado, tarjetas en arco, collage tipo álbum del celular y mapa con ruta.",
     paleta: [["#3E5884", "Azul tinta"], ["#7C9BC7", "Azul empolvado"], ["#E3EBF5", "Cielo"], ["#FBF7F0", "Crema"], ["#E6C77E", "Dorado suave"]],
