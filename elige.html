@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perla Invitaciones</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Pinyon+Script&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Catálogo para clientas: carpetas rosas con las plantillas + formulario de pedido que se envía por WhatsApp */
+  :root{
+    --blush:#EAC7CD; --paper:#E6B9C2; --paper-hi:#F0CCD3; --paper-lo:#D7A4AF; --cocoa:#3B2328; --mauve:#8A5A63; --chip:#FBF7F6;
+    --display:"Bodoni Moda", "Didot", Georgia, serif; --script:"Pinyon Script", "Snell Roundhand", cursive; --ui:"Inter", system-ui, -apple-system, sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--blush)}
+  body{background:var(--blush);color:var(--cocoa);font-family:var(--ui);font-size:15px;line-height:1.5;
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+  img{max-width:100%;display:block}
+  button,input,select,textarea{font:inherit;color:inherit}
+  button{background:none;border:0;cursor:pointer}
+  a{color:inherit}
+  .wrap{max-width:580px;margin:0 auto}
+
+  .intro{text-align:center;margin:0 0 22px}
+  .intro h1{font-family:var(--script);font-weight:400;font-size:52px;line-height:1}
+  .intro p{color:var(--mauve);max-width:420px;margin:8px auto 0;text-wrap:balance}
+  .steps{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .steps span{font-size:12px;letter-spacing:.06em;padding:4px 11px;border-radius:99px;background:rgba(251,247,246,.7)}
+  .steps b{font-weight:500}
+
+  /* carpetas */
+  .archive{position:relative;width:100%;aspect-ratio:3/4;container-type:inline-size;filter:drop-shadow(0 18px 30px rgba(110,50,62,.22))}
+  .ribbed{background:repeating-linear-gradient(180deg,rgba(255,255,255,.16) 0 1px,rgba(255,255,255,0) 1px 3px,rgba(120,50,62,.05) 3px 4px),linear-gradient(90deg,var(--paper-hi),var(--paper) 30%,var(--paper))}
+  .cover{position:absolute;inset:0;border-radius:3cqw;overflow:hidden}
+  .brand{position:absolute;left:3.6cqw;top:4.4cqw;font-family:var(--script);font-size:5.8cqw;line-height:1}
+  .vtitle{position:absolute;left:4.2cqw;bottom:6cqw;transform-origin:left bottom;transform:rotate(-90deg) translateY(100%);white-space:nowrap;font-family:var(--display);font-size:9.6cqw;line-height:.9;letter-spacing:-.01em}
+  .vtitle i{font-family:var(--script);font-style:normal;font-size:1.05em;margin-left:.15em}
+  .folder{position:absolute;top:0;bottom:0;right:0;left:calc(20cqw + (var(--i) - 1) * var(--step));z-index:var(--i);text-align:left;transition:transform .45s cubic-bezier(.2,.8,.2,1),filter .3s;will-change:transform}
+  .folder .shot{position:absolute;left:4cqw;right:0;top:5cqw;bottom:0;overflow:hidden;border-radius:0 3cqw 3cqw 0;background:#d9c6c9}
+  .folder .shot img{width:100%;height:100%;object-fit:cover;object-position:left 30%}
+  .folder .shot.soon{background:repeating-linear-gradient(135deg,#F3D9DE 0 10px,#EDCFD5 10px 20px)}
+  .folder .shot.soon span{font-family:var(--script);font-size:9cqw;color:var(--mauve);transform:rotate(-90deg);white-space:nowrap;transform-origin:left center;position:absolute;left:8cqw;bottom:8cqw}
+  .folder .lip{position:absolute;left:0;top:0;bottom:0;width:4.6cqw;box-shadow:-1.6cqw 0 2.4cqw rgba(110,50,62,.18)}
+  .folder .tab{position:absolute;left:-3.6cqw;top:calc(9cqw + var(--i) * 2cqw);width:8.2cqw;height:36cqw;border-radius:2.4cqw 0 0 2.4cqw;box-shadow:-1cqw .6cqw 1.6cqw rgba(110,50,62,.16)}
+  .folder .chip{position:absolute;left:-1.6cqw;top:calc(12cqw + var(--i) * 2cqw);width:5.2cqw;height:28cqw;background:var(--chip);display:flex;align-items:center;justify-content:center;box-shadow:0 .3cqw .8cqw rgba(60,20,30,.15)}
+  .folder .chip span{transform:rotate(-90deg);white-space:nowrap;font-size:2.7cqw;letter-spacing:.02em;color:#111}
+  .folder:hover{transform:translateY(-1.2cqw)}
+  .folder:focus-visible{outline:none}
+  .folder:focus-visible .chip{outline:2px solid var(--cocoa);outline-offset:2px}
+  .folder.on{transform:translateY(-3cqw)}
+  .archive.has-on .folder:not(.on){filter:saturate(.75) brightness(.97)}
+  .hint{text-align:center;margin-top:18px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mauve)}
+
+  .drawer{position:relative;margin-top:30px;border-radius:18px;padding:30px 22px 26px}
+  .drawer::before{content:attr(data-tab);position:absolute;left:22px;top:-22px;height:24px;padding:4px 18px 0;border-radius:10px 10px 0 0;background:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .dhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+  .dhead h2{font-family:var(--script);font-weight:400;font-size:46px;line-height:1}
+  .dhead small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mauve)}
+  .list{display:grid;gap:18px}
+  .tpl{display:grid;grid-template-columns:118px 1fr;gap:16px;background:rgba(251,247,246,.78);border-radius:14px;padding:12px;align-items:start}
+  .tpl .cv{width:118px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#d9c6c9;max-width:100%}
+  .tpl .cv img{width:100%;height:100%;object-fit:cover}
+  .tpl .bd{min-width:0;display:flex;flex-direction:column;gap:8px}
+  .tpl h3{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.15}
+  .tpl p{color:var(--mauve);font-size:14px}
+  .pal{display:flex;flex-wrap:wrap;gap:5px}
+  .pal i{width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:2px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 15px;border-radius:99px;background:var(--cocoa);color:var(--chip);text-decoration:none;font-size:13px}
+  .btn.ghost{background:transparent;color:var(--cocoa);box-shadow:inset 0 0 0 1px var(--cocoa)}
+  .btn:focus-visible{outline:2px solid var(--cocoa);outline-offset:2px}
+  .empty{background:rgba(251,247,246,.7);border-radius:14px;padding:22px;text-align:center;color:var(--mauve)}
+  .empty b{display:block;font-family:var(--script);font-weight:400;font-size:34px;color:var(--cocoa);margin-bottom:4px}
+
+  /* pedido */
+  .order{margin-top:34px;border-radius:18px;padding:28px 20px 24px;background:rgba(251,247,246,.82)}
+  .order h2{font-family:var(--script);font-weight:400;font-size:44px;line-height:1;text-align:center}
+  .order .sub{text-align:center;color:var(--mauve);font-size:14px;margin:6px 0 10px}
+  fieldset{border:0;margin-top:22px}
+  legend{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mauve);font-weight:500;margin-bottom:10px;padding:0}
+  label.f{display:block;font-size:14px;margin:12px 0 5px}
+  label.f small{color:var(--mauve)}
+  input[type=text],input[type=tel],input[type=date],input[type=time],select,textarea{width:100%;min-width:0;border:1px solid rgba(59,35,40,.18);background:#fff;border-radius:10px;padding:10px 12px;font-size:16px;outline:none;appearance:none;-webkit-appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--mauve) 50%),linear-gradient(135deg,var(--mauve) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+  input:focus,select:focus,textarea:focus{border-color:var(--cocoa)}
+  textarea{resize:vertical;min-height:84px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .chosen{display:flex;gap:12px;align-items:center;background:var(--chip);border-radius:12px;padding:8px}
+  .chosen img{width:48px;aspect-ratio:9/16;object-fit:cover;border-radius:6px;background:#d9c6c9}
+  .chosen div{min-width:0;flex:1}
+  .chosen b{display:block;font-family:var(--display);font-weight:400;font-size:18px}
+  .chosen select{margin-top:4px;padding:6px 30px 6px 10px;font-size:14px}
+  .seg{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{position:relative;display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:99px;background:#fff;box-shadow:inset 0 0 0 1px rgba(59,35,40,.15);font-size:13.5px;cursor:pointer;user-select:none}
+  .pill input{position:absolute;opacity:0;pointer-events:none}
+  .pill:has(input:checked){box-shadow:inset 0 0 0 2px var(--cocoa);background:var(--chip)}
+  .pill:has(input:focus-visible){outline:2px solid var(--cocoa);outline-offset:2px}
+  .pill i{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);flex:none}
+  .pill.custom input[type=color]{position:static;opacity:1;pointer-events:auto;width:22px;height:22px;border:0;padding:0;background:none;border-radius:50%;cursor:pointer}
+  .pill.custom input[type=color]::-webkit-color-swatch-wrapper{padding:0}.pill.custom input[type=color]::-webkit-color-swatch{border:1px solid rgba(0,0,0,.15);border-radius:50%}
+  .mine{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;min-height:0}
+  .mine button{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 3px;border-radius:99px;background:var(--chip);font-size:12px}
+  .mine button i{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .note{font-size:13px;color:var(--mauve);margin-top:8px}
+  .send{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+  .send .btn{flex:1 1 200px;padding:13px 16px;font-size:15px}
+  .err{color:#A2283E;font-size:13px;margin-top:8px;min-height:1em}
+  #toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--cocoa);color:var(--chip);padding:9px 16px;border-radius:99px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:10}
+  footer{text-align:center;margin-top:30px;font-size:12px;letter-spacing:.14em;color:var(--mauve)}
+  @media (max-width:420px){.tpl{grid-template-columns:96px 1fr}.tpl .cv{width:96px}.dhead h2{font-size:40px}.row{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion:reduce){.folder{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="intro">
+    <h1>Elige tu invitación</h1>
+    <p>Abre las carpetas, mira los diseños y cuéntame cómo quieres la tuya.</p>
+    <div class="steps"><span><b>1</b> Abre una carpeta</span><span><b>2</b> Mira la invitación</span><span><b>3</b> Envíame tu pedido</span></div>
+  </header>
+
+  <div class="archive" id="archive">
+    <div class="cover ribbed"><div class="brand">Perla</div><div class="vtitle">invitaciones <i>digitales</i></div></div>
+  </div>
+  <p class="hint">Toca una carpeta para abrirla</p>
+
+  <section class="drawer ribbed" id="drawer" aria-live="polite"></section>
+
+  <section class="order" id="pedido">
+    <h2>Mi pedido</h2>
+    <p class="sub">Llena lo que sepas; lo demás lo vemos juntas por WhatsApp.</p>
+    <form id="form" onsubmit="return false" autocomplete="on">
+      <fieldset>
+        <legend>Diseño</legend>
+        <div class="chosen"><img id="chImg" alt=""><div><b id="chName"></b><select id="tplSel" aria-label="Diseño elegido"></select></div></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tu evento</legend>
+        <label class="f" for="tipo">Tipo de evento</label>
+        <select id="tipo"><option>Boda</option><option>XV años</option><option>Cumpleaños</option><option>Baby shower</option><option>Bautizo</option><option>Primera comunión</option><option>Fiesta infantil</option><option>Otro</option></select>
+        <label class="f" for="nombres">Nombre(s) que van en la invitación</label>
+        <input type="text" id="nombres" placeholder="Ej. Julia & Andrés" maxlength="120">
+        <div class="row">
+          <div><label class="f" for="fecha">Fecha</label><input type="date" id="fecha"></div>
+          <div><label class="f" for="hora">Hora</label><input type="time" id="hora"></div>
+        </div>
+        <label class="f" for="lugar">Lugar(es) <small>· ceremonia, recepción, dirección</small></label>
+        <textarea id="lugar" rows="2" maxlength="400"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Colores</legend>
+        <div class="seg" id="colMode">
+          <label class="pill"><input type="radio" name="cm" value="igual" checked>Como el diseño</label>
+          <label class="pill"><input type="radio" name="cm" value="otros">Quiero otros colores</label>
+        </div>
+        <div id="colPick" hidden>
+          <p class="note">Toca los que te gusten (puedes elegir varios) o crea el tuyo.</p>
+          <div class="seg" id="colors" style="margin-top:10px"></div>
+          <div class="mine" id="mine"></div>
+        </div>
+        <label class="f" for="colNota">Notas de color <small>· opcional</small></label>
+        <input type="text" id="colNota" placeholder="Ej. rosa más clarito, detalles en dorado" maxlength="200">
+      </fieldset>
+
+      <fieldset>
+        <legend>¿Qué quieres que incluya?</legend>
+        <div class="seg" id="secs"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Detalles</legend>
+        <label class="f" for="cancion">Canción <small>· opcional</small></label>
+        <input type="text" id="cancion" placeholder="Nombre y artista" maxlength="150">
+        <label class="f" for="cambios">Cambios o ideas para tu invitación</label>
+        <textarea id="cambios" rows="4" maxlength="1200" placeholder="Ej. cambiar la frase de bienvenida, quitar el dress code, agregar a mis padrinos…"></textarea>
+        <p class="note">Las fotos y la música me las puedes mandar directo por WhatsApp.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tus datos</legend>
+        <div class="row">
+          <div><label class="f" for="cliente">Tu nombre</label><input type="text" id="cliente" autocomplete="name" maxlength="80"></div>
+          <div><label class="f" for="tel">Tu teléfono <small>· opcional</small></label><input type="tel" id="tel" autocomplete="tel" maxlength="20"></div>
+        </div>
+      </fieldset>
+
+      <div class="send">
+        <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <button class="btn ghost" type="button" id="copy">Copiar mi pedido</button>
+      </div>
+      <p class="err" id="err" role="alert"></p>
+    </form>
+  </section>
+  <footer>@PERLAINVITACIONES</footer>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ===== Ajustes ===== */
+const WHATSAPP = "";   // tu número con lada, sin espacios ni signos. Ej. "5215512345678". Vacío = la clienta elige el chat.
+
+const CARPETAS = [
+  { id: "bodas", nombre: "Bodas", etiqueta: "bodas" },
+  { id: "xv", nombre: "XV años", etiqueta: "xv años" },
+  { id: "cumple", nombre: "Cumpleaños", etiqueta: "cumpleaños" },
+  { id: "baby", nombre: "Baby shower", etiqueta: "baby shower" },
+  { id: "infantil", nombre: "Infantiles", etiqueta: "infantiles" }
+];
+const PLANTILLAS = [
+  { id: "azul-noche", carpeta: "bodas", nombre: "Azul noche", img: "catalogo/boda-azul.webp", url: "https://claude.ai/artifact/VhbjzC6hav3BuAT3T8WJ6g",
+    texto: "Sobre azul que se abre, video de los novios, cielo con fuegos artificiales y tarjetas de papel rasgado.",
+    paleta: [["#14213D", "Azul marino"], ["#6F8DB8", "Azul acero"], ["#A9BCD6", "Azul cielo"], ["#ECEBE7", "Toile"], ["#E7CF97", "Dorado"]] },
+  { id: "encaje-azul", carpeta: "bodas", nombre: "Encaje azul", img: "catalogo/encaje-azul.webp", url: "https://claude.ai/artifact/LuCRhgUyW8efzK8MtQsm8U",
+    texto: "Satén azul con óvalo de encaje, horario con perlas, etiqueta para confirmar y sobre con sello de cera.",
+    paleta: [["#9EB4CC", "Satén azul"], ["#C9D6E4", "Azul lino"], ["#F3F2EF", "Marfil"], ["#2C3A4C", "Azul tinta"]] },
+  { id: "encaje-rosa", carpeta: "cumple", nombre: "Encaje rosa", img: "catalogo/encaje-rosa.webp", url: "https://claude.ai/artifact/5C9XuE9hBrrCKgeu8bowRi",
+    texto: "Satén rosa con óvalo de encaje, horario con perlas, etiqueta para confirmar y sobre con sello de cera.",
+    paleta: [["#C396A3", "Satén rosa"], ["#E9CDD5", "Rosa lino"], ["#F5F1ED", "Marfil"], ["#4A2E36", "Ciruela"]] },
+  { id: "aviador", carpeta: "baby", nombre: "Aviador", img: "catalogo/baby-shower.webp", url: "https://claude.ai/artifact/W3WBYgNmXKyCeDvUSbkDJV",
+    texto: "Acuarela azul con avión y cigüeña, sobre con sello, tarjetas en arco, collage de fotos y mapa con ruta.",
+    paleta: [["#3E5884", "Azul tinta"], ["#7C9BC7", "Azul empolvado"], ["#E3EBF5", "Cielo"], ["#FBF7F0", "Crema"], ["#E6C77E", "Dorado suave"]] }
+];
+const COLORES = [["#F3EEE6", "Marfil"], ["#FFFFFF", "Blanco"], ["#E8D5B0", "Champaña"], ["#D4AF37", "Dorado"], ["#C0C0C8", "Plateado"], ["#E9B9C3", "Rosa palo"],
+  ["#D98BA0", "Rosa"], ["#F2C4A8", "Durazno"], ["#C8A2C8", "Lila"], ["#7A1F3D", "Vino"], ["#B5603E", "Terracota"], ["#A9C9E6", "Azul cielo"],
+  ["#4A6FA5", "Azul rey"], ["#14213D", "Azul marino"], ["#A8C3A0", "Salvia"], ["#5E6B32", "Verde olivo"], ["#1F4D3A", "Verde esmeralda"], ["#111111", "Negro"]];
+const SECCIONES = ["Música", "Cuenta regresiva", "Galería de fotos", "Ubicación y mapa", "Itinerario", "Dress code", "Mesa de regalos", "Confirmación por WhatsApp", "Padrinos", "Hospedaje", "Video"];
+const TIPO_POR_CARPETA = { bodas: "Boda", xv: "XV años", cumple: "Cumpleaños", baby: "Baby shower", infantil: "Fiesta infantil" };
+
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const archive = $("#archive"), drawer = $("#drawer");
+archive.style.setProperty("--step", (80 / CARPETAS.length) + "cqw");
+
+/* carpetas */
+CARPETAS.forEach((c, i) => {
+  const t = PLANTILLAS.find(p => p.carpeta === c.id);
+  const b = document.createElement("button");
+  b.className = "folder"; b.type = "button"; b.style.setProperty("--i", i + 1); b.dataset.id = c.id;
+  b.setAttribute("aria-label", "Abrir carpeta " + c.nombre);
+  b.innerHTML = `<span class="shot${t ? "" : " soon"}">${t ? `<img src="${esc(t.img)}" alt="">` : "<span>próximamente</span>"}</span>
+    <span class="lip ribbed"></span><span class="tab ribbed"></span><span class="chip"><span>${esc(c.etiqueta)}</span></span>`;
+  b.addEventListener("click", () => abrir(c.id, true));
+  archive.appendChild(b);
+});
+
+function abrir(id, desdeToque) {
+  const c = CARPETAS.find(x => x.id === id) || CARPETAS[0];
+  $$(".folder").forEach(f => f.classList.toggle("on", f.dataset.id === c.id));
+  archive.classList.add("has-on");
+  const items = PLANTILLAS.filter(p => p.carpeta === c.id);
+  drawer.dataset.tab = c.nombre;
+  drawer.innerHTML = `<div class="dhead"><h2>${esc(c.nombre)}</h2><small>${items.length ? items.length + (items.length === 1 ? " diseño" : " diseños") : ""}</small></div>` +
+    (items.length ? `<div class="list">${items.map(p => `
+      <article class="tpl">
+        <div class="cv"><img src="${esc(p.img)}" alt="Portada de ${esc(p.nombre)}" loading="lazy"></div>
+        <div class="bd">
+          <h3>${esc(p.nombre)}</h3>
+          <p>${esc(p.texto)}</p>
+          <div class="pal" aria-label="Colores">${p.paleta.map(([h, n]) => `<i style="background:${esc(h)}" title="${esc(n)}"></i>`).join("")}</div>
+          <div class="acts"><a class="btn ghost" href="${esc(p.url)}" target="_blank" rel="noopener">Ver invitación ↗</a><button class="btn" type="button" data-pick="${esc(p.id)}">La quiero</button></div>
+        </div>
+      </article>`).join("")}</div>`
+      : `<div class="empty"><b>Muy pronto</b>Estamos preparando diseños para esta carpeta. Si te interesa, mándame tu pedido abajo y lo hacemos a tu gusto.</div>`);
+  try { history.replaceState(null, "", "#" + c.id); } catch (e) {}
+  if (desdeToque) { animar(c.id); setTimeout(() => drawer.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }), reduce ? 0 : 1550); }
+}
+function animar(id) {
+  if (reduce || !Element.prototype.animate) return;
+  const f = document.querySelector(`.folder[data-id="${id}"]`);
+  f.style.zIndex = 20;
+  const a = f.animate([
+    { transform: "translateY(0) rotate(0deg)" },
+    { transform: "translateY(-46cqw) rotate(-2.5deg)", offset: .38, easing: "cubic-bezier(.2,.8,.3,1)" },
+    { transform: "translateY(-42cqw) rotate(1.6deg)", offset: .5 },
+    { transform: "translateY(-44cqw) rotate(-.8deg)", offset: .6, easing: "cubic-bezier(.6,0,.4,1)" },
+    { transform: "translateY(-3cqw) rotate(0deg)", offset: 1 }
+  ], { duration: 1500 });
+  a.onfinish = a.oncancel = () => { f.style.zIndex = ""; };
+  drawer.animate([{ opacity: 0, transform: "translateY(-24px)" }, { opacity: 1, transform: "none" }], { duration: 600, delay: 1400, easing: "ease-out", fill: "backwards" });
+  drawer.querySelectorAll(".tpl, .empty").forEach((el, i) =>
+    el.animate([{ opacity: 0, transform: "translateY(-40px) scale(.94) rotate(-1.5deg)" }, { opacity: 1, transform: "none" }],
+      { duration: 650, delay: 1650 + i * 150, easing: "cubic-bezier(.2,.9,.3,1.2)", fill: "backwards" }));
+}
+
+/* formulario */
+const tplSel = $("#tplSel");
+tplSel.innerHTML = PLANTILLAS.map(p => `<option value="${esc(p.id)}">${esc(p.nombre)} · ${esc(CARPETAS.find(c => c.id === p.carpeta).nombre)}</option>`).join("") + `<option value="otro">Otro / diseño personalizado</option>`;
+$("#colors").innerHTML = COLORES.map(([h, n]) => `<label class="pill"><input type="checkbox" value="${esc(n)}"><i style="background:${h}"></i>${esc(n)}</label>`).join("") +
+  `<label class="pill custom" title="Elegir un color"><input type="color" id="picker" value="#E9B9C3" aria-label="Elegir mi propio color">Mi color</label>`;
+$("#secs").innerHTML = SECCIONES.map(s => `<label class="pill"><input type="checkbox" value="${esc(s)}">${esc(s)}</label>`).join("");
+const propios = [];
+$("#picker").addEventListener("change", e => { const h = e.target.value.toUpperCase(); if (!propios.includes(h)) propios.push(h); pintaPropios(); });
+function pintaPropios() { $("#mine").innerHTML = propios.map(h => `<button type="button" data-h="${h}" aria-label="Quitar ${h}"><i style="background:${h}"></i>${h} ✕</button>`).join(""); }
+$("#mine").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; propios.splice(propios.indexOf(b.dataset.h), 1); pintaPropios(); });
+$$("input[name=cm]").forEach(r => r.addEventListener("change", () => { $("#colPick").hidden = $("input[name=cm]:checked").value !== "otros"; }));
+
+function elegir(id, mover) {
+  tplSel.value = id;
+  const p = PLANTILLAS.find(x => x.id === id);
+  $("#chName").textContent = p ? p.nombre : "Diseño personalizado";
+  $("#chImg").src = p ? p.img : "";
+  $("#chImg").style.visibility = p ? "visible" : "hidden";
+  if (p) $("#tipo").value = TIPO_POR_CARPETA[p.carpeta] || $("#tipo").value;
+  if (mover) $("#pedido").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+}
+tplSel.addEventListener("change", () => elegir(tplSel.value, false));
+drawer.addEventListener("click", e => { const b = e.target.closest("[data-pick]"); if (b) { elegir(b.dataset.pick, true); toast("Diseño elegido: " + $("#chName").textContent); } });
+
+const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+function resumen() {
+  const v = id => $("#" + id).value.trim();
+  const p = PLANTILLAS.find(x => x.id === tplSel.value);
+  const f = v("fecha"); const fecha = f ? (([y, m, d]) => `${+d} de ${MESES[m - 1]} de ${y}`)(f.split("-")) : "";
+  const otros = $("input[name=cm]:checked").value === "otros";
+  const cols = otros ? [...$$("#colors input[type=checkbox]:checked").map(i => i.value), ...propios] : [];
+  const secs = $$("#secs input:checked").map(i => i.value);
+  const L = ["✨ *Pedido de invitación · Perla Invitaciones*", ""];
+  const add = (k, x) => { if (x) L.push(`*${k}:* ${x}`); };
+  add("Diseño", p ? `${p.nombre} (${p.url})` : "Diseño personalizado");
+  add("Evento", v("tipo"));
+  add("Nombre(s)", v("nombres"));
+  add("Fecha", [fecha, v("hora") && v("hora") + " h"].filter(Boolean).join(", "));
+  add("Lugar", v("lugar"));
+  add("Colores", otros ? (cols.join(", ") || "Por definir") : "Como el diseño");
+  add("Notas de color", v("colNota"));
+  add("Incluir", secs.join(", "));
+  add("Canción", v("cancion"));
+  if (v("cambios")) L.push("", "*Cambios o ideas:*", v("cambios"));
+  L.push("", `*De:* ${v("cliente")}${v("tel") ? " · " + v("tel") : ""}`);
+  return L.join("\n");
+}
+function valida() { if (!$("#cliente").value.trim()) { $("#err").textContent = "Escribe tu nombre para saber de quién es el pedido."; $("#cliente").focus(); return false; } $("#err").textContent = ""; return true; }
+$("#wa").addEventListener("click", e => {
+  if (!valida()) { e.preventDefault(); return; }
+  e.currentTarget.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(resumen())}`;
+});
+$("#copy").addEventListener("click", () => {
+  if (!valida()) return;
+  const t = resumen();
+  try { navigator.clipboard.writeText(t).then(() => toast("Pedido copiado"), () => toast("No se pudo copiar")); } catch (err) { toast("No se pudo copiar"); }
+});
+$("#cliente").addEventListener("input", () => { if ($("#cliente").value.trim()) $("#err").textContent = ""; });
+function toast(t) { const el = $("#toast"); el.textContent = t; el.style.opacity = 1; clearTimeout(toast.t); toast.t = setTimeout(() => el.style.opacity = 0, 1600); }
+
+const inicial = (location.hash || "").slice(1);
+abrir(CARPETAS.some(c => c.id === inicial) ? inicial : "bodas", false);
+elegir(PLANTILLAS[0].id, false);
+</script>
+</body>
+</html>
