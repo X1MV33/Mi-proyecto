@@ -15,7 +15,8 @@ plantillas/
 invitaciones/
   xv-valentina/            una invitación real: copia de la plantilla con sus datos y fotos
 herramientas/publicar.py   prepara una invitación para publicarla como página web
-index.html                 catálogo con la lista de plantillas e invitaciones
+index.html                 catálogo en carpetas (Bodas, XV, Baby shower, Infantiles) con paletas de color
+catalogo/                  portadas de cada plantilla para el catálogo
 ```
 
 - **Datos:** cada invitación es una carpeta independiente. Sus datos están **solo** en `config.js`: nombres, fechas, lugares, WhatsApp, fotos, música y marca de agua.
