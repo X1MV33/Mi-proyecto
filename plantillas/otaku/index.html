@@ -55,6 +55,18 @@
   .tapb::before{content:"";position:absolute;left:calc(58% + .9cqw);top:calc(100% - .9cqw);border:1.8cqw solid transparent;border-top:2.4cqw solid #fff;transform:skewX(-20deg);z-index:1}
   .wm{position:absolute;left:0;right:0;bottom:calc(2.6cqh + env(safe-area-inset-bottom,0px));text-align:center;z-index:3;
     font-size:2.8cqw;letter-spacing:.24em;color:rgba(255,255,255,.85);text-shadow:0 0 1cqw rgba(0,0,0,.6);pointer-events:none}
+  /* escena Yuta + Rika (después de tocar) */
+  #scene{position:absolute;inset:0;z-index:6;overflow:hidden;visibility:hidden;background:#e6e7ec}
+  .sc{--sw:max(100cqw,57.13cqh);position:absolute;width:var(--sw);height:calc(var(--sw) * 1.7504);
+    left:calc(50% - var(--sw) / 2);top:calc(50% - var(--sw) * .8752);transform-origin:51.11% 52.98%}
+  .sc .mouth{position:absolute;left:44.02%;top:14.16%;width:14.79%;height:12.79%;transform-origin:50% 8%}
+  .sc .rglow{position:absolute;left:51.37%;top:20.4%;width:12%;aspect-ratio:1;margin:-6% 0 0 -6%;border-radius:50%;opacity:0;mix-blend-mode:screen;
+    background:radial-gradient(circle,#fff 0,rgba(255,170,185,.85) 30%,rgba(200,30,60,.35) 55%,transparent 72%)}
+  .sc .reye{position:absolute;left:51.37%;top:11.52%;width:7%;aspect-ratio:1;margin:-3.5% 0 0 -3.5%;border-radius:50%;opacity:0;mix-blend-mode:screen;
+    background:radial-gradient(circle,rgba(255,235,235,1) 0,rgba(255,40,60,.85) 30%,transparent 70%)}
+  .speed2{position:absolute;inset:-30%;pointer-events:none;opacity:0;
+    background:repeating-conic-gradient(from 0deg at var(--mx,50%) var(--my,30%),transparent 0 2.4deg,rgba(15,12,20,.85) 2.4deg 2.9deg);
+    -webkit-mask:radial-gradient(circle at var(--mx,50%) var(--my,30%),transparent 20%,#000 46%,transparent 70%);mask:radial-gradient(circle at var(--mx,50%) var(--my,30%),transparent 20%,#000 46%,transparent 70%)}
   #flash{position:absolute;inset:0;z-index:20;background:#fff;opacity:0;pointer-events:none}
   #loader{position:absolute;inset:0;z-index:30;background:#111;color:#eee;display:flex;align-items:center;justify-content:center;font-family:var(--sfx);font-size:6cqw;letter-spacing:.1em}
   body.reel .ui{display:none!important}
@@ -193,6 +205,16 @@
     <div class="grain"></div><div class="vig"></div>
     <div class="tapb ui will" id="tap"></div>
     <div class="wm" id="wm"></div>
+  </section>
+  <section id="scene" aria-hidden="true">
+    <div class="sc will" id="sc">
+      <img class="ly" data-src="portada/rika_escena.jpg" alt="">
+      <img class="mouth will" id="mouth" data-src="portada/rika_boca.webp" alt="">
+      <i class="rglow will" id="rglow"></i>
+      <i class="reye will" id="reye"></i>
+    </div>
+    <div class="speed2 will" id="speed2"></div>
+    <div class="grain"></div><div class="vig"></div>
   </section>
   <div id="flash"></div>
 
@@ -434,23 +456,46 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       if (opened) return; opened = true;
       if (!REEL) Musica.play();
       try { if (window.DeviceOrientationEvent && DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(() => {}); } catch (e) {}
-      const inv = $("#inv");
+      const inv = $("#inv"), sc = $("#sc");
+      let MX = W() / 2, MY = H() * .3;
       gsap.killTweensOf([".ly.top", ".ly.bot", "#tap"]);
-      gsap.timeline()
+      gsap.set("#mouth", { scaleX: .04, scaleY: .7, opacity: 0 });
+      const tl2 = gsap.timeline();
+      tl2
+        // 1) el papel se abre un poco más… y sale volando
         .to("#tap", { scale: 0, rotation: 15, duration: .3, ease: "back.in(2)" }, 0)
         .to(cv, { x: "+=6", duration: .05, yoyo: true, repeat: 5, ease: "none" }, 0)
-        .to(".ly.top", { y: -18, x: -8, rotation: -1.5, duration: .35, ease: "power2.out" }, .05)        // primero se abre un poco más…
+        .to(".ly.top", { y: -18, x: -8, rotation: -1.5, duration: .35, ease: "power2.out" }, .05)
         .to(".ly.bot", { y: 18, x: 8, rotation: 1.2, duration: .35, ease: "power2.out" }, .05)
         .to(".glint", { opacity: 1, scale: 1.8, duration: .3 }, .25)
-        .to(".ly.top", { yPercent: -95, xPercent: -12, rotation: -10, rotationX: 28, duration: 1.05, ease: "power3.in" }, .55)   // …y luego sale volando
-        .to(".ly.bot", { yPercent: 95, xPercent: 10, rotation: 8, rotationX: -24, duration: 1.05, ease: "power3.in" }, .6)
-        .to(cv, { scale: 1.9, duration: 1.4, ease: "power2.in" }, .55)
-        .fromTo("#speed", { opacity: 0, scale: 1.3 }, { opacity: .9, scale: 1, duration: .5, ease: "power2.out" }, .7)
-        .to("#speed", { opacity: 0, duration: .4 }, 1.3)
-        .to("#flash", { opacity: 1, duration: .25, ease: "power2.in" }, 1.45)
-        .add(() => { gsap.set(inv, { visibility: "visible" }); inv.setAttribute("aria-hidden", "false"); gsap.set("#cover", { display: "none" }); reveal(); }, 1.72)
-        .to("#flash", { opacity: 0, duration: .6, ease: "power2.out" }, 1.75)
-        .fromTo(inv, { scale: 1.08 }, { scale: 1, duration: 1, ease: "power3.out" }, 1.72);
+        .to(".ly.top", { yPercent: -95, xPercent: -12, rotation: -10, rotationX: 28, duration: 1, ease: "power3.in" }, .55)
+        .to(".ly.bot", { yPercent: 95, xPercent: 10, rotation: 8, rotationX: -24, duration: 1, ease: "power3.in" }, .6)
+        .to(cv, { scale: 1.45, duration: 1, ease: "power2.in" }, .55)
+        // 2) Yuta "se hace para atrás": la cámara se aleja y aparece de cuerpo completo
+        .set("#scene", { visibility: "visible" }, .95)
+        .fromTo("#scene", { opacity: 0 }, { opacity: 1, duration: .45 }, .95)
+        .fromTo(sc, { scale: 3.6, filter: "blur(7px)" }, { scale: 1, filter: "blur(0px)", duration: 2.5, ease: "power3.inOut" }, .95)
+        .set("#cover", { display: "none" }, 1.45)
+        // 3) Rika: el ojo brilla, todo tiembla y abre la boca
+        .fromTo("#reye", { opacity: 0, scale: .4 }, { opacity: 1, scale: 1.7, duration: .32, yoyo: true, repeat: 1, ease: "power2.out" }, 3.3)
+        .to(sc, { x: "+=5", duration: .05, yoyo: true, repeat: 9, ease: "none" }, 3.55)
+        .set("#mouth", { opacity: 1 }, 3.7)
+        .to("#mouth", { scaleX: 1, scaleY: 1, duration: .6, ease: "back.out(1.7)" }, 3.7)
+        .add(() => { const r = $("#rglow").getBoundingClientRect(), s0 = stage.getBoundingClientRect(); MX = r.left + r.width / 2 - s0.left; MY = r.top + r.height / 2 - s0.top;
+          const sp = $("#speed2"); sp.style.setProperty("--mx", ((MX + .3 * W()) / (1.6 * W()) * 100) + "%"); sp.style.setProperty("--my", ((MY + .3 * H()) / (1.6 * H()) * 100) + "%"); }, 3.72)
+        .fromTo("#speed2", { opacity: 0, scale: 1.35 }, { opacity: .55, scale: 1, duration: .4, ease: "power2.out" }, 3.75)
+        .to("#rglow", { opacity: 1, scale: 2.4, duration: .55, ease: "power2.in" }, 4.15)
+        // 4) la cámara entra a la boca… y de ahí sale la invitación
+        .set(sc, { transformOrigin: "51.37% 20.4%", x: 0 }, 4.25)
+        .to(sc, { scale: 6.5, duration: 1, ease: "power3.in" }, 4.3)
+        .to("#speed2", { opacity: 0, duration: .3 }, 4.75)
+        .add(() => {
+          gsap.set(inv, { visibility: "visible", zIndex: 7, clipPath: `circle(0px at ${MX}px ${MY}px)` }); inv.setAttribute("aria-hidden", "false"); reveal();
+          gsap.to(inv, { clipPath: `circle(${Math.hypot(W(), H())}px at ${MX}px ${MY}px)`, duration: .95, ease: "power2.in",
+            onComplete() { gsap.set(inv, { clipPath: "none" }); gsap.set("#scene", { display: "none" }); } });
+          gsap.fromTo(inv, { scale: .35, transformOrigin: `${MX}px ${MY}px` }, { scale: 1, duration: 1.2, ease: "power3.out" });
+        }, 4.9)
+        .to("#flash", { opacity: .7, duration: .15 }, 5.55).to("#flash", { opacity: 0, duration: .5 }, 5.7);
     };
     if (!REEL) $("#cover").addEventListener("click", open);
     window.abrir = open;
