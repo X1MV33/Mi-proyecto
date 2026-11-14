@@ -73,8 +73,14 @@
   body.reel{cursor:none}
 
   /* =================== INVITACIÓN (tomo de manga) =================== */
-  #inv{position:absolute;inset:0;z-index:4;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;visibility:hidden;
-    background:radial-gradient(circle,rgba(0,0,0,.075) .5px,transparent .9px) 0 0/1.6cqw 1.6cqw,var(--paper)}
+  #inv{position:absolute;inset:0;z-index:4;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;visibility:hidden;background:var(--paper)}
+  /* fondo: collage de manga fijo detrás del contenido (aclarado para que se lea) */
+  .bgfix{position:sticky;top:0;height:100cqh;margin-bottom:-100cqh;z-index:0;overflow:hidden;pointer-events:none}
+  .bgfix .img{position:absolute;inset:-6% 0;background:url("portada/fondo_manga.jpg") center/cover}
+  .bgfix::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(circle,rgba(0,0,0,.06) .5px,transparent .9px) 0 0/1.6cqw 1.6cqw,
+    linear-gradient(rgba(246,244,238,.8),rgba(246,244,238,.74))}
+  #invContent{position:relative;z-index:1}
   .page{position:relative;padding:14cqw 7cqw;border-bottom:1.2cqw solid var(--ink)}
   .rv{opacity:0}
   h2.ttl{font-family:var(--display);font-weight:400;font-size:8.4cqw;line-height:1.15;text-align:center;margin-bottom:7cqw}
@@ -83,7 +89,7 @@
     text-shadow:.8cqw .8cqw 0 var(--ink)}
 
   /* portada del tomo */
-  .tomo{padding:8cqw 6cqw 14cqw;background:#fff;overflow:hidden}
+  .tomo{padding:8cqw 6cqw 14cqw;background:rgba(255,255,255,.55);overflow:hidden}
   .t-top{display:flex;justify-content:space-between;align-items:flex-start}
   .vol{font-family:var(--sfx);font-size:6cqw;letter-spacing:.06em;background:var(--ink);color:#fff;padding:1cqw 3cqw;transform:skewX(-8deg)}
   .vol b{font-size:9cqw;font-weight:400;margin-left:1.4cqw;color:var(--red)}
@@ -219,7 +225,7 @@
   <div id="flash"></div>
 
   <!-- ===== INVITACIÓN ===== -->
-  <main id="inv" aria-hidden="true"><div id="invContent"></div></main>
+  <main id="inv" aria-hidden="true"><div class="bgfix" aria-hidden="true"><div class="img" id="bgImg"></div></div><div id="invContent"></div></main>
 
   <button id="musicBtn" class="ui" aria-label="Activar o pausar la música">♪</button>
   <div id="pageNum" class="ui"></div>
@@ -518,6 +524,9 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     const pn = $("#pageNum"); gsap.set([pn, "#musicBtn"], { visibility: "visible" });
     const upd = () => { const y = root.scrollTop + root.clientHeight * .4; let k = 0; pages.forEach((p, i) => { if (p.offsetTop <= y) k = i; }); pn.textContent = `P. ${String(k + 1).padStart(2, "0")}/${String(pages.length).padStart(2, "0")}`; };
     root.addEventListener("scroll", upd, { passive: true }); upd();
+    // parallax suave del collage de fondo
+    const bgSet = gsap.quickSetter("#bgImg", "y", "px");
+    root.addEventListener("scroll", () => { const k = root.scrollTop / Math.max(1, root.scrollHeight - root.clientHeight); bgSet(gsap.utils.interpolate(H() * .04, -H() * .04, k)); }, { passive: true });
     $("#musicBtn").addEventListener("click", e => { e.stopPropagation(); Musica.toggle(); });
     // efectos de sonido visuales al tocar
     const words = ["¡BAM!", "¡ZAS!", "ドン!", "¡POW!", "キラッ", "!!", "ドキッ"];
