@@ -3,61 +3,203 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mis invitaciones</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<title>Archivo Perla</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Pinyon+Script&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* Catálogo: lista sencilla de plantillas e invitaciones guardadas en este repositorio */
-  :root{--bg:#F6F0E6;--card:#FFFDF8;--ink:#4A3A38;--soft:#8A6A5A;--olive:#5E6B45;--wine:#9E3460;--line:#D9D1BC;
-        --serif:"Cormorant Garamond",Georgia,serif;--script:"Pinyon Script",cursive}
-  *{box-sizing:border-box;margin:0}
-  body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.5;
-       padding:48px max(16px,env(safe-area-inset-right)) 64px max(16px,env(safe-area-inset-left))}
-  main{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
-  h1{font-family:var(--script);font-weight:400;color:var(--wine);font-size:clamp(48px,10vw,72px);line-height:1}
-  h2{font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:var(--soft);font-weight:500;margin-bottom:12px}
-  p.lead{color:var(--soft);font-style:italic}
-  ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-  a.item{display:flex;flex-direction:column;gap:4px;padding:18px 20px;background:var(--card);border:1px solid var(--line);
-         border-radius:120px 120px 10px 10px;text-decoration:none;color:inherit;min-height:150px;justify-content:flex-end;text-align:center}
-  a.item:hover,a.item:focus-visible{border-color:var(--wine);outline:none}
-  a.item b{font-family:var(--script);font-weight:400;color:var(--wine);font-size:34px;line-height:1.1}
-  a.item span{font-size:15px;color:var(--soft)}
-  code{font-size:15px;background:#EDE6D6;padding:1px 6px;border-radius:4px}
-  ol{padding-left:22px;display:flex;flex-direction:column;gap:6px}
+  /* Archivo de carpetas rosas: portada + 4 carpetas encimadas; al abrir una, abajo aparecen sus plantillas */
+  :root{
+    --blush:#EAC7CD;      /* fondo de mesa */
+    --paper:#E6B9C2;      /* papel de carpeta */
+    --paper-hi:#F0CCD3;   /* brillo del papel */
+    --paper-lo:#D7A4AF;   /* sombra del papel */
+    --cocoa:#3B2328;      /* tinta */
+    --mauve:#8A5A63;      /* texto suave */
+    --chip:#FBF7F6;       /* etiquetas blancas */
+    --display:"Bodoni Moda", "Didot", Georgia, serif;
+    --script:"Pinyon Script", "Snell Roundhand", cursive;
+    --ui:"Inter", system-ui, -apple-system, sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--blush)}
+  body{background:var(--blush);color:var(--cocoa);font-family:var(--ui);font-size:15px;line-height:1.5;
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+  img{max-width:100%;display:block}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  a{color:inherit}
+  .wrap{max-width:580px;margin:0 auto}
+
+  /* ---------- carpetas ---------- */
+  .archive{position:relative;width:100%;aspect-ratio:3/4;max-width:100%;container-type:inline-size;filter:drop-shadow(0 18px 30px rgba(110,50,62,.22))}
+  .ribbed{background:
+      repeating-linear-gradient(180deg,rgba(255,255,255,.16) 0 1px,rgba(255,255,255,0) 1px 3px,rgba(120,50,62,.05) 3px 4px),
+      linear-gradient(90deg,var(--paper-hi),var(--paper) 30%,var(--paper))}
+  .cover{position:absolute;inset:0;border-radius:3cqw;overflow:hidden}
+  .brand{position:absolute;left:3.6cqw;top:4.4cqw;font-family:var(--script);font-size:5.8cqw;line-height:1;color:var(--cocoa)}
+  .vtitle{position:absolute;left:4.2cqw;bottom:6cqw;transform-origin:left bottom;transform:rotate(-90deg) translateY(100%);white-space:nowrap;
+    font-family:var(--display);font-size:9.6cqw;line-height:.9;color:var(--cocoa);letter-spacing:-.01em}
+  .vtitle i{font-family:var(--script);font-style:normal;font-size:1.05em;margin-left:.15em}
+  .folder{position:absolute;top:0;bottom:0;right:0;left:calc(20cqw + (var(--i) - 1) * 20cqw);z-index:var(--i);text-align:left;
+    transition:transform .45s cubic-bezier(.2,.8,.2,1),filter .3s}
+  .folder .shot{position:absolute;left:4cqw;right:0;top:5cqw;bottom:0;overflow:hidden;border-radius:0 3cqw 3cqw 0;background:#d9c6c9}
+  .folder .shot img{width:100%;height:100%;object-fit:cover;object-position:left 30%}
+  .folder .shot.soon{background:repeating-linear-gradient(135deg,#F3D9DE 0 10px,#EDCFD5 10px 20px);display:flex;align-items:center;justify-content:flex-start}
+  .folder .shot.soon span{font-family:var(--script);font-size:9cqw;color:var(--mauve);margin-left:3.5cqw;transform:rotate(-90deg);white-space:nowrap;transform-origin:left center;position:absolute;left:8cqw;bottom:8cqw}
+  .folder .lip{position:absolute;left:0;top:0;bottom:0;width:4.6cqw;box-shadow:-1.6cqw 0 2.4cqw rgba(110,50,62,.18)}
+  .folder .tab{position:absolute;left:-3.6cqw;top:calc(9cqw + var(--i) * 2cqw);width:8.2cqw;height:36cqw;border-radius:2.4cqw 0 0 2.4cqw;
+    box-shadow:-1cqw .6cqw 1.6cqw rgba(110,50,62,.16)}
+  .folder .tab::before,.folder .tab::after{content:"";position:absolute;left:3.4cqw;width:2.6cqw;height:2.6cqw}
+  .folder .chip{position:absolute;left:-1.6cqw;top:calc(12cqw + var(--i) * 2cqw);width:5.2cqw;height:28cqw;background:var(--chip);
+    display:flex;align-items:center;justify-content:center;box-shadow:0 .3cqw .8cqw rgba(60,20,30,.15)}
+  .folder .chip span{transform:rotate(-90deg);white-space:nowrap;font-size:2.7cqw;letter-spacing:.02em;color:#111}
+  .folder:hover{transform:translateY(-1.2cqw)}
+  .folder:focus-visible{outline:none}
+  .folder:focus-visible .chip{outline:2px solid var(--cocoa);outline-offset:2px}
+  .folder.on{transform:translateY(-3cqw)}
+  .archive.has-on .folder:not(.on){filter:saturate(.75) brightness(.97)}
+  .hint{text-align:center;margin-top:18px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mauve)}
+
+  /* ---------- contenido de la carpeta abierta ---------- */
+  .drawer{position:relative;margin-top:30px;border-radius:18px;padding:30px 22px 26px}
+  .drawer::before{content:attr(data-tab);position:absolute;left:22px;top:-22px;height:24px;padding:4px 18px 0;border-radius:10px 10px 0 0;
+    background:inherit;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cocoa)}
+  .dhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+  .dhead h2{font-family:var(--script);font-weight:400;font-size:46px;line-height:1;text-wrap:balance}
+  .dhead small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mauve)}
+  .list{display:grid;gap:18px}
+  .tpl{display:grid;grid-template-columns:118px 1fr;gap:16px;background:rgba(251,247,246,.78);border-radius:14px;padding:12px;align-items:start}
+  .tpl .cv{width:118px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:#d9c6c9;max-width:100%}
+  .tpl .cv img{width:100%;height:100%;object-fit:cover}
+  .tpl .bd{min-width:0;display:flex;flex-direction:column;gap:8px}
+  .tpl h3{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.15;text-wrap:balance}
+  .tpl .st{align-self:flex-start;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:2px 9px;border-radius:99px;background:var(--paper);color:var(--cocoa)}
+  .tpl .st.done{background:var(--cocoa);color:var(--chip)}
+  .tpl p{color:var(--mauve);font-size:14px}
+  .pal{display:flex;flex-wrap:wrap;gap:6px}
+  .sw{display:flex;align-items:center;gap:6px;white-space:nowrap;padding:3px 9px 3px 3px;border-radius:99px;background:var(--chip);font-size:11.5px;color:var(--cocoa);font-variant-numeric:tabular-nums}
+  .sw i{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .sw:focus-visible{outline:2px solid var(--cocoa)}
+  .acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:99px;background:var(--cocoa);color:var(--chip);text-decoration:none;font-size:13px}
+  .btn:focus-visible{outline:2px solid var(--cocoa);outline-offset:2px}
+  .path{font-size:12px;color:var(--mauve);font-family:ui-monospace,Menlo,monospace;overflow-wrap:anywhere}
+  .empty{background:rgba(251,247,246,.7);border-radius:14px;padding:22px;text-align:center;color:var(--mauve)}
+  .empty b{display:block;font-family:var(--script);font-weight:400;font-size:34px;color:var(--cocoa);margin-bottom:4px}
+
+  .howto{margin-top:34px;padding:0 4px}
+  .howto h2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mauve);font-weight:500;margin-bottom:10px}
+  .howto ol{padding-left:20px;display:grid;gap:6px;color:var(--cocoa)}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:rgba(251,247,246,.75);padding:1px 6px;border-radius:5px}
+  #toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--cocoa);color:var(--chip);padding:9px 16px;border-radius:99px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none}
+  @media (max-width:420px){.tpl{grid-template-columns:96px 1fr}.tpl .cv{width:96px}.dhead h2{font-size:40px}}
+  @media (prefers-reduced-motion:reduce){.folder{transition:none}}
 </style>
 </head>
 <body>
-<main>
-  <header>
-    <h1>Mis invitaciones</h1>
-    <p class="lead">Plantillas para crear invitaciones nuevas e invitaciones ya hechas, todas guardadas aquí para editarlas cuando quieras.</p>
-  </header>
+<div class="wrap">
+  <div class="archive" id="archive">
+    <div class="cover ribbed">
+      <div class="brand">Perla</div>
+      <div class="vtitle">invitaciones <i>digitales</i></div>
+    </div>
+  </div>
+  <p class="hint">Toca una carpeta para abrirla</p>
 
-  <section>
-    <h2>Invitaciones</h2>
-    <ul>
-      <!-- Agrega una línea por cada invitación nueva que guardes en /invitaciones -->
-      <li><a class="item" href="invitaciones/xv-valentina/"><b>Valentina</b><span>XV años · 14 marzo 2027</span></a></li>
-    </ul>
-  </section>
+  <section class="drawer ribbed" id="drawer" data-tab="Bodas" aria-live="polite"></section>
 
-  <section>
-    <h2>Plantillas</h2>
-    <ul>
-      <li><a class="item" href="plantillas/xv/"><b>XV años</b><span>Estilo jardín olivo, galería 3D, música</span></a></li>
-      <li><a class="item" href="plantillas/boda/"><b>Boda</b><span>Estilo jardín olivo, sobre y puertas 3D</span></a></li>
-    </ul>
-  </section>
-
-  <section>
+  <section class="howto">
     <h2>Crear una invitación nueva</h2>
     <ol>
-      <li>Copia la carpeta de una plantilla dentro de <code>invitaciones/</code> con un nombre nuevo, por ejemplo <code>invitaciones/boda-ana-luis</code>.</li>
-      <li>Edita solo <code>config.js</code>: nombres, fecha, lugares, WhatsApp y lista de fotos.</li>
-      <li>Pon las fotos en su carpeta <code>fotos/</code>.</li>
-      <li>Agrega la invitación a esta lista.</li>
+      <li>Copia la carpeta de una plantilla dentro de <code>invitaciones/</code>, por ejemplo <code>invitaciones/boda-ana-luis</code>.</li>
+      <li>Edita solo <code>config.js</code>: nombres, fecha, lugares, WhatsApp, fotos y canciones.</li>
+      <li>Pon las fotos en su carpeta <code>fotos/</code> y agrégala a la lista de este archivo (<code>PLANTILLAS</code> en <code>index.html</code>).</li>
     </ol>
   </section>
-</main>
+</div>
+<div id="toast"></div>
+
+<script>
+/* Para agregar una plantilla o invitación nueva, añade un renglón aquí. */
+const CARPETAS = [
+  { id: "bodas", nombre: "Bodas", etiqueta: "bodas" },
+  { id: "xv", nombre: "XV años", etiqueta: "xv años" },
+  { id: "baby", nombre: "Baby shower", etiqueta: "baby shower" },
+  { id: "infantil", nombre: "Infantiles", etiqueta: "infantiles" }
+];
+const PLANTILLAS = [
+  { carpeta: "bodas", nombre: "Azul noche", estado: "Plantilla", img: "catalogo/boda-azul.webp",
+    texto: "Sobre toile azul, video animado de los novios, cielo con fuegos artificiales, tarjetas de papel rasgado y dress code con diseños por color.",
+    paleta: [["#14213D", "Azul marino"], ["#6F8DB8", "Azul acero"], ["#A9BCD6", "Azul cielo"], ["#ECEBE7", "Toile"], ["#E7CF97", "Dorado"]],
+    ruta: "plantillas/boda-azul/", url: "https://claude.ai/artifact/VhbjzC6hav3BuAT3T8WJ6g" },
+  { carpeta: "bodas", nombre: "Jardín olivo", estado: "Plantilla", img: "catalogo/boda-olivo.webp",
+    texto: "Portada animada con hacienda y alcatraces, sobre olivo con sello dorado, puertas 3D, galería y RSVP.",
+    paleta: [["#5E6B32", "Olivo"], ["#8E9C7C", "Salvia"], ["#F5F1E6", "Marfil"], ["#9E3460", "Vino"], ["#C9A15A", "Dorado"]],
+    ruta: "plantillas/boda/" },
+  { carpeta: "xv", nombre: "Valentina · Jardín olivo", estado: "Entregada", img: "catalogo/xv-olivo.webp",
+    texto: "XV años con portada animada, sobre con ramo blanco, galería 3D y «Risk It All» en dos pedazos.",
+    paleta: [["#5E6B32", "Olivo"], ["#7B8A4B", "Musgo"], ["#E6E8CF", "Crema"], ["#D9779A", "Rosa"], ["#C9A15A", "Dorado"]],
+    ruta: "invitaciones/xv-valentina/", url: "https://claude.ai/artifact/2QRDgFp94iAPCtpMNkxgtg" },
+  { carpeta: "xv", nombre: "Jardín olivo", estado: "Plantilla", img: "catalogo/xv-olivo.webp",
+    texto: "La base de XV: monograma con tiara, mariposas, música y puertas de palacio.",
+    paleta: [["#5E6B32", "Olivo"], ["#7B8A4B", "Musgo"], ["#E6E8CF", "Crema"], ["#C9A15A", "Dorado"]],
+    ruta: "plantillas/xv/" },
+  { carpeta: "baby", nombre: "Aviador", estado: "Plantilla", img: "catalogo/baby-shower.webp",
+    texto: "Acuarela azul con avión y cigüeña, sobre con sello dorado, tarjetas en arco, collage tipo álbum del celular y mapa con ruta.",
+    paleta: [["#3E5884", "Azul tinta"], ["#7C9BC7", "Azul empolvado"], ["#E3EBF5", "Cielo"], ["#FBF7F0", "Crema"], ["#E6C77E", "Dorado suave"]],
+    ruta: "plantillas/baby-shower/", url: "https://claude.ai/artifact/W3WBYgNmXKyCeDvUSbkDJV" }
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const archive = $("#archive"), drawer = $("#drawer");
+
+CARPETAS.forEach((c, i) => {
+  const t = PLANTILLAS.find(p => p.carpeta === c.id);
+  const b = document.createElement("button");
+  b.className = "folder"; b.type = "button"; b.style.setProperty("--i", i + 1); b.dataset.id = c.id;
+  b.setAttribute("aria-label", "Abrir carpeta " + c.nombre);
+  b.innerHTML = `<span class="shot${t ? "" : " soon"}">${t ? `<img src="${esc(t.img)}" alt="">` : "<span>próximamente</span>"}</span>
+    <span class="lip ribbed"></span><span class="tab ribbed"></span><span class="chip"><span>${esc(c.etiqueta)}</span></span>`;
+  b.addEventListener("click", () => abrir(c.id, true));
+  archive.appendChild(b);
+});
+
+function abrir(id, desdeToque) {
+  const c = CARPETAS.find(x => x.id === id) || CARPETAS[0];
+  document.querySelectorAll(".folder").forEach(f => f.classList.toggle("on", f.dataset.id === c.id));
+  archive.classList.add("has-on");
+  const items = PLANTILLAS.filter(p => p.carpeta === c.id);
+  drawer.dataset.tab = c.nombre;
+  drawer.innerHTML = `<div class="dhead"><h2>${esc(c.nombre)}</h2><small>${items.length} ${items.length === 1 ? "diseño" : "diseños"}</small></div>` +
+    (items.length ? `<div class="list">${items.map(p => `
+      <article class="tpl">
+        <div class="cv"><img src="${esc(p.img)}" alt="Portada de ${esc(p.nombre)}" loading="lazy"></div>
+        <div class="bd">
+          <span class="st${p.estado === "Entregada" ? " done" : ""}">${esc(p.estado)}</span>
+          <h3>${esc(p.nombre)}</h3>
+          <p>${esc(p.texto)}</p>
+          <div class="pal">${p.paleta.map(([h, n]) => `<button class="sw" type="button" data-hex="${esc(h)}" title="Copiar ${esc(h)}"><i style="background:${esc(h)}"></i>${esc(n)} · ${esc(h)}</button>`).join("")}</div>
+          <div class="acts">${p.url ? `<a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener">Ver invitación ↗</a>` : ""}<span class="path">${esc(p.ruta)}</span></div>
+        </div>
+      </article>`).join("")}</div>`
+      : `<div class="empty"><b>Muy pronto</b>Aquí irán las invitaciones infantiles. Cuando hagamos la primera, aparece en esta carpeta.</div>`);
+  try { history.replaceState(null, "", "#" + c.id); } catch (e) {}
+  if (desdeToque) drawer.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+}
+
+drawer.addEventListener("click", e => {
+  const sw = e.target.closest(".sw"); if (!sw) return;
+  const hex = sw.dataset.hex;
+  const ok = () => toast("Copiado " + hex);
+  try { navigator.clipboard.writeText(hex).then(ok, () => toast(hex)); } catch (err) { toast(hex); }
+});
+function toast(t) { const el = $("#toast"); el.textContent = t; el.style.opacity = 1; clearTimeout(toast.t); toast.t = setTimeout(() => el.style.opacity = 0, 1500); }
+
+const inicial = (location.hash || "").slice(1);
+abrir(CARPETAS.some(c => c.id === inicial) ? inicial : "bodas", false);
+addEventListener("hashchange", () => abrir(location.hash.slice(1), false));
+</script>
 </body>
 </html>

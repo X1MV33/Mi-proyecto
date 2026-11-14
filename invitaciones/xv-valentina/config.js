@@ -50,8 +50,9 @@ window.CONFIG = {
   fotos: ["fotos/foto1.jpg", "fotos/foto2.jpg", "fotos/foto3.jpg", "fotos/foto4.jpg", "fotos/foto5.jpg"],
   fotoPortada: 0,                 // índice de la foto en arco al abrir la invitación
   fotoOvalo: 1,                   // índice de la foto en el marco ovalado
-  // Música: pon la ruta a tu canción (p. ej. "musica.mp3" dentro de /xv). Vacío = vals de caja musical generado en vivo.
-  musica: "",
+  // Música: «Risk It All» – Bruno Mars, en dos pedazos.
+  musicaPortada: "musica-inicio.mp3",  // intro y primera estrofa: suena al tocar la portada y abrir el sobre
+  musica: "musica.mp3",                // desde el coro: entra al abrirse la invitación y se repite
   puertas: false,                 // true = después del sobre se abren las puertas de palacio en 3D
   duracion: 20,                   // duración del loop (s); toda la secuencia se escala
   numEstrellas: 12,
