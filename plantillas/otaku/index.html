@@ -189,6 +189,53 @@
   .pop{position:absolute;font-family:var(--sfx);color:var(--red);-webkit-text-stroke:.45cqw var(--ink);paint-order:stroke fill;text-shadow:.6cqw .6cqw 0 var(--ink);
     font-size:10cqw;line-height:1;transform:translate(-50%,-50%);white-space:nowrap}
   .burst{position:absolute;width:30cqw;height:30cqw;margin:-15cqw 0 0 -15cqw}
+
+  /* =================== 3D =================== */
+  .page{perspective:150cqw}
+  .t3d{transform-style:preserve-3d;will-change:transform}
+  .t3d .tag{transform:translateZ(5cqw)}
+  .t3d .big,.t3d .mid{transform:translateZ(3cqw)}
+  .t3d .mbtn{transform:translateZ(4cqw) skewX(-8deg)}
+  /* onomatopeyas con relieve */
+  .sfx,.pop{text-shadow:.35cqw .35cqw 0 var(--ink),.7cqw .7cqw 0 var(--ink),1.05cqw 1.05cqw 0 var(--ink),1.4cqw 1.4cqw 0 var(--ink),1.75cqw 1.75cqw 0 rgba(0,0,0,.35)}
+  /* cuenta regresiva con volumen */
+  .count div{box-shadow:.6cqw .6cqw 0 var(--red),1.2cqw 1.2cqw 0 var(--ink)}
+  .count b{text-shadow:0 .5cqw 0 rgba(255,255,255,.12)}
+  /* botones que se hunden al tocarlos */
+  .mbtn,.wa,.opt span,.stepper button{transition:transform .12s,box-shadow .12s}
+  .mbtn:active{transform:skewX(-8deg) translate(.8cqw,.8cqw);box-shadow:none}
+  .wa:active,.stepper button:active{transform:translate(1cqw,1cqw);box-shadow:none}
+
+  /* tomo de manga en 3D (portada, lomo, páginas, contraportada) */
+  .book-wrap{position:relative;height:104cqw;margin-top:2cqw;perspective:140cqw;display:flex;align-items:center;justify-content:center;touch-action:pan-y;cursor:grab}
+  .book{--bw:60cqw;--bh:88cqw;--bd:8cqw;position:relative;width:var(--bw);height:var(--bh);transform-style:preserve-3d}
+  .book .f{position:absolute;backface-visibility:hidden;overflow:hidden}
+  .book .front,.book .back{inset:0}
+  .book .front{transform:translateZ(calc(var(--bd) / 2));background:#fff;border:1cqw solid var(--ink)}
+  .book .front img{width:100%;height:100%;object-fit:cover;object-position:50% 47%}
+  .book .front .lines{position:absolute;inset:-30%;opacity:.22;background:repeating-conic-gradient(from 0deg at 50% 50%,transparent 0 3deg,#000 3deg 3.4deg);
+    -webkit-mask:radial-gradient(circle,transparent 32%,#000 70%);mask:radial-gradient(circle,transparent 32%,#000 70%)}
+  .book .front .bt{position:absolute;left:0;right:0;bottom:0;padding:3cqw 3cqw 3.4cqw;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;text-align:left}
+  .book .front .bt b{display:block;font-family:var(--display);font-weight:400;font-size:8.6cqw;line-height:1}
+  .book .front .bt small{font-family:var(--sfx);font-size:4cqw;letter-spacing:.08em;color:#ff6b7d}
+  .book .front .bv{position:absolute;top:2.4cqw;left:2.4cqw;background:var(--red);color:#fff;font-family:var(--sfx);font-size:5cqw;padding:.6cqw 2cqw;border:.5cqw solid #fff}
+  .book .front .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.4) 48%,transparent 60%) -150% 0/250% 100% no-repeat;mix-blend-mode:screen;pointer-events:none}
+  .book .back{transform:rotateY(180deg) translateZ(calc(var(--bd) / 2));background:var(--paper2);border:1cqw solid var(--ink);padding:6cqw 5cqw;
+    display:flex;flex-direction:column;gap:3cqw;text-align:left}
+  .book .back h3{font-family:var(--display);font-weight:400;font-size:6cqw}
+  .book .back p{font-size:3.6cqw;line-height:1.5;color:var(--ink2)}
+  .book .back .meta{margin-top:auto;font-weight:700;font-size:3.6cqw}
+  .book .back .barcode{height:9cqw;width:34cqw;background:repeating-linear-gradient(90deg,#111 0 .5cqw,#fff .5cqw .9cqw,#111 .9cqw 1.1cqw,#fff 1.1cqw 1.8cqw,#111 1.8cqw 2.6cqw,#fff 2.6cqw 3cqw)}
+  .book .spine{width:var(--bd);height:var(--bh);left:calc(50% - var(--bd) / 2);transform:rotateY(-90deg) translateZ(calc(var(--bw) / 2));background:var(--ink);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3cqw 0;writing-mode:vertical-rl;font-family:var(--display);font-size:3.6cqw;letter-spacing:.1em}
+  .book .spine i{font-style:normal;color:var(--red);font-family:var(--sfx);font-size:5cqw;writing-mode:horizontal-tb}
+  .book .pages{width:var(--bd);height:calc(var(--bh) - 1.6cqw);top:.8cqw;left:calc(50% - var(--bd) / 2);transform:rotateY(90deg) translateZ(calc(var(--bw) / 2 - .4cqw));
+    background:repeating-linear-gradient(90deg,#f3f0e6 0 .25cqw,#d9d4c6 .25cqw .35cqw)}
+  .book .top,.book .bottom{width:calc(var(--bw) - .8cqw);height:var(--bd);left:.4cqw;top:calc(50% - var(--bd) / 2);background:repeating-linear-gradient(0deg,#f3f0e6 0 .25cqw,#d9d4c6 .25cqw .35cqw)}
+  .book .top{transform:rotateX(90deg) translateZ(calc(var(--bh) / 2 - .4cqw))}
+  .book .bottom{transform:rotateX(-90deg) translateZ(calc(var(--bh) / 2 - .4cqw))}
+  .book-shadow{position:absolute;bottom:2cqw;left:50%;width:56cqw;height:6cqw;margin-left:-28cqw;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.35),transparent 70%)}
+  .book-hint{text-align:center;font-family:var(--sfx);font-size:4cqw;letter-spacing:.12em;color:var(--ink2);margin-top:-2cqw}
   @media (prefers-reduced-motion: reduce){ .speck{display:none} }
 </style>
 </head>
@@ -262,7 +309,17 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     $("#invContent").innerHTML = `
       <section class="page tomo">
         <div class="t-top rv"><span class="vol">VOL.<b>${esc(CONFIG.volumen)}</b></span><span class="jp">招待状</span></div>
-        <div class="t-art rv"><img src="portada/portada.jpg" alt=""><div class="lines"></div></div>
+        <div class="book-wrap rv" id="bookWrap">
+          <div class="book" id="book">
+            <div class="f front"><img src="portada/portada.jpg" alt=""><div class="lines"></div><span class="bv">VOL.${esc(CONFIG.volumen)}</span>
+              <div class="bt"><small>${esc(CONFIG.evento)}</small><b>${esc(CONFIG.nombre)}</b></div><i class="shine"></i></div>
+            <div class="f back"><h3>Sinopsis</h3><p>${esc(D.mensaje)}</p><p class="meta">${esc(D.fechaTexto)} · ${esc(D.hora)}<br>${esc(D.lugar)}</p><div class="barcode"></div></div>
+            <div class="f spine"><i>${esc(CONFIG.volumen)}</i>${esc(CONFIG.nombre)} · ${esc(CONFIG.evento)}<i>招</i></div>
+            <div class="f pages"></div><div class="f top"></div><div class="f bottom"></div>
+          </div>
+          <div class="book-shadow"></div>
+        </div>
+        <div class="book-hint rv">↻ GIRA EL TOMO · TÓCALO PARA VOLTEARLO</div>
         <span class="sfx s1 rv">ドン!</span>
         <h1 class="t-title rv"><small>¡Estás invitado!</small>${esc(CONFIG.nombre)}</h1>
         <div class="t-sub rv"><b>Capítulo especial</b>${esc(CONFIG.evento)}</div>
@@ -278,9 +335,9 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       <section class="page">
         <h2 class="ttl rv"><span>第1話</span>¿Cuándo y dónde?</h2>
         <div class="panels">
-          <div class="pn rv"><span class="tag">FECHA</span><div class="big">${dia}</div><div class="mid">${esc(mes)}</div><p>${esc(D.fechaTexto)}</p></div>
-          <div class="pn rv"><span class="tag">HORA</span><div class="big" style="font-size:9.6cqw">${esc(D.hora.replace(" h", ""))}</div><p>¡Llega puntual, el opening no espera!</p></div>
-          <div class="pn wide rv"><span class="tag">LUGAR</span><div class="mid">${esc(D.lugar)}</div><p>${esc(D.direccion)}</p>
+          <div class="pn t3d rv"><span class="tag">FECHA</span><div class="big">${dia}</div><div class="mid">${esc(mes)}</div><p>${esc(D.fechaTexto)}</p></div>
+          <div class="pn t3d rv"><span class="tag">HORA</span><div class="big" style="font-size:9.6cqw">${esc(D.hora.replace(" h", ""))}</div><p>¡Llega puntual, el opening no espera!</p></div>
+          <div class="pn t3d wide rv"><span class="tag">LUGAR</span><div class="mid">${esc(D.lugar)}</div><p>${esc(D.direccion)}</p>
             <a class="mbtn" href="${esc(D.mapa)}" target="_blank" rel="noopener">Ver mapa ▶</a></div>
         </div>
       </section>
@@ -288,7 +345,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       <section class="page sec-count">
         <span class="sfx rv">ドキドキ</span>
         <h2 class="ttl rv"><span>第2話</span>¡Faltan…!</h2>
-        <div class="count rv" id="count"><div><b>0</b><span>días</span></div><div><b>0</b><span>horas</span></div><div><b>0</b><span>min</span></div><div><b>0</b><span>seg</span></div></div>
+        <div class="count rv t3d" id="count"><div><b>0</b><span>días</span></div><div><b>0</b><span>horas</span></div><div><b>0</b><span>min</span></div><div><b>0</b><span>seg</span></div></div>
         <div class="cal rv"><a class="mbtn ghost" id="gcal" target="_blank" rel="noopener">Google Calendar</a><a class="mbtn ghost" id="ocal" target="_blank" rel="noopener">Outlook</a></div>
       </section>
 
@@ -299,13 +356,13 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
 
       <section class="page">
         <h2 class="ttl rv"><span>第4話</span>Código de vestimenta</h2>
-        <div class="pn wide rv" style="text-align:center"><span class="tag">DRESS CODE</span><div class="mid">${esc(D.vestimenta)}</div><p>${esc(D.vestimentaNota)}</p></div>
-        <div class="pn wide rv" style="text-align:center;margin-top:7cqw"><span class="tag">REGALOS</span><p style="margin-top:0">${esc(D.regalos)}</p></div>
+        <div class="pn t3d wide rv" style="text-align:center"><span class="tag">DRESS CODE</span><div class="mid">${esc(D.vestimenta)}</div><p>${esc(D.vestimentaNota)}</p></div>
+        <div class="pn t3d wide rv" style="text-align:center;margin-top:7cqw"><span class="tag">REGALOS</span><p style="margin-top:0">${esc(D.regalos)}</p></div>
       </section>
       ${gal}
       <section class="page" id="rsvpSec">
         <h2 class="ttl rv"><span>最終話</span>¿Vienes?</h2>
-        <form class="rsvp rv" id="rsvp" autocomplete="on">
+        <form class="rsvp rv t3d" id="rsvp" autocomplete="on">
           <label class="q" for="rNombre">Tu nombre*</label>
           <input type="text" id="rNombre" name="nombre" required maxlength="80">
           <span class="q">¿Asistirás?</span>
@@ -507,14 +564,49 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     window.abrir = open;
   }
 
+
+  /* ---------------- tomo 3D: gira solo, se arrastra para girar y se voltea al tocarlo ---------------- */
+  function initBook() {
+    const book = $("#book"), wrap = $("#bookWrap"), st = { ry: -24, rx: 8 };
+    const apply = () => gsap.set(book, { rotationY: st.ry, rotationX: st.rx });
+    apply();
+    let idle = gsap.to(st, { ry: 24, duration: 4.5, ease: "sine.inOut", yoyo: true, repeat: -1, onUpdate: apply });
+    gsap.to(".book .shine", { backgroundPosition: "150% 0", duration: 1.8, repeat: -1, repeatDelay: 2.5, ease: "power1.inOut" });
+    let x0 = null, last = 0, moved = 0, flipped = false;
+    wrap.addEventListener("pointerdown", e => { x0 = e.clientX; last = e.clientX; moved = 0; idle.pause(); gsap.killTweensOf(st); });
+    wrap.addEventListener("pointermove", e => { if (x0 === null) return; const dx = e.clientX - last; last = e.clientX; moved += Math.abs(dx); st.ry += dx * .6; apply(); });
+    const up = e => {
+      if (x0 === null) return; x0 = null;
+      if (moved < 6) { flipped = !flipped; gsap.to(st, { ry: Math.round(st.ry / 180) * 180 + 180, rx: 4, duration: 1.1, ease: "back.out(1.3)", onUpdate: apply }); }
+      else gsap.to(st, { ry: Math.round(st.ry / 180) * 180 + (flipped ? 0 : -18), duration: .9, ease: "power3.out", onUpdate: apply });
+    };
+    wrap.addEventListener("pointerup", up); wrap.addEventListener("pointercancel", up);
+  }
+
+  /* ---------------- viñetas que se inclinan en 3D con el dedo / ratón / giroscopio ---------------- */
+  function initTilt3D() {
+    const els = $$(".t3d").map(el => ({ el, rx: gsap.quickTo(el, "rotationX", { duration: .6, ease: "power3.out" }), ry: gsap.quickTo(el, "rotationY", { duration: .6, ease: "power3.out" }) }));
+    els.forEach(({ el, rx, ry }) => {
+      gsap.set(el, { transformPerspective: 800 });
+      el.addEventListener("pointermove", e => { const r = el.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - .5) * 18); rx(-((e.clientY - r.top) / r.height - .5) * 14); });
+      el.addEventListener("pointerleave", () => { rx(0); ry(0); });
+    });
+    addEventListener("deviceorientation", e => {
+      if (e.beta == null) return;
+      const y = gsap.utils.clamp(-12, 12, e.gamma * .45), x = gsap.utils.clamp(-10, 10, (e.beta - 45) * -.3);
+      els.forEach(q => { q.rx(x); q.ry(y); });
+    });
+  }
   /* ---------------- invitación: viñetas que "golpean", efectos al tocar, número de página ---------------- */
   function reveal() {
-    const root = $("#inv");
+    const root = $("#inv"); let flip = 0;
+    initBook(); initTilt3D();
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return; io.unobserve(e.target);
       const el = e.target, isSfx = el.classList.contains("sfx");
-      gsap.fromTo(el, { opacity: 0, scale: isSfx ? 2.2 : 1.14, y: isSfx ? 0 : 18 }, { opacity: 1, scale: 1, y: 0, duration: isSfx ? .45 : .6, ease: isSfx ? "back.out(3)" : "back.out(1.8)",
-        onComplete() { if (!isSfx) gsap.fromTo(el, { x: -3 }, { x: 0, duration: .25, ease: "elastic.out(1,.3)" }); } });
+      if (isSfx) gsap.fromTo(el, { opacity: 0, scale: 2.4, z: 300 }, { opacity: 1, scale: 1, z: 0, duration: .5, ease: "back.out(3)", transformPerspective: 600 });
+      else { const k = (++flip) % 3, from = k === 0 ? { rotationX: -70 } : k === 1 ? { rotationY: 65 } : { rotationY: -65 };
+        gsap.fromTo(el, { opacity: 0, z: -180, ...from }, { opacity: 1, z: 0, rotationX: 0, rotationY: 0, duration: .85, ease: "back.out(1.6)", transformPerspective: 900, transformOrigin: k === 0 ? "50% 100%" : k === 1 ? "100% 50%" : "0% 50%" }); }
     }), { root, threshold: .18 });
     $$(".rv", root).forEach(el => io.observe(el));
     const fin = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fin.disconnect(); gsap.fromTo("#hanko", { opacity: 0, scale: 2.6, rotation: 10 }, { opacity: 1, scale: 1, rotation: -8, duration: .5, delay: .6, ease: "power4.in" }); } }), { root, threshold: .4 });
@@ -531,7 +623,7 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
     // efectos de sonido visuales al tocar
     const words = ["¡BAM!", "¡ZAS!", "ドン!", "¡POW!", "キラッ", "!!", "ドキッ"];
     root.addEventListener("click", e => {
-      if (e.target.closest("a,button,input,textarea,label,form,figure")) return;
+      if (e.target.closest("a,button,input,textarea,label,form,figure,#bookWrap")) return;
       const r = stage.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, fx = $("#fx");
       const b = document.createElement("div"); b.className = "burst"; b.style.left = x + "px"; b.style.top = y + "px";
       let lines = ""; for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2, r1 = 22, r2 = 44 + (i % 3) * 5; lines += `<line x1="${50 + Math.cos(a) * r1}" y1="${50 + Math.sin(a) * r1}" x2="${50 + Math.cos(a) * r2}" y2="${50 + Math.sin(a) * r2}" stroke="#121212" stroke-width="2.2" stroke-linecap="round"/>`; }
