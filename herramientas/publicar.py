@@ -28,6 +28,7 @@ os.makedirs(os.path.join(out, "assets"), exist_ok=True)
 open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(html)
 for f in os.listdir(os.path.join(raiz, "assets")):
     shutil.copy(os.path.join(raiz, "assets", f), os.path.join(out, "assets", f))
-if os.path.isdir(os.path.join(src, "fotos")):
-    shutil.copytree(os.path.join(src, "fotos"), os.path.join(out, "fotos"), dirs_exist_ok=True)
+for d in os.listdir(src):                                   # fotos/, portada/ y cualquier otra carpeta propia
+    if os.path.isdir(os.path.join(src, d)):
+        shutil.copytree(os.path.join(src, d), os.path.join(out, d), dirs_exist_ok=True)
 print("Listo:", out)
