@@ -58,6 +58,7 @@
   .folder:focus-visible{outline:none}
   .folder:focus-visible .chip{outline:2px solid var(--cocoa);outline-offset:2px}
   .folder.on{transform:translateY(-3cqw)}
+  .folder{will-change:transform}
   .archive.has-on .folder:not(.on){filter:saturate(.75) brightness(.97)}
   .hint{text-align:center;margin-top:18px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mauve)}
 
@@ -186,7 +187,27 @@ function abrir(id, desdeToque) {
       </article>`).join("")}</div>`
       : `<div class="empty"><b>Muy pronto</b>Aquí irán las invitaciones infantiles. Cuando hagamos la primera, aparece en esta carpeta.</div>`);
   try { history.replaceState(null, "", "#" + c.id); } catch (e) {}
-  if (desdeToque) drawer.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  if (desdeToque) animar(c.id);
+  if (desdeToque) setTimeout(() => drawer.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }), 1550);
+}
+
+// la carpeta sale hacia arriba, se mece y se vuelve a meter; luego las plantillas salen una por una
+function animar(id) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !Element.prototype.animate) return;
+  const f = document.querySelector(`.folder[data-id="${id}"]`);
+  f.style.zIndex = 20;
+  const a = f.animate([
+    { transform: "translateY(0) rotate(0deg)" },
+    { transform: "translateY(-46cqw) rotate(-2.5deg)", offset: .38, easing: "cubic-bezier(.2,.8,.3,1)" },
+    { transform: "translateY(-42cqw) rotate(1.6deg)", offset: .5 },
+    { transform: "translateY(-44cqw) rotate(-.8deg)", offset: .6, easing: "cubic-bezier(.6,0,.4,1)" },
+    { transform: "translateY(-3cqw) rotate(0deg)", offset: 1 }
+  ], { duration: 1500 });
+  a.onfinish = a.oncancel = () => { f.style.zIndex = ""; };
+  drawer.animate([{ opacity: 0, transform: "translateY(-24px)" }, { opacity: 1, transform: "none" }], { duration: 600, delay: 1400, easing: "ease-out", fill: "backwards" });
+  drawer.querySelectorAll(".tpl, .empty").forEach((el, i) =>
+    el.animate([{ opacity: 0, transform: "translateY(-40px) scale(.94) rotate(-1.5deg)" }, { opacity: 1, transform: "none" }],
+      { duration: 650, delay: 1650 + i * 150, easing: "cubic-bezier(.2,.9,.3,1.2)", fill: "backwards" }));
 }
 
 drawer.addEventListener("click", e => {
