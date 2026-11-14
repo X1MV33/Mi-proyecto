@@ -59,10 +59,15 @@
   #scene{position:absolute;inset:0;z-index:6;overflow:hidden;visibility:hidden;background:#e6e7ec}
   .sc{--sw:max(100cqw,57.13cqh);position:absolute;width:var(--sw);height:calc(var(--sw) * 1.7504);
     left:calc(50% - var(--sw) / 2);top:calc(50% - var(--sw) * .8752);transform-origin:51.11% 52.98%}
-  .sc .mouth{position:absolute;left:44.02%;top:14.16%;width:14.79%;height:12.79%;transform-origin:50% 8%}
-  .sc .rglow{position:absolute;left:51.37%;top:20.4%;width:12%;aspect-ratio:1;margin:-6% 0 0 -6%;border-radius:50%;opacity:0;mix-blend-mode:screen;
+  .sc .base{transform-origin:50% 30%}
+  .rika{position:absolute;left:8.547%;top:0;width:85.47%;height:53.71%;transform-origin:50.1% 37.3%}
+  .rika img.body{position:absolute;inset:0;width:100%;height:100%}
+  .rika.ghost{opacity:0;pointer-events:none}
+  .rika .mouth{position:absolute;left:41.5%;top:26.36%;width:17.3%;height:23.82%;transform-origin:50% 8%}
+  .smoke{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(20,18,30,.0),rgba(20,18,30,.55) 70%)}
+  .rika .rglow{position:absolute;left:50.1%;top:37.3%;width:14%;aspect-ratio:1;margin:-7% 0 0 -7%;border-radius:50%;opacity:0;mix-blend-mode:screen;
     background:radial-gradient(circle,#fff 0,rgba(255,170,185,.85) 30%,rgba(200,30,60,.35) 55%,transparent 72%)}
-  .sc .reye{position:absolute;left:51.37%;top:11.52%;width:7%;aspect-ratio:1;margin:-3.5% 0 0 -3.5%;border-radius:50%;opacity:0;mix-blend-mode:screen;
+  .rika .reye{position:absolute;left:50.1%;top:21.45%;width:8%;aspect-ratio:1;margin:-4% 0 0 -4%;border-radius:50%;opacity:0;mix-blend-mode:screen;
     background:radial-gradient(circle,rgba(255,235,235,1) 0,rgba(255,40,60,.85) 30%,transparent 70%)}
   .speed2{position:absolute;inset:-30%;pointer-events:none;opacity:0;
     background:repeating-conic-gradient(from 0deg at var(--mx,50%) var(--my,30%),transparent 0 2.4deg,rgba(15,12,20,.85) 2.4deg 2.9deg);
@@ -261,10 +266,16 @@
   </section>
   <section id="scene" aria-hidden="true">
     <div class="sc will" id="sc">
-      <img class="ly" data-src="portada/rika_escena.jpg" alt="">
-      <img class="mouth will" id="mouth" data-src="portada/rika_boca.webp" alt="">
-      <i class="rglow will" id="rglow"></i>
-      <i class="reye will" id="reye"></i>
+      <img class="ly base will" id="scBase" data-src="portada/rika_escena.jpg" alt="">
+      <div class="smoke will" id="smoke"></div>
+      <div class="rika ghost will" id="ghost2"><img class="body" data-src="portada/rika_capa.webp" alt=""></div>
+      <div class="rika ghost will" id="ghost1"><img class="body" data-src="portada/rika_capa.webp" alt=""></div>
+      <div class="rika will" id="rika">
+        <img class="body" data-src="portada/rika_capa.webp" alt="">
+        <img class="mouth will" id="mouth" data-src="portada/rika_boca.webp" alt="">
+        <i class="rglow will" id="rglow"></i>
+        <i class="reye will" id="reye"></i>
+      </div>
     </div>
     <div class="speed2 will" id="speed2"></div>
     <div class="grain"></div><div class="vig"></div>
@@ -519,13 +530,16 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
       if (opened) return; opened = true;
       if (!REEL) Musica.play();
       try { if (window.DeviceOrientationEvent && DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(() => {}); } catch (e) {}
-      const inv = $("#inv"), sc = $("#sc");
-      let MX = W() / 2, MY = H() * .3;
+      const inv = $("#inv"), sc = $("#sc"), rika = $("#rika"), ghosts = ["#ghost1", "#ghost2"];
+      let MX = W() / 2, MY = H() * .4;
+      const mouthPos = () => { const r = $("#rglow").getBoundingClientRect(), s0 = stage.getBoundingClientRect(); MX = r.left + r.width / 2 - s0.left; MY = r.top + r.height / 2 - s0.top;
+        const sp = $("#speed2"); sp.style.setProperty("--mx", ((MX + .3 * W()) / (1.6 * W()) * 100) + "%"); sp.style.setProperty("--my", ((MY + .3 * H()) / (1.6 * H()) * 100) + "%"); };
       gsap.killTweensOf([".ly.top", ".ly.bot", "#tap"]);
       gsap.set("#mouth", { scaleX: .04, scaleY: .7, opacity: 0 });
-      const tl2 = gsap.timeline();
-      tl2
-        // 1) el papel se abre un poco más… y sale volando
+      // las "estelas" fantasma siguen a Rika con retraso
+      const trail = () => ghosts.forEach((g, i) => gsap.to(g, { x: gsap.getProperty(rika, "x"), y: gsap.getProperty(rika, "y"), scale: gsap.getProperty(rika, "scale"), rotation: gsap.getProperty(rika, "rotation"), duration: .18 * (i + 1), overwrite: true }));
+      gsap.timeline()
+        // 1) el papel se abre más y sale volando
         .to("#tap", { scale: 0, rotation: 15, duration: .3, ease: "back.in(2)" }, 0)
         .to(cv, { x: "+=6", duration: .05, yoyo: true, repeat: 5, ease: "none" }, 0)
         .to(".ly.top", { y: -18, x: -8, rotation: -1.5, duration: .35, ease: "power2.out" }, .05)
@@ -534,31 +548,40 @@ const CONFIG = window.CONFIG;   // los datos viven en config.js
         .to(".ly.top", { yPercent: -95, xPercent: -12, rotation: -10, rotationX: 28, duration: 1, ease: "power3.in" }, .55)
         .to(".ly.bot", { yPercent: 95, xPercent: 10, rotation: 8, rotationX: -24, duration: 1, ease: "power3.in" }, .6)
         .to(cv, { scale: 1.45, duration: 1, ease: "power2.in" }, .55)
-        // 2) Yuta "se hace para atrás": la cámara se aleja y aparece de cuerpo completo
+        // 2) Yuta se aleja: aparece de cuerpo completo con Rika detrás
         .set("#scene", { visibility: "visible" }, .95)
         .fromTo("#scene", { opacity: 0 }, { opacity: 1, duration: .45 }, .95)
-        .fromTo(sc, { scale: 3.6, filter: "blur(7px)" }, { scale: 1, filter: "blur(0px)", duration: 2.5, ease: "power3.inOut" }, .95)
+        .fromTo(sc, { scale: 3.6, filter: "blur(7px)" }, { scale: 1, filter: "blur(0px)", duration: 2.4, ease: "power3.inOut" }, .95)
         .set("#cover", { display: "none" }, 1.45)
-        // 3) Rika: el ojo brilla, todo tiembla y abre la boca
-        .fromTo("#reye", { opacity: 0, scale: .4 }, { opacity: 1, scale: 1.7, duration: .32, yoyo: true, repeat: 1, ease: "power2.out" }, 3.3)
-        .to(sc, { x: "+=5", duration: .05, yoyo: true, repeat: 9, ease: "none" }, 3.55)
-        .set("#mouth", { opacity: 1 }, 3.7)
-        .to("#mouth", { scaleX: 1, scaleY: 1, duration: .6, ease: "back.out(1.7)" }, 3.7)
-        .add(() => { const r = $("#rglow").getBoundingClientRect(), s0 = stage.getBoundingClientRect(); MX = r.left + r.width / 2 - s0.left; MY = r.top + r.height / 2 - s0.top;
-          const sp = $("#speed2"); sp.style.setProperty("--mx", ((MX + .3 * W()) / (1.6 * W()) * 100) + "%"); sp.style.setProperty("--my", ((MY + .3 * H()) / (1.6 * H()) * 100) + "%"); }, 3.72)
-        .fromTo("#speed2", { opacity: 0, scale: 1.35 }, { opacity: .55, scale: 1, duration: .4, ease: "power2.out" }, 3.75)
-        .to("#rglow", { opacity: 1, scale: 2.4, duration: .55, ease: "power2.in" }, 4.15)
-        // 4) la cámara entra a la boca… y de ahí sale la invitación
-        .set(sc, { transformOrigin: "51.37% 20.4%", x: 0 }, 4.25)
-        .to(sc, { scale: 6.5, duration: 1, ease: "power3.in" }, 4.3)
-        .to("#speed2", { opacity: 0, duration: .3 }, 4.75)
+        // 3) Rika flota como maldición (vaivén y parpadeo fantasma)
+        .add(() => {
+          gsap.to(rika, { y: -12, rotation: -1.2, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1, onUpdate: trail });
+          gsap.to(rika, { opacity: .82, duration: .09, yoyo: true, repeat: 7, ease: "none", delay: .3 });
+          gsap.to(ghosts, { opacity: (i) => i ? .14 : .26, duration: .6 });
+        }, 2.6)
+        .fromTo("#reye", { opacity: 0, scale: .4 }, { opacity: 1, scale: 1.8, duration: .3, yoyo: true, repeat: 1, ease: "power2.out" }, 3.5)
+        // 4) …y vuela hacia la cámara: el fondo y Yuta se oscurecen y desenfocan
+        .to("#scBase", { scale: 1.04, duration: 1.4, ease: "power2.in" }, 3.8)
+        .to("#smoke", { opacity: .45, duration: 1.2 }, 3.8)
+        .to(rika, { scale: 2.1, y: () => H() * .22, rotation: 2, duration: 1.4, ease: "power2.in", onUpdate: trail }, 3.85)
+        .to(rika, { x: "+=8", duration: .06, yoyo: true, repeat: 9, ease: "none" }, 4.6)
+        // 5) abre la boca con un rugido
+        .set("#mouth", { opacity: 1 }, 4.85)
+        .to("#mouth", { scaleX: 1, scaleY: 1, duration: .55, ease: "back.out(1.7)" }, 4.85)
+        .add(mouthPos, 4.9)
+        .fromTo("#speed2", { opacity: 0, scale: 1.35 }, { opacity: .55, scale: 1, duration: .35, ease: "power2.out" }, 4.92)
+        .to("#rglow", { opacity: 1, scale: 2.4, duration: .5, ease: "power2.in" }, 5.25)
+        .to(ghosts, { opacity: 0, duration: .3 }, 5.3)
+        // 6) se lanza encima de la cámara con la boca abierta… y de ahí sale la invitación
+        .to(rika, { scale: 9, y: () => H() * .28, duration: .85, ease: "power3.in", onUpdate: mouthPos }, 5.35)
+        .to("#speed2", { opacity: 0, duration: .25 }, 5.8)
         .add(() => {
           gsap.set(inv, { visibility: "visible", zIndex: 7, clipPath: `circle(0px at ${MX}px ${MY}px)` }); inv.setAttribute("aria-hidden", "false"); reveal();
           gsap.to(inv, { clipPath: `circle(${Math.hypot(W(), H())}px at ${MX}px ${MY}px)`, duration: .95, ease: "power2.in",
             onComplete() { gsap.set(inv, { clipPath: "none" }); gsap.set("#scene", { display: "none" }); } });
           gsap.fromTo(inv, { scale: .35, transformOrigin: `${MX}px ${MY}px` }, { scale: 1, duration: 1.2, ease: "power3.out" });
-        }, 4.9)
-        .to("#flash", { opacity: .7, duration: .15 }, 5.55).to("#flash", { opacity: 0, duration: .5 }, 5.7);
+        }, 6.0)
+        .to("#flash", { opacity: .7, duration: .15 }, 6.65).to("#flash", { opacity: 0, duration: .5 }, 6.8);
     };
     if (!REEL) $("#cover").addEventListener("click", open);
     window.abrir = open;
