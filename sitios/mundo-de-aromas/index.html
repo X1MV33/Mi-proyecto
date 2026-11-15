@@ -88,6 +88,25 @@
   .add.ok{background:var(--dorado);color:var(--tinta)}
   @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:8px 8px 14px;border-radius:16px}.card h4{font-size:16.5px;margin:12px 4px 4px}.card p{font-size:12px;margin:0 4px;-webkit-line-clamp:2}.card .row{margin:12px 4px 0}.card .price{font-size:19px}.add{padding:8px 11px;font-size:12px}.add .t{display:none}}
 
+  /* formas de pago */
+  .pay{padding:100px 0 110px;background:var(--crema)}
+  .pay h3{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(40px,6vw,76px);line-height:1;margin-top:8px}
+  .pay .lead{max-width:46ch;color:var(--cafe);line-height:1.7;margin-top:14px}
+  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px;perspective:1200px}
+  .pcard{position:relative;padding:28px 22px 24px;border-radius:20px;background:var(--beige);border:1px solid rgba(198,161,91,.35);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;box-shadow:0 16px 36px -28px rgba(74,47,34,.55)}
+  .pcard .ic{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,var(--dorado-hi),var(--dorado));color:var(--tinta);box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+  .pcard .ic svg{width:30px;height:30px}
+  .pcard b{display:block;font-family:var(--serif);font-size:23px;font-weight:700;margin-top:18px}
+  .pcard p{margin-top:8px;font-size:13.5px;line-height:1.6;color:var(--cafe)}
+  .pnote{display:flex;align-items:center;gap:12px;margin-top:26px;padding:16px 20px;border-radius:16px;background:var(--beige);font-size:14px;color:var(--cafe);line-height:1.6}
+  .pnote svg{flex:none;width:22px;height:22px;color:var(--dorado)}
+  @media (max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr);gap:12px}.pcard{padding:20px 16px}.pcard b{font-size:19px}.pcard p{font-size:12.5px}}
+  .paysel{margin-bottom:14px}
+  .paysel span{display:block;font-size:13px;color:var(--cafe);margin-bottom:8px}
+  .paysel div{display:flex;flex-wrap:wrap;gap:6px}
+  .paysel label{position:relative;padding:7px 12px;border-radius:99px;border:1px solid rgba(74,47,34,.25);font-size:13px;cursor:pointer}
+  .paysel input{position:absolute;opacity:0;pointer-events:none}
+  .paysel label:has(input:checked){background:var(--tinta);color:var(--crema);border-color:var(--tinta)}
   /* cierre */
   .thanks{position:relative;padding:130px 0 70px;text-align:center;background:var(--tinta);color:var(--crema);overflow:hidden}
   .thanks .ferns path{stroke:var(--dorado);opacity:.35}
@@ -123,7 +142,7 @@
   .tot b{font-family:var(--serif);font-size:28px}
   .send{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border-radius:99px;background:var(--tinta);color:var(--crema);font-size:15px;font-weight:500}
   .send[aria-disabled=true]{opacity:.4;pointer-events:none}
-  #toast{position:fixed;left:50%;bottom:100px;transform:translate(-50%,20px);background:var(--tinta);color:var(--crema);padding:11px 20px;border-radius:99px;font-size:14px;opacity:0;transition:all .3s;z-index:60;pointer-events:none}
+  #toast{position:fixed;left:50%;top:84px;transform:translate(-50%,-14px);background:var(--tinta);color:var(--crema);padding:11px 20px;border-radius:99px;font-size:14px;opacity:0;transition:all .3s;z-index:60;pointer-events:none}
   #toast.on{opacity:1;transform:translate(-50%,0)}
   .wafab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:25;width:56px;height:56px;border-radius:50%;background:var(--dorado);display:grid;place-items:center;box-shadow:0 10px 26px -8px rgba(74,47,34,.6)}
   .wafab svg{width:28px;height:28px;fill:var(--tinta)}
@@ -135,7 +154,7 @@
 <body>
 <header class="nav" id="nav">
   <a href="#top" aria-label="Mundo de Aromas, inicio"><img src="img/logo.png" alt="Mundo de Aromas"></a>
-  <nav><a href="#colecciones">Colecciones</a><a href="#tienda">Catálogo</a><a href="#contacto">Contacto</a></nav>
+  <nav><a href="#colecciones">Colecciones</a><a href="#tienda">Catálogo</a><a href="#pagos">Formas de pago</a><a href="#contacto">Contacto</a></nav>
   <button class="bagbtn" id="openBag" type="button" aria-label="Ver mi pedido">Mi pedido <b id="count">0</b></button>
 </header>
 
@@ -168,6 +187,16 @@
   </div>
 </section>
 
+<section class="pay" id="pagos">
+  <div class="wrap">
+    <div class="kicker">Formas de pago</div>
+    <h3>Paga como prefieras</h3>
+    <p class="lead">Elige la forma de pago que más te acomode al hacer tu pedido. Te confirmamos los datos por WhatsApp.</p>
+    <div class="pgrid" id="pgrid"></div>
+    <div class="pnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Tu pedido se aparta al confirmar el pago. Si tienes dudas, escríbenos antes de pagar.</div>
+  </div>
+</section>
+
 <section class="thanks" id="contacto">
   <svg class="ferns" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" id="fernsEnd"></svg>
   <div class="wrap">
@@ -189,7 +218,7 @@
   <aside role="dialog" aria-label="Mi pedido">
     <header><h5>Mi pedido</h5><button type="button" id="closeBag" aria-label="Cerrar">×</button></header>
     <div id="items"></div>
-    <footer><div class="tot"><span>Total</span><b id="total">$0</b></div><a class="send" id="send" target="_blank" rel="noopener">Pedir por WhatsApp</a></footer>
+    <footer><div class="paysel" id="paysel"><span>Forma de pago</span><div></div></div><div class="tot"><span>Total</span><b id="total">$0</b></div><a class="send" id="send" target="_blank" rel="noopener">Pedir por WhatsApp</a></footer>
   </aside>
 </div>
 <div id="toast"></div>
@@ -339,11 +368,22 @@ function setCat(k) {
 }
 function tilt() {
   if (reduce || !matchMedia("(hover:hover)").matches) return;
-  $$(".card,.ccard").forEach(el => {
+  $$(".card,.ccard,.pcard").forEach(el => {
     el.onmousemove = e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`; };
     el.onmouseleave = () => { el.style.transform = ""; };
   });
 }
+
+/* ---------- formas de pago ---------- */
+const PAGOS = [
+  ["Efectivo", "Paga al recibir tu pedido o al recogerlo en persona.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v.01M18 14.5v.01"/></svg>'],
+  ["Transferencia", "Transferencia bancaria o SPEI. Te enviamos los datos de la cuenta por WhatsApp.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 10l9-6 9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg>'],
+  ["Depósito", "Deposita en tienda de conveniencia o en ventanilla y mándanos tu comprobante.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h16l-1.2 11a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg>'],
+  ["Tarjeta", "Crédito o débito. Pregúntanos por esta opción al hacer tu pedido.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></svg>']
+];
+$("#pgrid").innerHTML = PAGOS.map(([n, d, ic]) => `<div class="pcard"><div class="ic">${ic}</div><b>${n}</b><p>${d}</p></div>`).join("");
+$("#paysel div").innerHTML = PAGOS.map(([n], i) => `<label><input type="radio" name="pago" value="${n}"${i ? "" : " checked"}>${n}</label>`).join("");
+$$("#paysel input").forEach(r => r.addEventListener("change", () => renderBag()));
 
 /* ---------- pedido ---------- */
 let bag = {};
@@ -355,7 +395,7 @@ function renderBag() {
   $("#count").textContent = n; $("#total").textContent = money(tot);
   $("#items").innerHTML = ids.length ? ids.map(id => { const p = P[id]; return `<div class="it"><img src="${p.img}" alt=""><div><b>${esc(p.nombre)}</b><small>${p.ml ? esc(p.ml) + " · " : ""}${money(p.precio)}</small></div><div class="qty"><button type="button" data-q="${id}" data-d="-1" aria-label="Quitar uno">−</button><span>${bag[id]}</span><button type="button" data-q="${id}" data-d="1" aria-label="Agregar uno">+</button></div></div>`; }).join("")
     : `<div class="empty">Tu pedido está vacío.<br>Agrega tus aromas favoritos ✨</div>`;
-  const txt = "¡Hola! Quiero hacer este pedido en Mundo de Aromas:\n\n" + ids.map(id => `• ${bag[id]} × ${P[id].nombre}${P[id].ml ? " (" + P[id].ml + ")" : ""} — ${money(P[id].precio * bag[id])}`).join("\n") + `\n\nTotal: ${money(tot)}`;
+  const txt = "¡Hola! Quiero hacer este pedido en Mundo de Aromas:\n\n" + ids.map(id => `• ${bag[id]} × ${P[id].nombre}${P[id].ml ? " (" + P[id].ml + ")" : ""} — ${money(P[id].precio * bag[id])}`).join("\n") + `\n\nTotal: ${money(tot)}` + `\nForma de pago: ${(document.querySelector("#paysel input:checked") || {}).value || "Por definir"}`;
   $("#send").href = wa(txt); $("#send").setAttribute("aria-disabled", ids.length ? "false" : "true");
   save();
 }
@@ -401,6 +441,7 @@ tl.to("#bottle", { rotateY: "+=300", rotateX: -10, scale: 1.45, ease: "none" }, 
 ScrollTrigger.create({ trigger: "#manifest", start: "top 80%", end: "bottom 45%", scrub: true, onUpdate: s => { const ws = $$(".manifest .w"); ws.forEach((w, i) => w.style.opacity = i / ws.length < s.progress * 1.15 ? 1 : .12); } });
 gsap.from(".ccard", { scrollTrigger: { trigger: "#cgrid", start: "top 85%" }, y: 80, rotateY: -25, opacity: 0, duration: 1, stagger: .12, ease: "power3.out" });
 $$("#fernsEnd path").forEach((p, i) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2.2, delay: i * .1, ease: "power2.inOut", scrollTrigger: { trigger: "#contacto", start: "top 70%" } }); });
+gsap.from(".pcard", { scrollTrigger: { trigger: "#pgrid", start: "top 85%" }, y: 60, rotateX: -20, opacity: 0, duration: .9, stagger: .1, ease: "power3.out" });
 gsap.from(".thanks h3", { scrollTrigger: { trigger: "#contacto", start: "top 70%" }, y: 50, opacity: 0, duration: 1.1, ease: "power3.out" });
 })();
 </script>
