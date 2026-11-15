@@ -31,20 +31,39 @@
   @media (max-width:760px){header.nav nav{display:none}header.nav img{height:32px}}
 
   /* portada 3D */
-  .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:radial-gradient(120% 80% at 50% 45%,var(--crema),var(--beige) 55%,var(--arena))}
-  .giant{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-style:italic;font-weight:800;font-size:clamp(120px,27vw,420px);line-height:.8;color:var(--cafe-claro);letter-spacing:-.03em;white-space:nowrap;user-select:none}
-  .giant span{display:inline-block}
-  .ferns{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-  .ferns path{fill:none;stroke:var(--dorado);stroke-width:1.4;stroke-linecap:round;opacity:.75}
-  .stage{position:absolute;left:50%;top:52%;width:0;height:0;perspective:1100px;z-index:3}
+  .hero{--s:1;position:relative;height:100svh;min-height:620px;overflow:hidden;background:var(--beige)}
+  .bgart{position:absolute;inset:-3%;background:url(img/botanica.webp) center 42%/cover no-repeat;will-change:transform}
+  .halo{position:absolute;left:50%;top:50%;width:min(900px,150vw);height:min(900px,150vw);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,250,240,.95),rgba(255,248,236,.55) 45%,rgba(255,248,236,0));pointer-events:none}
+  .dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .kick{position:absolute;left:0;right:0;top:max(96px,13svh);text-align:center;z-index:4;font-size:11.5px;letter-spacing:.42em;padding-left:.42em;text-transform:uppercase;color:var(--cafe)}
+  .kick::before,.kick::after{content:"";display:inline-block;width:34px;height:1px;background:var(--dorado);vertical-align:middle;margin:0 14px 3px}
+  .giant{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-family:var(--serif);font-style:italic;font-weight:800;font-size:clamp(120px,27vw,420px);line-height:.8;letter-spacing:-.03em;white-space:nowrap;user-select:none;z-index:1;color:#A07A57;text-shadow:0 12px 30px rgba(107,74,51,.16)}
+  .giant span{display:inline-block;background:linear-gradient(180deg,#BC9670 5%,#8F6A4B 62%,#A9825F);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding:0 .02em}
+  .stage{position:absolute;left:50%;top:50%;width:0;height:0;perspective:1100px;z-index:3}
   .bottle{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:transform}
   .face{position:absolute;backface-visibility:visible}
-  .shadow{position:absolute;left:50%;top:52%;width:260px;height:46px;margin:150px 0 0 -130px;border-radius:50%;background:radial-gradient(closest-side,rgba(74,47,34,.35),transparent);filter:blur(4px);z-index:2}
-  .hero .tag{position:absolute;left:0;right:0;bottom:max(34px,6vh);text-align:center;z-index:4}
-  .hero .tag p{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,30px)}
-  .hero .tag small{display:block;margin-top:10px;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--cafe)}
-  .scrollcue{display:block;width:1px;height:42px;margin:14px auto 0;background:linear-gradient(var(--cafe),transparent);animation:cue 1.8s ease-in-out infinite}
-  @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  .podium{position:absolute;left:50%;top:50%;width:300px;height:64px;z-index:2;transform:translate(-50%,calc(124px * var(--s))) scale(var(--s));transform-origin:50% 0}
+  .podium::before{content:"";position:absolute;left:0;right:0;top:22px;bottom:0;border-radius:0 0 50% 50%/0 0 22px 22px;background:linear-gradient(90deg,#D9C3A2,#F4E8D6 35%,#EADAC2 60%,#CDB38E);box-shadow:0 24px 40px -18px rgba(74,47,34,.45)}
+  .podium::after{content:"";position:absolute;left:0;right:0;top:0;height:44px;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#FBF4E9,#EBDCC5 70%);box-shadow:inset 0 -2px 0 var(--dorado),inset 0 0 0 1px rgba(198,161,91,.6)}
+  .shadow{position:absolute;left:50%;top:50%;width:200px;height:30px;z-index:2;border-radius:50%;background:radial-gradient(closest-side,rgba(74,47,34,.38),transparent);filter:blur(3px);transform:translate(-50%,calc(132px * var(--s))) scale(var(--s))}
+  .hero .tag{position:absolute;left:0;right:0;bottom:max(30px,5svh);text-align:center;z-index:4}
+  .hero .tag p{font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.6vw,32px);color:var(--tinta)}
+  .cta{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .cta a{padding:13px 26px;border-radius:99px;font-size:14.5px;font-weight:500;letter-spacing:.02em}
+  .cta .b1{background:var(--tinta);color:var(--crema);box-shadow:0 12px 24px -14px rgba(74,47,34,.8)}
+  .cta .b2{border:1px solid var(--dorado);color:var(--tinta);background:rgba(248,241,230,.6);backdrop-filter:blur(6px)}
+  @media (max-width:760px){
+    .hero{--s:.8}
+    .stage{zoom:.8}
+    .giant{top:43%;font-size:27.5vw}
+    .kick{font-size:10.5px;letter-spacing:.32em}.kick::before,.kick::after{width:22px;margin:0 10px 3px}
+    .bgart{background-position:center 30%}
+    .cta a{padding:12px 22px;font-size:14px}
+  }
+  @media (max-width:380px){.kick{font-size:9.5px;letter-spacing:.22em}.kick::before,.kick::after{display:none}}
+  .wafab{transition:opacity .35s,transform .35s}
+  .wafab.hide{opacity:0;transform:scale(.6);pointer-events:none}
+  @media (max-height:700px) and (max-width:760px){.hero .tag p{font-size:20px}.cta{margin-top:10px}}
 
   /* frase */
   .manifest{padding:120px 0 100px;text-align:center}
@@ -159,7 +178,6 @@
   #toast.on{opacity:1;transform:translate(-50%,0)}
   .wafab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:25;width:56px;height:56px;border-radius:50%;background:var(--dorado);display:grid;place-items:center;box-shadow:0 10px 26px -8px rgba(74,47,34,.6)}
   .wafab svg{width:28px;height:28px;fill:var(--tinta)}
-  @media (max-width:760px){.stage{zoom:.8}.shadow{zoom:.8}}
   #bag.on ~ .wafab,body:has(#bag.on) .wafab{display:none}
   @media (prefers-reduced-motion:reduce){.scrollcue{animation:none}}
 </style>
@@ -172,11 +190,15 @@
 </header>
 
 <section class="hero" id="top">
-  <svg class="ferns" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" id="fernsHero"></svg>
+  <div class="bgart" id="bgart"></div>
+  <div class="halo"></div>
+  <canvas class="dust" id="dust" aria-hidden="true"></canvas>
+  <div class="kick">Perfumería · Velas aromáticas</div>
   <div class="giant" id="giant" aria-hidden="true"></div>
+  <div class="podium" id="podium"></div>
   <div class="shadow" id="shadow"></div>
   <div class="stage"><div class="bottle" id="bottle"></div></div>
-  <div class="tag"><p>Esencias que conectan</p><small>Perfumes · Velas aromáticas</small><span class="scrollcue"></span></div>
+  <div class="tag"><p>Esencias que conectan</p><div class="cta"><a class="b1" href="#tienda">Ver catálogo</a><a class="b2" id="waHero" target="_blank" rel="noopener">Pedir por WhatsApp</a></div></div>
 </section>
 
 <section class="manifest wrap">
@@ -212,7 +234,6 @@
 </section>
 
 <section class="thanks" id="contacto">
-  <svg class="ferns" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" id="fernsEnd"></svg>
   <div class="wrap">
     <h3>Gracias por su preferencia</h3>
     <p>¿Tienes dudas o quieres un aroma que no ves aquí? Escríbenos, con gusto te ayudamos a encontrarlo.</p>
@@ -306,7 +327,7 @@ const money = n => "$" + n.toLocaleString("es-MX");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const wa = t => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t)}`;
 $("#waLink").href = wa("¡Hola! Vi su página y quiero información sobre sus perfumes 🌿");
-$("#waFab").href = $("#waLink").href;
+$("#waFab").href = $("#waLink").href; $("#waHero").href = $("#waLink").href;
 
 /* ---------- helechos dorados (dibujados con trazos) ---------- */
 function fern(x, y, len, ang, side) {
@@ -326,9 +347,33 @@ function fern(x, y, len, ang, side) {
 }
 function flower(x, y, r) { let d = ""; for (let k = 0; k < 5; k++) { const a = k / 5 * Math.PI * 2; const px = x + Math.cos(a) * r, py = y + Math.sin(a) * r; d += `M${x} ${y}Q${(x + Math.cos(a - .5) * r * 1.3).toFixed(1)} ${(y + Math.sin(a - .5) * r * 1.3).toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)}Q${(x + Math.cos(a + .5) * r * 1.3).toFixed(1)} ${(y + Math.sin(a + .5) * r * 1.3).toFixed(1)} ${x} ${y}`; } return d + `M${x + 3} ${y}a3 3 0 1 0 -6 0a3 3 0 1 0 6 0`; }
 const FERNS = [[120, 620, 330, -1.15, 1], [230, 700, 260, -1.45, -1], [1080, 600, 340, -2.0, -1], [960, 720, 250, -1.7, 1], [600, 120, 180, .5, 1], [80, 160, 200, .35, -1], [1120, 170, 210, 2.7, 1]];
-["#fernsHero", "#fernsEnd"].forEach(sel => {
+["#fernsHero", "#fernsEnd"].forEach(sel => { if (!$(sel)) return;
   $(sel).innerHTML = FERNS.map(f => `<path d="${fern(...f)}"/>`).join("") + [[300, 250, 16], [880, 330, 18], [1010, 470, 13], [190, 470, 12], [700, 680, 15]].map(f => `<path d="${flower(...f)}"/>`).join("");
 });
+
+
+/* ---------- polvo dorado ---------- */
+(() => {
+  const cv = $("#dust"), ctx = cv.getContext("2d"); let W = 0, H = 0, parts = [], run = true;
+  const size = () => { const d = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+  size(); addEventListener("resize", size);
+  const N = innerWidth < 760 ? 34 : 60;
+  for (let i = 0; i < N; i++) parts.push({ x: Math.random(), y: Math.random(), r: .6 + Math.random() * 1.8, v: .00025 + Math.random() * .0006, ph: Math.random() * 6.28, dr: (Math.random() - .5) * .0003 });
+  new IntersectionObserver(es => { run = es[0].isIntersecting; if (run) requestAnimationFrame(tick); }).observe(cv);
+  function tick(t) {
+    if (!run) return;
+    ctx.clearRect(0, 0, W, H);
+    for (const p of parts) {
+      p.y -= p.v; p.x += p.dr + Math.sin(t / 1800 + p.ph) * .0002; if (p.y < -.02) { p.y = 1.02; p.x = Math.random(); }
+      const a = .35 + .45 * Math.sin(t / 700 + p.ph * 3);
+      const g = ctx.createRadialGradient(p.x * W, p.y * H, 0, p.x * W, p.y * H, p.r * 4);
+      g.addColorStop(0, `rgba(232,207,148,${a})`); g.addColorStop(.4, `rgba(198,161,91,${a * .5})`); g.addColorStop(1, "rgba(198,161,91,0)");
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x * W, p.y * H, p.r * 4, 0, 6.29); ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  if (!reduce) requestAnimationFrame(tick);
+})();
 
 /* ---------- palabra gigante ---------- */
 $("#giant").innerHTML = "Aromas".split("").map(c => `<span>${c}</span>`).join("");
@@ -439,13 +484,17 @@ setCat("dama"); renderBag();
 
 /* ---------- animaciones ---------- */
 const nav = $("#nav");
-addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 40), { passive: true });
+const fab = $("#waFab"); const onScroll = () => { nav.classList.toggle("solid", scrollY > 40); fab.classList.toggle("hide", scrollY < innerHeight * .6); };
+addEventListener("scroll", onScroll, { passive: true }); onScroll();
 if (!window.gsap || reduce) { gsap && gsap.set("#bottle", { rotateY: -24, rotateX: 8 }); $$(".manifest .w").forEach(w => w.style.opacity = 1); return; }
 gsap.registerPlugin(ScrollTrigger);
 // entrada
 gsap.set("#bottle", { rotateY: -24, rotateX: 8 });
 gsap.from("#giant span", { yPercent: 110, opacity: 0, duration: 1.2, stagger: .06, ease: "power4.out" });
 gsap.from(".stage", { y: 120, opacity: 0, duration: 1.4, delay: .3, ease: "power3.out" });
+gsap.from("#podium, #shadow", { opacity: 0, y: 30, duration: 1.2, delay: .2, ease: "power3.out" });
+gsap.from(".kick", { opacity: 0, letterSpacing: "1em", duration: 1.6, ease: "power3.out" });
+gsap.fromTo("#bgart", { scale: 1.12, opacity: 0 }, { scale: 1, opacity: 1, duration: 2.4, ease: "power2.out" });
 gsap.from(".hero .tag", { opacity: 0, y: 20, duration: 1, delay: .9 });
 $$("#fernsHero path").forEach((p, i) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2.6, delay: .2 + i * .12, ease: "power2.inOut" }); });
 // flota y gira suave
@@ -455,7 +504,9 @@ gsap.to(".stage", { y: -14, duration: 2.6, yoyo: true, repeat: -1, ease: "sine.i
 const tl = gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: 1, pin: true, onEnter: () => idle.pause(), onLeaveBack: () => idle.play() } });
 tl.to("#bottle", { rotateY: "+=300", rotateX: -10, scale: 1.45, ease: "none" }, 0)
   .to(".stage", { yPercent: 0, y: "-6vh", ease: "none" }, 0)
-  .to("#shadow", { scale: 1.4, opacity: .5, ease: "none" }, 0)
+  .to("#podium, #shadow", { opacity: 0, y: 60, ease: "none" }, 0)
+  .to("#bgart", { scale: 1.15, yPercent: 6, ease: "none" }, 0)
+  .to(".kick", { opacity: 0, y: -30, ease: "none" }, 0)
   .to("#giant span", { y: (i) => (i % 2 ? -40 : 40), letterSpacing: ".05em", opacity: .35, stagger: .02, ease: "none" }, 0)
   .to(".hero .tag", { opacity: 0, y: -30, ease: "none" }, 0);
 // palabras de la frase
