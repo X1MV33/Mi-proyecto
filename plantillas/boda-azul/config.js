@@ -23,6 +23,7 @@ window.CONFIG = {
   fotoRecepcion: 2,                    // polaroid de recepción
   fotoCierre: 3,                       // foto del cierre
   fotoSobre: 2,                        // foto que sale del sobre
+  // fotosCarrete: ["fotos/a.jpg", ...],  // fotos del carrete detrás del recorte (vacío = usa «fotos»)
   fotoRecorte: "fotos/novios-recorte.webp", // novios recortados con borde blanco (carrete)
   // marcos del carrete: [número de foto, encuadre]
   carrete: [[0, "50% 30%"], [3, "55% 45%"], [1, "50% 40%"], [2, "45% 45%"], [3, "30% 60%"], [0, "60% 55%"]],

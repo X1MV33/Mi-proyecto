@@ -651,7 +651,7 @@
   function render() {
     const F = C.fotos, R = E.regalos || {};
     const marcos = (C.carrete || [[0, "50% 30%"], [3, "55% 45%"], [1, "50% 40%"], [2, "45% 45%"], [3, "30% 60%"], [0, "60% 55%"]])
-      .map(([i, pos]) => `<div class="fr" data-foto="${i}"><img src="${esc(F[i])}" alt="" loading="lazy" style="object-position:${pos}"></div>`).join("");
+      .map(([i, pos]) => `<div class="fr" data-foto="${i}"><img src="${esc((C.fotosCarrete || F)[i])}" alt="" loading="lazy" style="object-position:${pos}"></div>`).join("");
     $("#inv").innerHTML = `
     <header class="hero">
       ${C.videoPortada
