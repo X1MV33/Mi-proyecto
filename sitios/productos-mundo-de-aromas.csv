@@ -1,0 +1,48 @@
+﻿Categoría,Nombre,ML,Precio,Descripción,Foto,Disponible
+Dama,Pink Candy,150 ml,395,"Fragancia dulcemente adictiva que evoca algodón de azúcar, frambuesas jugosas y regaliz, sobre una base cremosa de vainilla y caramelo.",img/pink-candy.webp,Sí
+Dama,Odyssey Black Forest,100 ml,469,"Perfume sensual y sofisticado con acordes especiados de canela, flor de azahar y cereza silvestre, con toques cálidos de miel, praliné y maderas nobles.",img/black-forest.webp,Sí
+Dama,Guess 1981,100 ml,629,"Fragancia floral-amaderada limpia y elegante, con notas de violeta silvestre, ambreta, pera jugosa y un delicado fondo de sándalo y almizcle.",img/guess-1981.webp,Sí
+Dama,Tommy Girl,100 ml,599,"Clásica floral-frutal vigorosa con grosellas negras, camelia, mandarina y manzano en flor, sobre un fondo limpio de sándalo y cedro.",img/tommy-girl.webp,Sí
+Dama,360° Perry Ellis,100 ml,650,"Floral-acuática elegante con melón, azucena y mandarina; corazón de rosa, lavanda y lirio de los valles, y un fondo cálido de sándalo y almizcle.",img/360.webp,Sí
+Dama,Meow! — Katy Perry,100 ml,699,"Deliciosa floral frutal gourmand con pera, mandarina, gardenia y jazmín, y un fondo sumamente cremoso de vainilla, almizcle y ámbar.",img/meow.webp,Sí
+Dama,212 VIP Rosé,100 ml,960,"Floral frutal elegante y festiva con champaña rosada y frutas frescas, un corazón de flor de durazno y un fondo amaderado y almizclado.",img/212-vip-rose.webp,Sí
+Dama,Lattafa — Yara,100 ml,599,"Oriental ambarina cremosa y avainillada con orquídea, heliotropo y frutos tropicales, sobre un fondo irresistible de vainilla, sándalo y almizcle.",img/yara.webp,Sí
+Dama,Lattafa — Eclaire,100 ml,799,"Exquisita gourmand inspirada en un postre de lujo: caramelo líquido, leche, vainilla cremosa y flores blancas con un toque cálido de miel.",img/eclaire.webp,Sí
+Dama,Raghba Pink,100 ml,499,"Dulce y frutal: frambuesas jugosas, malvaviscos, cítricos y flores blancas con un fondo cremoso de vainilla.",img/raghba-pink.webp,Sí
+Dama,Lattafa Edición Chocolate-Vainilla,100 ml,499,"Gourmand intensa que combina notas cremosas de chocolate, helado de vainilla, coco y un toque floral suave de lavanda.",img/chocolate-vainilla.webp,Sí
+Dama,Lattafa — Edición Frutal-Gourmand,100 ml,699,"Oriental con acordes frutales intensos de frambuesa, notas avainilladas y dulces, y un fondo sutil amaderado.",img/frutal-gourmand.webp,Sí
+Caballero,Versace Eros Flame,100 ml,799,"Amaderada especiada intensa y masculina: mandarina y limón, corazón de pimienta negra y geranio, sobre vainilla, haba tonka y sándalo.",img/eros-flame.webp,Sí
+Caballero,9PM,100 ml,555,"Gourmand ambarina moderna y adictiva con manzana, canela y lavanda; corazón de azahar y lirio, y fondo de vainilla, haba tonka y ámbar.",img/9pm.webp,Sí
+Caballero,Versace Eros,100 ml,750,"Fresca amaderada y oriental con menta, manzana verde y limón italiano, haba tonka y ambroxán, sobre cedro y vainilla.",img/eros.webp,Sí
+Caballero,Tag-Him,100 ml,659,"Amaderada especiada fresca: limón, toronja y bergamota, corazón de jengibre y nuez moscada, y fondo seco de vetiver, sándalo y cedro.",img/tag-him.webp,Sí
+Caballero,Odyssey Limoni,100 ml,520,"Chispeante y veraniega: una explosión ultra refrescante de limones jugosos y cítricos, con matices amaderados y almizcle limpio.",img/odyssey-limoni.webp,Sí
+Caballero,Men 212 VIP,100 ml,899,"Oriental amaderada seductora y fiestera: lima, menta y caviar con corazón de vodka y especias, sobre ámbar y madera de rey.",img/212-vip-men.webp,Sí
+Caballero,Hawas Kobra Men,100 ml,799,"Intensa y magnética: especias cálidas de canela, cítricos frescos de bergamota y un fondo profundo ambarino y amaderado.",img/kobra.webp,Sí
+Caballero,Onlyou 8181,30 ml,295,"Amaderada especiada muy atractiva con limón y menta, corazón de cardamomo y enebro, sobre haba tonka y vetiver.",img/onlyou-8181.webp,Sí
+Caballero,Hawas Ice,100 ml,759,"Acuática y ultra refrescante: manzana, bergamota, limón y anís estrellado con corazón acuoso y fondo ambarino, almizclado y amaderado.",img/hawas-ice.webp,Sí
+Caballero,Al Rehab Now,100 ml,450,"Oriental amaderada intensa y cálida con caramelo, vainilla, azúcar y maderas ahumadas de oud y sándalo.",img/al-rehab-now.webp,Sí
+Caballero,Louis Vuitton Imagination,100 ml,1099,"Lujosa cítrica amaderada con una salida chispeante de cidra, bergamota de Calabria y naranja siciliana.",img/imagination.webp,Sí
+Caballero,Yves Saint Laurent Babycat,100 ml,799,"Oriental especiada que envuelve la piel con gamuza ahumada, vainilla cremosa, pimienta rosa, incienso y elemí.",img/babycat.webp,Sí
+Infantil,Tubbees Cookies & Cream,50 ml,210,"Aroma gourmand hiperrealista a galletas de mantequilla recién horneadas con leche tibia, chocolate y un fondo dulce de vainilla.",img/tubbees-cookies.webp,Sí
+Infantil,Toy Story: Buzz Lightyear,25 ml,180,"Colonia fresca y vibrante de la familia Fougère con notas cítricas, toques verdes herbales y un fondo limpio de almizcle suave.",img/buzz.webp,Sí
+Infantil,Sophie Toy Story: Jessie,100 ml,269,Floriental frutal: sorbete jugoso de pera y frutas rojas con un toque floral suave y un final dulce de praliné y vainilla.,img/jessie.webp,Sí
+Infantil,Superpoderosas Lindinha (Burbuja),25 ml,160,Colonia infantil fresca y chispeante con notas frutales suaves y un fondo limpio de almizcle.,img/lindinha.webp,Sí
+Infantil,Marvel — Spider-Man,100 ml,279,"Perfume dinámico con cítricos vibrantes de bergamota y azahar, toques amaderados ligeros y un fondo suave de vainilla.",img/spiderman.webp,Sí
+Infantil,Tubbees Cotton Candy,50 ml,210,Gourmand irresistible que combina frutos rojos y frambuesa con el inconfundible dulzor cremoso del algodón de azúcar y vainilla.,img/cotton-candy.webp,Sí
+Infantil,Tous Girl Pink,100 ml,599,"Floral-frutal alegre con pastelito (cupcake), mandarina, chabacano y flor de azahar, sobre un fondo dulce de vainilla.",img/tous-kids.webp,Sí
+Infantil,Tubbees Candy Pop,50 ml,210,Explosión divertida de paletas de caramelo y gomitas frutales con un suave toque de vainilla azucarada.,img/candy-pop.webp,Sí
+Infantil,Superpoderosas Florzinha (Bombón),25 ml,160,"Colonia fresca y vibrante con frutas rojas dulces, cítricos suaves y un acorde limpio floral.",img/blossom.webp,Sí
+Infantil,Tangled,100 ml,230,Ligera y femenina: notas florales delicadas con destellos frutales dulces de manzana y pera.,img/tangled.webp,Sí
+Infantil,Capitán América,100 ml,275,Colonia dinámica y heroica con cítricos frescos de bergamota y mandarina sobre un fondo limpio de madera suave.,img/capitan-america.webp,Sí
+Infantil,Tubbees Dreamy Treats,50 ml,210,"Gourmand inspirada en nubes de malvavisco, caramelo cremoso y una base suave de vainilla.",img/dreamy-treats.webp,Sí
+Velas,Mango Tropical,,95,"Frutal inspirada en el mango maduro: notas tropicales, frescas y vibrantes que crean un ambiente alegre y lleno de energía.",img/mango.webp,Sí
+Velas,Vainilla Francesa,,110,"Cálido y exquisito aroma de vainilla, suave y dulce, que llena cualquier espacio de comodidad y bienestar.",img/vainilla-francesa.webp,Sí
+Velas,Gardenia Elegante,,120,"Floral inspirada en las flores de gardenia: suave, fresca y ligeramente dulce, un toque de elegancia y tranquilidad.",img/gardenia.webp,Sí
+Velas,Lavanda Relajante,,120,"Delicada floral de lavanda que ayuda a crear un ambiente tranquilo, armonioso y acogedor.",img/lavanda.webp,Sí
+Velas,Fresa Silvestre,,95,"Inspirada en fresas frescas y maduras, con notas dulces, jugosas y ligeramente afrutadas.",img/fresa.webp,Sí
+Velas,Cherry Dulce,,120,"Encantadora fragancia de cereza con notas frutales, dulces y ligeramente intensas que llenan el ambiente de frescura.",img/cherry.webp,Sí
+Velas,Vainilla con Limón,,140,"Cálida vainilla con un toque fresco de limón; suave y dulce, llena cualquier espacio de bienestar.",img/vainilla-limon.webp,Sí
+Velas,Rosa del Jardín,,135,"Floral inspirada en un jardín lleno de rosas frescas: delicada, romántica y llena de armonía.",img/rosa-jardin.webp,Sí
+Velas,Canela y Manzana,,155,La dulzura de la manzana con las notas cálidas y especiadas de la canela.,img/canela-manzana.webp,Sí
+Velas,Coco Tropical,,130,"Refrescante coco con notas suaves, dulces y cremosas que evocan la tranquilidad de una playa tropical.",img/coco.webp,Sí
+Velas,Eucalipto Fresco,,140,"Herbal, natural y refrescante, inspirada en hojas de eucalipto: una sensación de limpieza y frescura.",img/eucalipto.webp,Sí

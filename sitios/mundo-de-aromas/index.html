@@ -278,7 +278,7 @@
     <h3>Gracias por su preferencia</h3>
     <p>¿Tienes dudas o quieres un aroma que no ves aquí? Escríbenos, con gusto te ayudamos a encontrarlo.</p>
     <div class="contact">
-      <a class="wa" id="waLink" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a12 12 0 0 1-4.6-4.1c-.4-.6-1-1.6-1-2.8s.6-1.8.9-2 .5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.3Z"/></svg>+52 824 105 6383</a>
+      <a class="wa" id="waLink" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a12 12 0 0 1-4.6-4.1c-.4-.6-1-1.6-1-2.8s.6-1.8.9-2 .5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.3Z"/></svg>+52 824 100 7708</a>
       <a href="https://www.instagram.com/escencia_que_conecta" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>@escencia_que_conecta</a>
     </div>
     <img class="lg" src="img/logo.png" alt="Mundo de Aromas">
@@ -303,7 +303,10 @@
 <script>
 (() => {
 "use strict";
-const WHATSAPP = "528241056383";
+const WHATSAPP = "528241007708";
+/* Productos desde Google Sheets: pega aquí el enlace de la hoja publicada como CSV
+   (Archivo → Compartir → Publicar en la Web → CSV). Si está vacío o falla, se usan los productos de abajo. */
+const SHEET_CSV = "";
 const CATS = {
   dama: { nombre: "Dama", lead: "Fragancias diseñadas para proyectar elegancia, personalidad y encanto en cada momento del día.", bg: "#F1E3D3", portada: "212-vip-rose" },
   caballero: { nombre: "Caballero", lead: "Fragancias diseñadas para proyectar seguridad, magnetismo y una presencia inolvidable en cada ocasión.", bg: "#E5D5BF", portada: "eros" },
@@ -311,7 +314,7 @@ const CATS = {
   velas: { nombre: "Velas", lead: "Aromas envolventes diseñados para crear momentos inolvidables y llenar cualquier espacio de armonía.", bg: "#EADBC2", portada: "vainilla-francesa" }
 };
 // [categoría, imagen, nombre, ml, precio, descripción]
-const P = [
+let P = [
   ["dama","pink-candy","Pink Candy","150 ml",395,"Fragancia dulcemente adictiva que evoca algodón de azúcar, frambuesas jugosas y regaliz, sobre una base cremosa de vainilla y caramelo."],
   ["dama","black-forest","Odyssey Black Forest","100 ml",469,"Perfume sensual y sofisticado con acordes especiados de canela, flor de azahar y cereza silvestre, con toques cálidos de miel, praliné y maderas nobles."],
   ["dama","guess-1981","Guess 1981","100 ml",629,"Fragancia floral-amaderada limpia y elegante, con notas de violeta silvestre, ambreta, pera jugosa y un delicado fondo de sándalo y almizcle."],
@@ -446,8 +449,11 @@ function bottleHTML() {
 const bottle = $("#bottle"); bottle.innerHTML = bottleHTML();
 
 /* ---------- colecciones ---------- */
-$("#cgrid").innerHTML = Object.entries(CATS).map(([k, c]) => `<button class="ccard" type="button" data-cat="${k}"><img src="img/${c.portada}.webp" alt="" loading="lazy"><div><b>${esc(c.nombre)}</b><span>${P.filter(p => p.cat === k).length} aromas</span></div></button>`).join("");
-$$(".ccard").forEach(c => c.addEventListener("click", () => { setCat(c.dataset.cat); $("#tienda").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); }));
+function renderColls() {
+  $("#cgrid").innerHTML = Object.entries(CATS).map(([k, c]) => { const first = P.find(p => p.cat === k); const img = P.some(p => p.img === `img/${c.portada}.webp`) ? `img/${c.portada}.webp` : (first ? first.img : `img/${c.portada}.webp`); return `<button class="ccard" type="button" data-cat="${k}"><img src="${esc(img)}" alt="" loading="lazy"><div><b>${esc(c.nombre)}</b><span>${P.filter(p => p.cat === k).length} aromas</span></div></button>`; }).join("");
+}
+renderColls();
+$("#cgrid").addEventListener("click", e => { const c = e.target.closest(".ccard"); if (!c) return; setCat(c.dataset.cat); $("#tienda").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); });
 
 /* ---------- catálogo ---------- */
 $("#tabs").innerHTML = Object.entries(CATS).map(([k, c]) => `<button type="button" role="tab" data-cat="${k}">${esc(c.nombre)}</button>`).join("");
@@ -491,26 +497,27 @@ $$("#paysel input").forEach(r => r.addEventListener("change", () => renderBag())
 
 /* ---------- pedido ---------- */
 let bag = {};
-try { bag = JSON.parse(localStorage.getItem("mda-bag") || "{}") || {}; } catch (e) { bag = {}; }
-const save = () => { try { localStorage.setItem("mda-bag", JSON.stringify(bag)); } catch (e) {} };
+try { bag = JSON.parse(localStorage.getItem("mda-bag2") || "{}") || {}; } catch (e) { bag = {}; }
+const save = () => { try { localStorage.setItem("mda-bag2", JSON.stringify(bag)); } catch (e) {} };
+const byName = n => P.find(p => p.nombre === n);
 function renderBag() {
-  const ids = Object.keys(bag).filter(id => bag[id] > 0);
-  const n = ids.reduce((s, id) => s + bag[id], 0), tot = ids.reduce((s, id) => s + bag[id] * P[id].precio, 0);
+  const ids = Object.keys(bag).filter(k => bag[k] > 0 && byName(k));
+  const n = ids.reduce((s, k) => s + bag[k], 0), tot = ids.reduce((s, k) => s + bag[k] * byName(k).precio, 0);
   $("#count").textContent = n; $("#total").textContent = money(tot);
   const anticipo = Math.ceil(tot / 2), resto = tot - anticipo;
   $("#split").style.display = ids.length ? "" : "none";
   $("#split").innerHTML = `<div><b>Anticipo para apartar (50%)</b><b>${money(anticipo)}</b></div><div><span>Resto al entregar (50%)</span><span>${money(resto)}</span></div><small>El resto se paga antes de recibir tu producto.</small>`;
-  $("#items").innerHTML = ids.length ? ids.map(id => { const p = P[id]; return `<div class="it"><img src="${p.img}" alt=""><div><b>${esc(p.nombre)}</b><small>${p.ml ? esc(p.ml) + " · " : ""}${money(p.precio)}</small></div><div class="qty"><button type="button" data-q="${id}" data-d="-1" aria-label="Quitar uno">−</button><span>${bag[id]}</span><button type="button" data-q="${id}" data-d="1" aria-label="Agregar uno">+</button></div></div>`; }).join("")
+  $("#items").innerHTML = ids.length ? ids.map(k => { const p = byName(k); return `<div class="it"><img src="${esc(p.img)}" alt=""><div><b>${esc(p.nombre)}</b><small>${p.ml ? esc(p.ml) + " · " : ""}${money(p.precio)}</small></div><div class="qty"><button type="button" data-q="${esc(k)}" data-d="-1" aria-label="Quitar uno">−</button><span>${bag[k]}</span><button type="button" data-q="${esc(k)}" data-d="1" aria-label="Agregar uno">+</button></div></div>`; }).join("")
     : `<div class="empty">Tu pedido está vacío.<br>Agrega tus aromas favoritos ✨</div>`;
-  const txt = "¡Hola! Quiero hacer este pedido en Mundo de Aromas:\n\n" + ids.map(id => `• ${bag[id]} × ${P[id].nombre}${P[id].ml ? " (" + P[id].ml + ")" : ""} — ${money(P[id].precio * bag[id])}`).join("\n") + `\n\nTotal: ${money(tot)}\nAnticipo (50%): ${money(anticipo)}\nResto al entregar: ${money(resto)}\nForma de pago: ${(document.querySelector("#paysel input:checked") || {}).value || "Por definir"}`;
+  const txt = "¡Hola! Quiero hacer este pedido en Mundo de Aromas:\n\n" + ids.map(k => { const p = byName(k); return `• ${bag[k]} × ${p.nombre}${p.ml ? " (" + p.ml + ")" : ""} — ${money(p.precio * bag[k])}`; }).join("\n") + `\n\nTotal: ${money(tot)}\nAnticipo (50%): ${money(anticipo)}\nResto al entregar: ${money(resto)}\nForma de pago: ${(document.querySelector("#paysel input:checked") || {}).value || "Por definir"}`;
   $("#send").href = wa(txt); $("#send").setAttribute("aria-disabled", ids.length ? "false" : "true");
   save();
 }
 document.addEventListener("click", e => {
   const a = e.target.closest("[data-add]");
-  if (a) { const id = +a.dataset.add; bag[id] = (bag[id] || 0) + 1; renderBag(); a.classList.add("ok"); a.firstChild.textContent = "✓ "; setTimeout(() => { a.classList.remove("ok"); a.firstChild.textContent = "+ "; }, 1100); toast(P[id].nombre + " agregado"); if (window.gsap) gsap.fromTo("#count", { scale: 1.6 }, { scale: 1, duration: .5, ease: "back.out(3)" }); }
+  if (a) { const p = P[+a.dataset.add]; if (!p) return; bag[p.nombre] = (bag[p.nombre] || 0) + 1; renderBag(); a.classList.add("ok"); a.firstChild.textContent = "✓ "; setTimeout(() => { a.classList.remove("ok"); a.firstChild.textContent = "+ "; }, 1100); toast(p.nombre + " agregado"); if (window.gsap) gsap.fromTo("#count", { scale: 1.6 }, { scale: 1, duration: .5, ease: "back.out(3)" }); }
   const q = e.target.closest("[data-q]");
-  if (q) { const id = q.dataset.q; bag[id] = Math.max(0, (bag[id] || 0) + +q.dataset.d); if (!bag[id]) delete bag[id]; renderBag(); }
+  if (q) { const k = q.dataset.q; bag[k] = Math.max(0, (bag[k] || 0) + +q.dataset.d); if (!bag[k]) delete bag[k]; renderBag(); }
 });
 const openBag = () => { $("#bag").classList.add("on"); $("#bag").setAttribute("aria-hidden", "false"); };
 const closeBag = () => { $("#bag").classList.remove("on"); $("#bag").setAttribute("aria-hidden", "true"); };
@@ -518,10 +525,48 @@ $("#openBag").addEventListener("click", openBag); $("#closeBag").addEventListene
 addEventListener("keydown", e => { if (e.key === "Escape") closeBag(); });
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 1600); }
 
+
+/* ---------- productos desde Google Sheets ---------- */
+function parseCSV(t) {
+  const rows = []; let row = [], f = "", q = false;
+  for (let i = 0; i < t.length; i++) {
+    const c = t[i];
+    if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+    else if (c === '"') q = true; else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n" || c === "\r") { if (c === "\r" && t[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; }
+    else f += c;
+  }
+  if (f || row.length) { row.push(f); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim()));
+}
+const norm = x => String(x || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
+function catKey(x) { const n = norm(x); if (n.startsWith("dam") || n.startsWith("muj")) return "dama"; if (n.startsWith("cab") || n.startsWith("homb")) return "caballero"; if (n.startsWith("inf") || n.startsWith("nin")) return "infantil"; if (n.startsWith("vel")) return "velas"; return ""; }
+function foto(x) {
+  x = String(x || "").trim(); if (!x) return "img/logo.png";
+  const m = x.match(/\/d\/([\w-]{20,})/) || x.match(/[?&]id=([\w-]{20,})/);
+  if (m && /google/.test(x)) return `https://lh3.googleusercontent.com/d/${m[1]}=w800`;
+  if (/^https?:\/\//.test(x)) return x;
+  return x.includes("/") ? x : `img/${x.replace(/\.(webp|jpe?g|png)$/i, "")}.webp`;
+}
+async function cargarHoja() {
+  if (!SHEET_CSV) return;
+  try {
+    const r = await fetch(SHEET_CSV + (SHEET_CSV.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    const rows = parseCSV(await r.text()); if (rows.length < 2) return;
+    const h = rows[0].map(norm), col = k => h.findIndex(x => x.startsWith(k));
+    const ci = { cat: col("categ"), nom: col("nombre"), ml: col("ml"), pre: col("precio"), des: col("descrip"), fot: col("foto"), dis: col("disponible") };
+    const list = rows.slice(1).map(r => ({ cat: catKey(r[ci.cat]), nombre: (r[ci.nom] || "").trim(), ml: (r[ci.ml] || "").trim(), precio: +String(r[ci.pre] || "").replace(/[^\d.]/g, "") || 0, desc: (r[ci.des] || "").trim(), img: foto(r[ci.fot]), ok: ci.dis < 0 || !/^no/.test(norm(r[ci.dis])) }))
+      .filter(p => p.cat && p.nombre && p.ok).map((p, i) => ({ ...p, id: i, ml: p.ml && /^\d+$/.test(p.ml) ? p.ml + " ml" : p.ml }));
+    if (!list.length) return;
+    P = list; renderColls(); setCat(cat); renderBag();
+  } catch (e) { console.warn("No se pudo leer la hoja de productos; se muestran los productos guardados.", e); }
+}
+
 /* ---------- frase que se ilumina ---------- */
 $("#manifest").innerHTML = $("#manifest").textContent.split(" ").map(w => `<span class="w">${/recuerdo|siempre/.test(w) ? `<em>${w}</em>` : w}</span>`).join(" ");
 
-setCat("dama"); renderBag();
+setCat("dama"); renderBag(); cargarHoja();
 
 /* ---------- animaciones ---------- */
 const nav = $("#nav");
