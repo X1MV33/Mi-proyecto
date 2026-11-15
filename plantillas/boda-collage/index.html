@@ -110,8 +110,8 @@
   .cal th{font-weight:500;font-size:2.8cqw;padding-bottom:1.4cqw}
   .cal td{height:6.4cqw;position:relative}
   .cal td.on svg{position:absolute;left:50%;top:50%;width:8.4cqw;transform:translate(-50%,-52%)}
-  .cal .seal{position:absolute;right:-4cqw;bottom:-5cqw;width:15cqw}
-  .cal .bow{position:absolute;left:-8cqw;top:-9cqw;width:28cqw;transform:rotate(-16deg);filter:drop-shadow(0 1cqw 1.4cqw rgba(40,45,25,.3))}
+  .cal .seal{position:absolute;right:-6cqw;bottom:-7cqw;width:21cqw;transform:rotate(8deg);filter:drop-shadow(0 1.2cqw 1.4cqw rgba(40,45,25,.35))}
+  .cal .bow{position:absolute;left:-8cqw;top:-5cqw;width:28cqw;transform:rotate(-16deg);filter:drop-shadow(0 1cqw 1.4cqw rgba(40,45,25,.3))}
   .count{display:flex;justify-content:center;gap:3cqw;margin-top:9cqw}
   .count div{min-width:15cqw}
   .count b{display:block;font-family:var(--serif);font-size:9cqw;font-weight:400;line-height:1;color:var(--paper)}
@@ -272,7 +272,7 @@ function heartPlate() {
     <path d="M24 16c-6 4-9 10-8 18" fill="none" stroke="url(#${g3})" stroke-width="2.4" stroke-linecap="round"/></svg>`;
 }
 function bowSVG() { return `<img class="bow" src="arte/mono.webp" alt="" aria-hidden="true">`; }
-function sealSVG() { const g = id("se"); let d = ""; for (let i = 0; i <= 36; i++) { const a = i / 36 * 6.283, r = 46 + Math.sin(i * 2.3) * 2.5; d += `${i ? "L" : "M"}${(50 + Math.cos(a) * r).toFixed(1)} ${(50 + Math.sin(a) * r).toFixed(1)}`; } return `<svg class="seal" viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="${g}" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#DCE5BE"/><stop offset=".5" stop-color="#A9B77F"/><stop offset="1" stop-color="#7F8E57"/></radialGradient></defs><path d="${d}Z" fill="url(#${g})"/><circle cx="50" cy="50" r="31" fill="none" stroke="rgba(60,70,30,.3)" stroke-width="2"/><path d="M50 30C40 44 42 60 50 70C58 60 60 44 50 30Z" fill="none" stroke="rgba(255,255,240,.7)" stroke-width="2"/><path d="M50 70V78" stroke="rgba(255,255,240,.7)" stroke-width="2"/></svg>`; }
+function sealSVG() { return `<img class="seal" src="arte/sello.webp" alt="" aria-hidden="true">`; }
 function candelabra() { const s = `fill="none" stroke="#7A5A43" stroke-width="1.6" stroke-linecap="round"`; return `<svg class="cand" viewBox="0 0 120 240" aria-hidden="true"><g ${s}><path d="M60 230V120M40 232h40M48 228c4-10 20-10 24 0"/><path d="M60 140C40 140 26 128 26 108M60 140C80 140 94 128 94 108M60 120V60"/><path d="M22 108h8M90 108h8M56 60h8"/><path d="M26 108V70M94 108V70M60 60V18"/><path d="M26 70c-3-8 0-14 0-20c0 6 3 12 0 20M94 70c-3-8 0-14 0-20c0 6 3 12 0 20M60 18c-3-8 0-14 0-20c0 6 3 12 0 20"/><path d="M70 150c16 6 24 20 18 34-6 14-26 10-24-4" /></g><path d="M78 160c10 4 18 14 14 26" fill="none" stroke="#A9B97D" stroke-width="4" stroke-linecap="round"/></svg>`; }
 function envelopeSVG() { return `<svg class="env" viewBox="0 0 200 150" aria-hidden="true"><path d="M6 40L100 4l94 36v104H6z" fill="#C9D2AB"/><path d="M6 40l94 60 94-60" fill="#B7C296"/><path d="M6 144l70-56M194 144l-70-56" fill="none" stroke="#A9B587" stroke-width="1.2"/></svg>`; }
 function closingSVG() {
