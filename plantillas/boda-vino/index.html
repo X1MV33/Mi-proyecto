@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vino Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500&family=Great+Vibes&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+<style>
+  /* Plantilla «Vino editorial»: papel crema, sobre vino con listón de satín, tira de fotos, notas a mano en papel rasgado,
+     gypsophila, sello de cera, paisajes de villa con cipreses, programa en línea de tiempo y tarjetas de información. Arte original (SVG/CSS). */
+  :root{
+    --paper:#F2ECE4; --paper2:#EAE2D8; --vino:#5B1A22; --vino-l:#7A2B34; --ink:#3D2E2A; --soft:#7B6C64; --line:#B9A99E;
+    --serif:"Cormorant Garamond", Georgia, serif; --caps:"Cormorant SC", "Cormorant Garamond", serif; --script:"Great Vibes", cursive; --hand:"Monsieur La Doulaise", "Great Vibes", cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:#D9D2CA}
+  body{color:var(--ink);font-family:var(--serif)}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  a{color:inherit;text-decoration:none}
+  main{position:relative;width:min(100vw,480px);margin:0 auto;container-type:inline-size;overflow:hidden;overflow:clip;box-shadow:0 0 70px rgba(50,30,25,.28);
+    background:var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .33 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .stripes{height:9cqw;background:repeating-linear-gradient(90deg,var(--vino) 0 4.2cqw,var(--paper) 4.2cqw 5.6cqw,var(--vino) 5.6cqw 6.6cqw,var(--paper) 6.6cqw 9.4cqw)}
+  .topbar{display:flex;justify-content:space-between;padding:6cqw 7cqw 0;font-family:var(--caps);font-size:3cqw;letter-spacing:.12em;color:var(--soft)}
+  .kick{font-family:var(--caps);font-size:3.4cqw;letter-spacing:.5em;padding-left:.5em;color:var(--soft);text-align:center}
+  .names{position:relative;text-align:center;margin-top:5cqw;color:var(--vino)}
+  .names .n{display:block;font-family:var(--serif);font-weight:400;font-size:15cqw;line-height:.95;letter-spacing:.02em;text-transform:uppercase}
+  .names .y{display:block;font-family:var(--script);font-size:12cqw;line-height:.6;color:var(--vino-l);text-transform:none;margin:-1cqw 0 1cqw 14cqw}
+  .intro{text-align:center;font-size:4.6cqw;line-height:1.35;padding:5cqw 12cqw 0;color:var(--ink)}
+  .collage{position:relative;height:118cqw;margin-top:4cqw}
+  .collage > *{position:absolute}
+  .rv{opacity:0;transform:translateY(5cqw);transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  .drop{animation:drop 1.2s cubic-bezier(.2,.9,.25,1.1) both}
+  @keyframes drop{from{opacity:0;transform:translateY(-10cqw) rotate(calc(var(--r,0deg) - 8deg))}to{opacity:1;transform:rotate(var(--r,0deg))}}
+  .drop{transform:rotate(var(--r,0deg))}
+  .film{left:8cqw;top:10cqw;width:30cqw;padding:3cqw 5cqw;background:#E9E6E1;--r:-8deg;animation-delay:.5s;box-shadow:0 2cqw 3cqw rgba(40,25,20,.3)}
+  .film::before,.film::after{content:"";position:absolute;top:0;bottom:0;width:2.6cqw;background:repeating-linear-gradient(180deg,transparent 0 1.4cqw,#3D3835 1.4cqw 3cqw);opacity:.85}
+  .film::before{left:1cqw}.film::after{right:1cqw}
+  .film .ph{aspect-ratio:1/.8;margin-bottom:2cqw}
+  .ph{position:relative;overflow:hidden;background:linear-gradient(145deg,#CFCBC6,#9E9993);display:grid;place-items:center;text-align:center;color:rgba(50,40,35,.55)}
+  .fill .ph{position:absolute;inset:0}
+  .ph span{font-family:var(--script);font-size:4.4cqw;line-height:1}
+  .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+  .note{background:#F6F1E9;box-shadow:0 1.4cqw 2.4cqw rgba(40,25,20,.2);font-family:var(--hand);color:#7A5A52;display:grid;place-items:center;text-align:center;line-height:1.05;padding:4cqw}
+  .torn{clip-path:var(--clip)}
+  .sec{position:relative;padding:12cqw 8cqw;text-align:center}
+  .date{font-family:var(--serif);font-size:8cqw;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+  .rule{width:22cqw;height:1px;background:var(--line);margin:7cqw auto}
+  .sub{font-family:var(--caps);font-size:5cqw;letter-spacing:.06em}
+  .h1{font-family:var(--serif);font-size:9cqw;line-height:1.05;text-transform:uppercase;letter-spacing:.02em}
+  .txt{font-size:4.3cqw;line-height:1.5;color:var(--ink)}
+  .txt + .txt{margin-top:4cqw}
+  .scape{position:relative;height:66cqw;margin:0 -8cqw}
+  .scape svg.land{position:absolute;inset:0;width:100%;height:100%}
+  .title{text-align:center}
+  .title .c{font-family:var(--serif);font-size:11cqw;line-height:1;text-transform:uppercase;letter-spacing:.02em}
+  .title .s{display:flex;align-items:center;justify-content:center;gap:3cqw;font-family:var(--script);font-size:8cqw;color:var(--soft);margin-top:1cqw}
+  .title .s::before,.title .s::after{content:"";width:12cqw;height:1px;background:var(--line)}
+  .tl{position:relative;margin:9cqw 0 4cqw;text-align:left;padding-left:9cqw}
+  .tl::before{content:"";position:absolute;left:2cqw;top:2cqw;bottom:6cqw;width:1px;background:var(--line)}
+  .tl .it{position:relative;display:grid;grid-template-columns:17cqw 1fr;gap:3cqw;margin-bottom:8cqw}
+  .tl .it::before{content:"";position:absolute;left:-8.2cqw;top:2.6cqw;width:2.4cqw;height:2.4cqw;border-radius:50%;background:var(--vino)}
+  .tl b{font-family:var(--serif);font-weight:400;font-size:7cqw;line-height:1}
+  .tl h4{font-family:var(--caps);font-weight:500;font-size:4.6cqw;letter-spacing:.04em;color:var(--vino)}
+  .tl p{font-size:3.8cqw;line-height:1.4;color:var(--soft);margin-top:1cqw}
+  .dress{position:relative;margin:-14cqw 3cqw 0;padding:14cqw 8cqw 34cqw;background:#F7F2EB;box-shadow:0 2cqw 4cqw rgba(40,25,20,.18)}
+  .dress .s{font-family:var(--script);font-size:6.6cqw;line-height:1.2;color:var(--soft);margin-top:2cqw}
+  .dots{display:flex;justify-content:center;gap:3cqw;margin:7cqw 0 2cqw}
+  .dots button{width:11cqw;height:11cqw;border-radius:50%;transition:transform .3s;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+  .dots button.on{transform:translateY(-1.6cqw)}
+  .dname{min-height:5cqw;font-family:var(--caps);font-size:3.4cqw;letter-spacing:.14em;color:var(--soft)}
+  .dress .small{font-size:3.6cqw;line-height:1.5;color:var(--soft);margin-top:3cqw}
+  .dress .olive{position:absolute;left:2cqw;bottom:-2cqw;width:18cqw}
+  .dress .hand{position:absolute;right:8cqw;bottom:9cqw;font-family:var(--hand);font-size:6.6cqw;color:#7A5A52;transform:rotate(-12deg);text-align:right;line-height:1}
+  .cards{display:grid;gap:7cqw;margin-top:9cqw}
+  .icard{position:relative;display:grid;grid-template-columns:1fr 32cqw;min-height:62cqw;background:#F6F1EA;border:1px solid #E2D7CB;box-shadow:0 1.6cqw 3cqw -1cqw rgba(40,25,20,.2);text-align:left;overflow:hidden}
+  .icard .tx{padding:7cqw 4cqw 6cqw 6cqw}
+  .icard .ic{width:8cqw;height:8cqw;color:var(--vino)}
+  .icard h3{font-family:var(--script);font-weight:400;font-size:9cqw;line-height:1;color:var(--vino);margin:3cqw 0}
+  .icard p{font-size:3.7cqw;line-height:1.45}
+  .icard .art{position:relative}
+  .icard .art svg{position:absolute;inset:0;width:100%;height:100%}
+  .icard .go{display:inline-block;margin-top:4cqw;font-size:5cqw;color:var(--vino)}
+  .btn{display:inline-flex;align-items:center;gap:3cqw;margin-top:4cqw;padding:3cqw 5cqw;background:var(--vino);color:#F6EEE6;font-family:var(--caps);font-size:3.4cqw;letter-spacing:.14em}
+  .bye{position:relative;padding:12cqw 8cqw 0;text-align:center}
+  .bye .s{font-family:var(--script);font-size:10cqw;line-height:1.1;color:var(--ink);transform:rotate(-6deg)}
+  .wm{padding:5cqw 0;text-align:center;font-family:var(--caps);font-size:2.8cqw;letter-spacing:.2em;color:var(--soft)}
+  #music{position:fixed;z-index:20;top:calc(14px + env(safe-area-inset-top));right:max(14px,calc(50vw - 240px + 14px));width:42px;height:42px;border-radius:50%;background:rgba(246,241,234,.9);display:grid;place-items:center;box-shadow:0 4px 14px rgba(40,25,20,.2)}
+  #music[hidden]{display:none}
+  #rsvp{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(40,25,20,.4);visibility:hidden;opacity:0;transition:opacity .3s}
+  #rsvp.on{visibility:visible;opacity:1}
+  #rsvp .sheet{width:min(100vw,480px);max-height:92vh;overflow:auto;padding:9cqw 8cqw calc(8cqw + env(safe-area-inset-bottom));container-type:inline-size;background:var(--paper);transform:translateY(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+  #rsvp.on .sheet{transform:none}
+  #rsvp h3{text-align:center;font-family:var(--script);font-weight:400;font-size:13cqw;color:var(--vino)}
+  #rsvp label.q{display:block;font-family:var(--caps);font-size:3.6cqw;letter-spacing:.12em;margin:4cqw 0 1.6cqw;color:var(--soft)}
+  #rsvp input[type=text],#rsvp textarea{width:100%;font-family:var(--serif);font-size:17px;color:var(--ink);border:1px solid var(--line);background:#FBF8F4;padding:3cqw;outline:none;resize:none}
+  .opt{display:flex;align-items:center;gap:3cqw;margin-top:2cqw;padding:3cqw 4cqw;background:#FBF8F4;border:1px solid transparent;font-size:4.2cqw;cursor:pointer}
+  .opt:has(input:checked){border-color:var(--vino)}
+  .opt input{accent-color:var(--vino)}
+  .stepper{display:flex;align-items:center;justify-content:space-between;padding:2cqw 2cqw 2cqw 4cqw;background:#FBF8F4;font-size:4.2cqw}
+  .stepper div{display:flex;align-items:center;gap:4cqw}
+  .stepper button{width:9cqw;height:9cqw;border-radius:50%;border:1px solid var(--vino);font-size:5cqw;line-height:1}
+  .stepper b{font-size:6cqw;font-weight:400;min-width:6cqw;text-align:center}
+  .send{display:block;width:100%;margin-top:6cqw;padding:3.6cqw;background:var(--vino);color:#F6EEE6;text-align:center;font-family:var(--caps);font-size:3.8cqw;letter-spacing:.16em}
+  .close{display:block;margin:5cqw auto 0;font-size:4cqw;text-decoration:underline;text-underline-offset:1.2cqw;color:var(--soft)}
+  #toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--vino);color:#F6EEE6;padding:10px 18px;font-size:15px;opacity:0;z-index:40;pointer-events:none;transition:opacity .3s}
+  @media (prefers-reduced-motion:reduce){.drop{animation:none}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<main id="inv"></main>
+<button id="music" type="button" aria-label="Música" hidden>♪</button>
+<div id="rsvp" role="dialog" aria-modal="true" aria-label="Confirmar asistencia"><div class="sheet" id="sheet"></div></div>
+<div id="toast"></div>
+<script src="config.js"></script>
+<script>
+(() => {
+"use strict";
+const C = window.CONFIG, [n1, n2] = C.novios;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+document.title = C.tituloPestana;
+const F = C.fotos || {};
+const ph = (src) => `<div class="ph">${src ? `<img src="${esc(src)}" alt="" loading="lazy">` : `<span>Tu foto<br>aquí</span>`}</div>`;
+let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+// papel rasgado: orillas irregulares
+function tear(top = true, bottom = true, amp = 2.2) {
+  const pts = [], n = 26;
+  for (let i = 0; i <= n; i++) pts.push(`${(i / n * 100).toFixed(1)}% ${top ? (rnd() * amp).toFixed(2) : 0}%`);
+  for (let i = n; i >= 0; i--) pts.push(`${(i / n * 100).toFixed(1)}% ${bottom ? (100 - rnd() * amp).toFixed(2) : 100}%`);
+  return `polygon(${pts.join(",")})`;
+}
+let uid = 0; const id = p => p + (++uid);
+
+/* ---------- arte SVG original ---------- */
+function landscape(variant) {
+  const g = id("sk"), h = id("hz");
+  let cyp = ""; const trees = variant ? [[40, 196, 1.1], [62, 200, .8], [300, 190, 1.2], [322, 196, .9], [344, 202, .7], [150, 168, .9], [168, 172, .7], [250, 176, .8]] : [[24, 190, 1.2], [48, 196, .9], [282, 186, 1], [306, 192, .8], [120, 160, .7], [210, 170, .9], [228, 174, .7], [360, 196, 1.1]];
+  trees.forEach(([x, y, s]) => cyp += `<path d="M${x} ${y}c-${5 * s} -${18 * s} -${4 * s} -${50 * s} 0 -${70 * s}c${4 * s} ${20 * s} ${5 * s} ${52 * s} 0 ${70 * s}z" fill="#4E4844"/>`);
+  let bush = ""; for (let i = 0; i < 26; i++) { const x = rnd() * 380, y = 205 + rnd() * 40, r = 6 + rnd() * 12; bush += `<ellipse cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" rx="${(r * 1.4).toFixed(0)}" ry="${r.toFixed(0)}" fill="${rnd() > .5 ? "#5F5853" : "#736B65"}"/>`; }
+  const villa = variant ? `<g transform="translate(150 150)"><rect x="0" y="12" width="96" height="40" fill="#E5DED5"/><path d="M-4 14L48 0l52 14z" fill="#9A8F86"/><rect x="66" y="-6" width="26" height="22" fill="#DCD4CA"/><path d="M62 -4l17 -8 17 8z" fill="#8F857C"/>${[8, 22, 36, 50, 64, 78].map(x => `<rect x="${x}" y="22" width="6" height="9" fill="#7C736C"/><rect x="${x}" y="37" width="6" height="9" fill="#7C736C"/>`).join("")}</g>` : `<g transform="translate(250 166)"><rect x="0" y="8" width="62" height="26" fill="#E5DED5"/><path d="M-3 10L31 0l34 10z" fill="#9A8F86"/>${[6, 18, 30, 42, 52].map(x => `<rect x="${x}" y="16" width="5" height="8" fill="#7C736C"/>`).join("")}</g>`;
+  return `<svg class="land" viewBox="0 0 380 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1ECE6"/><stop offset="1" stop-color="#DDD6CE"/></linearGradient><linearGradient id="${h}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C7BFB7"/><stop offset="1" stop-color="#A39A92"/></linearGradient></defs>
+    <rect width="380" height="260" fill="url(#${g})"/>
+    <path d="M0 140C60 110 110 128 170 112S290 96 380 124V260H0z" fill="#D4CCC3"/>
+    <path d="M0 168C70 140 130 158 200 146S320 140 380 156V260H0z" fill="url(#${h})"/>
+    <path d="M0 196C90 176 170 188 250 180S350 178 380 186V260H0z" fill="#8E857D"/>
+    ${villa}${cyp}${bush}
+    <path d="M0 236C100 226 260 232 380 224V260H0z" fill="#5C5550"/>
+    ${[...Array(40)].map(() => `<path d="M${(rnd() * 380).toFixed(0)} ${(240 + rnd() * 20).toFixed(0)}l2 -6" stroke="#47413D" stroke-width="1"/>`).join("")}</svg>`;
+}
+function envelope() { const g = id("ev"); return `<svg viewBox="0 0 220 160" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7A2832"/><stop offset="1" stop-color="#4A1219"/></linearGradient></defs><rect x="4" y="20" width="212" height="136" rx="2" fill="url(#${g})"/><path d="M4 22l106 72 106-72" fill="#5E1A22" stroke="#3F0F15" stroke-width="1"/><path d="M4 156l80-58M216 156l-80-58" stroke="#3F0F15" stroke-width="1" fill="none"/></svg>`; }
+function ribbon() { const g = id("rb"); return `<svg viewBox="0 0 300 200" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4B1118"/><stop offset=".3" stop-color="#8E3540"/><stop offset=".5" stop-color="#5E1A22"/><stop offset=".72" stop-color="#9A4450"/><stop offset="1" stop-color="#4B1118"/></linearGradient></defs><path d="M-10 60C60 20 90 120 150 90S250 10 310 50" fill="none" stroke="url(#${g})" stroke-width="22" stroke-linecap="round"/><path d="M-10 60C60 20 90 120 150 90S250 10 310 50" fill="none" stroke="rgba(255,220,220,.18)" stroke-width="4" transform="translate(0 -6)"/><path d="M40 150C90 120 130 190 190 160" fill="none" stroke="url(#${g})" stroke-width="18" stroke-linecap="round"/></svg>`; }
+function seal() { const g = id("sl"); let d = ""; for (let i = 0; i <= 36; i++) { const a = i / 36 * 6.283, r = 46 + Math.sin(i * 2.1) * 3; d += `${i ? "L" : "M"}${(50 + Math.cos(a) * r).toFixed(1)} ${(50 + Math.sin(a) * r).toFixed(1)}`; } return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="${g}" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#A6505A"/><stop offset=".55" stop-color="#6A1F28"/><stop offset="1" stop-color="#3E0E14"/></radialGradient></defs><path d="${d}Z" fill="url(#${g})"/><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2"/><g stroke="rgba(255,220,210,.55)" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M50 72V30"/>${[36, 44, 52, 60].map((y, i) => `<path d="M50 ${y}q${i % 2 ? 9 : -9} -4 ${i % 2 ? 12 : -12} -10"/>`).join("")}</g></svg>`; }
+function gyps(w = 120, h = 200) { let s = `<g stroke="#8A7A6C" stroke-width="1" fill="none">`; const tips = []; const br = (x, y, a, l, d) => { const x2 = x + Math.cos(a) * l, y2 = y + Math.sin(a) * l; s += `<path d="M${x.toFixed(1)} ${y.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`; if (d > 0) { br(x2, y2, a - .45 - rnd() * .3, l * .72, d - 1); br(x2, y2, a + .35 + rnd() * .3, l * .7, d - 1); } else tips.push([x2, y2]); }; br(w * .5, h, -1.57, h * .32, 4); s += "</g>"; tips.forEach(([x, y]) => { for (let k = 0; k < 4; k++) s += `<circle cx="${(x + (rnd() - .5) * 8).toFixed(1)}" cy="${(y + (rnd() - .5) * 8).toFixed(1)}" r="${(1.6 + rnd() * 1.6).toFixed(1)}" fill="#FBF8F2" stroke="#D9CFC2" stroke-width=".5"/>`; }); return `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true">${s}</svg>`; }
+function olive() { let s = `<path d="M10 180C40 130 70 80 110 20" fill="none" stroke="#7D7A62" stroke-width="2"/>`; for (let i = 1; i < 9; i++) { const t = i / 9, x = 10 + t * 100, y = 180 - t * 160, a = -55 + (i % 2 ? 50 : -50); s += `<path transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) rotate(${a})" d="M0 0C6 -5 20 -5 28 0C20 5 6 5 0 0Z" fill="${i % 2 ? "#9C9A7E" : "#86846A"}"/>`; } return `<svg class="olive" viewBox="0 0 120 200" aria-hidden="true">${s}</svg>`; }
+function gift() { const g = id("gr"); return `<svg viewBox="0 0 120 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4B1118"/><stop offset=".45" stop-color="#8E3540"/><stop offset="1" stop-color="#4B1118"/></linearGradient></defs><rect width="120" height="200" fill="#EFE7DD"/><rect x="18" y="40" width="96" height="130" fill="#F7F2EA" stroke="#E0D6C9" transform="rotate(8 66 105)"/><g transform="rotate(8 66 105)"><rect x="58" y="40" width="14" height="130" fill="url(#${g})"/><rect x="18" y="96" width="96" height="14" fill="url(#${g})"/><path d="M65 100C40 70 30 90 44 100S60 104 65 100C90 70 100 90 86 100S70 104 65 100" fill="#7A2832" stroke="#4B1118"/><path d="M65 104l-14 30M65 104l12 32" stroke="url(#${g})" stroke-width="8" stroke-linecap="round"/></g><g transform="translate(70 0)">${gyps(60, 100).replace('<svg viewBox="0 0 60 100" aria-hidden="true">', "").replace("</svg>", "")}</g></svg>`; }
+function flowers() { let s = `<rect width="120" height="200" fill="#EFE7DD"/>`; [[60, 70, 22, "#F3E6E4"], [34, 104, 18, "#EAD3D2"], [82, 112, 16, "#F7EFEC"]].forEach(([x, y, r, c]) => { for (let k = 0; k < 12; k++) { const a = k / 12 * 6.283; s += `<circle cx="${(x + Math.cos(a) * r * .55).toFixed(1)}" cy="${(y + Math.sin(a) * r * .55).toFixed(1)}" r="${(r * .5).toFixed(1)}" fill="${c}" stroke="#D8BDBB" stroke-width=".6"/>`; } s += `<circle cx="${x}" cy="${y}" r="${r * .35}" fill="#E6CACA"/>`; }); s += `<path d="M60 92v108M40 120l14 80M84 126l-14 74" stroke="#8A9070" stroke-width="2.4"/><path d="M30 160C50 150 80 150 96 160L90 200H36z" fill="#F4ECEA" opacity=".9"/><path d="M50 158C40 176 30 190 26 200M74 158C86 176 96 190 100 200" stroke="#E4CFD0" stroke-width="6" fill="none" stroke-linecap="round"/>`; return `<svg viewBox="0 0 120 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${s}</svg>`; }
+const ICON = {
+  gift: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="9" width="18" height="12"/><rect x="2" y="6" width="20" height="3"/><path d="M12 6v15M12 6C10 2 6 3 7.5 5.5S12 6 12 6c2-4 6-3 4.5-.5S12 6 12 6"/></svg>',
+  mail: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2.5" y="5" width="19" height="14"/><path d="M3 6l9 7 9-7"/></svg>',
+  flower: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 20c0-6 0-9 0-9M12 11C9 9 8 5 12 3c4 2 3 6 0 8zM12 13c-3 1-7 0-8-4 4-1 7 1 8 4zM12 13c3 1 7 0 8-4-4-1-7 1-8 4z"/></svg>',
+  check: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21C6 17 3 13 3 9a4.5 4.5 0 0 1 9-1 4.5 4.5 0 0 1 9 1c0 4-3 8-9 12z"/></svg>'
+};
+
+$("#inv").innerHTML = `
+<div class="stripes"></div>
+<div class="topbar"><span>${esc(C.ciudad)}</span><span>${esc(C.fechaCorta)}</span></div>
+<header style="padding-top:8cqw">
+  <div class="kick rv">Nos casamos</div>
+  <h1 class="names rv"><span class="n">${esc(n1)}</span><span class="y">y</span><span class="n">${esc(n2)}</span></h1>
+  <p class="intro rv">${esc(C.intro)}</p>
+  <div class="collage">
+    <div class="torn drop" style="left:0;top:4cqw;width:46cqw;height:30cqw;background:#E7DED2;--clip:${tear(true, true, 4)};--r:-6deg;animation-delay:.2s"></div>
+    <div class="drop" style="left:2cqw;top:30cqw;width:98cqw;--r:-14deg;animation-delay:.3s">${envelope()}</div>
+    <div class="drop" style="left:-6cqw;top:56cqw;width:110cqw;--r:4deg;animation-delay:.9s">${ribbon()}</div>
+    <div class="note torn drop" style="left:44cqw;top:12cqw;width:40cqw;height:30cqw;font-size:6cqw;--clip:${tear(true, true, 5)};--r:7deg;animation-delay:.45s">Te quiero<br>en lo simple</div>
+    <div class="film drop">${(F.tira || ["", "", ""]).slice(0, 3).map(ph).join("")}</div>
+    <div class="note torn drop" style="left:54cqw;top:58cqw;width:38cqw;height:30cqw;font-size:6.2cqw;--clip:${tear(true, true, 5)};--r:-10deg;animation-delay:.7s">${esc(C.nota1)}</div>
+    <div class="drop" style="left:52cqw;top:4cqw;width:40cqw;height:64cqw;--r:14deg;animation-delay:.6s">${gyps()}</div>
+    <div class="drop" style="left:28cqw;top:78cqw;width:16cqw;--r:0deg;animation-delay:1.1s">${seal()}</div>
+  </div>
+</header>
+
+<section class="sec" style="padding-top:2cqw">
+  <div class="date rv">${esc(C.fechaLarga)}</div>
+  <div class="rule"></div>
+  <div class="sub rv">${esc(C.saludo[0])}</div>
+  <div class="h1 rv">${esc(C.saludo[1])}</div>
+  <div style="margin-top:6cqw">${C.mensaje.map(m => `<p class="txt rv">${esc(m)}</p>`).join("")}</div>
+  <div class="scape rv torn" style="margin-top:12cqw;--clip:${tear(true, false, 6)}">${landscape(0)}
+    <div class="fill" style="position:absolute;left:6cqw;bottom:0;width:42cqw;height:46cqw;box-shadow:0 1.6cqw 3cqw rgba(40,25,20,.3)">${ph(F.pareja)}</div>
+    <div class="note torn" style="position:absolute;right:6cqw;bottom:6cqw;width:38cqw;height:30cqw;font-size:5.6cqw;transform:rotate(-8deg);--clip:${tear(true, true, 5)}">${esc(C.nota2)} ♡</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="title rv"><div class="c">Programa</div><div class="s">de nuestro día</div></div>
+  <div class="tl">${C.programa.map(([h, t, d]) => `<div class="it rv"><b>${esc(h)}</b><div><h4>${esc(t)}</h4><p>${esc(d)}</p></div></div>`).join("")}</div>
+  <div class="scape rv torn" style="--clip:${tear(true, true, 6)}">${landscape(1)}</div>
+  <div class="dress torn rv" style="--clip:${tear(true, false, 3)}">
+    <div class="title"><div class="c">Dress code</div></div>
+    <p class="s">${esc(C.vestimentaFrase)}</p>
+    <div class="dots" id="dots">${C.paleta.map(([c, n], i) => `<button type="button" style="background:${esc(c)}" data-i="${i}" aria-label="${esc(n)}"></button>`).join("")}</div>
+    <div class="dname" id="dname"></div>
+    <p class="small">${esc(C.vestimentaNota)}</p>
+    ${olive()}<div class="hand">El estilo es<br>una actitud</div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:4cqw">
+  <div class="kick rv">Información útil</div>
+  <div class="title rv" style="margin-top:2cqw"><div class="c" style="font-size:10cqw">Para invitados</div></div>
+  <div class="cards">
+    <div class="icard rv"><div class="tx">${ICON.gift}<h3>Regalos</h3><p>${esc(C.regalos)}</p><span class="go">⟶</span></div><div class="art">${gift()}</div></div>
+    <div class="icard rv"><div class="tx">${ICON.mail}<h3>Chat de invitados</h3><p>${esc(C.chat)}</p><a class="btn" href="${esc(C.chatLink)}" target="_blank" rel="noopener">Unirme ⟶</a></div><div class="art">${landscape(1)}</div></div>
+    <div class="icard rv"><div class="tx">${ICON.flower}<h3>Flores y deseos</h3><p>${esc(C.flores)}</p><span class="go">⟶</span></div><div class="art">${flowers()}</div></div>
+    <div class="icard rv"><div class="tx">${ICON.check}<h3>Confirma</h3><p>Ayúdanos a preparar todo con cariño: confirma tu asistencia antes del ${esc(C.rsvpFecha)}.</p><button class="btn" type="button" id="openR">Confirmar ⟶</button></div><div class="art">${gyps(120, 200)}</div></div>
+    <div class="icard rv" style="grid-template-columns:1fr"><div class="tx" style="text-align:center;padding:7cqw"><h3 style="margin-top:0">Lugar</h3><p><b>${esc(C.lugar)}</b><br>${esc(C.direccion)}</p><a class="btn" href="${esc(C.mapa)}" target="_blank" rel="noopener">Ver mapa ⟶</a></div></div>
+  </div>
+</section>
+
+<footer class="bye">
+  <div class="s rv">${esc(C.despedida)} ♡</div>
+  <div class="scape torn" style="height:44cqw;margin-top:6cqw;--clip:${tear(true, false, 8)}">${landscape(0)}</div>
+  <div class="wm">${esc(C.marcaDeAgua)}</div>
+  <div class="stripes" style="margin:0 -8cqw"></div>
+</footer>`;
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+$$(".rv").forEach(el => io.observe(el));
+$$("#dots button").forEach(b => b.addEventListener("click", () => { $$("#dots button").forEach(x => x.classList.toggle("on", x === b)); $("#dname").textContent = C.paleta[+b.dataset.i][1]; }));
+function toast(t) { const el = $("#toast"); el.textContent = t; el.style.opacity = 1; clearTimeout(toast._t); toast._t = setTimeout(() => el.style.opacity = 0, 1900); }
+if (C.musica) { const b = $("#music"), a = Object.assign(new Audio(C.musica), { loop: true }); b.hidden = false; const go = () => a.play().catch(() => {}); ["pointerup", "touchend", "click"].forEach(ev => addEventListener(ev, go, { once: true, passive: true })); b.addEventListener("click", e => { e.stopPropagation(); a.paused ? a.play() : a.pause(); }); }
+
+$("#sheet").innerHTML = `<h3>Confirmación</h3>
+  <form id="form" onsubmit="return false">
+    <label class="q" for="rn">Tu nombre</label><input type="text" id="rn" maxlength="80">
+    <label class="q">¿Nos acompañas?</label>
+    <label class="opt"><input type="radio" name="as" value="si" checked><span>Sí, ahí estaré</span></label>
+    <label class="opt"><input type="radio" name="as" value="no"><span>No podré asistir</span></label>
+    <div id="paxRow"><label class="q">Personas</label><div class="stepper"><span>Asistentes</span><div><button type="button" data-d="-1" aria-label="Menos">−</button><b id="pax">1</b><button type="button" data-d="1" aria-label="Más">+</button></div></div></div>
+    <label class="q" for="rm">Mensaje (opcional)</label><textarea id="rm" rows="2" maxlength="300"></textarea>
+    <a class="send" id="send" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+  </form><button class="close" type="button" id="closeR">Cerrar</button>`;
+let pax = 1;
+const upd = () => { const si = $("input[name=as]:checked").value === "si", n = $("#rn").value.trim() || "(sin nombre)", m = $("#rm").value.trim(); $("#paxRow").style.display = si ? "" : "none";
+  const t = `¡Hola! Soy ${n}. ` + (si ? `Confirmo mi asistencia a la boda de ${n1} y ${n2}: ${pax} ${pax === 1 ? "persona" : "personas"}.` : `No podré asistir a la boda de ${n1} y ${n2}, pero les mando mucho cariño.`) + (m ? `\n\n${m}` : "");
+  $("#send").href = `https://wa.me/${C.rsvpWhatsapp}?text=${encodeURIComponent(t)}`; };
+$$("#form input, #form textarea").forEach(el => el.addEventListener("input", upd));
+$$(".stepper button").forEach(b => b.addEventListener("click", () => { pax = Math.min(20, Math.max(1, pax + +b.dataset.d)); $("#pax").textContent = pax; upd(); }));
+$("#send").addEventListener("click", e => { if (!$("#rn").value.trim()) { e.preventDefault(); $("#rn").focus(); toast("Escribe tu nombre"); } });
+upd();
+$("#openR").addEventListener("click", () => $("#rsvp").classList.add("on"));
+$("#closeR").addEventListener("click", () => $("#rsvp").classList.remove("on"));
+$("#rsvp").addEventListener("click", e => { if (e.target.id === "rsvp") $("#rsvp").classList.remove("on"); });
+})();
+</script>
+</body>
+</html>
