@@ -108,16 +108,16 @@
   @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:8px 8px 14px;border-radius:16px}.card h4{font-size:16.5px;margin:12px 4px 4px}.card p{font-size:12px;margin:0 4px;-webkit-line-clamp:2}.card .row{margin:12px 4px 0}.card .price{font-size:19px}.add{padding:8px 11px;font-size:12px}.add .t{display:none}}
 
   /* formas de pago */
-  .pay{padding:100px 0 110px;background:var(--crema)}
+  .pay{padding:100px 0 130px;background:var(--crema)}
   .pay h3{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(40px,6vw,76px);line-height:1;margin-top:8px}
   .pay .lead{max-width:46ch;color:var(--cafe);line-height:1.7;margin-top:14px}
-  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px;perspective:1200px}
+  .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
   .pcard{position:relative;padding:28px 22px 24px;border-radius:20px;background:var(--beige);border:1px solid rgba(198,161,91,.35);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;box-shadow:0 16px 36px -28px rgba(74,47,34,.55)}
   .pcard .ic{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,var(--dorado-hi),var(--dorado));color:var(--tinta);box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
   .pcard .ic svg{width:30px;height:30px}
   .pcard b{display:block;font-family:var(--serif);font-size:23px;font-weight:700;margin-top:18px}
   .pcard p{margin-top:8px;font-size:13.5px;line-height:1.6;color:var(--cafe)}
-  .pnote{display:flex;align-items:center;gap:12px;margin-top:26px;padding:16px 20px;border-radius:16px;background:var(--beige);font-size:14px;color:var(--cafe);line-height:1.6}
+  .pnote{display:flex;align-items:center;gap:12px;margin-top:44px;padding:16px 20px;border-radius:16px;background:var(--beige);font-size:14px;color:var(--cafe);line-height:1.6}
   .pnote svg{flex:none;width:22px;height:22px;color:var(--dorado)}
   @media (max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr);gap:12px}.pcard{padding:20px 16px}.pcard b{font-size:19px}.pcard p{font-size:12.5px}}
   .paysel{margin-bottom:14px}
@@ -427,7 +427,7 @@ function setCat(k) {
 }
 function tilt() {
   if (reduce || !matchMedia("(hover:hover)").matches) return;
-  $$(".card,.ccard,.pcard").forEach(el => {
+  $$(".card,.ccard").forEach(el => {
     el.onmousemove = e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`; };
     el.onmouseleave = () => { el.style.transform = ""; };
   });
@@ -514,7 +514,7 @@ ScrollTrigger.create({ trigger: "#manifest", start: "top 80%", end: "bottom 45%"
 gsap.from(".ccard", { scrollTrigger: { trigger: "#cgrid", start: "top 85%" }, y: 80, rotateY: -25, opacity: 0, duration: 1, stagger: .12, ease: "power3.out" });
 $$("#fernsEnd path").forEach((p, i) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2.2, delay: i * .1, ease: "power2.inOut", scrollTrigger: { trigger: "#contacto", start: "top 70%" } }); });
 gsap.from(".step", { scrollTrigger: { trigger: "#steps", start: "top 85%" }, y: 40, opacity: 0, duration: .8, stagger: .12, ease: "power3.out" });
-gsap.from(".pcard", { scrollTrigger: { trigger: "#pgrid", start: "top 85%" }, y: 60, rotateX: -20, opacity: 0, duration: .9, stagger: .1, ease: "power3.out" });
+gsap.from(".pcard", { scrollTrigger: { trigger: "#pgrid", start: "top 85%" }, y: 50, opacity: 0, duration: .9, stagger: .1, ease: "power3.out" });
 gsap.from(".thanks h3", { scrollTrigger: { trigger: "#contacto", start: "top 70%" }, y: 50, opacity: 0, duration: 1.1, ease: "power3.out" });
 })();
 </script>
