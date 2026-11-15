@@ -88,8 +88,9 @@
   .tray .lace{position:absolute;left:9%;top:27%;width:82%;height:46%;background:url(arte/encaje.webp) center/100% 100% no-repeat;filter:drop-shadow(0 .8cqw 1.4cqw rgba(50,40,30,.18))}
   .tray .lace .in{position:absolute;inset:22% 20%;display:flex;flex-direction:column;justify-content:center;gap:2cqw;background:#FBF9F4;padding:2cqw 3cqw}
   .tray .lace .in .txt{font-size:3.3cqw;line-height:1.5}
-  .tray.big .lace{left:4%;top:16%;width:92%;height:68%}
-  .tray.big .lace .in{inset:17% 16%;gap:1cqw}
+  .tray.big{width:88cqw}
+  .tray.big .lace{left:-2%;top:9%;width:104%;height:82%}
+  .tray.big .lace .in{inset:15% 17%;gap:0}
   .tray .bowi{position:absolute;left:50%;top:-4cqw;width:26cqw;margin-left:-13cqw;transform:rotate(-4deg);filter:drop-shadow(0 1cqw 1.4cqw rgba(50,40,30,.25))}
   .bfly{position:absolute;pointer-events:none;filter:drop-shadow(0 1.4cqw 1.6cqw rgba(50,40,30,.22));animation:flut 5s ease-in-out infinite;z-index:3}
   @keyframes flut{0%,100%{transform:translate(0,0) rotate(var(--r,0deg))}50%{transform:translate(1.6cqw,-2.4cqw) rotate(calc(var(--r,0deg) + 6deg))}}
@@ -98,11 +99,12 @@
   .polas{position:absolute;display:flex;gap:2cqw}
   .polaroid{background:#FBFAF6;padding:1.4cqw 1.4cqw 5cqw;box-shadow:0 1.4cqw 2.4cqw rgba(50,40,30,.3)}
   .polaroid .ph{width:22cqw;aspect-ratio:1/.85}
-  .prog{display:grid;gap:1.4cqw;text-align:left}
-  .prog div{display:flex;align-items:baseline;gap:2cqw}
-  .prog b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:5cqw;color:var(--ink);min-width:12cqw}
-  .prog i{flex:1;border-bottom:1px solid rgba(70,55,40,.5);transform:translateY(-1cqw)}
-  .prog span{font-size:3.1cqw;max-width:26cqw;text-align:right;line-height:1.25}
+  .prog{display:grid;gap:1.6cqw;text-align:center}
+  .prog div{display:flex;flex-direction:column;align-items:center}
+  .prog b{font-family:var(--caps);font-weight:500;font-size:4cqw;letter-spacing:.14em;color:var(--ink);line-height:1}
+  .prog span{font-family:var(--script);font-size:5.4cqw;line-height:1;color:var(--sage-d);margin-top:.4cqw}
+  .prog i{display:none}
+  .prog div:last-child i{display:none}
   .cal{position:relative;width:62cqw;margin:6cqw auto 0;padding:5cqw 5cqw 6cqw;background:var(--paper);box-shadow:0 2cqw 4cqw -1cqw rgba(40,40,20,.35);transform:rotate(3deg)}
   .cal .y{font-family:var(--caps);font-size:3cqw;letter-spacing:.2em;color:var(--soft)}
   .cal .m{font-family:var(--script);font-size:9cqw;color:#7C3E44;margin:1cqw 0 2cqw}
@@ -117,19 +119,19 @@
   .count b{display:block;font-family:var(--serif);font-size:9cqw;font-weight:400;line-height:1;color:var(--paper)}
   .count span{font-size:2.8cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--paper);opacity:.85}
   .place{position:relative;height:78cqw;margin-top:6cqw}
-  .place .env{position:absolute;left:2cqw;top:4cqw;width:62cqw}
-  .place .note{position:absolute;left:10cqw;top:10cqw;width:46cqw;padding:5cqw 4cqw;background:var(--paper);transform:rotate(-12deg);box-shadow:0 1cqw 2cqw rgba(50,40,30,.2);font-size:3.6cqw;line-height:1.5}
+  .place .env{position:absolute;left:0;top:4cqw;width:56cqw}
+  .place .note{position:absolute;left:6cqw;top:10cqw;width:44cqw;padding:5cqw 4cqw;background:var(--paper);transform:rotate(-12deg);box-shadow:0 1cqw 2cqw rgba(50,40,30,.2);font-size:3.6cqw;line-height:1.5}
   .place .polaroid{position:absolute;left:4cqw;top:46cqw;transform:rotate(-4deg)}
-  .place .cand{position:absolute;right:0;top:0;width:38cqw;height:78cqw}
+  .place .cand{position:absolute;right:-4cqw;top:-2cqw;width:36cqw;height:auto}
   .dots{display:flex;justify-content:center;margin:6cqw 0 2cqw}
   .dots button{width:15cqw;height:15cqw;border-radius:50%;margin-left:-3cqw;box-shadow:0 0 0 1.2cqw var(--cream);transition:transform .3s}
   .dots button:first-child{margin-left:0}
   .dots button.on{transform:translateY(-2cqw)}
   .dname{min-height:5cqw;font-size:3.2cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
-  .outfit{display:grid;grid-template-columns:30cqw 1fr;gap:4cqw;align-items:center;text-align:left;margin-top:5cqw}
-  .outfit svg{width:30cqw;height:auto}
-  .outfit h3{font-family:var(--caps);font-weight:400;font-size:7cqw;letter-spacing:.04em}
-  .outfit p{font-size:3.5cqw;line-height:1.6;margin-top:1cqw}
+  .outfit{text-align:center;margin-top:9cqw}
+  .outfit h3{font-family:var(--caps);font-weight:400;font-size:8cqw;letter-spacing:.06em}
+  .outfit svg{display:block;width:86cqw;height:auto;margin:3cqw auto 0;filter:drop-shadow(0 1.6cqw 2cqw rgba(60,50,35,.18))}
+  .outfit p{font-size:3.6cqw;line-height:1.6;margin:3cqw auto 0;max-width:70cqw}
   .on-sage .txt{color:var(--paper)}
   .kids{position:relative;margin-top:10cqw;padding:12cqw 8cqw 10cqw;background:var(--cream);border-radius:6cqw}
   .kids .lacebg{position:absolute;inset:0;opacity:.6}
@@ -273,15 +275,83 @@ function heartPlate() {
 }
 function bowSVG() { return `<img class="bow" src="arte/mono.webp" alt="" aria-hidden="true">`; }
 function sealSVG() { return `<img class="seal" src="arte/sello.webp" alt="" aria-hidden="true">`; }
-function candelabra() { const s = `fill="none" stroke="#7A5A43" stroke-width="1.6" stroke-linecap="round"`; return `<svg class="cand" viewBox="0 0 120 240" aria-hidden="true"><g ${s}><path d="M60 230V120M40 232h40M48 228c4-10 20-10 24 0"/><path d="M60 140C40 140 26 128 26 108M60 140C80 140 94 128 94 108M60 120V60"/><path d="M22 108h8M90 108h8M56 60h8"/><path d="M26 108V70M94 108V70M60 60V18"/><path d="M26 70c-3-8 0-14 0-20c0 6 3 12 0 20M94 70c-3-8 0-14 0-20c0 6 3 12 0 20M60 18c-3-8 0-14 0-20c0 6 3 12 0 20"/><path d="M70 150c16 6 24 20 18 34-6 14-26 10-24-4" /></g><path d="M78 160c10 4 18 14 14 26" fill="none" stroke="#A9B97D" stroke-width="4" stroke-linecap="round"/></svg>`; }
+function candelabra() {
+  const g = id("cs"), fl = id("cf"), wx = id("cw");
+  const arm = (x, h) => `<rect x="${x - 6}" y="${150 - h}" width="12" height="${h}" rx="2" fill="url(#${wx})"/><path d="M${x} ${150 - h - 2}c-4-8 0-16 0-22 0 6 4 14 0 22z" fill="url(#${fl})"/><ellipse cx="${x}" cy="${150 - h - 10}" rx="9" ry="14" fill="#FFE9A8" opacity=".18"/><path d="M${x - 11} 152h22l-4 7h-14z" fill="url(#${g})"/>`;
+  let drops = ""; [40, 70, 110, 140].forEach(x => { for (let k = 0; k < 4; k++) drops += `<circle cx="${x + (k % 2 ? 2 : -2)}" cy="${170 + k * 9}" r="${2.6 - k * .3}" fill="#F4F6F7" stroke="#C9CED2" stroke-width=".6"/>`; drops += `<path d="M${x} ${168 + 36}l-3 7 3 4 3-4z" fill="#EEF2F4" stroke="#BFC5CA" stroke-width=".6"/>`; });
+  return `<svg class="cand" viewBox="0 0 180 340" aria-hidden="true"><defs>
+    <linearGradient id="${g}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8E8C88"/><stop offset=".3" stop-color="#F6F6F4"/><stop offset=".5" stop-color="#A9A7A2"/><stop offset=".72" stop-color="#EEEDEA"/><stop offset="1" stop-color="#7D7B77"/></linearGradient>
+    <radialGradient id="${fl}" cx=".5" cy=".7" r=".6"><stop offset="0" stop-color="#FFFBE6"/><stop offset=".5" stop-color="#FFD978"/><stop offset="1" stop-color="#F0A23C"/></radialGradient>
+    <linearGradient id="${wx}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E9E3D4"/><stop offset=".45" stop-color="#FFFDF7"/><stop offset="1" stop-color="#D8D0BF"/></linearGradient></defs>
+    <g filter="drop-shadow(0 4px 5px rgba(40,35,25,.28))">
+      <rect x="85.5" y="160" width="9" height="142" fill="url(#${g})"/>
+      ${[200, 236, 268].map(y => `<ellipse cx="90" cy="${y}" rx="9" ry="5" fill="url(#${g})"/>`).join("")}
+      <path d="M60 330h60l-8-22H68z" fill="url(#${g})"/><ellipse cx="90" cy="330" rx="34" ry="6" fill="url(#${g})"/>
+      <path d="M40 158C40 190 70 196 90 190C110 196 140 190 140 158" fill="none" stroke="url(#${g})" stroke-width="7"/>
+      <path d="M10 158C10 214 70 214 90 206C110 214 170 214 170 158" fill="none" stroke="url(#${g})" stroke-width="6"/>
+      ${drops}
+      ${arm(10, 66)}${arm(40, 78)}${arm(90, 104)}${arm(140, 78)}${arm(170, 66)}
+    </g></svg>`;
+}
 function envelopeSVG() { return `<svg class="env" viewBox="0 0 200 150" aria-hidden="true"><path d="M6 40L100 4l94 36v104H6z" fill="#C9D2AB"/><path d="M6 40l94 60 94-60" fill="#B7C296"/><path d="M6 144l70-56M194 144l-70-56" fill="none" stroke="#A9B587" stroke-width="1.2"/></svg>`; }
 function closingSVG() {
   let pearls = ""; for (let i = 0; i < 30; i++) { const t = i / 29, x = 10 + t * 380, y = 40 + Math.sin(t * 5.2) * 24 + t * 26; pearls += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(9 + (i % 3)).toFixed(1)}" fill="url(#pearl)"/>`; }
   return `<img src="arte/sobre-plumas.webp" alt="" aria-hidden="true"><div class="card"></div><svg viewBox="0 0 400 120" aria-hidden="true"><defs><radialGradient id="pearl" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#F1ECE2"/><stop offset="1" stop-color="#BDB5A6"/></radialGradient></defs><g filter="drop-shadow(0 3px 3px rgba(40,40,20,.3))">${pearls}</g></svg>`;
 }
 function outfit(kind) {
-  if (kind === "ellas") return `<svg viewBox="0 0 120 200" aria-hidden="true"><path d="M44 20c6 10 26 10 32 0l6 26c-6 8-38 8-44 0z" fill="#AEB98C"/><path d="M38 46c8 6 36 6 44 0l26 146H12z" fill="#F1ECE1" stroke="#E0D9CB"/><path d="M60 52c-4 50-10 100-20 140M60 52c6 50 14 100 30 140" fill="none" stroke="#E2DBCE"/><circle cx="96" cy="40" r="5" fill="#F7F3EA" stroke="#D8D0C0"/><circle cx="96" cy="52" r="7" fill="#C7D0A6"/></svg>`;
-  return `<svg viewBox="0 0 120 200" aria-hidden="true"><path d="M34 12h52l14 18-8 70H28l-8-70z" fill="#B4BF97"/><path d="M60 12v88M50 12l10 16 10-16" fill="none" stroke="#97A479" stroke-width="2"/><path d="M30 100h60l-4 92H68l-8-70-8 70H34z" fill="#EDE7DA" stroke="#DED6C6"/><path d="M14 30l-8 56 10 2 10-50" fill="#A9B58C"/><path d="M106 30l8 56-10 2-10-50" fill="#A9B58C"/></svg>`;
+  const u = id("o"), sat = `${u}s`, sat2 = `${u}t`, sg = `${u}g`, sg2 = `${u}h`, pr = `${u}p`, gd = `${u}d`, lt = `${u}l`;
+  const defs = `<defs>
+    <linearGradient id="${sat}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E9E3D6"/><stop offset=".22" stop-color="#FBF8F1"/><stop offset=".4" stop-color="#E6DFD1"/><stop offset=".62" stop-color="#FFFDF8"/><stop offset=".82" stop-color="#E2DACB"/><stop offset="1" stop-color="#F4EFE5"/></linearGradient>
+    <linearGradient id="${sat2}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".0"/><stop offset="1" stop-color="#C9BFAE" stop-opacity=".35"/></linearGradient>
+    <linearGradient id="${sg}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B7C29B"/><stop offset=".5" stop-color="#A5B286"/><stop offset="1" stop-color="#8E9C70"/></linearGradient>
+    <linearGradient id="${sg2}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9DAA7E"/><stop offset=".5" stop-color="#BAC59F"/><stop offset="1" stop-color="#94A177"/></linearGradient>
+    <radialGradient id="${pr}" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#EFE9DE"/><stop offset="1" stop-color="#B8AF9F"/></radialGradient>
+    <linearGradient id="${gd}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1DDA4"/><stop offset=".5" stop-color="#C9A55C"/><stop offset="1" stop-color="#9C7B3C"/></linearGradient>
+    <linearGradient id="${lt}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F5F2EA"/><stop offset="1" stop-color="#D9D3C5"/></linearGradient></defs>`;
+  if (kind === "ellas") return `<svg viewBox="0 0 300 260" aria-hidden="true">${defs}
+    <!-- top drapeado sin hombros -->
+    <g transform="translate(22 8)">
+      <path d="M6 22C30 8 92 8 116 22L110 40C88 32 34 32 12 40Z" fill="url(#${sg2})"/>
+      <path d="M12 40C34 32 88 32 110 40L102 92C84 98 38 98 20 92Z" fill="url(#${sg})"/>
+      ${[24, 40, 56, 72, 88].map((x, i) => `<path d="M${x} 40Q${x + (i - 2) * 2} 66 ${x + (i - 2) * 1.5} 94" fill="none" stroke="#7F8D60" stroke-opacity=".45" stroke-width="1.2"/>`).join("")}
+      <path d="M6 22C30 14 92 14 116 22" fill="none" stroke="#8E9C70" stroke-width="1.2" opacity=".6"/>
+    </g>
+    <!-- falda larga de satén -->
+    <g transform="translate(14 104)">
+      <path d="M34 0H106L140 150C110 158 30 158 0 150Z" fill="url(#${sat})"/>
+      <path d="M34 0H106L140 150C110 158 30 158 0 150Z" fill="url(#${sat2})"/>
+      <path d="M34 0H106" stroke="#D6CDBC" stroke-width="3"/>
+      ${[[52, 20], [70, 70], [88, 118]].map(([x, c]) => `<path d="M${x} 4C${x - 6} 60 ${x - 18} 110 ${x - 30} 152" fill="none" stroke="#D3CABA" stroke-width="1.2"/>`).join("")}
+      <path d="M96 4C104 60 116 110 126 150" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>
+    </g>
+    <!-- aretes de perla -->
+    <g transform="translate(206 14)">${[0, 34].map(x => `<g transform="translate(${x} 0)"><circle cx="8" cy="6" r="5" fill="url(#${pr})"/><path d="M8 11v6" stroke="url(#${gd})" stroke-width="1.6"/><path d="M8 17c-7 4-8 16 0 22 8-6 7-18 0-22z" fill="#C9D3AE" stroke="url(#${gd})" stroke-width="1.6"/><circle cx="8" cy="46" r="4" fill="url(#${pr})"/></g>`).join("")}</g>
+    <!-- bolso concha -->
+    <g transform="translate(196 92)"><path d="M4 50C4 18 26 4 46 4S88 18 88 50Z" fill="url(#${lt})"/>${[...Array(9)].map((_, i) => { const x = 10 + i * 9; return `<path d="M46 50Q${(46 + (x - 46) * .6).toFixed(0)} 20 ${x} ${i % 2 ? 14 : 18}" fill="none" stroke="#CFC8B9" stroke-width="1.2"/>`; }).join("")}<path d="M4 50H88" stroke="#CFC8B9" stroke-width="2"/><rect x="38" y="0" width="16" height="7" rx="2" fill="url(#${gd})"/></g>
+    <!-- sandalias con moño -->
+    <g transform="translate(196 170)">${[0, 44].map(x => `<g transform="translate(${x} 0)"><path d="M4 66C4 40 14 22 28 18L36 22C34 40 30 56 30 70H18" fill="url(#${lt})" stroke="#D2CABA" stroke-width="1"/><path d="M28 70V84" stroke="#E7E1D4" stroke-width="4"/><path d="M8 34C16 30 28 30 36 34" stroke="#EFEAE0" stroke-width="5"/><path d="M22 32c-8-6-14-2-10 3s10-3 10-3c8-6 14-2 10 3s-10-3-10-3z" fill="#F7F3EA" stroke="#D7CFBF"/></g>`).join("")}</g>
+  </svg>`;
+  return `<svg viewBox="0 0 300 260" aria-hidden="true">${defs}
+    <!-- camisa salvia -->
+    <g transform="translate(14 8)">
+      <path d="M40 10L62 4 84 10 112 22 118 108 98 112V60L94 120H30L26 60V112L6 108 12 22Z" fill="url(#${sg})"/>
+      <path d="M40 10L62 26 84 10" fill="none" stroke="#7F8D60" stroke-width="1.6"/>
+      <path d="M40 10L50 30 62 26 74 30 84 10" fill="#A9B68B" stroke="#7F8D60" stroke-width="1.2"/>
+      <path d="M62 26V120" stroke="#8C9A6E" stroke-width="1.4"/>${[40, 56, 72, 88, 104].map(y => `<circle cx="65" cy="${y}" r="1.8" fill="#EEF0E2"/>`).join("")}
+      <path d="M12 22L6 108M112 22L118 108" stroke="#8C9A6E" stroke-width="1" opacity=".6"/>
+      <path d="M26 60L30 120M98 60L94 120" stroke="#8C9A6E" stroke-width="1" opacity=".5"/>
+    </g>
+    <!-- pantalón marfil -->
+    <g transform="translate(150 6)">
+      <path d="M8 0H86L92 248H60L48 70 36 248H4Z" fill="url(#${sat})"/>
+      <path d="M8 0H86" stroke="#D8CFBF" stroke-width="5"/><path d="M48 8V70" stroke="#D3CABA" stroke-width="1.2"/>
+      <path d="M26 10C24 90 22 170 20 246M70 10C72 90 74 170 76 246" stroke="#E2DACB" stroke-width="1.2"/>
+    </g>
+    <!-- mocasines salvia -->
+    <g transform="translate(18 170)">${[0, 58].map(x => `<g transform="translate(${x} 0)"><path d="M4 50C4 28 14 10 28 10S52 28 52 50C52 62 44 70 28 70S4 62 4 50Z" fill="url(#${sg})"/><path d="M12 34C18 26 38 26 44 34" fill="none" stroke="#7F8D60" stroke-width="1.6"/><path d="M16 38H40" stroke="url(#${gd})" stroke-width="3" stroke-linecap="round"/><path d="M8 52C14 64 42 64 48 52" fill="none" stroke="#7F8D60" stroke-width="1" opacity=".6"/></g>`).join("")}</g>
+    <!-- reloj -->
+    <g transform="translate(250 150)"><rect x="8" y="-30" width="14" height="96" rx="5" fill="#E3D6BF"/><circle cx="15" cy="18" r="16" fill="url(#${gd})"/><circle cx="15" cy="18" r="12" fill="#FBF8F1"/><path d="M15 18V10M15 18l6 3" stroke="#6B5A45" stroke-width="1.4" stroke-linecap="round"/></g>
+  </svg>`;
 }
 
 /* ---------- datos ---------- */
@@ -338,16 +408,16 @@ $("#inv").innerHTML = `
 </section>
 
 <section class="sec linen">
-  <div class="tray big rv" style="margin-top:0">${trayOval()}<div class="lace"><div class="in"><div class="h2"><span class="c" style="font-size:7cqw">Programa</span></div><div class="prog">${E.programa.map(([h, t]) => `<div><b>${esc(h)}</b><i></i><span>${esc(t)}</span></div>`).join("")}</div></div></div></div>
+  <div class="tray big rv" style="margin-top:0">${trayOval()}<div class="lace"><div class="in"><div class="h2" style="margin-bottom:1.4cqw"><span class="s" style="font-size:9cqw;color:var(--ink)">Programa</span></div><div class="prog">${E.programa.map(([h, t]) => `<div><b>${esc(h)}</b><span>${esc(t)}</span><i></i></div>`).join("")}</div></div></div></div>
 </section>
 
 <section class="sec">
-  ${flower("", "left:-5cqw;top:2cqw;width:20cqw")}${bfly("verde", "right:6cqw;top:30cqw;width:16cqw", 12)}<h2 class="h2 rv"><span class="s">Código</span><span class="c">de vestimenta</span></h2>
+  ${flower("", "left:-5cqw;top:2cqw;width:20cqw")}${bfly("verde", "right:6cqw;top:6cqw;width:15cqw", 12)}<h2 class="h2 rv"><span class="s">Código</span><span class="c">de vestimenta</span></h2>
   <p class="txt rv" style="margin-top:4cqw">${esc(E.vestimenta)}</p>
   <div class="dots rv" id="dots">${E.paleta.map(([c, n], i) => `<button type="button" style="background:${esc(c)}" data-i="${i}" aria-label="${esc(n)}"></button>`).join("")}</div>
   <div class="dname" id="dname"></div>
-  <div class="outfit rv">${outfit("ellas")}<div><h3>Ellas</h3><p>${esc(E.ellas)}</p></div></div>
-  <div class="outfit rv">${outfit("ellos")}<div><h3>Ellos</h3><p>${esc(E.ellos)}</p></div></div>
+  <div class="outfit rv"><h3>Ellas</h3>${outfit("ellas")}<p>${esc(E.ellas)}</p></div>
+  <div class="outfit rv"><h3>Ellos</h3>${outfit("ellos")}<p>${esc(E.ellos)}</p></div>
 </section>
 
 <section class="arch on-sage rv">
