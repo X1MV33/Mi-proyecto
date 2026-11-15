@@ -134,8 +134,10 @@
   .step span{display:block;margin-top:4px;font-size:13.5px;line-height:1.55;opacity:.8}
   .step em{font-style:normal;color:var(--dorado-hi);font-weight:600}
   @media (max-width:900px){.steps{grid-template-columns:1fr;gap:10px}.step{padding:16px}.step b{font-size:18px}}
+  .pgrid.two{grid-template-columns:repeat(2,1fr)}
   .pgrid.three{grid-template-columns:repeat(3,1fr)}
   @media (max-width:900px){.pgrid.three{grid-template-columns:1fr}}
+  @media (max-width:640px){.pgrid.two{grid-template-columns:1fr}}
   .split{display:grid;gap:6px;margin-bottom:14px;padding:12px 14px;border-radius:14px;background:var(--beige);font-size:13.5px}
   .split div{display:flex;justify-content:space-between}
   .split div:first-child b{color:var(--tinta);font-weight:600}
@@ -147,7 +149,7 @@
     .card{padding:10px 10px 16px}.card h4{font-size:17.5px;margin:12px 4px 4px}.card p{font-size:12.5px;margin:0 4px;-webkit-line-clamp:3}.card .row{margin:12px 4px 0}.card .price{font-size:20px}
     .add .t{display:inline}
     .steps{grid-template-columns:repeat(3,1fr);gap:12px}.step{flex-direction:column;gap:10px;padding:18px}
-    .pgrid.three{grid-template-columns:repeat(3,1fr);gap:12px}.pcard{padding:20px 16px}.pcard b{font-size:20px}
+    .pgrid.three,.pgrid.two{grid-template-columns:repeat(2,1fr);gap:12px}.pcard{padding:20px 16px}.pcard b{font-size:20px}
     .manifest{padding:100px 0 80px}
   }
   /* pantallas grandes */
@@ -266,7 +268,7 @@
     <h3>Aparta con el 50%</h3>
     <p class="lead">Para apartar tu pedido pagas la mitad de anticipo, y el resto lo liquidas al momento de la entrega. Te enviamos los datos para pagar por WhatsApp.</p>
     <div class="steps" id="steps"></div>
-    <div class="pgrid three" id="pgrid"></div>
+    <div class="pgrid two" id="pgrid"></div>
     <div class="pnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Tu pedido queda apartado al confirmar tu anticipo del 50%. El resto se paga antes de entregarte tu producto.</div>
   </div>
 </section>
@@ -291,7 +293,7 @@
   <aside role="dialog" aria-label="Mi pedido">
     <header><h5>Mi pedido</h5><button type="button" id="closeBag" aria-label="Cerrar">×</button></header>
     <div id="items"></div>
-    <footer><div class="paysel" id="paysel"><span>¿Cómo pagarás tu anticipo?</span><div></div></div><div class="split" id="split"></div><div class="tot"><span>Total</span><b id="total">$0</b></div><a class="send" id="send" target="_blank" rel="noopener">Pedir por WhatsApp</a></footer>
+    <footer><div class="paysel" id="paysel"><span>¿Cómo vas a pagar?</span><div></div></div><div class="split" id="split"></div><div class="tot"><span>Total</span><b id="total">$0</b></div><a class="send" id="send" target="_blank" rel="noopener">Pedir por WhatsApp</a></footer>
   </aside>
 </div>
 <div id="toast"></div>
@@ -475,17 +477,16 @@ function tilt() {
 
 /* ---------- formas de pago ---------- */
 const PAGOS = [
-  ["Transferencia", "Transferencia bancaria o SPEI para tu anticipo y tu liquidación. Te enviamos los datos de la cuenta por WhatsApp.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 10l9-6 9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg>'],
-  ["Depósito", "Deposita en tienda de conveniencia o en ventanilla y mándanos tu comprobante por WhatsApp.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h16l-1.2 11a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg>'],
-  ["Efectivo", "Para liquidar el resto al momento de recibir tu producto.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v.01M18 14.5v.01"/></svg>']
+  ["Transferencia", "Transferencia bancaria o SPEI. Te enviamos los datos de la cuenta por WhatsApp.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 10l9-6 9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg>'],
+  ["Efectivo", "Paga en efectivo al momento de la entrega de tu producto.", '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v.01M18 14.5v.01"/></svg>']
 ];
 $("#steps").innerHTML = [
   ["Haz tu pedido", "Agrega tus aromas y envíanos tu pedido por WhatsApp."],
-  ["Paga el <em>50%</em>", "Transfiere o deposita la mitad como anticipo para apartarlo."],
-  ["Liquida y recibe", "Paga el <em>50%</em> restante al momento de la entrega."]
+  ["Paga el <em>50%</em>", "Paga la mitad como anticipo para apartar tu pedido."],
+  ["Liquida y recibe", "Paga el <em>50%</em> restante al momento de la entrega, en efectivo o por transferencia."]
 ].map(([t, d], i) => `<div class="step"><i>${i + 1}</i><div><b>${t}</b><span>${d}</span></div></div>`).join("");
 $("#pgrid").innerHTML = PAGOS.map(([n, d, ic]) => `<div class="pcard"><div class="ic">${ic}</div><b>${n}</b><p>${d}</p></div>`).join("");
-$("#paysel div").innerHTML = PAGOS.filter(([n]) => n !== "Efectivo").map(([n], i) => `<label><input type="radio" name="pago" value="${n}"${i ? "" : " checked"}>${n}</label>`).join("");
+$("#paysel div").innerHTML = PAGOS.map(([n], i) => `<label><input type="radio" name="pago" value="${n}"${i ? "" : " checked"}>${n}</label>`).join("");
 $$("#paysel input").forEach(r => r.addEventListener("change", () => renderBag()));
 
 /* ---------- pedido ---------- */
@@ -501,7 +502,7 @@ function renderBag() {
   $("#split").innerHTML = `<div><b>Anticipo para apartar (50%)</b><b>${money(anticipo)}</b></div><div><span>Resto al entregar (50%)</span><span>${money(resto)}</span></div><small>El resto se paga antes de recibir tu producto.</small>`;
   $("#items").innerHTML = ids.length ? ids.map(id => { const p = P[id]; return `<div class="it"><img src="${p.img}" alt=""><div><b>${esc(p.nombre)}</b><small>${p.ml ? esc(p.ml) + " · " : ""}${money(p.precio)}</small></div><div class="qty"><button type="button" data-q="${id}" data-d="-1" aria-label="Quitar uno">−</button><span>${bag[id]}</span><button type="button" data-q="${id}" data-d="1" aria-label="Agregar uno">+</button></div></div>`; }).join("")
     : `<div class="empty">Tu pedido está vacío.<br>Agrega tus aromas favoritos ✨</div>`;
-  const txt = "¡Hola! Quiero hacer este pedido en Mundo de Aromas:\n\n" + ids.map(id => `• ${bag[id]} × ${P[id].nombre}${P[id].ml ? " (" + P[id].ml + ")" : ""} — ${money(P[id].precio * bag[id])}`).join("\n") + `\n\nTotal: ${money(tot)}\nAnticipo (50%): ${money(anticipo)}\nResto al entregar: ${money(resto)}\nPagaré mi anticipo por: ${(document.querySelector("#paysel input:checked") || {}).value || "Por definir"}`;
+  const txt = "¡Hola! Quiero hacer este pedido en Mundo de Aromas:\n\n" + ids.map(id => `• ${bag[id]} × ${P[id].nombre}${P[id].ml ? " (" + P[id].ml + ")" : ""} — ${money(P[id].precio * bag[id])}`).join("\n") + `\n\nTotal: ${money(tot)}\nAnticipo (50%): ${money(anticipo)}\nResto al entregar: ${money(resto)}\nForma de pago: ${(document.querySelector("#paysel input:checked") || {}).value || "Por definir"}`;
   $("#send").href = wa(txt); $("#send").setAttribute("aria-disabled", ids.length ? "false" : "true");
   save();
 }
