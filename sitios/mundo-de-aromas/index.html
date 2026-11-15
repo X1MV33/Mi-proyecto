@@ -41,6 +41,7 @@
   .giant span{display:inline-block;padding:0 .045em;margin:0 -.045em;will-change:transform;backface-visibility:hidden}
   .stage{position:absolute;left:50%;top:50%;width:0;height:0;perspective:1100px;z-index:3;will-change:transform}
   .bottle{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:transform;backface-visibility:hidden}
+  .spin{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:transform}
   .face{position:absolute;backface-visibility:visible}
   .podium{position:absolute;left:50%;top:50%;width:300px;height:64px;z-index:2;transform:translate(-50%,calc(124px * var(--s))) scale(var(--s));transform-origin:50% 0}
   .podium::before{content:"";position:absolute;left:0;right:0;top:22px;bottom:0;border-radius:0 0 50% 50%/0 0 22px 22px;background:linear-gradient(90deg,#D9C3A2,#F4E8D6 35%,#EADAC2 60%,#CDB38E);box-shadow:0 24px 40px -18px rgba(74,47,34,.45)}
@@ -234,7 +235,7 @@
   <div class="giant" id="giant" aria-hidden="true"></div>
   <div class="podium" id="podium"></div>
   <div class="shadow" id="shadow"></div>
-  <div class="stage"><div class="bottle" id="bottle"></div></div>
+  <div class="stage"><div class="spin" id="spin"><div class="bottle" id="bottle"></div></div></div>
   <div class="tag"><p>Esencias que conectan</p><div class="cta"><a class="b1" href="#tienda">Ver catálogo</a><a class="b2" id="waHero" target="_blank" rel="noopener">Pedir por WhatsApp</a></div></div>
 </section>
 
@@ -539,11 +540,13 @@ gsap.fromTo("#bgart", { scale: 1.12, opacity: 0 }, { scale: 1, opacity: 1, durat
 gsap.from(".hero .tag", { opacity: 0, y: 20, duration: 1, delay: .9 });
 $$("#fernsHero path").forEach((p, i) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2.6, delay: .2 + i * .12, ease: "power2.inOut" }); });
 // flota y gira suave
-const idle = gsap.to("#bottle", { rotateY: 336, duration: 16, repeat: -1, ease: "none", force3D: true });
+const idle = gsap.fromTo("#bottle", { rotateY: -30 }, { rotateY: 26, duration: 4.2, yoyo: true, repeat: -1, ease: "sine.inOut", force3D: true });
+let frente = false;
+const deFrente = on => { if (on === frente) return; frente = on; if (on) { idle.pause(); gsap.to("#bottle", { rotateY: -12, rotateX: 6, duration: .7, ease: "power2.out", overwrite: "auto" }); } else { gsap.to("#bottle", { rotateX: 8, duration: .5, overwrite: "auto" }); idle.resume(); } };
 gsap.to(".stage", { y: -14, duration: 2.6, yoyo: true, repeat: -1, ease: "sine.inOut" });
 // scroll: el frasco cruza delante de la palabra, gira y se acerca
-const tl = gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true, anticipatePin: 1, onEnter: () => idle.pause(), onLeaveBack: () => idle.play() } });
-tl.to("#bottle", { rotateY: "+=300", rotateX: -10, scale: 1.45, ease: "none" }, 0)
+const tl = gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: .6, pin: true, anticipatePin: 1, onUpdate: st => deFrente(st.progress > .02) } });
+tl.to("#spin", { scale: 1.42, rotateZ: -4, ease: "none", force3D: true }, 0)
   .to(".stage", { yPercent: 0, y: "-6vh", ease: "none" }, 0)
   .to("#podium, #shadow", { opacity: 0, y: 60, ease: "none" }, 0)
   .to("#bgart", { scale: 1.15, yPercent: 6, ease: "none" }, 0)
