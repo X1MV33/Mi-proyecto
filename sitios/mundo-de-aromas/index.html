@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mundo de Aromas</title>
+<meta name="description" content="Perfumes de dama, caballero e infantiles y velas aromáticas. Pide por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,700;1,800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beige:#EFE3D0; --crema:#F8F1E6; --arena:#E3D2B8; --cafe-claro:#A9825F; --cafe:#6B4A33; --tinta:#4A2F22; --dorado:#C6A15B; --dorado-hi:#E8CF94;
+    --serif:"Playfair Display", Georgia, serif; --sans:"Poppins", system-ui, -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--beige);scroll-behavior:smooth}
+  body{background:var(--beige);color:var(--tinta);font-family:var(--sans);font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1160px,100% - 32px);margin:0 auto}
+
+  /* barra */
+  header.nav{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:14px max(16px,calc(50vw - 580px));transition:background .4s,box-shadow .4s}
+  header.nav.solid{background:rgba(248,241,230,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(74,47,34,.08)}
+  header.nav img{height:38px;width:auto}
+  header.nav nav{display:flex;gap:26px;font-size:14px;letter-spacing:.06em}
+  header.nav nav a{opacity:.8}header.nav nav a:hover{opacity:1}
+  .bagbtn{position:relative;display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:99px;background:var(--tinta);color:var(--crema);font-size:14px}
+  .bagbtn b{display:grid;place-items:center;min-width:20px;height:20px;border-radius:99px;background:var(--dorado);color:var(--tinta);font-size:12px;font-weight:600}
+  @media (max-width:760px){header.nav nav{display:none}header.nav img{height:32px}}
+
+  /* portada 3D */
+  .hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:radial-gradient(120% 80% at 50% 45%,var(--crema),var(--beige) 55%,var(--arena))}
+  .giant{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-style:italic;font-weight:800;font-size:clamp(120px,27vw,420px);line-height:.8;color:var(--cafe-claro);letter-spacing:-.03em;white-space:nowrap;user-select:none}
+  .giant span{display:inline-block}
+  .ferns{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .ferns path{fill:none;stroke:var(--dorado);stroke-width:1.4;stroke-linecap:round;opacity:.75}
+  .stage{position:absolute;left:50%;top:52%;width:0;height:0;perspective:1100px;z-index:3}
+  .bottle{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:transform}
+  .face{position:absolute;backface-visibility:visible}
+  .shadow{position:absolute;left:50%;top:52%;width:260px;height:46px;margin:150px 0 0 -130px;border-radius:50%;background:radial-gradient(closest-side,rgba(74,47,34,.35),transparent);filter:blur(4px);z-index:2}
+  .hero .tag{position:absolute;left:0;right:0;bottom:max(34px,6vh);text-align:center;z-index:4}
+  .hero .tag p{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,30px)}
+  .hero .tag small{display:block;margin-top:10px;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--cafe)}
+  .scrollcue{display:block;width:1px;height:42px;margin:14px auto 0;background:linear-gradient(var(--cafe),transparent);animation:cue 1.8s ease-in-out infinite}
+  @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* frase */
+  .manifest{padding:120px 0 100px;text-align:center}
+  .manifest h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,64px);line-height:1.12;max-width:16ch;margin:0 auto}
+  .manifest h2 em{color:var(--cafe-claro)}
+  .manifest h2 .w{display:inline-block;opacity:.12;transition:opacity .2s}
+  .manifest p{margin:26px auto 0;max-width:46ch;color:var(--cafe);line-height:1.7}
+
+  /* colecciones */
+  .colls{padding:20px 0 110px}
+  .kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--cafe-claro)}
+  .colls h3,.shop h3{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(40px,6vw,76px);line-height:1;margin-top:8px}
+  .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px;perspective:1200px}
+  .ccard{position:relative;aspect-ratio:3/4.2;border-radius:18px;overflow:hidden;background:var(--arena);transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1);text-align:left;box-shadow:0 20px 40px -24px rgba(74,47,34,.5)}
+  .ccard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s}
+  .ccard:hover img{transform:scale(1.06)}
+  .ccard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(43,26,18,.75))}
+  .ccard div{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;color:var(--crema)}
+  .ccard b{display:block;font-family:var(--serif);font-style:italic;font-weight:700;font-size:30px;line-height:1}
+  .ccard span{font-size:12.5px;opacity:.85}
+  @media (max-width:860px){.cgrid{grid-template-columns:repeat(2,1fr);gap:12px}.ccard b{font-size:24px}}
+
+  /* tienda */
+  .shop{padding:100px 0 120px;transition:background-color .6s}
+  .shop .head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .shop .lead{max-width:44ch;color:var(--cafe);line-height:1.7;margin-top:14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tabs button{padding:10px 18px;border-radius:99px;border:1px solid rgba(74,47,34,.25);font-size:14px;transition:all .3s}
+  .tabs button.on{background:var(--tinta);color:var(--crema);border-color:var(--tinta)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;perspective:1400px}
+  .card{position:relative;background:var(--crema);border-radius:20px;padding:12px 12px 18px;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;box-shadow:0 18px 40px -28px rgba(74,47,34,.55)}
+  .card .ph{position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:var(--arena);transform:translateZ(30px)}
+  .card .ph img{width:100%;height:100%;object-fit:cover}
+  .card .ml{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:99px;background:rgba(248,241,230,.9);font-size:11.5px;font-weight:500;letter-spacing:.06em}
+  .card h4{font-family:var(--serif);font-weight:700;font-size:21px;line-height:1.15;margin:16px 6px 6px;transform:translateZ(20px)}
+  .card p{margin:0 6px;font-size:13.5px;line-height:1.6;color:var(--cafe);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .card .row{display:flex;align-items:center;justify-content:space-between;margin:16px 6px 0;transform:translateZ(16px)}
+  .card .price{font-family:var(--serif);font-size:24px;font-weight:700}
+  .add{display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:99px;background:var(--tinta);color:var(--crema);font-size:13px;transition:transform .2s,background .3s}
+  .add:active{transform:scale(.95)}
+  .add.ok{background:var(--dorado);color:var(--tinta)}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.card{padding:8px 8px 14px;border-radius:16px}.card h4{font-size:16.5px;margin:12px 4px 4px}.card p{font-size:12px;margin:0 4px;-webkit-line-clamp:2}.card .row{margin:12px 4px 0}.card .price{font-size:19px}.add{padding:8px 11px;font-size:12px}.add .t{display:none}}
+
+  /* cierre */
+  .thanks{position:relative;padding:130px 0 70px;text-align:center;background:var(--tinta);color:var(--crema);overflow:hidden}
+  .thanks .ferns path{stroke:var(--dorado);opacity:.35}
+  .thanks h3{position:relative;font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(38px,6vw,78px);line-height:1.05}
+  .thanks p{position:relative;margin:18px auto 0;max-width:40ch;opacity:.8;line-height:1.7}
+  .contact{position:relative;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .contact a{display:flex;align-items:center;gap:10px;padding:13px 22px;border-radius:99px;border:1px solid rgba(232,207,148,.5);font-size:15px}
+  .contact a.wa{background:var(--dorado);color:var(--tinta);border-color:var(--dorado);font-weight:500}
+  .contact svg{width:20px;height:20px}
+  .thanks img.lg{position:relative;width:180px;margin:60px auto 0;filter:brightness(0) invert(.93) sepia(.3)}
+  .thanks small{position:relative;display:block;margin-top:18px;font-size:12px;opacity:.5;letter-spacing:.1em}
+
+  /* bolsa */
+  #bag{position:fixed;inset:0;z-index:50;visibility:hidden}
+  #bag.on{visibility:visible}
+  #bag .bk{position:absolute;inset:0;background:rgba(43,26,18,.4);opacity:0;transition:opacity .35s}
+  #bag.on .bk{opacity:1}
+  #bag aside{position:absolute;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--crema);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+  #bag.on aside{transform:none}
+  #bag header{display:flex;align-items:center;justify-content:space-between;padding:22px 22px 12px}
+  #bag header h5{font-family:var(--serif);font-style:italic;font-size:30px;font-weight:700}
+  #bag header button{font-size:28px;line-height:1;width:40px;height:40px}
+  #items{flex:1;overflow:auto;padding:0 22px}
+  .it{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(74,47,34,.1)}
+  .it img{width:64px;height:64px;border-radius:10px;object-fit:cover}
+  .it b{display:block;font-size:14px;font-weight:500;line-height:1.3}
+  .it small{color:var(--cafe);font-size:12.5px}
+  .qty{display:flex;align-items:center;gap:8px}
+  .qty button{width:28px;height:28px;border-radius:50%;border:1px solid rgba(74,47,34,.3);font-size:16px;line-height:1}
+  .empty{padding:40px 0;text-align:center;color:var(--cafe)}
+  #bag footer{padding:18px 22px calc(18px + env(safe-area-inset-bottom));border-top:1px solid rgba(74,47,34,.12)}
+  .tot{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .tot b{font-family:var(--serif);font-size:28px}
+  .send{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border-radius:99px;background:var(--tinta);color:var(--crema);font-size:15px;font-weight:500}
+  .send[aria-disabled=true]{opacity:.4;pointer-events:none}
+  #toast{position:fixed;left:50%;bottom:100px;transform:translate(-50%,20px);background:var(--tinta);color:var(--crema);padding:11px 20px;border-radius:99px;font-size:14px;opacity:0;transition:all .3s;z-index:60;pointer-events:none}
+  #toast.on{opacity:1;transform:translate(-50%,0)}
+  .wafab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:25;width:56px;height:56px;border-radius:50%;background:var(--dorado);display:grid;place-items:center;box-shadow:0 10px 26px -8px rgba(74,47,34,.6)}
+  .wafab svg{width:28px;height:28px;fill:var(--tinta)}
+  @media (max-width:760px){.stage{zoom:.8}.shadow{zoom:.8}}
+  #bag.on ~ .wafab,body:has(#bag.on) .wafab{display:none}
+  @media (prefers-reduced-motion:reduce){.scrollcue{animation:none}}
+</style>
+</head>
+<body>
+<header class="nav" id="nav">
+  <a href="#top" aria-label="Mundo de Aromas, inicio"><img src="img/logo.png" alt="Mundo de Aromas"></a>
+  <nav><a href="#colecciones">Colecciones</a><a href="#tienda">Catálogo</a><a href="#contacto">Contacto</a></nav>
+  <button class="bagbtn" id="openBag" type="button" aria-label="Ver mi pedido">Mi pedido <b id="count">0</b></button>
+</header>
+
+<section class="hero" id="top">
+  <svg class="ferns" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" id="fernsHero"></svg>
+  <div class="giant" id="giant" aria-hidden="true"></div>
+  <div class="shadow" id="shadow"></div>
+  <div class="stage"><div class="bottle" id="bottle"></div></div>
+  <div class="tag"><p>Esencias que conectan</p><small>Perfumes · Velas aromáticas</small><span class="scrollcue"></span></div>
+</section>
+
+<section class="manifest wrap">
+  <h2 id="manifest">Un aroma es un recuerdo que se queda contigo para siempre</h2>
+  <p>Fragancias para dama, caballero y los más pequeños, y velas que llenan tu espacio de armonía. Elige la tuya y pídela directo por WhatsApp.</p>
+</section>
+
+<section class="colls wrap" id="colecciones">
+  <div class="kicker">Colecciones</div>
+  <h3>Encuentra tu esencia</h3>
+  <div class="cgrid" id="cgrid"></div>
+</section>
+
+<section class="shop" id="tienda">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker">Catálogo</div><h3 id="catTitle">Dama</h3><p class="lead" id="catLead"></p></div>
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="thanks" id="contacto">
+  <svg class="ferns" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" id="fernsEnd"></svg>
+  <div class="wrap">
+    <h3>Gracias por su preferencia</h3>
+    <p>¿Tienes dudas o quieres un aroma que no ves aquí? Escríbenos, con gusto te ayudamos a encontrarlo.</p>
+    <div class="contact">
+      <a class="wa" id="waLink" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a12 12 0 0 1-4.6-4.1c-.4-.6-1-1.6-1-2.8s.6-1.8.9-2 .5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.3Z"/></svg>+52 824 100 77 08</a>
+      <a href="https://www.instagram.com/escencia_que_conecta" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor"/></svg>@escencia_que_conecta</a>
+    </div>
+    <img class="lg" src="img/logo.png" alt="Mundo de Aromas">
+    <small>© Mundo de Aromas</small>
+  </div>
+</section>
+
+<a class="wafab" id="waFab" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2s-1 .3-3.4-.7a12 12 0 0 1-4.6-4.1c-.4-.6-1-1.6-1-2.8s.6-1.8.9-2 .5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.3Z"/></svg></a>
+
+<div id="bag" aria-hidden="true">
+  <div class="bk" id="bagBk"></div>
+  <aside role="dialog" aria-label="Mi pedido">
+    <header><h5>Mi pedido</h5><button type="button" id="closeBag" aria-label="Cerrar">×</button></header>
+    <div id="items"></div>
+    <footer><div class="tot"><span>Total</span><b id="total">$0</b></div><a class="send" id="send" target="_blank" rel="noopener">Pedir por WhatsApp</a></footer>
+  </aside>
+</div>
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+"use strict";
+const WHATSAPP = "528241007708";
+const CATS = {
+  dama: { nombre: "Dama", lead: "Fragancias diseñadas para proyectar elegancia, personalidad y encanto en cada momento del día.", bg: "#F1E3D3", portada: "212-vip-rose" },
+  caballero: { nombre: "Caballero", lead: "Fragancias diseñadas para proyectar seguridad, magnetismo y una presencia inolvidable en cada ocasión.", bg: "#E5D5BF", portada: "eros" },
+  infantil: { nombre: "Infantil", lead: "Fragancias seguras, divertidas y diseñadas especialmente para acompañar a los niños en su día a día.", bg: "#F3EADB", portada: "cotton-candy" },
+  velas: { nombre: "Velas", lead: "Aromas envolventes diseñados para crear momentos inolvidables y llenar cualquier espacio de armonía.", bg: "#EADBC2", portada: "vainilla-francesa" }
+};
+// [categoría, imagen, nombre, ml, precio, descripción]
+const P = [
+  ["dama","pink-candy","Pink Candy","150 ml",395,"Fragancia dulcemente adictiva que evoca algodón de azúcar, frambuesas jugosas y regaliz, sobre una base cremosa de vainilla y caramelo."],
+  ["dama","black-forest","Odyssey Black Forest","100 ml",469,"Perfume sensual y sofisticado con acordes especiados de canela, flor de azahar y cereza silvestre, con toques cálidos de miel, praliné y maderas nobles."],
+  ["dama","guess-1981","Guess 1981","100 ml",629,"Fragancia floral-amaderada limpia y elegante, con notas de violeta silvestre, ambreta, pera jugosa y un delicado fondo de sándalo y almizcle."],
+  ["dama","tommy-girl","Tommy Girl","100 ml",599,"Clásica floral-frutal vigorosa con grosellas negras, camelia, mandarina y manzano en flor, sobre un fondo limpio de sándalo y cedro."],
+  ["dama","360","360° Perry Ellis","100 ml",650,"Floral-acuática elegante con melón, azucena y mandarina; corazón de rosa, lavanda y lirio de los valles, y un fondo cálido de sándalo y almizcle."],
+  ["dama","meow","Meow! — Katy Perry","100 ml",699,"Deliciosa floral frutal gourmand con pera, mandarina, gardenia y jazmín, y un fondo sumamente cremoso de vainilla, almizcle y ámbar."],
+  ["dama","212-vip-rose","212 VIP Rosé","100 ml",960,"Floral frutal elegante y festiva con champaña rosada y frutas frescas, un corazón de flor de durazno y un fondo amaderado y almizclado."],
+  ["dama","yara","Lattafa — Yara","100 ml",599,"Oriental ambarina cremosa y avainillada con orquídea, heliotropo y frutos tropicales, sobre un fondo irresistible de vainilla, sándalo y almizcle."],
+  ["dama","eclaire","Lattafa — Eclaire","100 ml",799,"Exquisita gourmand inspirada en un postre de lujo: caramelo líquido, leche, vainilla cremosa y flores blancas con un toque cálido de miel."],
+  ["dama","raghba-pink","Raghba Pink","100 ml",499,"Dulce y frutal: frambuesas jugosas, malvaviscos, cítricos y flores blancas con un fondo cremoso de vainilla."],
+  ["dama","chocolate-vainilla","Lattafa Edición Chocolate-Vainilla","100 ml",499,"Gourmand intensa que combina notas cremosas de chocolate, helado de vainilla, coco y un toque floral suave de lavanda."],
+  ["dama","frutal-gourmand","Lattafa — Edición Frutal-Gourmand","100 ml",699,"Oriental con acordes frutales intensos de frambuesa, notas avainilladas y dulces, y un fondo sutil amaderado."],
+  ["caballero","eros-flame","Versace Eros Flame","100 ml",799,"Amaderada especiada intensa y masculina: mandarina y limón, corazón de pimienta negra y geranio, sobre vainilla, haba tonka y sándalo."],
+  ["caballero","9pm","9PM","100 ml",555,"Gourmand ambarina moderna y adictiva con manzana, canela y lavanda; corazón de azahar y lirio, y fondo de vainilla, haba tonka y ámbar."],
+  ["caballero","eros","Versace Eros","100 ml",750,"Fresca amaderada y oriental con menta, manzana verde y limón italiano, haba tonka y ambroxán, sobre cedro y vainilla."],
+  ["caballero","tag-him","Tag-Him","100 ml",659,"Amaderada especiada fresca: limón, toronja y bergamota, corazón de jengibre y nuez moscada, y fondo seco de vetiver, sándalo y cedro."],
+  ["caballero","odyssey-limoni","Odyssey Limoni","100 ml",520,"Chispeante y veraniega: una explosión ultra refrescante de limones jugosos y cítricos, con matices amaderados y almizcle limpio."],
+  ["caballero","212-vip-men","Men 212 VIP","100 ml",899,"Oriental amaderada seductora y fiestera: lima, menta y caviar con corazón de vodka y especias, sobre ámbar y madera de rey."],
+  ["caballero","kobra","Hawas Kobra Men","100 ml",799,"Intensa y magnética: especias cálidas de canela, cítricos frescos de bergamota y un fondo profundo ambarino y amaderado."],
+  ["caballero","onlyou-8181","Onlyou 8181","30 ml",295,"Amaderada especiada muy atractiva con limón y menta, corazón de cardamomo y enebro, sobre haba tonka y vetiver."],
+  ["caballero","hawas-ice","Hawas Ice","100 ml",759,"Acuática y ultra refrescante: manzana, bergamota, limón y anís estrellado con corazón acuoso y fondo ambarino, almizclado y amaderado."],
+  ["caballero","al-rehab-now","Al Rehab Now","100 ml",450,"Oriental amaderada intensa y cálida con caramelo, vainilla, azúcar y maderas ahumadas de oud y sándalo."],
+  ["caballero","imagination","Louis Vuitton Imagination","100 ml",1099,"Lujosa cítrica amaderada con una salida chispeante de cidra, bergamota de Calabria y naranja siciliana."],
+  ["caballero","babycat","Yves Saint Laurent Babycat","100 ml",799,"Oriental especiada que envuelve la piel con gamuza ahumada, vainilla cremosa, pimienta rosa, incienso y elemí."],
+  ["infantil","tubbees-cookies","Tubbees Cookies & Cream","50 ml",210,"Aroma gourmand hiperrealista a galletas de mantequilla recién horneadas con leche tibia, chocolate y un fondo dulce de vainilla."],
+  ["infantil","buzz","Toy Story: Buzz Lightyear","25 ml",180,"Colonia fresca y vibrante de la familia Fougère con notas cítricas, toques verdes herbales y un fondo limpio de almizcle suave."],
+  ["infantil","jessie","Sophie Toy Story: Jessie","100 ml",269,"Floriental frutal: sorbete jugoso de pera y frutas rojas con un toque floral suave y un final dulce de praliné y vainilla."],
+  ["infantil","lindinha","Superpoderosas Lindinha (Burbuja)","25 ml",160,"Colonia infantil fresca y chispeante con notas frutales suaves y un fondo limpio de almizcle."],
+  ["infantil","spiderman","Marvel — Spider-Man","100 ml",279,"Perfume dinámico con cítricos vibrantes de bergamota y azahar, toques amaderados ligeros y un fondo suave de vainilla."],
+  ["infantil","cotton-candy","Tubbees Cotton Candy","50 ml",210,"Gourmand irresistible que combina frutos rojos y frambuesa con el inconfundible dulzor cremoso del algodón de azúcar y vainilla."],
+  ["infantil","tous-kids","Tous Girl Pink","100 ml",599,"Floral-frutal alegre con pastelito (cupcake), mandarina, chabacano y flor de azahar, sobre un fondo dulce de vainilla."],
+  ["infantil","candy-pop","Tubbees Candy Pop","50 ml",210,"Explosión divertida de paletas de caramelo y gomitas frutales con un suave toque de vainilla azucarada."],
+  ["infantil","blossom","Superpoderosas Florzinha (Bombón)","25 ml",160,"Colonia fresca y vibrante con frutas rojas dulces, cítricos suaves y un acorde limpio floral."],
+  ["infantil","tangled","Tangled","100 ml",230,"Ligera y femenina: notas florales delicadas con destellos frutales dulces de manzana y pera."],
+  ["infantil","capitan-america","Capitán América","100 ml",275,"Colonia dinámica y heroica con cítricos frescos de bergamota y mandarina sobre un fondo limpio de madera suave."],
+  ["infantil","dreamy-treats","Tubbees Dreamy Treats","50 ml",210,"Gourmand inspirada en nubes de malvavisco, caramelo cremoso y una base suave de vainilla."],
+  ["velas","mango","Mango Tropical","",95,"Frutal inspirada en el mango maduro: notas tropicales, frescas y vibrantes que crean un ambiente alegre y lleno de energía."],
+  ["velas","vainilla-francesa","Vainilla Francesa","",110,"Cálido y exquisito aroma de vainilla, suave y dulce, que llena cualquier espacio de comodidad y bienestar."],
+  ["velas","gardenia","Gardenia Elegante","",120,"Floral inspirada en las flores de gardenia: suave, fresca y ligeramente dulce, un toque de elegancia y tranquilidad."],
+  ["velas","lavanda","Lavanda Relajante","",120,"Delicada floral de lavanda que ayuda a crear un ambiente tranquilo, armonioso y acogedor."],
+  ["velas","fresa","Fresa Silvestre","",95,"Inspirada en fresas frescas y maduras, con notas dulces, jugosas y ligeramente afrutadas."],
+  ["velas","cherry","Cherry Dulce","",120,"Encantadora fragancia de cereza con notas frutales, dulces y ligeramente intensas que llenan el ambiente de frescura."],
+  ["velas","vainilla-limon","Vainilla con Limón","",140,"Cálida vainilla con un toque fresco de limón; suave y dulce, llena cualquier espacio de bienestar."],
+  ["velas","rosa-jardin","Rosa del Jardín","",135,"Floral inspirada en un jardín lleno de rosas frescas: delicada, romántica y llena de armonía."],
+  ["velas","canela-manzana","Canela y Manzana","",155,"La dulzura de la manzana con las notas cálidas y especiadas de la canela."],
+  ["velas","coco","Coco Tropical","",130,"Refrescante coco con notas suaves, dulces y cremosas que evocan la tranquilidad de una playa tropical."],
+  ["velas","eucalipto","Eucalipto Fresco","",140,"Herbal, natural y refrescante, inspirada en hojas de eucalipto: una sensación de limpieza y frescura."]
+].map(([cat, img, nombre, ml, precio, desc], i) => ({ id: i, cat, img: `img/${img}.webp`, nombre, ml, precio, desc }));
+
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = n => "$" + n.toLocaleString("es-MX");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wa = t => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t)}`;
+$("#waLink").href = wa("¡Hola! Vi su página y quiero información sobre sus perfumes 🌿");
+$("#waFab").href = $("#waLink").href;
+
+/* ---------- helechos dorados (dibujados con trazos) ---------- */
+function fern(x, y, len, ang, side) {
+  let d = "", n = 14; const ca = Math.cos(ang), sa = Math.sin(ang);
+  const pt = t => [x + ca * len * t + Math.sin(t * 3) * 10 * side, y + sa * len * t];
+  const p0 = pt(0); d += `M${p0[0].toFixed(1)} ${p0[1].toFixed(1)}`;
+  for (let i = 1; i <= 20; i++) { const p = pt(i / 20); d += `L${p[0].toFixed(1)} ${p[1].toFixed(1)}`; }
+  for (let i = 1; i < n; i++) {
+    const t = i / n, p = pt(t), l = (1 - t * .75) * len * .32;
+    for (const s of [-1, 1]) {
+      const a2 = ang + s * 1.05, ex = p[0] + Math.cos(a2) * l, ey = p[1] + Math.sin(a2) * l;
+      const cx = p[0] + Math.cos(a2 - s * .35) * l * .6, cy = p[1] + Math.sin(a2 - s * .35) * l * .6;
+      d += `M${p[0].toFixed(1)} ${p[1].toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+    }
+  }
+  return d;
+}
+function flower(x, y, r) { let d = ""; for (let k = 0; k < 5; k++) { const a = k / 5 * Math.PI * 2; const px = x + Math.cos(a) * r, py = y + Math.sin(a) * r; d += `M${x} ${y}Q${(x + Math.cos(a - .5) * r * 1.3).toFixed(1)} ${(y + Math.sin(a - .5) * r * 1.3).toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)}Q${(x + Math.cos(a + .5) * r * 1.3).toFixed(1)} ${(y + Math.sin(a + .5) * r * 1.3).toFixed(1)} ${x} ${y}`; } return d + `M${x + 3} ${y}a3 3 0 1 0 -6 0a3 3 0 1 0 6 0`; }
+const FERNS = [[120, 620, 330, -1.15, 1], [230, 700, 260, -1.45, -1], [1080, 600, 340, -2.0, -1], [960, 720, 250, -1.7, 1], [600, 120, 180, .5, 1], [80, 160, 200, .35, -1], [1120, 170, 210, 2.7, 1]];
+["#fernsHero", "#fernsEnd"].forEach(sel => {
+  $(sel).innerHTML = FERNS.map(f => `<path d="${fern(...f)}"/>`).join("") + [[300, 250, 16], [880, 330, 18], [1010, 470, 13], [190, 470, 12], [700, 680, 15]].map(f => `<path d="${flower(...f)}"/>`).join("");
+});
+
+/* ---------- palabra gigante ---------- */
+$("#giant").innerHTML = "Aromas".split("").map(c => `<span>${c}</span>`).join("");
+
+/* ---------- frasco 3D (CSS, original) ---------- */
+function prism(w, h, d, styles, cls = "") {
+  const f = (tf, W, H, st) => `<div class="face ${cls}" style="width:${W}px;height:${H}px;left:${-W / 2}px;top:${-H / 2}px;transform:${tf};${st}"></div>`;
+  return f(`translateZ(${d / 2}px)`, w, h, styles.front) + f(`rotateY(180deg) translateZ(${d / 2}px)`, w, h, styles.back || styles.front) +
+    f(`rotateY(90deg) translateZ(${w / 2}px)`, d, h, styles.side) + f(`rotateY(-90deg) translateZ(${w / 2}px)`, d, h, styles.side) +
+    f(`rotateX(90deg) translateZ(${h / 2}px)`, w, d, styles.top) + f(`rotateX(-90deg) translateZ(${h / 2}px)`, w, d, styles.top);
+}
+const glass = "background:linear-gradient(100deg,rgba(255,255,255,.55),rgba(255,248,236,.18) 35%,rgba(255,255,255,.08) 65%,rgba(255,255,255,.4));border:1.5px solid rgba(255,255,255,.75);border-radius:10px;box-shadow:inset 0 0 18px rgba(255,255,255,.5)";
+const liquid = "background:linear-gradient(180deg,rgba(214,160,86,.78),rgba(176,118,52,.86));border-radius:6px";
+const gold = "background:linear-gradient(90deg,#8C6A2E,#E8CF94 30%,#C6A15B 55%,#7A5A24 85%,#B8914C)";
+const goldTop = "background:radial-gradient(circle at 40% 35%,#F3DFAE,#C6A15B 60%,#8C6A2E)";
+function bottleHTML() {
+  const B = 168, Hh = 210, D = 84;
+  let h = `<div style="position:absolute;transform-style:preserve-3d;transform:translateY(40px)">` + prism(B - 22, Hh * .78, D - 20, { front: liquid, side: liquid, top: "background:rgba(214,160,86,.6)" }) + `</div>`;
+  h += `<div style="position:absolute;transform-style:preserve-3d;transform:translateY(22px)">` + prism(B, Hh, D, { front: glass, side: glass, top: "background:rgba(255,255,255,.25);border:1.5px solid rgba(255,255,255,.7);border-radius:8px" }) + `</div>`;
+  // etiqueta
+  h += `<div class="face" style="width:110px;height:66px;left:-55px;top:-11px;transform:translateZ(${D / 2 + 1}px);background:#F8F1E6;border:2px solid #4A2F22;box-shadow:inset 0 0 0 3px #F8F1E6,inset 0 0 0 4px #4A2F22;display:grid;place-items:center"><img src="img/logo.png" alt="" style="width:82px"></div>`;
+  h += `<div class="face" style="width:110px;height:66px;left:-55px;top:-11px;transform:rotateY(180deg) translateZ(${D / 2 + 1}px);background:rgba(248,241,230,.5)"></div>`;
+  // cuello y tapa dorada
+  h += `<div style="position:absolute;transform-style:preserve-3d;transform:translateY(-92px)">` + prism(40, 16, 32, { front: gold, side: gold, top: goldTop }) + `</div>`;
+  h += `<div style="position:absolute;transform-style:preserve-3d;transform:translateY(-130px)">` + prism(74, 62, 56, { front: gold + ";border-radius:4px", side: gold + ";border-radius:4px", top: goldTop }) + `</div>`;
+  return h;
+}
+const bottle = $("#bottle"); bottle.innerHTML = bottleHTML();
+
+/* ---------- colecciones ---------- */
+$("#cgrid").innerHTML = Object.entries(CATS).map(([k, c]) => `<button class="ccard" type="button" data-cat="${k}"><img src="img/${c.portada}.webp" alt="" loading="lazy"><div><b>${esc(c.nombre)}</b><span>${P.filter(p => p.cat === k).length} aromas</span></div></button>`).join("");
+$$(".ccard").forEach(c => c.addEventListener("click", () => { setCat(c.dataset.cat); $("#tienda").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); }));
+
+/* ---------- catálogo ---------- */
+$("#tabs").innerHTML = Object.entries(CATS).map(([k, c]) => `<button type="button" role="tab" data-cat="${k}">${esc(c.nombre)}</button>`).join("");
+$$("#tabs button").forEach(b => b.addEventListener("click", () => setCat(b.dataset.cat)));
+let cat = "dama";
+function setCat(k) {
+  cat = k; const c = CATS[k];
+  $$("#tabs button").forEach(b => { b.classList.toggle("on", b.dataset.cat === k); b.setAttribute("aria-selected", b.dataset.cat === k); });
+  $("#catTitle").textContent = c.nombre; $("#catLead").textContent = c.lead;
+  $("#tienda").style.backgroundColor = c.bg;
+  $("#grid").innerHTML = P.filter(p => p.cat === k).map(p => `
+    <article class="card" data-id="${p.id}">
+      <div class="ph"><img src="${p.img}" alt="${esc(p.nombre)}" loading="lazy">${p.ml ? `<span class="ml">${esc(p.ml)}</span>` : ""}</div>
+      <h4>${esc(p.nombre)}</h4><p>${esc(p.desc)}</p>
+      <div class="row"><span class="price">${money(p.precio)}</span><button class="add" type="button" data-add="${p.id}" aria-label="Agregar ${esc(p.nombre)}">+ <span class="t">Agregar</span></button></div>
+    </article>`).join("");
+  if (window.gsap && !reduce) gsap.fromTo("#grid .card", { opacity: 0, y: 40, rotateX: -12 }, { opacity: 1, y: 0, rotateX: 0, duration: .7, stagger: .06, ease: "power3.out" });
+  tilt();
+}
+function tilt() {
+  if (reduce || !matchMedia("(hover:hover)").matches) return;
+  $$(".card,.ccard").forEach(el => {
+    el.onmousemove = e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; el.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`; };
+    el.onmouseleave = () => { el.style.transform = ""; };
+  });
+}
+
+/* ---------- pedido ---------- */
+let bag = {};
+try { bag = JSON.parse(localStorage.getItem("mda-bag") || "{}") || {}; } catch (e) { bag = {}; }
+const save = () => { try { localStorage.setItem("mda-bag", JSON.stringify(bag)); } catch (e) {} };
+function renderBag() {
+  const ids = Object.keys(bag).filter(id => bag[id] > 0);
+  const n = ids.reduce((s, id) => s + bag[id], 0), tot = ids.reduce((s, id) => s + bag[id] * P[id].precio, 0);
+  $("#count").textContent = n; $("#total").textContent = money(tot);
+  $("#items").innerHTML = ids.length ? ids.map(id => { const p = P[id]; return `<div class="it"><img src="${p.img}" alt=""><div><b>${esc(p.nombre)}</b><small>${p.ml ? esc(p.ml) + " · " : ""}${money(p.precio)}</small></div><div class="qty"><button type="button" data-q="${id}" data-d="-1" aria-label="Quitar uno">−</button><span>${bag[id]}</span><button type="button" data-q="${id}" data-d="1" aria-label="Agregar uno">+</button></div></div>`; }).join("")
+    : `<div class="empty">Tu pedido está vacío.<br>Agrega tus aromas favoritos ✨</div>`;
+  const txt = "¡Hola! Quiero hacer este pedido en Mundo de Aromas:\n\n" + ids.map(id => `• ${bag[id]} × ${P[id].nombre}${P[id].ml ? " (" + P[id].ml + ")" : ""} — ${money(P[id].precio * bag[id])}`).join("\n") + `\n\nTotal: ${money(tot)}`;
+  $("#send").href = wa(txt); $("#send").setAttribute("aria-disabled", ids.length ? "false" : "true");
+  save();
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-add]");
+  if (a) { const id = +a.dataset.add; bag[id] = (bag[id] || 0) + 1; renderBag(); a.classList.add("ok"); a.firstChild.textContent = "✓ "; setTimeout(() => { a.classList.remove("ok"); a.firstChild.textContent = "+ "; }, 1100); toast(P[id].nombre + " agregado"); if (window.gsap) gsap.fromTo("#count", { scale: 1.6 }, { scale: 1, duration: .5, ease: "back.out(3)" }); }
+  const q = e.target.closest("[data-q]");
+  if (q) { const id = q.dataset.q; bag[id] = Math.max(0, (bag[id] || 0) + +q.dataset.d); if (!bag[id]) delete bag[id]; renderBag(); }
+});
+const openBag = () => { $("#bag").classList.add("on"); $("#bag").setAttribute("aria-hidden", "false"); };
+const closeBag = () => { $("#bag").classList.remove("on"); $("#bag").setAttribute("aria-hidden", "true"); };
+$("#openBag").addEventListener("click", openBag); $("#closeBag").addEventListener("click", closeBag); $("#bagBk").addEventListener("click", closeBag);
+addEventListener("keydown", e => { if (e.key === "Escape") closeBag(); });
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 1600); }
+
+/* ---------- frase que se ilumina ---------- */
+$("#manifest").innerHTML = $("#manifest").textContent.split(" ").map(w => `<span class="w">${/recuerdo|siempre/.test(w) ? `<em>${w}</em>` : w}</span>`).join(" ");
+
+setCat("dama"); renderBag();
+
+/* ---------- animaciones ---------- */
+const nav = $("#nav");
+addEventListener("scroll", () => nav.classList.toggle("solid", scrollY > 40), { passive: true });
+if (!window.gsap || reduce) { gsap && gsap.set("#bottle", { rotateY: -24, rotateX: 8 }); $$(".manifest .w").forEach(w => w.style.opacity = 1); return; }
+gsap.registerPlugin(ScrollTrigger);
+// entrada
+gsap.set("#bottle", { rotateY: -24, rotateX: 8 });
+gsap.from("#giant span", { yPercent: 110, opacity: 0, duration: 1.2, stagger: .06, ease: "power4.out" });
+gsap.from(".stage", { y: 120, opacity: 0, duration: 1.4, delay: .3, ease: "power3.out" });
+gsap.from(".hero .tag", { opacity: 0, y: 20, duration: 1, delay: .9 });
+$$("#fernsHero path").forEach((p, i) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2.6, delay: .2 + i * .12, ease: "power2.inOut" }); });
+// flota y gira suave
+const idle = gsap.to("#bottle", { rotateY: 336, duration: 14, repeat: -1, ease: "none" });
+gsap.to(".stage", { y: -14, duration: 2.6, yoyo: true, repeat: -1, ease: "sine.inOut" });
+// scroll: el frasco cruza delante de la palabra, gira y se acerca
+const tl = gsap.timeline({ scrollTrigger: { trigger: ".hero", start: "top top", end: "+=110%", scrub: 1, pin: true, onEnter: () => idle.pause(), onLeaveBack: () => idle.play() } });
+tl.to("#bottle", { rotateY: "+=300", rotateX: -10, scale: 1.45, ease: "none" }, 0)
+  .to(".stage", { yPercent: 0, y: "-6vh", ease: "none" }, 0)
+  .to("#shadow", { scale: 1.4, opacity: .5, ease: "none" }, 0)
+  .to("#giant span", { y: (i) => (i % 2 ? -40 : 40), letterSpacing: ".05em", opacity: .35, stagger: .02, ease: "none" }, 0)
+  .to(".hero .tag", { opacity: 0, y: -30, ease: "none" }, 0);
+// palabras de la frase
+ScrollTrigger.create({ trigger: "#manifest", start: "top 80%", end: "bottom 45%", scrub: true, onUpdate: s => { const ws = $$(".manifest .w"); ws.forEach((w, i) => w.style.opacity = i / ws.length < s.progress * 1.15 ? 1 : .12); } });
+gsap.from(".ccard", { scrollTrigger: { trigger: "#cgrid", start: "top 85%" }, y: 80, rotateY: -25, opacity: 0, duration: 1, stagger: .12, ease: "power3.out" });
+$$("#fernsEnd path").forEach((p, i) => { const L = p.getTotalLength(); gsap.fromTo(p, { strokeDasharray: L, strokeDashoffset: L }, { strokeDashoffset: 0, duration: 2.2, delay: i * .1, ease: "power2.inOut", scrollTrigger: { trigger: "#contacto", start: "top 70%" } }); });
+gsap.from(".thanks h3", { scrollTrigger: { trigger: "#contacto", start: "top 70%" }, y: 50, opacity: 0, duration: 1.1, ease: "power3.out" });
+})();
+</script>
+</body>
+</html>
