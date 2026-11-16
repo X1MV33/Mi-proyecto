@@ -42,6 +42,7 @@
 
   /* portada collage */
   .hero{position:relative;padding:12cqw 0 10cqw;overflow:hidden}
+  .relieve{background:#EEEAE0 url(arte/fondo-relieve.jpg) center top/100% auto repeat-y}
   .emb{position:absolute;top:0;bottom:0;width:30cqw;pointer-events:none}
   .emb.l{left:-6cqw}.emb.r{right:-6cqw}
   .hero .top{position:relative;text-align:center;font-family:var(--caps);font-size:5cqw;letter-spacing:.12em;color:var(--soft)}
@@ -367,8 +368,7 @@ function calendar() {
 }
 
 $("#inv").innerHTML = `
-<header class="hero linen">
-  ${embossedSide("l")}${embossedSide("r")}
+<header class="hero relieve">
   ${bfly("verde", "right:4cqw;top:26cqw;width:20cqw", -10)}${bfly("blanca", "left:3cqw;top:118cqw;width:13cqw", 8)}<div class="top">Acompáñanos</div>
   <div class="collage">
     <div class="piece strip">${(F.tira || []).slice(0, 3).map(s => ph(s, "bw")).join("")}</div>
@@ -407,7 +407,7 @@ $("#inv").innerHTML = `
   <a class="pill rv" href="${esc(E.mapa)}" target="_blank" rel="noopener">Abrir mapa</a>
 </section>
 
-<section class="sec linen">
+<section class="sec relieve">
   <div class="tray big rv" style="margin-top:0">${trayOval()}<div class="lace"><div class="in"><div class="h2" style="margin-bottom:1.4cqw"><span class="s" style="font-size:9cqw;color:var(--ink)">Programa</span></div><div class="prog">${E.programa.map(([h, t]) => `<div><b>${esc(h)}</b><span>${esc(t)}</span><i></i></div>`).join("")}</div></div></div></div>
 </section>
 

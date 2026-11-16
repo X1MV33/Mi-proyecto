@@ -86,6 +86,23 @@
   .bye{position:relative;padding:12cqw 8cqw 0;text-align:center}
   .bye .s{font-family:var(--script);font-size:10cqw;line-height:1.1;color:var(--ink);transform:rotate(-6deg)}
   .wm{padding:5cqw 0;text-align:center;font-family:var(--caps);font-size:2.8cqw;letter-spacing:.2em;color:var(--soft)}
+  /* pantalla de inicio: sobre vino */
+  #intro{position:fixed;inset:0;z-index:50;display:flex;justify-content:center;background:#E9E3DA;cursor:pointer;transition:opacity .9s ease,visibility .9s}
+  #intro.out{opacity:0;visibility:hidden}
+  #intro .box{position:relative;width:min(100vw,480px);height:100%;container-type:inline-size;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:#EEE9E1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='1.6'%3E%3CfeDistantLight azimuth='45' elevation='55'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}
+  #intro .k{font-family:var(--serif);font-size:4.4cqw;color:var(--ink);letter-spacing:.02em}
+  #intro .nm{font-family:var(--script);font-size:11.5cqw;line-height:1.1;color:var(--vino);margin:1cqw 0 6cqw;white-space:nowrap}
+  #intro .env{position:relative;width:80cqw}
+  #intro .env svg.e{width:100%;display:block;filter:drop-shadow(0 2cqw 3cqw rgba(50,20,25,.3))}
+  #intro .bq{position:absolute;width:34cqw}
+  #intro .bq.l{left:-10cqw;top:-12cqw;transform:rotate(-18deg)}
+  #intro .bq.r{right:-12cqw;top:22cqw;transform:rotate(12deg);width:36cqw}
+  #intro .go{margin-top:12cqw;font-family:var(--serif);font-size:4.4cqw;color:var(--ink)}
+  #intro .go u{text-underline-offset:1cqw}
+  #intro .env{animation:float 4s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-1.4cqw)}}
+  .pimg{position:absolute;filter:drop-shadow(0 1.4cqw 2cqw rgba(40,25,20,.25))}
   #music{position:fixed;z-index:20;top:calc(14px + env(safe-area-inset-top));right:max(14px,calc(50vw - 240px + 14px));width:42px;height:42px;border-radius:50%;background:rgba(246,241,234,.9);display:grid;place-items:center;box-shadow:0 4px 14px rgba(40,25,20,.2)}
   #music[hidden]{display:none}
   #rsvp{position:fixed;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(40,25,20,.4);visibility:hidden;opacity:0;transition:opacity .3s}
@@ -163,6 +180,39 @@ const ICON = {
   check: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 21C6 17 3 13 3 9a4.5 4.5 0 0 1 9-1 4.5 4.5 0 0 1 9 1c0 4-3 8-9 12z"/></svg>'
 };
 
+
+/* ---------- pantalla de inicio ---------- */
+function calla(x, y, a, s, col) {
+  const dark = col === "w" ? ["#FBF8F2", "#E9E1D4", "#D9CDB9"] : ["#7A1E2B", "#5B1220", "#3E0A15"];
+  return `<g transform="translate(${x} ${y}) rotate(${a}) scale(${s})"><path d="M0 60C-1 40 0 20 2 10" stroke="#6F7A45" stroke-width="2.2" fill="none"/>
+    <path d="M2 10C-16 0-18-26-2-40C2-20 16-8 26-4C18 4 10 8 2 10Z" fill="${dark[0]}" stroke="${dark[2]}" stroke-width=".8"/>
+    <path d="M2 10C-6 -4-8-20-2-40C-12-24-12 0 2 10Z" fill="${dark[1]}" opacity=".7"/>
+    <path d="M2 8C1-2 3-12 6-18" stroke="#E7C873" stroke-width="2.6" stroke-linecap="round" fill="none"/></g>`;
+}
+function bouquet(flip) {
+  let s = "";
+  for (let i = 0; i < 12; i++) { const x = 30 + i * 4.5, l = 70 + (i % 4) * 26; s += `<path d="M${x} 74q${i % 2 ? 7 : -7} ${l / 2} ${i % 2 ? -3 : 4} ${l}" fill="none" stroke="${i % 3 ? "#7E1D2C" : "#EDE5D6"}" stroke-width="3" stroke-dasharray="1.2 2.2" stroke-linecap="round"/>`; }
+  s += calla(40, 30, -40, 1, "r") + calla(60, 24, -10, 1.05, "w") + calla(78, 34, 22, 1, "r") + calla(30, 50, -70, .9, "w") + calla(88, 52, 50, .9, "r") + calla(55, 46, 4, .95, "r") + calla(68, 52, 34, .85, "w");
+  s += `<path d="M44 82h26l-2 34H46z" fill="#F2EEE6" stroke="#D9D1C2"/><path d="M50 116v40M56 116v42M62 116v40" stroke="#6F7A45" stroke-width="2.4"/>`;
+  return `<svg class="bq ${flip}" viewBox="0 0 120 200" aria-hidden="true">${s}</svg>`;
+}
+function bigEnvelope() {
+  const g = id("be"); let lace = "";
+  for (let i = 0; i <= 30; i++) { const t = i / 30, x = t * 320, y = (t <= .5 ? t * 2 : (1 - t) * 2) * 132; const yy = y + 6;
+    lace += `<circle cx="${x.toFixed(1)}" cy="${yy.toFixed(1)}" r="8.5" fill="#6A1722" stroke="#3F0C16" stroke-width=".8"/><circle cx="${x.toFixed(1)}" cy="${yy.toFixed(1)}" r="3.6" fill="none" stroke="#91404D" stroke-width="1"/><circle cx="${x.toFixed(1)}" cy="${(yy + 12).toFixed(1)}" r="2" fill="#6A1722"/>`; }
+  return `<svg class="e" viewBox="0 -4 320 228" aria-hidden="true"><defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7A2230"/><stop offset="1" stop-color="#52121D"/></linearGradient></defs>
+    <rect x="0" y="0" width="320" height="220" fill="url(#${g})"/>
+    <path d="M0 220L130 120M320 220L190 120" stroke="#3F0C16" stroke-width="1.2" opacity=".7"/>
+    <path d="M0 0H320L160 132Z" fill="#65192A"/>${lace}
+    <ellipse cx="160" cy="138" rx="22" ry="27" fill="#5E1622" stroke="#3E0A15" stroke-width="3"/><ellipse cx="160" cy="138" rx="15" ry="19" fill="none" stroke="#85303D" stroke-width="1.2"/></svg>`;
+}
+document.body.insertAdjacentHTML("afterbegin", `<div id="intro" role="button" aria-label="Abrir invitación"><div class="box">
+  <div class="k">Nos casamos</div><div class="nm">${esc(n1)} &amp; ${esc(n2)}</div>
+  <div class="env">${bigEnvelope()}${bouquet("l")}${bouquet("r")}</div>
+  <div class="go">Toca <u>aquí</u> para abrir</div></div></div>`);
+document.body.style.overflow = "hidden";
+$("#intro").addEventListener("click", () => { $("#intro").classList.add("out"); document.body.style.overflow = ""; window.__openMusic && window.__openMusic(); });
+
 $("#inv").innerHTML = `
 <div class="stripes"></div>
 <div class="topbar"><span>${esc(C.ciudad)}</span><span>${esc(C.fechaCorta)}</span></div>
@@ -171,13 +221,13 @@ $("#inv").innerHTML = `
   <h1 class="names rv"><span class="n">${esc(n1)}</span><span class="y">y</span><span class="n">${esc(n2)}</span></h1>
   <p class="intro rv">${esc(C.intro)}</p>
   <div class="collage">
-    <div class="torn drop" style="left:0;top:4cqw;width:46cqw;height:30cqw;background:#E7DED2;--clip:${tear(true, true, 4)};--r:-6deg;animation-delay:.2s"></div>
+    <img class="pimg drop" src="arte/carta1.webp" alt="" style="left:-4cqw;top:0;width:52cqw;--r:-8deg;animation-delay:.2s"><img class="pimg drop" src="arte/carta2.webp" alt="" style="left:66cqw;top:44cqw;width:30cqw;--r:10deg;animation-delay:.5s">
     <div class="drop" style="left:2cqw;top:30cqw;width:98cqw;--r:-14deg;animation-delay:.3s">${envelope()}</div>
     <div class="drop" style="left:-6cqw;top:56cqw;width:110cqw;--r:4deg;animation-delay:.9s">${ribbon()}</div>
     <div class="note torn drop" style="left:44cqw;top:12cqw;width:40cqw;height:30cqw;font-size:6cqw;--clip:${tear(true, true, 5)};--r:7deg;animation-delay:.45s">Te quiero<br>en lo simple</div>
     <div class="film drop">${(F.tira || ["", "", ""]).slice(0, 3).map(ph).join("")}</div>
     <div class="note torn drop" style="left:54cqw;top:58cqw;width:38cqw;height:30cqw;font-size:6.2cqw;--clip:${tear(true, true, 5)};--r:-10deg;animation-delay:.7s">${esc(C.nota1)}</div>
-    <div class="drop" style="left:52cqw;top:4cqw;width:40cqw;height:64cqw;--r:14deg;animation-delay:.6s">${gyps()}</div>
+    <img class="pimg drop" src="arte/gypsophila.webp" alt="" style="left:50cqw;top:-2cqw;width:44cqw;--r:12deg;animation-delay:.6s">
     <div class="drop" style="left:28cqw;top:78cqw;width:16cqw;--r:0deg;animation-delay:1.1s">${seal()}</div>
   </div>
 </header>
@@ -215,7 +265,7 @@ $("#inv").innerHTML = `
     <div class="icard rv"><div class="tx">${ICON.gift}<h3>Regalos</h3><p>${esc(C.regalos)}</p><span class="go">⟶</span></div><div class="art">${gift()}</div></div>
     <div class="icard rv"><div class="tx">${ICON.mail}<h3>Chat de invitados</h3><p>${esc(C.chat)}</p><a class="btn" href="${esc(C.chatLink)}" target="_blank" rel="noopener">Unirme ⟶</a></div><div class="art">${landscape(1)}</div></div>
     <div class="icard rv"><div class="tx">${ICON.flower}<h3>Flores y deseos</h3><p>${esc(C.flores)}</p><span class="go">⟶</span></div><div class="art">${flowers()}</div></div>
-    <div class="icard rv"><div class="tx">${ICON.check}<h3>Confirma</h3><p>Ayúdanos a preparar todo con cariño: confirma tu asistencia antes del ${esc(C.rsvpFecha)}.</p><button class="btn" type="button" id="openR">Confirmar ⟶</button></div><div class="art">${gyps(120, 200)}</div></div>
+    <div class="icard rv"><div class="tx">${ICON.check}<h3>Confirma</h3><p>Ayúdanos a preparar todo con cariño: confirma tu asistencia antes del ${esc(C.rsvpFecha)}.</p><button class="btn" type="button" id="openR">Confirmar ⟶</button></div><div class="art" style="background:#EFE7DD;display:grid;place-items:center"><img src="arte/gypsophila.webp" alt="" style="width:90%;height:auto;transform:rotate(-8deg)"></div></div>
     <div class="icard rv" style="grid-template-columns:1fr"><div class="tx" style="text-align:center;padding:7cqw"><h3 style="margin-top:0">Lugar</h3><p><b>${esc(C.lugar)}</b><br>${esc(C.direccion)}</p><a class="btn" href="${esc(C.mapa)}" target="_blank" rel="noopener">Ver mapa ⟶</a></div></div>
   </div>
 </section>
