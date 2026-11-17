@@ -289,10 +289,10 @@
 <div id="home">
 <section class="hero" id="top">
   <svg class="beans" id="beans" aria-hidden="true"></svg>
-  <div class="pol p1" data-depth=".35"><img src="img/brindis.jpg" alt=""><span>iced latte</span></div>
+  <div class="pol p1" data-depth=".35"><img src="img/amigas.jpg" alt=""><span>with LöV</span></div>
   <div class="pol p2" data-depth=".5"><img src="img/matcha.jpg" alt=""><span>matcha</span></div>
   <div class="pol p3" data-depth=".6"><img src="img/tazas.jpg" alt=""><span>capuccino</span></div>
-  <div class="pol p4" data-depth=".4"><img src="img/cold-foam.jpg" alt=""><span>cold foam</span></div>
+  <div class="pol p4" data-depth=".4"><img src="img/chica.jpg" alt=""><span>cold foam</span></div>
   <div class="center">
     <div class="logo" style="position:relative"><img src="img/logo.png" alt="LöV café"></div>
     <div class="board">You look like you<br>need a coffee</div>
@@ -321,7 +321,7 @@
     <div class="ios rv">
       <div class="ph a"><img src="img/barra.jpg" alt="Barra de LöV café" loading="lazy"></div>
       <div class="ph b"><img src="img/parque.jpg" alt="" loading="lazy"></div>
-      <div class="ph c"><img src="img/terraza.jpg" alt="Terraza de LöV café" loading="lazy"><div class="sel"></div></div>
+      <div class="ph c"><img src="img/tres-vasos.jpg" alt="Tres lattes de LöV café" loading="lazy" style="object-position:50% 40%"><div class="sel"></div></div>
       <svg class="folder" viewBox="0 0 120 92" aria-hidden="true"><path d="M6 14a8 8 0 0 1 8-8h30l10 10h52a8 8 0 0 1 8 8v8H6z" fill="#3E9BEA"/><rect x="6" y="24" width="108" height="64" rx="9" fill="#6EC1F7"/><rect x="6" y="24" width="108" height="10" rx="5" fill="#8ACFFA" opacity=".6"/></svg>
       <div class="cp"><span>Copy</span><span>Paste</span></div>
       <img class="sticker" data-par=".12" src="img/vaso-mano.png" alt="" style="left:36%;bottom:-4%;width:clamp(90px,20%,220px)">
@@ -352,7 +352,7 @@
     <span class="emo" style="left:6%;top:2%">🥰</span><span class="emo" style="right:8%;top:30%">✨</span>
     <span class="emo" style="left:3%;top:52%">💗</span><span class="emo" style="right:5%;top:78%">👀</span><span class="emo" style="left:12%;top:86%">🤩</span>
   </div>
-  <img class="hand" src="img/vaso-mano.png" alt="">
+  <img class="hand" src="img/vaso-chica.png" alt="">
   <div class="gm"><a class="btn l" href="https://maps.app.goo.gl/hGGt882J9kyJxLng9" target="_blank" rel="noopener">Ver todas en Google ⭐</a></div>
 </section>
 
@@ -368,13 +368,12 @@
       <div class="dotme" style="left:20%;top:28%"></div>
       <div class="lbl2" style="left:24%;top:22%">tú estás aquí</div>
       <svg class="pin2" style="left:76%;top:34%" viewBox="0 0 24 34"><path d="M12 0C5 0 0 5 0 12c0 9 12 22 12 22s12-13 12-22C24 5 19 0 12 0z" fill="#EA4335"/><circle cx="12" cy="12" r="5" fill="#A50E0E"/></svg>
-      <div class="lbl2" style="right:4%;top:24%">la barra</div>
-      <div class="ph2" style="right:5%;top:38%"><img src="img/barra.jpg" alt=""><em>⭐ 4.9</em></div>
+      <div class="lbl2" style="right:4%;top:24%">espresso tonic</div>
+      <div class="ph2" style="right:5%;top:38%"><img src="img/tonic.jpg" alt=""><em>⭐ 4.9</em></div>
       <svg class="pin2" style="left:44%;top:78%" viewBox="0 0 24 34"><path d="M12 0C5 0 0 5 0 12c0 9 12 22 12 22s12-13 12-22C24 5 19 0 12 0z" fill="#EA4335"/><circle cx="12" cy="12" r="5" fill="#A50E0E"/></svg>
       <div class="ph2" style="left:24%;top:70%"><img src="img/pan-caja.jpg" alt=""><em>⭐ 5.0</em></div>
       <div class="lbl2" style="left:4%;top:92%">pan para llevar</div>
-      <div class="ph2" style="left:4%;top:38%"><img src="img/trio.jpg" alt=""><em>⭐ 4.8</em></div>
-      <div class="lbl2" style="left:4%;top:33%;transform:translateY(-100%)">tu latte frío</div>
+            <div class="lbl2" style="left:4%;top:50%">la terraza ✨</div>
       <div class="eta" style="left:64%;top:60%">a 5 min ☕</div>
     </div>
     <div class="visit">
@@ -512,7 +511,7 @@ $("#infoBox").innerHTML = `<div><h4>Sabores disponibles</h4><p>${SABORES}</p></d
 $("#pan").innerHTML = PAN.map((p, i) => `<button type="button" data-pan="${i}">${esc(p)}</button>`).join("");
 
 /* galería */
-const FILM = ["brindis", "matcha", "tazas", "cold-foam", "dibujo", "trio"];
+const FILM = ["brindis", "cold-foam", "trio", "dibujo"];
 $("#film").innerHTML = FILM.map((g, i) => `<figure><img src="img/${g}.jpg" alt="" loading="lazy"><small>LÖV 200 · 0${i + 1}</small></figure>`).join("");
 
 /* ===== vaso que se arma con el scroll ===== */
