@@ -246,6 +246,21 @@
   .card.qr img{width:150px;border-radius:14px;flex:none}
   @media (max-width:760px){.card.qr{flex-direction:column;text-align:center}.card.qr .btns{justify-content:center}.mtabs{margin-left:0;width:100%}}
 
+
+  /* ===== apartado de menú que se abre ahí mismo ===== */
+  .mcover{padding:80px 0 40px}
+  .mcard{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;background:var(--foam);border-radius:30px;padding:34px;border:1px solid rgba(180,157,127,.3);box-shadow:0 24px 40px -30px rgba(43,30,22,.6)}
+  .mcard h2{margin-top:4px}
+  .btn.big{margin-top:22px;padding:16px 30px;font-size:17px}
+  .mpics{position:relative;height:260px}
+  .mpics{display:grid;place-items:center}
+  .mpics .pr{width:min(86%,340px);transform:rotate(-8deg);filter:drop-shadow(0 20px 26px rgba(43,30,22,.35));animation:flo 5s ease-in-out infinite}
+  .mpics .lg{position:absolute;right:4%;top:0;width:28%;transform:rotate(10deg);opacity:.9}
+  #menuPage{animation:abrir .6s cubic-bezier(.2,.8,.2,1)}
+  @keyframes abrir{from{opacity:0;transform:translateY(-20px)}}
+  #menuPage #menu{padding-top:40px}
+  @media (max-width:760px){.mcard{grid-template-columns:1fr;padding:24px}.mpics{height:200px;order:-1}}
+
   /* bolsa */
   #bag{position:fixed;inset:0;z-index:50;visibility:hidden}
   #bag.on{visibility:visible}
@@ -313,6 +328,46 @@
 </section>
 
 <div class="marquee" aria-hidden="true"><div id="mq"></div></div>
+
+<section class="mcover" id="menuSec">
+  <div class="wrap">
+    <div class="mcard rv">
+      <div class="mtxt">
+        <div class="kick">Nuestro menú</div>
+        <h2>Menú <em>LöV</em></h2>
+        <p class="lead">Café, matcha, tés, frappés, sodas, salados y pan recién horneado. Toca para verlo aquí mismo y arma tu pedido.</p>
+        <button class="btn d big" type="button" id="toggleMenu">Ver menú ☕</button>
+      </div>
+      <div class="mpics"><img class="pr" src="img/pan-recorte.png" alt=""><img class="lg" src="img/logo.png" alt=""></div>
+    </div>
+  </div>
+  <div id="menuPage" hidden>
+<section class="sec" id="menu">
+  <div class="wrap">
+    <div class="kick rv">Nuestro menú</div>
+    <h2 class="rv">Coffee <em>LöV(ers)</em></h2>
+    <p class="lead rv">Toca el tamaño que quieres y se agrega a tu pedido. Al final lo mandas por WhatsApp y lo tenemos listo para ti.</p>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="grid" id="grid"></div>
+    <div class="info rv" id="infoBox"></div>
+  </div>
+</section>
+
+<section class="sec bake" id="panaderia">
+  <div class="wrap">
+    <div class="kick rv">Recién horneado</div>
+    <h2 class="rv">Panadería</h2>
+    <p class="lead rv">Croissants, roles, muffins y galletas que salen cada día. Toca los que quieras para apartarlos en tu pedido.</p>
+    <div class="bgrid">
+      <div class="shots rv"><img src="img/vitrina-1.jpg" alt="Vitrina de pan dulce" loading="lazy"><img src="img/vitrina-2.jpg" alt="Vitrina de croissants" loading="lazy"></div>
+      <div class="rv"><div class="chips" id="pan"></div><p class="note">* Disponibilidad y precio en tienda</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0;text-align:center"><a class="btn d" href="#" id="openBag2">Ver mi pedido</a> <button class="btn l" type="button" id="closeMenu">Cerrar menú ↑</button></section>
+  </div>
+</section>
 
 <section class="sec" id="momentos">
   <div class="wrap">
@@ -386,33 +441,6 @@
 
 </div>
 
-<div id="menuPage" hidden>
-<section class="mhead"><div class="wrap"><a class="back" href="#top">← Inicio</a><img src="img/logo.png" alt="LöV café"><div class="mtabs"><a href="#menu">Bebidas y salados</a><a href="#panaderia">Panadería</a></div></div></section>
-<section class="sec" id="menu">
-  <div class="wrap">
-    <div class="kick rv">Nuestro menú</div>
-    <h2 class="rv">Coffee <em>LöV(ers)</em></h2>
-    <p class="lead rv">Toca el tamaño que quieres y se agrega a tu pedido. Al final lo mandas por WhatsApp y lo tenemos listo para ti.</p>
-    <div class="tabs" id="tabs" role="tablist"></div>
-    <div class="grid" id="grid"></div>
-    <div class="info rv" id="infoBox"></div>
-  </div>
-</section>
-
-<section class="sec bake" id="panaderia">
-  <div class="wrap">
-    <div class="kick rv">Recién horneado</div>
-    <h2 class="rv">Panadería</h2>
-    <p class="lead rv">Croissants, roles, muffins y galletas que salen cada día. Toca los que quieras para apartarlos en tu pedido.</p>
-    <div class="bgrid">
-      <div class="shots rv"><img src="img/vitrina-1.jpg" alt="Vitrina de pan dulce" loading="lazy"><img src="img/vitrina-2.jpg" alt="Vitrina de croissants" loading="lazy"></div>
-      <div class="rv"><div class="chips" id="pan"></div><p class="note">* Disponibilidad y precio en tienda</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" style="padding-top:0;text-align:center"><a class="btn d" href="#" id="openBag2">Ver mi pedido</a></section>
-</div>
 
 <footer><img src="img/logo-blanco.png" alt="LöV café"><p>Gracias por ser LöV(er) ♡</p><small>© LöV café · Sabinas Hidalgo</small></footer>
 
@@ -638,13 +666,15 @@ let ticking = false;
 addEventListener("scroll", () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = scrollY; nav.classList.toggle("solid", y > 30); if (y < innerHeight * 1.2) pols.forEach(p => p.style.transform = `translateY(${-y * +p.dataset.depth}px) rotate(var(--r))`); ticking = false; }); }, { passive: true });
 pols.forEach(p => p.style.transform = "rotate(var(--r))");
 setCat("cafe"); render();
-function route() {
-  const h = location.hash, m = h === "#menu" || h === "#panaderia";
-  $("#menuPage").hidden = !m; $("#home").hidden = m;
-  if (m) { requestAnimationFrame(() => { const t = document.querySelector(h); scrollTo({ top: h === "#menu" ? 0 : t.offsetTop - 70 }); $$("#menuPage .rv").forEach(el => el.classList.add("in")); }); }
-  else if (h && document.querySelector(h)) { requestAnimationFrame(() => document.querySelector(h).scrollIntoView()); }
+const mp = $("#menuPage"), tg = $("#toggleMenu");
+function openMenu(target) {
+  if (mp.hidden) { mp.hidden = false; tg.textContent = "Ocultar menú ↑"; $$("#menuPage .rv").forEach(el => el.classList.add("in")); }
+  requestAnimationFrame(() => (document.querySelector(target) || mp).scrollIntoView({ behavior: "smooth", block: "start" }));
 }
-addEventListener("hashchange", route); route();
+function closeMenu() { mp.hidden = true; tg.textContent = "Ver menú ☕"; $("#menuSec").scrollIntoView({ behavior: "smooth" }); }
+tg.addEventListener("click", () => mp.hidden ? openMenu("#menu") : closeMenu());
+$("#closeMenu").addEventListener("click", closeMenu);
+document.addEventListener("click", e => { const a = e.target.closest('a[href="#menu"], a[href="#panaderia"]'); if (!a) return; e.preventDefault(); openMenu(a.getAttribute("href")); });
 $("#openBag2").addEventListener("click", e => { e.preventDefault(); open(); });
 })();
 </script>
