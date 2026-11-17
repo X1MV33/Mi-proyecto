@@ -229,6 +229,23 @@
   .ops .gm{text-align:center;padding:18px 0 40px}
   @media (max-width:760px){.cloud{gap:6px}.msg{max-width:84%;padding:9px 14px 10px 9px;border-radius:20px}.msg .tx{font-size:13px}.msg .tx b{font-size:11.5px}.msg .av{width:28px;height:28px;font-size:13px}.msg.l{margin-left:1%}.msg.r{margin-right:1%}.ops .hand{width:44vw;margin-top:-6px}}
 
+
+  /* ===== apartado de menú ===== */
+  .mhead{padding:90px 0 0}
+  .mhead .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .mhead img{height:46px}
+  .back{font-weight:800;padding:9px 16px;border-radius:99px;background:var(--paper2)}
+  .mtabs{margin-left:auto;display:flex;gap:8px}
+  .mtabs a{font-weight:800;font-size:14px;padding:9px 16px;border-radius:99px;border:2px solid rgba(43,30,22,.18)}
+  #menuPage #menu{padding-top:40px}
+  .estado{display:flex;align-items:center;gap:8px;font-weight:800;margin-bottom:12px}
+  .estado i{width:10px;height:10px;border-radius:50%;background:#3BA55C;box-shadow:0 0 0 4px rgba(59,165,92,.2)}
+  .estado i.off{background:#C9563C;box-shadow:0 0 0 4px rgba(201,86,60,.2)}
+  .hours .hoy{color:var(--cocoa)!important;font-weight:800!important}
+  .card.qr{margin-top:20px;display:flex;align-items:center;gap:24px}
+  .card.qr img{width:150px;border-radius:14px;flex:none}
+  @media (max-width:760px){.card.qr{flex-direction:column;text-align:center}.card.qr .btns{justify-content:center}.mtabs{margin-left:0;width:100%}}
+
   /* bolsa */
   #bag{position:fixed;inset:0;z-index:50;visibility:hidden}
   #bag.on{visibility:visible}
@@ -265,10 +282,11 @@
 <body>
 <header class="nav" id="nav">
   <a href="#top" aria-label="LöV café"><img src="img/logo.png" alt="LöV café"></a>
-  <nav><a href="#menu">Menú</a><a href="#panaderia">Panadería</a><a href="#momentos">Momentos</a><a href="#opiniones">Opiniones</a><a href="#visitanos">Visítanos</a></nav>
+  <nav><a href="#top">Inicio</a><a href="#menu">Menú</a><a href="#momentos">Momentos</a><a href="#opiniones">Opiniones</a><a href="#visitanos">Visítanos</a></nav>
   <button class="bagbtn" id="openBag" type="button">Mi pedido <b id="count">0</b></button>
 </header>
 
+<div id="home">
 <section class="hero" id="top">
   <svg class="beans" id="beans" aria-hidden="true"></svg>
   <div class="pol p1" data-depth=".35"><img src="img/brindis.jpg" alt=""><span>iced latte</span></div>
@@ -289,35 +307,12 @@
     <div class="step" id="stepTxt">Molemos el grano al momento</div>
     <div class="cup" id="cup"></div>
     <div class="meta" id="meta"><b>18 g de café</b><b>92 °C</b><b>30 s de extracción</b></div>
-    <a class="btn d go" id="storyGo" href="#menu">Elige el tuyo ↓</a>
+    <a class="btn d go" id="storyGo" href="#menu">Ver el menú →</a>
     <div class="hint" id="hint">DESLIZA ↓</div>
   </div>
 </section>
 
 <div class="marquee" aria-hidden="true"><div id="mq"></div></div>
-
-<section class="sec" id="menu">
-  <div class="wrap">
-    <div class="kick rv">Nuestro menú</div>
-    <h2 class="rv">Coffee <em>LöV(ers)</em></h2>
-    <p class="lead rv">Toca el tamaño que quieres y se agrega a tu pedido. Al final lo mandas por WhatsApp y lo tenemos listo para ti.</p>
-    <div class="tabs" id="tabs" role="tablist"></div>
-    <div class="grid" id="grid"></div>
-    <div class="info rv" id="infoBox"></div>
-  </div>
-</section>
-
-<section class="sec bake" id="panaderia">
-  <div class="wrap">
-    <div class="kick rv">Recién horneado</div>
-    <h2 class="rv">Panadería</h2>
-    <p class="lead rv">Croissants, roles, muffins y galletas que salen cada día. Toca los que quieras para apartarlos en tu pedido.</p>
-    <div class="bgrid">
-      <div class="shots rv"><img src="img/vitrina-1.jpg" alt="Vitrina de pan dulce" loading="lazy"><img src="img/vitrina-2.jpg" alt="Vitrina de croissants" loading="lazy"></div>
-      <div class="rv"><div class="chips" id="pan"></div><p class="note">* Disponibilidad y precio en tienda</p></div>
-    </div>
-  </div>
-</section>
 
 <section class="sec" id="momentos">
   <div class="wrap">
@@ -384,10 +379,41 @@
     </div>
     <div class="visit">
       <div class="card rv"><h3>¿Dónde estamos?</h3><p id="dir"></p><p style="margin-top:6px"><a href="tel:+528242422076" style="font-weight:800;color:var(--cocoa)">📞 824 242 2076</a></p><div class="btns"><a class="btn d" id="mapa" target="_blank" rel="noopener">Abrir en Google Maps</a></div></div>
-      <div class="card rv"><h3>Horario</h3><div class="hours" id="hours"></div><div class="btns"><a class="btn l" id="ig" target="_blank" rel="noopener">Instagram</a><a class="btn l" id="fb" target="_blank" rel="noopener">Facebook</a><a class="btn d" id="wa" target="_blank" rel="noopener">WhatsApp</a></div></div>
+      <div class="card rv"><h3>Horario</h3><div class="estado" id="estado"></div><div class="hours" id="hours"></div><div class="btns"><a class="btn l" id="ig" target="_blank" rel="noopener">Instagram</a><a class="btn l" id="fb" target="_blank" rel="noopener">Facebook</a><a class="btn d" id="wa" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    </div>
+    <div class="card qr rv"><img src="img/qr-linktree.png" alt="Código QR de LöV café"><div><h3>Todo LöV en un lugar</h3><p>Escanea el código o toca el botón para ver nuestras redes, menú y más.</p><div class="btns"><a class="btn d" id="lt" target="_blank" rel="noopener">Abrir Linktree</a></div></div></div>
+  </div>
+</section>
+
+</div>
+
+<div id="menuPage" hidden>
+<section class="mhead"><div class="wrap"><a class="back" href="#top">← Inicio</a><img src="img/logo.png" alt="LöV café"><div class="mtabs"><a href="#menu">Bebidas y salados</a><a href="#panaderia">Panadería</a></div></div></section>
+<section class="sec" id="menu">
+  <div class="wrap">
+    <div class="kick rv">Nuestro menú</div>
+    <h2 class="rv">Coffee <em>LöV(ers)</em></h2>
+    <p class="lead rv">Toca el tamaño que quieres y se agrega a tu pedido. Al final lo mandas por WhatsApp y lo tenemos listo para ti.</p>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="grid" id="grid"></div>
+    <div class="info rv" id="infoBox"></div>
+  </div>
+</section>
+
+<section class="sec bake" id="panaderia">
+  <div class="wrap">
+    <div class="kick rv">Recién horneado</div>
+    <h2 class="rv">Panadería</h2>
+    <p class="lead rv">Croissants, roles, muffins y galletas que salen cada día. Toca los que quieras para apartarlos en tu pedido.</p>
+    <div class="bgrid">
+      <div class="shots rv"><img src="img/vitrina-1.jpg" alt="Vitrina de pan dulce" loading="lazy"><img src="img/vitrina-2.jpg" alt="Vitrina de croissants" loading="lazy"></div>
+      <div class="rv"><div class="chips" id="pan"></div><p class="note">* Disponibilidad y precio en tienda</p></div>
     </div>
   </div>
 </section>
+
+<section class="sec" style="padding-top:0;text-align:center"><a class="btn d" href="#" id="openBag2">Ver mi pedido</a></section>
+</div>
 
 <footer><img src="img/logo-blanco.png" alt="LöV café"><p>Gracias por ser LöV(er) ♡</p><small>© LöV café · Sabinas Hidalgo</small></footer>
 
@@ -418,7 +444,9 @@ const INFO = {
   mapa: "https://maps.app.goo.gl/hGGt882J9kyJxLng9",
   instagram: "https://www.instagram.com/lovcafemx",
   facebook: "https://www.facebook.com/share/1Q1V1QX8eG/",
-  horario: [["Lunes a viernes", "Pregunta por nuestro horario"], ["Sábado y domingo", "Pregunta por nuestro horario"]]
+  linktree: "https://linktr.ee/lovcafe",
+  // [día, abre, cierra] en horas de 24 (domingo = 0)
+  horario: [["Lunes", 7, 21], ["Martes", 7, 21], ["Miércoles", 7, 14], ["Jueves", 7, 21], ["Viernes", 7, 21], ["Sábado", 9, 21], ["Domingo", 11, 21]]
 };
 const S3 = ["12 oz", "16 oz", "20 oz"];
 // [categoría, nombre, descripción, precios (12/16/20 oz o uno solo), etiqueta]
@@ -549,7 +577,12 @@ addEventListener("scroll", () => pars.forEach(el => { const r = el.getBoundingCl
 $("#dir").textContent = INFO.direccion;
 $("#mapa").href = INFO.mapa; $("#ig").href = INFO.instagram; $("#fb").href = INFO.facebook;
 $("#wa").href = wa("¡Hola LöV café! ☕");
-$("#hours").innerHTML = INFO.horario.map(([d, h]) => `<span>${esc(d)}</span><span>${esc(h)}</span>`).join("");
+const fmt = h => `${h > 12 ? h - 12 : h}:00 ${h >= 12 ? "pm" : "am"}`;
+const hoy = (new Date().getDay() + 6) % 7;
+$("#hours").innerHTML = INFO.horario.map(([d, a, c], i) => `<span${i === hoy ? ' class="hoy"' : ""}>${esc(d)}</span><span${i === hoy ? ' class="hoy"' : ""}>${fmt(a)} a ${fmt(c)}</span>`).join("");
+(() => { const n = new Date(), [, a, c] = INFO.horario[hoy], h = n.getHours() + n.getMinutes() / 60, ab = h >= a && h < c;
+  $("#estado").innerHTML = ab ? `<i></i>Abierto ahora · cierra a las ${fmt(c)}` : `<i class="off"></i>Cerrado ahora`; })();
+$("#lt").href = INFO.linktree;
 
 /* pedido */
 let bag = {};
@@ -606,6 +639,14 @@ let ticking = false;
 addEventListener("scroll", () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = scrollY; nav.classList.toggle("solid", y > 30); if (y < innerHeight * 1.2) pols.forEach(p => p.style.transform = `translateY(${-y * +p.dataset.depth}px) rotate(var(--r))`); ticking = false; }); }, { passive: true });
 pols.forEach(p => p.style.transform = "rotate(var(--r))");
 setCat("cafe"); render();
+function route() {
+  const h = location.hash, m = h === "#menu" || h === "#panaderia";
+  $("#menuPage").hidden = !m; $("#home").hidden = m;
+  if (m) { requestAnimationFrame(() => { const t = document.querySelector(h); scrollTo({ top: h === "#menu" ? 0 : t.offsetTop - 70 }); $$("#menuPage .rv").forEach(el => el.classList.add("in")); }); }
+  else if (h && document.querySelector(h)) { requestAnimationFrame(() => document.querySelector(h).scrollIntoView()); }
+}
+addEventListener("hashchange", route); route();
+$("#openBag2").addEventListener("click", e => { e.preventDefault(); open(); });
 })();
 </script>
 </body>
