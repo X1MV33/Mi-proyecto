@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LöV café</title>
+<meta name="description" content="LöV café · Sabinas Hidalgo. Café de especialidad, matcha, tés, frappés y panadería. Pide por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EDE2; --paper2:#EBE1D2; --latte:#B49D7F; --latte-d:#8E7558; --cocoa:#2B1E16; --ink:#3B2A1F; --soft:#7A6553; --foam:#FBF7F0; --matcha:#9DB36A;
+    --serif:"Playfair Display", Georgia, serif; --hand:"Caveat", cursive; --sans:"Nunito", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;background:var(--paper)}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);overflow-x:hidden;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
+  img{display:block;max-width:100%}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1120px,100% - 32px);margin:0 auto}
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+  .rv.in{opacity:1;transform:none}
+
+  /* barra */
+  .nav{position:fixed;inset:0 0 auto 0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:12px max(16px,calc(50vw - 560px));transition:background .3s,box-shadow .3s}
+  .nav.solid{background:rgba(244,237,226,.97);box-shadow:0 1px 0 rgba(43,30,22,.08)}
+  .nav img{height:40px;width:auto}
+  .nav nav{display:flex;gap:24px;font-weight:700;font-size:14px}
+  .nav nav a{opacity:.75}.nav nav a:hover{opacity:1}
+  .bagbtn{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:99px;background:var(--cocoa);color:var(--foam);font-weight:700;font-size:14px}
+  .bagbtn b{display:grid;place-items:center;min-width:22px;height:22px;border-radius:99px;background:var(--latte);color:var(--cocoa);font-size:12px}
+  @media (max-width:760px){.nav nav{display:none}.nav img{height:34px}}
+
+  /* portada */
+  .hero{position:relative;min-height:100svh;display:grid;place-items:center;padding:110px 0 60px;overflow:hidden}
+  .hero .center{position:relative;z-index:3;text-align:center}
+  .hero .logo{width:min(56vw,330px);margin:0 auto}
+  .hero .logo img{width:100%}
+  .rays{position:absolute;left:44%;top:-6%;width:24%;pointer-events:none}
+  .rays path{stroke:var(--cocoa);stroke-width:7;stroke-linecap:round;animation:ray 2.4s ease-in-out infinite}
+  .rays path:nth-child(2){animation-delay:.2s}.rays path:nth-child(3){animation-delay:.4s}
+  @keyframes ray{0%,100%{opacity:0;transform:translateY(4px)}40%,70%{opacity:1;transform:none}}
+  .board{display:inline-block;margin-top:22px;padding:14px 22px;background:#1F1A17;color:#EDE6DA;border-radius:6px;box-shadow:0 14px 30px -14px rgba(0,0,0,.6);transform:rotate(-2deg);font-family:var(--sans);font-weight:800;letter-spacing:.14em;font-size:clamp(13px,1.8vw,17px);line-height:1.5;text-transform:uppercase}
+  .hero p.sub{margin-top:22px;font-family:var(--hand);font-size:clamp(24px,3.4vw,34px);color:var(--soft)}
+  .hero .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;font-weight:800;font-size:15px}
+  .btn.d{background:var(--cocoa);color:var(--foam);box-shadow:0 12px 24px -14px rgba(43,30,22,.9)}
+  .btn.l{border:2px solid var(--cocoa)}
+  .pol{position:absolute;z-index:2;width:clamp(120px,17vw,210px);background:#fff;padding:8px 8px 30px;box-shadow:0 18px 30px -16px rgba(43,30,22,.55);will-change:transform}
+  .pol img{aspect-ratio:3/4;object-fit:cover;width:100%}
+  .pol span{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-family:var(--hand);font-size:20px;color:var(--soft)}
+  .p1{left:3%;top:14%;--r:-8deg}.p2{right:4%;top:12%;--r:7deg}.p3{left:4%;bottom:4%;--r:6deg}.p4{right:4%;bottom:5%;--r:-6deg}
+  .hero .center{max-width:min(520px,90vw)}
+  .hero p.sub{background:rgba(244,237,226,.88);border-radius:14px;padding:4px 12px;display:inline-block}
+  @media (max-width:760px){.hero{padding:96px 0 230px;align-items:start}.p1{left:-7%;top:11%}.p2{right:-8%;top:9%}.p3{left:4%;bottom:2%}.p4{right:4%;bottom:3%}.pol{width:30vw}.hero .logo{width:44vw}}
+  .beans{position:absolute;inset:0;pointer-events:none;z-index:1}
+
+  /* frase */
+  .marquee{overflow:hidden;background:var(--cocoa);color:var(--paper);padding:14px 0}
+  .marquee div{display:flex;gap:40px;white-space:nowrap;width:max-content;animation:mq 26s linear infinite;font-family:var(--serif);font-style:italic;font-size:22px}
+  .marquee span::after{content:"✦";margin-left:40px;color:var(--latte)}
+  @keyframes mq{to{transform:translateX(-50%)}}
+
+  /* menú */
+  section.sec{padding:96px 0}
+  .kick{font-weight:800;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--latte-d)}
+  h2{font-family:var(--serif);font-weight:700;font-size:clamp(40px,6vw,70px);line-height:1;color:var(--cocoa);margin-top:6px}
+  h2 em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--latte-d)}
+  .lead{max-width:52ch;margin-top:14px;color:var(--soft);line-height:1.7}
+  .tabs{display:flex;gap:8px;margin-top:34px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:none;padding:10px 18px;border-radius:99px;border:2px solid rgba(43,30,22,.18);font-weight:800;font-size:14px;transition:all .25s}
+  .tabs button.on{background:var(--cocoa);border-color:var(--cocoa);color:var(--foam)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  .item{position:relative;background:var(--foam);border-radius:18px;padding:18px 18px 16px;box-shadow:0 14px 30px -24px rgba(43,30,22,.6);display:flex;flex-direction:column;gap:8px;border:1px solid rgba(180,157,127,.25)}
+  .item h3{font-family:var(--serif);font-size:20px;line-height:1.15;color:var(--cocoa)}
+  .item p{font-size:13.5px;line-height:1.55;color:var(--soft);flex:1}
+  .item .tag{position:absolute;top:-10px;right:14px;background:var(--matcha);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px;letter-spacing:.06em}
+  .sizes{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .sizes button{display:flex;flex-direction:column;align-items:center;min-width:64px;padding:7px 10px;border-radius:12px;background:var(--paper2);transition:transform .15s,background .2s}
+  .sizes button small{font-size:11px;font-weight:700;color:var(--soft)}
+  .sizes button b{font-family:var(--serif);font-size:17px;color:var(--cocoa)}
+  .sizes button:hover{background:var(--latte);}
+  .sizes button:active{transform:scale(.94)}
+  .sizes button.ok{background:var(--cocoa)}.sizes button.ok b,.sizes button.ok small{color:var(--foam)}
+  .info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+  .info div{background:var(--latte);color:var(--cocoa);border-radius:18px;padding:18px 20px}
+  .info h4{font-family:var(--serif);font-size:20px;margin-bottom:8px}
+  .info p{font-size:14px;line-height:1.7}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.info{grid-template-columns:1fr}}
+  @media (max-width:560px){.grid{grid-template-columns:1fr}}
+
+  /* panadería */
+  .bake{background:#2A1D15;color:var(--paper);position:relative;overflow:hidden}
+  .bake h2{color:var(--paper)}.bake .lead{color:#CDBBA6}.bake .kick{color:var(--latte)}
+  .bgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;margin-top:34px;align-items:center}
+  .shots{position:relative;height:520px}
+  .shots img{position:absolute;width:72%;border-radius:14px;box-shadow:0 24px 40px -20px rgba(0,0,0,.7)}
+  .shots img:first-child{left:0;top:0;transform:rotate(-3deg)}.shots img:last-child{right:0;bottom:0;transform:rotate(3deg)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chips button{padding:9px 14px;border-radius:99px;background:rgba(244,237,226,.08);border:1px solid rgba(244,237,226,.22);font-weight:700;font-size:14px;color:var(--paper);transition:all .2s}
+  .chips button:hover{background:var(--latte);color:var(--cocoa)}
+  .chips button.ok{background:var(--paper);color:var(--cocoa)}
+  .bake .note{margin-top:16px;font-family:var(--hand);font-size:24px;color:var(--latte)}
+  @media (max-width:860px){.bgrid{grid-template-columns:1fr}.shots{height:380px}}
+
+  /* galería */
+  .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:30px}
+  .gal figure{overflow:hidden;border-radius:16px;aspect-ratio:3/4}
+  .gal figure:nth-child(1),.gal figure:nth-child(6){grid-row:span 2;aspect-ratio:auto}
+  .gal img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+  .gal figure:hover img{transform:scale(1.06)}
+  @media (max-width:760px){.gal{grid-template-columns:repeat(2,1fr)}.gal figure:nth-child(6){grid-row:auto;aspect-ratio:3/4}}
+
+  /* visítanos */
+  .visit{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+  .card{background:var(--foam);border-radius:22px;padding:28px;border:1px solid rgba(180,157,127,.3)}
+  .card h3{font-family:var(--serif);font-size:26px;margin-bottom:10px;color:var(--cocoa)}
+  .card p{line-height:1.8;color:var(--soft)}
+  .card .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .hours{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-weight:700}
+  .hours span:nth-child(even){color:var(--soft);font-weight:600}
+  @media (max-width:760px){.visit{grid-template-columns:1fr}}
+  footer{background:var(--cocoa);color:var(--paper);text-align:center;padding:60px 16px 40px}
+  footer img{width:120px;margin:0 auto}
+  footer p{margin-top:16px;font-family:var(--hand);font-size:26px;color:var(--latte)}
+  footer small{display:block;margin-top:20px;opacity:.5;font-size:12px}
+
+  /* bolsa */
+  #bag{position:fixed;inset:0;z-index:50;visibility:hidden}
+  #bag.on{visibility:visible}
+  #bag .bk{position:absolute;inset:0;background:rgba(30,20,14,.45);opacity:0;transition:opacity .3s}
+  #bag.on .bk{opacity:1}
+  #bag aside{position:absolute;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--paper);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  #bag.on aside{transform:none}
+  #bag header{display:flex;align-items:center;justify-content:space-between;padding:22px 22px 10px}
+  #bag h5{font-family:var(--serif);font-size:30px;color:var(--cocoa)}
+  #bag header button{font-size:30px;width:40px;height:40px}
+  #items{flex:1;overflow:auto;padding:0 22px}
+  .it{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px dashed rgba(43,30,22,.18)}
+  .it b{display:block;font-size:15px}.it small{color:var(--soft);font-size:13px}
+  .qty{display:flex;align-items:center;gap:8px}
+  .qty button{width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(43,30,22,.3);font-weight:800}
+  .empty{padding:40px 0;text-align:center;color:var(--soft)}
+  #bag footer{background:none;color:var(--ink);padding:16px 22px calc(18px + env(safe-area-inset-bottom));text-align:left;border-top:1px solid rgba(43,30,22,.12)}
+  #bag label{display:block;font-weight:800;font-size:13px;margin-bottom:6px}
+  #bag textarea,#bag input{width:100%;border:1.5px solid rgba(43,30,22,.18);border-radius:12px;padding:10px 12px;font:inherit;font-size:16px;background:var(--foam);resize:none;margin-bottom:12px}
+  .seg{display:flex;gap:6px;margin-bottom:12px}
+  .seg label{flex:1;margin:0;cursor:pointer}
+  .seg input{position:absolute;opacity:0;width:0;height:0}
+  .seg span{display:block;text-align:center;padding:9px;border-radius:12px;border:1.5px solid rgba(43,30,22,.18);font-weight:700;font-size:14px}
+  .seg input:checked + span{background:var(--cocoa);color:var(--foam);border-color:var(--cocoa)}
+  .tot{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+  .tot b{font-family:var(--serif);font-size:28px}
+  .send{display:flex;justify-content:center;width:100%;padding:15px;border-radius:99px;background:var(--cocoa);color:var(--foam);font-weight:800}
+  .send[aria-disabled=true]{opacity:.4;pointer-events:none}
+  #toast{position:fixed;left:50%;top:80px;transform:translate(-50%,-10px);background:var(--cocoa);color:var(--foam);padding:10px 18px;border-radius:99px;font-weight:700;font-size:14px;opacity:0;transition:all .3s;z-index:60;pointer-events:none}
+  #toast.on{opacity:1;transform:translate(-50%,0)}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.marquee div,.rays path{animation:none}}
+</style>
+</head>
+<body>
+<header class="nav" id="nav">
+  <a href="#top" aria-label="LöV café"><img src="img/logo.png" alt="LöV café"></a>
+  <nav><a href="#menu">Menú</a><a href="#panaderia">Panadería</a><a href="#momentos">Momentos</a><a href="#visitanos">Visítanos</a></nav>
+  <button class="bagbtn" id="openBag" type="button">Mi pedido <b id="count">0</b></button>
+</header>
+
+<section class="hero" id="top">
+  <svg class="beans" id="beans" aria-hidden="true"></svg>
+  <div class="pol p1" data-depth=".35"><img src="img/brindis.jpg" alt=""><span>iced latte</span></div>
+  <div class="pol p2" data-depth=".5"><img src="img/matcha.jpg" alt=""><span>matcha</span></div>
+  <div class="pol p3" data-depth=".6"><img src="img/tazas.jpg" alt=""><span>capuccino</span></div>
+  <div class="pol p4" data-depth=".4"><img src="img/cold-foam.jpg" alt=""><span>cold foam</span></div>
+  <div class="center">
+    <div class="logo" style="position:relative"><img src="img/logo.png" alt="LöV café"></div>
+    <div class="board">You look like you<br>need a coffee</div>
+    <p class="sub">Café, matcha y pan recién hecho en Sabinas Hidalgo ♡</p>
+    <div class="cta"><a class="btn d" href="#menu">Ver menú</a><a class="btn l" href="#visitanos">Cómo llegar</a></div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div id="mq"></div></div>
+
+<section class="sec" id="menu">
+  <div class="wrap">
+    <div class="kick rv">Nuestro menú</div>
+    <h2 class="rv">Coffee <em>LöV(ers)</em></h2>
+    <p class="lead rv">Toca el tamaño que quieres y se agrega a tu pedido. Al final lo mandas por WhatsApp y lo tenemos listo para ti.</p>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="grid" id="grid"></div>
+    <div class="info rv" id="infoBox"></div>
+  </div>
+</section>
+
+<section class="sec bake" id="panaderia">
+  <div class="wrap">
+    <div class="kick rv">Recién horneado</div>
+    <h2 class="rv">Panadería</h2>
+    <p class="lead rv">Croissants, roles, muffins y galletas que salen cada día. Toca los que quieras para apartarlos en tu pedido.</p>
+    <div class="bgrid">
+      <div class="shots rv"><img src="img/vitrina-1.jpg" alt="Vitrina de pan dulce" loading="lazy"><img src="img/vitrina-2.jpg" alt="Vitrina de croissants" loading="lazy"></div>
+      <div class="rv"><div class="chips" id="pan"></div><p class="note">* Disponibilidad y precio en tienda</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="momentos">
+  <div class="wrap">
+    <div class="kick rv">@lovcafemx</div>
+    <h2 class="rv">Momentos <em>LöV</em></h2>
+    <div class="gal">
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="visitanos" style="padding-top:0">
+  <div class="wrap">
+    <div class="kick rv">Te esperamos</div>
+    <h2 class="rv">Visítanos</h2>
+    <div class="visit">
+      <div class="card rv"><h3>¿Dónde estamos?</h3><p id="dir"></p><div class="btns"><a class="btn d" id="mapa" target="_blank" rel="noopener">Abrir en Google Maps</a></div></div>
+      <div class="card rv"><h3>Horario</h3><div class="hours" id="hours"></div><div class="btns"><a class="btn l" id="ig" target="_blank" rel="noopener">Instagram</a><a class="btn l" id="fb" target="_blank" rel="noopener">Facebook</a><a class="btn d" id="wa" target="_blank" rel="noopener">WhatsApp</a></div></div>
+    </div>
+  </div>
+</section>
+
+<footer><img src="img/logo-blanco.png" alt="LöV café"><p>Gracias por ser LöV(er) ♡</p><small>© LöV café · Sabinas Hidalgo</small></footer>
+
+<div id="bag" aria-hidden="true">
+  <div class="bk" id="bagBk"></div>
+  <aside role="dialog" aria-label="Mi pedido">
+    <header><h5>Mi pedido</h5><button type="button" id="closeBag" aria-label="Cerrar">×</button></header>
+    <div id="items"></div>
+    <footer>
+      <label for="nota">Sabor, leche o extras (opcional)</label>
+      <textarea id="nota" rows="2" placeholder="Ej. latte frío con leche de avena y sabor vainilla"></textarea>
+      <div class="seg"><label><input type="radio" name="modo" value="Para llevar" checked><span>Para llevar</span></label><label><input type="radio" name="modo" value="Para tomar aquí"><span>Para tomar aquí</span></label></div>
+      <label for="nombre">Tu nombre</label><input id="nombre" type="text" maxlength="60">
+      <div class="tot"><span>Total</span><b id="total">$0</b></div>
+      <a class="send" id="send" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+    </footer>
+  </aside>
+</div>
+<div id="toast"></div>
+
+<script>
+(() => {
+"use strict";
+/* ====== DATOS DEL CAFÉ (cámbialos aquí) ====== */
+const INFO = {
+  whatsapp: "",                       // número con lada, sin + ni espacios. Ej. "528241234567". Vacío = la persona elige el chat.
+  direccion: "Sabinas Hidalgo, Nuevo León",
+  mapa: "https://maps.app.goo.gl/hGGt882J9kyJxLng9",
+  instagram: "https://www.instagram.com/lovcafemx",
+  facebook: "https://www.facebook.com/share/1Q1V1QX8eG/",
+  horario: [["Lunes a viernes", "Pregunta por nuestro horario"], ["Sábado y domingo", "Pregunta por nuestro horario"]]
+};
+const S3 = ["12 oz", "16 oz", "20 oz"];
+// [categoría, nombre, descripción, precios (12/16/20 oz o uno solo), etiqueta]
+const MENU = [
+  ["cafe", "Espresso", "", [30]], ["cafe", "Espresso Doble", "", [50]],
+  ["cafe", "Espresso Americano", "", [50, 60, 70]], ["cafe", "Capuccino", "", [60, 70, 80]],
+  ["cafe", "Latte", "", [60, 70, 80]], ["cafe", "Latte Frío", "", [65, 75, 85]], ["cafe", "Shaken Espresso", "", [75, 85, 95]],
+  ["frappe", "Frappé Mocha", "", [75, 85, 95]], ["frappe", "Frappé Caramelo", "", [75, 85, 95]],
+  ["frappe", "Frappé Taro", "Sin cafeína", [75, 85, 95]], ["frappe", "Frappé Chai", "Sin cafeína", [75, 85, 95]], ["frappe", "Frappé Chai Vainilla", "Sin cafeína", [75, 85, 95]],
+  ["frappe", "Frappé Matcha", "Sin cafeína", [75, 85, 95]], ["frappe", "Frappé Cookies and Cream", "Sin cafeína", [75, 85, 95]],
+  ["nocafe", "Matcha Ceremonial", "", [90, 100, 115]], ["nocafe", "Chai", "", [70, 80, 90]], ["nocafe", "Chai Vainilla", "", [70, 80, 90]],
+  ["nocafe", "Taro", "", [70, 80, 90]], ["nocafe", "Chocolate Abuelita", "", [45, 55, 65]],
+  ["especial", "Iced Matcha Ceremonial con Cold Foam de Pistache", "", [115], "Favorito"], ["especial", "Iced Caramel Macchiato", "", [90]],
+  ["especial", "Mocha Shaken Espresso", "", [75, 85, 95]], ["especial", "Espresso Tonic", "", [80]],
+  ["especial", "Personalizado 20 oz", "Escoge tu latte frío y tu cold foam del sabor que prefieras.", [115], "Nuevo"],
+  ["te", "Té Verde Tropical", "Té verde con fruta de la pasión y mango.", [60, 70, 80]],
+  ["te", "Té Rojo Energía de Cacao", "Mezcla de pu erh con trocitos de cacao. Placer sin calorías.", [60, 70, 80]],
+  ["te", "Té Calma Fresca", "Mezcla especial para descansar. Tila y menta.", [60, 70, 80]],
+  ["te", "Té Flor de Jazmín", "Té verde infusionado con flores de jazmín: aroma floral y sabor suave, refrescante.", [60, 70, 80]],
+  ["te", "Tisana Jardín de Bayas", "Arándano, hibisco, cereza, fresa, pasas, frambuesa y manzana.", [60, 70, 80]],
+  ["te", "Tisana Chai", "Manzana, canela, cardamomo, clavo, anís estrella y nuez moscada. Sin teína.", [60, 70, 80]],
+  ["te", "Tisana Berries & Manzana", "Vibrante y templada, con un tono de zarzamora y manzana.", [60, 70, 80]],
+  ["te", "Tisana Lavanda y Manzanilla", "Mezcla con rooibos, manzanilla y lavanda.", [60, 70, 80]],
+  ["te", "Tisana Blueberry", "Hibisco, manzana, baya del saúco, grosella y arándano.", [60, 70, 80]],
+  ["te", "Tisana Canela y Vainilla", "", [60, 70, 80]], ["te", "Té de Manzanilla Nocturna", "", [60, 70, 80]],
+  ["te", "Té de Granada y Frutos Rojos", "", [60, 70, 80]], ["te", "Té de Frambuesa y Jamaica", "", [60, 70, 80]],
+  ["te", "Té de Naranja y Especias", "", [60, 70, 80]], ["te", "Té de Berries y Manzana", "", [60, 70, 80]],
+  ["te", "Té de Moras, Manzana y Arándanos", "", [60, 70, 80]], ["te", "Té Fresa Kiwi", "", [60, 70, 80]],
+  ...["Blueberry", "Frambuesa", "Fresa", "Lichi", "Mango", "Mezcla de frutas", "Naranja enana"].map(s => ["soda", "Soda Italiana " + s, "", [60, 70, 80]]),
+  ["salado", "Croissant con jamón y queso", "", [90]], ["salado", "Panini", "Jamón y tres quesos, lechuga y tomate.", [120]],
+  ["salado", "Sandwich", "Jamón, queso, lechuga y tomate. Integral, multigrano o pan de barra de croissant.", [60]]
+];
+const CATS = { cafe: "Café", especial: "Especiales LöV", frappe: "Frappés", nocafe: "Not coffee", te: "Tés y tisanas", soda: "Sodas italianas", salado: "Salados" };
+const PAN = ["Rol de canela", "Rodilla de Nutella", "Trenza de manzana", "Muffin de queso", "Muffin de vainilla y Nutella", "Galleta Red Velvet", "Muffin de elote", "Muffin de plátano", "Monkey bread", "Cruffin de Red Velvet", "Conkie", "Brookie", "Galleta de chispas de chocolate", "Galleta de avena y arándanos", "Galleta Choconutella", "Croissant natural", "Croissant de Nutella", "Croissant de almendras", "Danish de queso y almendras", "Danish de jalea", "Chocolatín almendrado", "Chocolatín", "Sticky bun", "Tira de pera"];
+const SABORES = "Mocha, caramelo, canela, caramelo salado, vainilla, avellana y lavanda.";
+const EXTRAS = "Shot de espresso $20 · Jarabe $15 · Salsa $20 · Cold foam $25 · Crema batida $20 · Perlas explosivas $25";
+const LECHES = "Deslactosada light $10 · Avena $20 · Almendra $15 · Soya $15 · Coco $15";
+
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = n => "$" + n;
+const wa = t => `https://wa.me/${INFO.whatsapp}?text=${encodeURIComponent(t)}`;
+
+/* granitos de café flotando */
+$("#beans").innerHTML = Array.from({ length: 14 }, (_, i) => { const x = (i * 137) % 100, y = (i * 61) % 100, r = (i * 47) % 360, s = .7 + (i % 4) * .2; return `<g transform="translate(${x}% ${y}%)"><g style="transform:rotate(${r}deg) scale(${s});transform-origin:0 0"><ellipse rx="9" ry="13" fill="#7A5A3E" opacity=".22"/><path d="M0 -12C-4 -4 4 4 0 12" stroke="#F4EDE2" stroke-width="2" fill="none" opacity=".35"/></g></g>`; }).join("");
+$("#beans").setAttribute("width", "100%"); $("#beans").setAttribute("height", "100%");
+
+/* frase en movimiento */
+const F = ["You look like you need a coffee", "Hecho con LöV", "Matcha ceremonial", "Pan recién horneado", "Cold foam de pistache"];
+$("#mq").innerHTML = [...F, ...F].map(t => `<span>${t}</span>`).join("");
+
+/* menú */
+$("#tabs").innerHTML = Object.entries(CATS).map(([k, n]) => `<button type="button" data-c="${k}">${n}</button>`).join("");
+const ITEMS = MENU.map(([cat, nombre, desc, precios, tag], id) => ({ id, cat, nombre, desc, precios, tag }));
+function setCat(c) {
+  $$("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.c === c));
+  $("#grid").innerHTML = ITEMS.filter(i => i.cat === c).map(i => `<article class="item">${i.tag ? `<span class="tag">${esc(i.tag)}</span>` : ""}<h3>${esc(i.nombre)}</h3><p>${esc(i.desc)}</p>
+    <div class="sizes">${i.precios.map((p, k) => `<button type="button" data-add="${i.id}" data-s="${k}" aria-label="Agregar ${esc(i.nombre)} ${i.precios.length > 1 ? S3[k] : ""}"><small>${i.precios.length > 1 ? S3[k] : (i.cat === "salado" ? "pieza" : "único")}</small><b>${money(p)}</b></button>`).join("")}</div></article>`).join("");
+  $$("#grid .item").forEach((el, i) => el.animate([{ opacity: 0, transform: "translateY(20px)" }, { opacity: 1, transform: "none" }], { duration: 500, delay: i * 40, easing: "ease-out", fill: "backwards" }));
+}
+$$("#tabs button").forEach(b => b.addEventListener("click", () => setCat(b.dataset.c)));
+$("#infoBox").innerHTML = `<div><h4>Sabores disponibles</h4><p>${SABORES}</p></div><div><h4>Extras</h4><p>${EXTRAS}</p></div><div><h4>Leches</h4><p>${LECHES}</p></div>`;
+$("#pan").innerHTML = PAN.map((p, i) => `<button type="button" data-pan="${i}">${esc(p)}</button>`).join("");
+
+/* galería */
+const GAL = ["trio", "brindis", "matcha", "tazas", "cold-foam", "parque", "tonic", "dibujo"];
+document.querySelector(".gal").innerHTML = GAL.map(g => `<figure class="rv"><img src="img/${g}.jpg" alt="" loading="lazy"></figure>`).join("");
+
+/* visítanos */
+$("#dir").textContent = INFO.direccion;
+$("#mapa").href = INFO.mapa; $("#ig").href = INFO.instagram; $("#fb").href = INFO.facebook;
+$("#wa").href = wa("¡Hola LöV café! ☕");
+$("#hours").innerHTML = INFO.horario.map(([d, h]) => `<span>${esc(d)}</span><span>${esc(h)}</span>`).join("");
+
+/* pedido */
+let bag = {};
+try { bag = JSON.parse(localStorage.getItem("lov-bag") || "{}") || {}; } catch (e) {}
+const save = () => { try { localStorage.setItem("lov-bag", JSON.stringify(bag)); } catch (e) {} };
+const line = k => { const [t, a, b] = k.split(":"); if (t === "m") { const i = ITEMS[+a]; return { nombre: i.nombre + (i.precios.length > 1 ? ` (${S3[+b]})` : ""), precio: i.precios[+b] }; } return { nombre: PAN[+a], precio: null }; };
+function render() {
+  const ks = Object.keys(bag).filter(k => bag[k] > 0);
+  const n = ks.reduce((s, k) => s + bag[k], 0), tot = ks.reduce((s, k) => s + (line(k).precio || 0) * bag[k], 0), pan = ks.some(k => k[0] === "p");
+  $("#count").textContent = n; $("#total").textContent = money(tot) + (pan ? " + pan" : "");
+  $("#items").innerHTML = ks.length ? ks.map(k => { const l = line(k); return `<div class="it"><div><b>${esc(l.nombre)}</b><small>${l.precio ? money(l.precio) : "Precio en tienda"}</small></div><div class="qty"><button data-q="${k}" data-d="-1" aria-label="Quitar">−</button><span>${bag[k]}</span><button data-q="${k}" data-d="1" aria-label="Agregar">+</button></div></div>`; }).join("") : `<div class="empty">Tu pedido está vacío.<br>Toca un tamaño en el menú ☕</div>`;
+  const nota = $("#nota").value.trim(), nom = $("#nombre").value.trim(), modo = $("input[name=modo]:checked").value;
+  const txt = `¡Hola LöV café! ☕ Quiero hacer este pedido:\n\n` + ks.map(k => { const l = line(k); return `• ${bag[k]} × ${l.nombre}${l.precio ? " — " + money(l.precio * bag[k]) : ""}`; }).join("\n") + (nota ? `\n\nNota: ${nota}` : "") + `\n\n${modo}\nTotal: ${money(tot)}${pan ? " + pan (precio en tienda)" : ""}` + (nom ? `\nA nombre de: ${nom}` : "");
+  $("#send").href = wa(txt); $("#send").setAttribute("aria-disabled", ks.length ? "false" : "true"); save();
+}
+function add(k, el, name) { bag[k] = (bag[k] || 0) + 1; render(); toast(name + " agregado"); if (el) { el.classList.add("ok"); setTimeout(() => el.classList.remove("ok"), 900); } $("#count").animate([{ transform: "scale(1.6)" }, { transform: "none" }], { duration: 450, easing: "cubic-bezier(.3,1.6,.5,1)" }); }
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-add]"); if (a) { const i = ITEMS[+a.dataset.add]; add(`m:${i.id}:${a.dataset.s}`, a, i.nombre); }
+  const p = e.target.closest("[data-pan]"); if (p) add(`p:${p.dataset.pan}`, p, PAN[+p.dataset.pan]);
+  const q = e.target.closest("[data-q]"); if (q) { const k = q.dataset.q; bag[k] = Math.max(0, (bag[k] || 0) + +q.dataset.d); if (!bag[k]) delete bag[k]; render(); }
+});
+["#nota", "#nombre"].forEach(s => $(s).addEventListener("input", render)); $$("input[name=modo]").forEach(r => r.addEventListener("change", render));
+const open = () => { $("#bag").classList.add("on"); $("#bag").setAttribute("aria-hidden", "false"); }, close = () => { $("#bag").classList.remove("on"); $("#bag").setAttribute("aria-hidden", "true"); };
+$("#openBag").addEventListener("click", open); $("#closeBag").addEventListener("click", close); $("#bagBk").addEventListener("click", close);
+addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("on"), 1500); }
+
+/* animaciones */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+$$(".rv").forEach(el => io.observe(el));
+const pols = $$(".pol"), nav = $("#nav");
+pols.forEach((p, i) => p.animate([{ opacity: 0, transform: `translateY(60px) rotate(var(--r)) scale(.9)` }, { opacity: 1, transform: `rotate(var(--r))` }], { duration: 900, delay: 200 + i * 140, easing: "cubic-bezier(.2,.9,.3,1.2)", fill: "backwards" }));
+$(".hero .center").animate([{ opacity: 0, transform: "translateY(20px)" }, { opacity: 1, transform: "none" }], { duration: 900, easing: "ease-out" });
+let ticking = false;
+addEventListener("scroll", () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = scrollY; nav.classList.toggle("solid", y > 30); if (y < innerHeight * 1.2) pols.forEach(p => p.style.transform = `translateY(${-y * +p.dataset.depth}px) rotate(var(--r))`); ticking = false; }); }, { passive: true });
+pols.forEach(p => p.style.transform = "rotate(var(--r))");
+setCat("cafe"); render();
+})();
+</script>
+</body>
+</html>
