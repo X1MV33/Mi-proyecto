@@ -129,22 +129,33 @@
   footer small{display:block;margin-top:20px;opacity:.5;font-size:12px}
 
 
-  /* ===== historia con scroll (como el video): el vaso se arma ===== */
-  .story{position:relative;height:520svh;background:#EFE7DB}
-  .story .stick{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
-  .story .big{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 3vw;pointer-events:none}
-  .story .big span{font-family:var(--sans);font-weight:800;font-size:clamp(54px,13vw,190px);letter-spacing:-.04em;line-height:.85;color:var(--cocoa);text-transform:uppercase;will-change:transform,opacity}
-  .story .big span.r{text-align:right}
-  .story .cup{position:relative;z-index:2;width:min(58vw,340px);will-change:transform}
-  .story .cup svg{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 30px 40px rgba(43,30,22,.28))}
-  .story .meta{position:absolute;left:50%;bottom:7svh;transform:translateX(-50%);z-index:3;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:92vw}
-  .story .meta b{padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.75);font-size:13px;font-weight:800;letter-spacing:.06em;transition:opacity .4s}
-  .story .step{position:absolute;left:5vw;top:13svh;z-index:3;font-family:var(--hand);font-size:clamp(26px,3vw,38px);color:var(--latte-d);max-width:40vw}
-  .story .go{position:absolute;left:50%;bottom:16svh;transform:translateX(-50%);z-index:4;opacity:0;transition:opacity .5s}
-  .story .go.on{opacity:1}
-  .story .stick.end .meta{opacity:0}
-  .story .hint{position:absolute;bottom:3svh;left:50%;transform:translateX(-50%);font-size:12px;font-weight:800;letter-spacing:.24em;color:var(--soft)}
-  @media (max-width:760px){.story .big{flex-direction:column;justify-content:space-between;padding:19svh 0 17svh}.story .big span{font-size:17vw}.story .big span.r{text-align:center}.story .step{left:0;right:0;top:10svh;max-width:none;text-align:center;font-size:24px}.story .cup{width:42vw}.story .meta{bottom:5svh}.story .go{bottom:5svh}.story .hint{display:none}}
+  /* ===== arma tu bebida (vaso interactivo) ===== */
+  .build{position:relative;padding:90px 0;overflow:hidden;background:radial-gradient(90% 70% at 70% 50%,#F7F1E8,#EADFCF)}
+  .build .ghost{position:absolute;right:-2vw;top:50%;transform:translateY(-50%);font-family:var(--hand);font-weight:700;font-size:clamp(160px,32vw,420px);line-height:1;color:rgba(43,30,22,.05);pointer-events:none}
+  .build .in{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+  .flv{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+  .flv button{display:flex;align-items:center;gap:8px;padding:9px 14px 9px 9px;border-radius:99px;background:#fff;border:2px solid transparent;font-weight:800;font-size:14px;box-shadow:0 6px 14px -10px rgba(43,30,22,.5);transition:transform .2s,border-color .2s}
+  .flv button i{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+  .flv button.on{border-color:var(--cocoa);transform:translateY(-2px)}
+  .flv button:active{transform:scale(.95)}
+  .bname{margin-top:26px;font-family:var(--serif);font-size:clamp(28px,4vw,40px);color:var(--cocoa);line-height:1.1;min-height:1.1em}
+  .bdesc{margin-top:6px;color:var(--soft);min-height:3em;line-height:1.6}
+  .bsize{display:flex;gap:8px;margin-top:16px}
+  .bsize button{flex:1;max-width:110px;padding:10px 6px;border-radius:14px;background:var(--paper2);font-weight:700;display:flex;flex-direction:column;align-items:center;transition:background .2s,color .2s}
+  .bsize button b{font-family:var(--serif);font-size:20px}
+  .bsize button small{font-size:12px;color:var(--soft)}
+  .bsize button.on{background:var(--cocoa);color:var(--foam)}.bsize button.on small{color:#D9C8B4}
+  .badd{margin-top:18px}
+  .cupbox{position:relative;display:grid;place-items:center}
+  .cupbox svg{width:min(78%,340px);height:auto;overflow:visible;filter:drop-shadow(0 34px 40px rgba(43,30,22,.28))}
+  .cupbox .shadow{position:absolute;bottom:2%;width:46%;height:22px;border-radius:50%;background:radial-gradient(closest-side,rgba(43,30,22,.28),transparent)}
+  .cupbox.wig svg{animation:wig .6s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes wig{30%{transform:rotate(-4deg) scale(1.03)}60%{transform:rotate(3deg)}}
+  #lq stop,#fm{transition:stop-color .7s ease,fill .7s ease}
+  #liq{transition:transform 1.6s cubic-bezier(.2,.8,.2,1)}
+  #foamG{transition:opacity .6s ease}
+  #swirl{transition:opacity .6s ease}
+  @media (max-width:760px){.build{padding:70px 0 60px}.build .in{grid-template-columns:1fr;gap:0}.cupbox{order:-1;margin-bottom:6px}.cupbox svg{width:38vw}.cupbox .shadow{width:30%}.flv{margin-top:16px}.bname{margin-top:16px}}
 
   /* ===== collage estilo iPhone ===== */
   .ios{position:relative;display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:34px}
@@ -316,14 +327,19 @@
   </div>
 </section>
 
-<section class="story" id="story" aria-label="Así preparamos tu bebida">
-  <div class="stick">
-    <div class="big"><span id="w1">Order</span><span class="r" id="w2">Coffee</span></div>
-    <div class="step" id="stepTxt">Molemos el grano al momento</div>
-    <div class="cup" id="cup"></div>
-    <div class="meta" id="meta"><b>18 g de café</b><b>92 °C</b><b>30 s de extracción</b></div>
-    <a class="btn d go" id="storyGo" href="#menu">Ver el menú →</a>
-    <div class="hint" id="hint">DESLIZA ↓</div>
+<section class="build" id="arma">
+  <div class="ghost" aria-hidden="true">LöV</div>
+  <div class="wrap in">
+    <div>
+      <div class="kick rv">Elige tu favorito</div>
+      <h2 class="rv">Arma tu <em>bebida</em></h2>
+      <div class="flv" id="flv"></div>
+      <div class="bname" id="bname"></div>
+      <p class="bdesc" id="bdesc"></p>
+      <div class="bsize" id="bsize"></div>
+      <button class="btn d badd" type="button" id="badd">Agregar a mi pedido</button>
+    </div>
+    <div class="cupbox" id="cupbox"><div class="shadow"></div><div id="cup2"></div></div>
   </div>
 </section>
 
@@ -542,60 +558,57 @@ $("#pan").innerHTML = PAN.map((p, i) => `<button type="button" data-pan="${i}">$
 const FILM = ["brindis", "cold-foam", "trio", "dibujo"];
 $("#film").innerHTML = FILM.map((g, i) => `<figure><img src="img/${g}.jpg" alt="" loading="lazy"><small>LÖV 200 · 0${i + 1}</small></figure>`).join("");
 
-/* ===== vaso que se arma con el scroll ===== */
-$("#cup").innerHTML = `<svg viewBox="0 0 300 440" aria-hidden="true"><defs>
-  <clipPath id="cupClip"><path d="M30 70 L270 70 L246 420 Q150 432 54 420 Z"/></clipPath>
-  <linearGradient id="esp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6B3E1F"/><stop offset="1" stop-color="#2A160B"/></linearGradient>
-  <linearGradient id="milk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9D8C0"/><stop offset="1" stop-color="#C9A27A"/></linearGradient>
-  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".18" stop-color="#fff" stop-opacity=".05"/><stop offset=".82" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/></linearGradient></defs>
-  <path id="stream" d="M150 -200 L150 70" stroke="#5A3218" stroke-width="10" stroke-linecap="round" opacity="0"/>
-  <g clip-path="url(#cupClip)">
-    <rect x="0" y="0" width="300" height="440" fill="#F7F1E8" opacity=".55"/>
-    <rect id="lMilk" x="0" y="440" width="300" height="440" fill="url(#milk)"/>
-    <rect id="lEsp" x="0" y="440" width="300" height="440" fill="url(#esp)"/>
-    <g id="ice" opacity="0">${[[70,150],[150,130],[215,165],[110,215],[190,235],[85,290],[200,305]].map(([x, y], i) => `<rect x="${x}" y="${y}" width="46" height="42" rx="8" fill="#fff" opacity=".35" transform="rotate(${i * 17 - 20} ${x + 23} ${y + 21})"/>`).join("")}</g>
-    <rect id="lFoam" x="0" y="70" width="300" height="0" fill="#FBF7F0"/>
-  </g>
-  <path d="M30 70 L270 70 L246 420 Q150 432 54 420 Z" fill="url(#glass)" stroke="rgba(255,255,255,.9)" stroke-width="3"/>
-  <image href="img/logo.png" x="95" y="215" width="110" height="106" opacity=".95"/>
-  <g id="lid" opacity="0"><path d="M22 70 Q150 20 278 70 L278 62 Q150 4 22 62 Z" fill="rgba(255,255,255,.75)" stroke="rgba(255,255,255,.95)" stroke-width="2"/><rect x="20" y="62" width="260" height="14" rx="6" fill="rgba(255,255,255,.85)"/></g>
-</svg>`;
-const STAGES = [
-  [0, "Order", "Coffee", "Molemos el grano al momento", ["18 g de café", "92 °C", "30 s de extracción"]],
-  [.22, "Every", "Drop", "Espresso recién extraído", ["Doble shot", "Crema dorada", "Notas de cacao"]],
-  [.45, "Slow", "Pour", "Leche fría que lo abraza", ["Entera, avena, almendra", "soya o coco"]],
-  [.66, "Cold", "Foam", "Cold foam del sabor que quieras", ["Pistache", "Vainilla", "Caramelo salado"]],
-  [.84, "Your", "LöV", "Listo para ti ♡", ["12 oz", "16 oz", "20 oz"]]
+/* ===== arma tu bebida ===== */
+const FLV = [
+  ["Latte frío", "Latte Frío", ["#D9B48C", "#A97B52"], 1, 0, "Espresso con leche fría y hielo. El clásico de la casa."],
+  ["Caramel macchiato", "Iced Caramel Macchiato", ["#E2BE8E", "#B9814A"], 1, 1, "Leche, vainilla, espresso encima y un hilo de caramelo."],
+  ["Matcha", "Matcha Ceremonial", ["#B5CB7A", "#7E9A45"], 0, 1, "Matcha ceremonial batido con leche fría."],
+  ["Taro", "Taro", ["#CDB6DE", "#9C80B8"], 0, 1, "Cremoso, dulce y de un color precioso."],
+  ["Chai", "Chai", ["#E3C49B", "#B88A58"], 0, 0, "Especias suaves: canela, cardamomo y clavo."],
+  ["Mocha", "Mocha Shaken Espresso", ["#9C6B4A", "#5A3622"], 1, 0, "Espresso agitado con chocolate. Intenso y fresco."],
+  ["Chocolate", "Chocolate Abuelita", ["#A8714C", "#6B3E22"], 0, 0, "El chocolate de siempre, como en casa."]
 ];
-let stage = -1;
-const lerp = (a, b, t) => a + (b - a) * Math.max(0, Math.min(1, t));
-function story() {
-  const el = $("#story"), r = el.getBoundingClientRect(), total = el.offsetHeight - innerHeight;
-  const p = Math.max(0, Math.min(1, -r.top / total));
-  let k = 0; STAGES.forEach((st, i) => { if (p >= st[0]) k = i; });
-  if (k !== stage) {
-    stage = k; const st = STAGES[k];
-    $("#w1").textContent = st[1]; $("#w2").textContent = st[2]; $("#stepTxt").textContent = st[3];
-    $("#meta").innerHTML = st[4].map(t => `<b>${t}</b>`).join("");
-    ["#w1", "#w2", "#stepTxt"].forEach(s => $(s).animate([{ opacity: 0, transform: "translateY(30px)" }, { opacity: 1, transform: "none" }], { duration: 500, easing: "cubic-bezier(.2,.8,.2,1)" }));
-  }
-  const esp = lerp(0, 1, (p - .12) / .25), milk = lerp(0, 1, (p - .42) / .2), foam = lerp(0, 1, (p - .62) / .18);
-  $("#lEsp").setAttribute("y", lerp(430, 300, esp) - lerp(0, 0, milk));
-  $("#lEsp").setAttribute("height", 440);
-  $("#lMilk").setAttribute("y", lerp(440, 120, milk));
-  $("#lEsp").style.opacity = String(1 - milk * .25);
-  $("#ice").setAttribute("opacity", lerp(0, 1, (p - .4) / .1));
-  $("#lFoam").setAttribute("height", lerp(0, 90, foam));
-  $("#lid").setAttribute("opacity", lerp(0, 1, (p - .82) / .06));
-  const pouring = (p > .1 && p < .38) || (p > .42 && p < .62);
-  $("#stream").setAttribute("opacity", pouring ? 1 : 0);
-  $("#stream").setAttribute("stroke", p > .42 ? "#E9D8C0" : "#5A3218");
-  const tilt = Math.sin(p * Math.PI * 2) * 3, sc = 1 + lerp(0, .08, (p - .84) / .1);
-  $("#cup").style.transform = `rotate(${tilt}deg) scale(${sc})`;
-  $("#w1").style.transform = `translateX(${(p - .5) * -60}px)`; $("#w2").style.transform = `translateX(${(p - .5) * 60}px)`;
-  $("#storyGo").classList.toggle("on", p > .88); $("#story .stick").classList.toggle("end", p > .88 && innerWidth > 760 ? false : p > .88); $("#hint").style.opacity = p > .05 ? 0 : 1;
+const byNom = n => ITEMS.find(i => i.nombre === n);
+let fi = 0, si = 0;
+$("#cup2").innerHTML = `<svg viewBox="0 0 300 460" aria-hidden="true"><defs>
+  <clipPath id="body"><path d="M38 96 L262 96 L240 430 Q150 446 60 430 Z"/></clipPath>
+  <linearGradient id="lq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:#D9B48C"/><stop offset="1" style="stop-color:#A97B52"/></linearGradient>
+  <linearGradient id="gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".12" stop-color="#fff" stop-opacity=".12"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset=".86" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/></linearGradient>
+  <linearGradient id="lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#EDE7DF" stop-opacity=".85"/></linearGradient></defs>
+  <path d="M152 20 L176 -40" stroke="#C9A27A" stroke-width="14" stroke-linecap="round" opacity="0"/>
+  <g clip-path="url(#body)">
+    <rect x="0" y="0" width="300" height="460" fill="#F6F1EA" opacity=".55"/>
+    <g id="liq" style="transform:translateY(340px)">
+      <path d="M0 130 Q75 118 150 130 T300 130 V470 H0 Z" fill="url(#lq)"/>
+      <path id="swirl" d="M60 300 C110 250 170 330 230 270 C250 250 260 300 240 330 C200 380 120 320 70 360 Z" fill="#3B1F10" opacity=".25"/>
+      <g id="foamG" opacity="0"><path id="fm" d="M0 104 H300 V150 Q262 162 226 150 T150 152 T74 150 T0 152 Z" fill="#FBF6EE"/></g>
+      ${[[80, 170, -14], [156, 158, 10], [206, 196, -6], [104, 236, 18], [178, 262, -10]].map(([x, y, r]) => `<g transform="rotate(${r} ${x + 22} ${y + 20})"><rect x="${x}" y="${y}" width="44" height="40" rx="9" fill="#fff" opacity=".28"/><path d="M${x + 8} ${y + 8} h16" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/></g>`).join("")}
+    </g>
+  </g>
+  <path d="M38 96 L262 96 L240 430 Q150 446 60 430 Z" fill="url(#gl)" stroke="rgba(255,255,255,.95)" stroke-width="3"/>
+  ${[[70, 200], [236, 260], [84, 340], [222, 380], [64, 280]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="3" ry="5" fill="#fff" opacity=".55"/>`).join("")}
+  <image href="img/logo.png" x="98" y="236" width="104" height="100"/>
+  <path d="M28 98 L272 98" stroke="rgba(255,255,255,.95)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M34 92 Q150 30 266 92 Z" fill="url(#lid)" stroke="rgba(255,255,255,1)" stroke-width="2"/>
+  <ellipse cx="150" cy="56" rx="26" ry="8" fill="#fff" opacity=".7"/>
+</svg>`;
+$("#flv").innerHTML = FLV.map(([n, , c], i) => `<button type="button" data-f="${i}"><i style="background:linear-gradient(135deg,${c[0]},${c[1]})"></i>${n}</button>`).join("");
+function paint(anim) {
+  const [n, item, c, swirl, foam, d] = FLV[fi], it = byNom(item);
+  const st = $$("#lq stop"); st[0].style.stopColor = c[0]; st[1].style.stopColor = c[1];
+  $("#swirl").style.opacity = swirl ? 1 : 0; $("#foamG").style.opacity = foam ? 1 : 0;
+  $("#fm").style.fill = fi === 2 ? "#F1F3E2" : "#FBF6EE";
+  $$("#flv button").forEach((b, i) => b.classList.toggle("on", i === fi));
+  $("#bname").textContent = n; $("#bdesc").textContent = d;
+  if (si >= it.precios.length) si = it.precios.length - 1;
+  $("#bsize").innerHTML = it.precios.map((pr, k) => `<button type="button" data-z="${k}" class="${k === si ? "on" : ""}"><small>${it.precios.length > 1 ? S3[k] : "único"}</small><b>${money(pr)}</b></button>`).join("");
+  if (anim) { const b = $("#cupbox"); b.classList.remove("wig"); void b.offsetWidth; b.classList.add("wig"); }
 }
-addEventListener("scroll", story, { passive: true }); addEventListener("resize", story); story();
+$("#flv").addEventListener("click", e => { const b = e.target.closest("[data-f]"); if (!b) return; fi = +b.dataset.f; paint(true); });
+$("#bsize").addEventListener("click", e => { const b = e.target.closest("[data-z]"); if (!b) return; si = +b.dataset.z; paint(false); });
+$("#badd").addEventListener("click", e => { const it = byNom(FLV[fi][1]); add(`m:${it.id}:${si}`, null, FLV[fi][0]); });
+paint(false);
+new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { setTimeout(() => $("#liq").style.transform = "translateY(0)", 200); o.disconnect(); } }, { threshold: .35 }).observe($("#cupbox"));
 /* recortes que flotan un poquito al bajar */
 const pars = $$("[data-par]");
 addEventListener("scroll", () => pars.forEach(el => { const r = el.getBoundingClientRect(); el.style.transform = `translateY(${(r.top - innerHeight / 2) * -+el.dataset.par}px) rotate(${el.dataset.r || -4}deg)`; }), { passive: true });
