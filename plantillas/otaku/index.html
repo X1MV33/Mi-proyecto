@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Invitación Otaku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=block" rel="stylesheet">
+<style>
+  /* Tomo de manga: papel, tinta negra, tramas de puntos y un rojo de sello (hanko) */
+  :root{
+    --paper:#F4F1EA; --paper2:#FBFAF6; --ink:#121212; --ink2:#3A3A3A; --red:#D7263D; --gray:#8C8C8C;
+    --display:"Dela Gothic One","Zen Kaku Gothic New",sans-serif;
+    --sfx:"Bangers","Dela Gothic One",cursive;
+    --body:"Zen Kaku Gothic New",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0c0c0c;overflow:hidden;overscroll-behavior:none}
+  body{display:flex;align-items:center;justify-content:center;font-family:var(--body);color:var(--ink);-webkit-tap-highlight-color:transparent}
+  #stage{position:relative;width:min(100vw,56.25vh);width:min(100vw,56.25dvh);height:100%;overflow:hidden;container-type:size;background:#111;isolation:isolate;
+    user-select:none;-webkit-user-select:none}
+  img{display:block;-webkit-user-drag:none}
+  .will{will-change:transform,opacity}
+
+  /* =================== PORTADA ANIMADA (capas reales de la imagen) =================== */
+  #cover{position:absolute;inset:0;z-index:5;background:#e9e9e9;overflow:hidden;cursor:pointer}
+  #tilt{position:absolute;inset:0;perspective:160cqw;transform-style:preserve-3d}
+  .cv{--cw:max(100cqw,46.16cqh);position:absolute;width:var(--cw);height:calc(var(--cw) * 2.1665);
+    left:calc(50% - var(--cw) / 2);top:calc(50% - var(--cw) * 1.0833);transform-style:preserve-3d;transform-origin:50% 47%}
+  .ly{position:absolute;inset:0;width:100%;height:100%}
+  .ly.top{transform-origin:0% 100%}
+  .ly.bot{transform-origin:100% 0%}
+  .sweep{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+    background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.75) 50%,transparent 62%) -120% 0/60% 100% no-repeat;
+    -webkit-mask:url("portada/franja_ojos.webp") 0 0/100% 100% no-repeat;mask:url("portada/franja_ojos.webp") 0 0/100% 100% no-repeat}
+  .glint{position:absolute;width:5%;aspect-ratio:1;margin:-2.5% 0 0 -2.5%;border-radius:50%;pointer-events:none;mix-blend-mode:screen;
+    background:radial-gradient(circle,rgba(255,255,255,.95) 0,rgba(255,255,255,.35) 30%,transparent 65%)}
+  .glint.g1{left:72.3%;top:40.2%}
+  .glint.g2{left:31.1%;top:52.6%}
+  #dust{position:absolute;inset:0;pointer-events:none}
+  .speck{position:absolute;width:.9cqw;height:.9cqw;border-radius:50%;background:rgba(255,255,255,.85);box-shadow:0 0 1cqw rgba(255,255,255,.6)}
+  .speck.ink{background:rgba(20,20,20,.55);box-shadow:none}
+  .speed{position:absolute;inset:-20%;pointer-events:none;opacity:0;
+    background:repeating-conic-gradient(from 0deg at 50% 47%,transparent 0 2.6deg,rgba(10,10,10,.9) 2.6deg 3.1deg);
+    -webkit-mask:radial-gradient(circle at 50% 47%,transparent 18%,#000 55%);mask:radial-gradient(circle at 50% 47%,transparent 18%,#000 55%)}
+  .grain{position:absolute;inset:0;pointer-events:none;opacity:.09;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 85% 70% at 50% 47%,transparent 55%,rgba(0,0,0,.42) 100%)}
+  .tapb{position:absolute;left:50%;bottom:calc(9cqh + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:3;
+    font-family:var(--sfx);font-size:7.6cqw;letter-spacing:.06em;color:var(--ink);background:#fff;border:.7cqw solid var(--ink);
+    padding:2cqw 6cqw;border-radius:50%;white-space:nowrap;box-shadow:1.2cqw 1.2cqw 0 var(--ink)}
+  .tapb::after{content:"";position:absolute;left:58%;top:100%;border:2.6cqw solid transparent;border-top:3.4cqw solid var(--ink);transform:skewX(-20deg)}
+  .tapb::before{content:"";position:absolute;left:calc(58% + .9cqw);top:calc(100% - .9cqw);border:1.8cqw solid transparent;border-top:2.4cqw solid #fff;transform:skewX(-20deg);z-index:1}
+  .wm{position:absolute;left:0;right:0;bottom:calc(2.6cqh + env(safe-area-inset-bottom,0px));text-align:center;z-index:3;
+    font-size:2.8cqw;letter-spacing:.24em;color:rgba(255,255,255,.85);text-shadow:0 0 1cqw rgba(0,0,0,.6);pointer-events:none}
+  /* escena Yuta + Rika (después de tocar) */
+  #scene{position:absolute;inset:0;z-index:6;overflow:hidden;visibility:hidden;background:#e6e7ec}
+  .sc{--sw:max(100cqw,57.13cqh);position:absolute;width:var(--sw);height:calc(var(--sw) * 1.7504);
+    left:calc(50% - var(--sw) / 2);top:calc(50% - var(--sw) * .8752);transform-origin:51.11% 52.98%}
+  .sc .base{transform-origin:50% 30%}
+  .rika{position:absolute;left:8.547%;top:0;width:85.47%;height:53.71%;transform-origin:50.1% 37.3%}
+  .rika img.body{position:absolute;inset:0;width:100%;height:100%}
+  .rika.ghost{opacity:0;pointer-events:none}
+  .rika .mouth{position:absolute;left:41.5%;top:26.36%;width:17.3%;height:23.82%;transform-origin:50% 8%}
+  .smoke{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(20,18,30,.0),rgba(20,18,30,.55) 70%)}
+  .rika .rglow{position:absolute;left:50.1%;top:37.3%;width:14%;aspect-ratio:1;margin:-7% 0 0 -7%;border-radius:50%;opacity:0;mix-blend-mode:screen;
+    background:radial-gradient(circle,#fff 0,rgba(255,170,185,.85) 30%,rgba(200,30,60,.35) 55%,transparent 72%)}
+  .rika .reye{position:absolute;left:50.1%;top:21.45%;width:8%;aspect-ratio:1;margin:-4% 0 0 -4%;border-radius:50%;opacity:0;mix-blend-mode:screen;
+    background:radial-gradient(circle,rgba(255,235,235,1) 0,rgba(255,40,60,.85) 30%,transparent 70%)}
+  .speed2{position:absolute;inset:-30%;pointer-events:none;opacity:0;
+    background:repeating-conic-gradient(from 0deg at var(--mx,50%) var(--my,30%),transparent 0 2.4deg,rgba(15,12,20,.85) 2.4deg 2.9deg);
+    -webkit-mask:radial-gradient(circle at var(--mx,50%) var(--my,30%),transparent 20%,#000 46%,transparent 70%);mask:radial-gradient(circle at var(--mx,50%) var(--my,30%),transparent 20%,#000 46%,transparent 70%)}
+  #flash{position:absolute;inset:0;z-index:20;background:#fff;opacity:0;pointer-events:none}
+  #loader{position:absolute;inset:0;z-index:30;background:#111;color:#eee;display:flex;align-items:center;justify-content:center;font-family:var(--sfx);font-size:6cqw;letter-spacing:.1em}
+  body.reel .ui{display:none!important}
+  body.reel{cursor:none}
+
+  /* =================== INVITACIÓN (tomo de manga) =================== */
+  #inv{position:absolute;inset:0;z-index:4;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;visibility:hidden;background:var(--paper)}
+  /* fondo: collage de manga fijo detrás del contenido (aclarado para que se lea) */
+  .bgfix{position:sticky;top:0;height:100cqh;margin-bottom:-100cqh;z-index:0;overflow:hidden;pointer-events:none}
+  .bgfix .img{position:absolute;inset:-6% 0;background:url("portada/fondo_manga.jpg") center/cover}
+  .bgfix::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(circle,rgba(0,0,0,.06) .5px,transparent .9px) 0 0/1.6cqw 1.6cqw,
+    linear-gradient(rgba(246,244,238,.8),rgba(246,244,238,.74))}
+  #invContent{position:relative;z-index:1}
+  .page{position:relative;padding:14cqw 7cqw;border-bottom:1.2cqw solid var(--ink)}
+  .rv{opacity:0}
+  h2.ttl{font-family:var(--display);font-weight:400;font-size:8.4cqw;line-height:1.15;text-align:center;margin-bottom:7cqw}
+  h2.ttl span{display:block;font-family:var(--body);font-weight:700;font-size:3.4cqw;letter-spacing:.3em;color:var(--red);margin-bottom:1.6cqw}
+  .sfx{position:absolute;font-family:var(--sfx);color:var(--red);-webkit-text-stroke:.5cqw var(--ink);paint-order:stroke fill;line-height:1;pointer-events:none;
+    text-shadow:.8cqw .8cqw 0 var(--ink)}
+
+  /* portada del tomo */
+  .tomo{padding:8cqw 6cqw 14cqw;background:rgba(255,255,255,.55);overflow:hidden}
+  .t-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .vol{font-family:var(--sfx);font-size:6cqw;letter-spacing:.06em;background:var(--ink);color:#fff;padding:1cqw 3cqw;transform:skewX(-8deg)}
+  .vol b{font-size:9cqw;font-weight:400;margin-left:1.4cqw;color:var(--red)}
+  .jp{writing-mode:vertical-rl;font-family:var(--display);font-size:6.4cqw;color:var(--red);letter-spacing:.2em}
+  .t-art{position:relative;height:84cqw;margin:4cqw -1cqw 0;border:1.2cqw solid var(--ink);overflow:hidden;transform:rotate(-1.6deg);box-shadow:2cqw 2cqw 0 var(--ink)}
+  .t-art img{width:100%;height:100%;object-fit:cover;object-position:50% 47%;transform:scale(1.15)}
+  .t-art .lines{position:absolute;inset:-30%;opacity:.25;background:repeating-conic-gradient(from 0deg at 50% 50%,transparent 0 3deg,#000 3deg 3.4deg);
+    -webkit-mask:radial-gradient(circle,transparent 30%,#000 70%);mask:radial-gradient(circle,transparent 30%,#000 70%)}
+  .t-title{margin-top:8cqw;text-align:center;font-family:var(--display);font-weight:400;font-size:20cqw;line-height:.95;letter-spacing:-.01em}
+  .t-title small{display:block;font-family:var(--sfx);font-size:9cqw;letter-spacing:.06em;color:var(--red);margin-bottom:2cqw;-webkit-text-stroke:.35cqw var(--ink);paint-order:stroke fill}
+  .t-sub{margin-top:4cqw;text-align:center;font-weight:700;font-size:4.4cqw;letter-spacing:.06em}
+  .t-sub b{background:var(--ink);color:#fff;padding:.4cqw 2cqw;margin-right:1cqw}
+  .t-date{margin-top:3cqw;text-align:center;font-size:4.2cqw;color:var(--ink2)}
+  .tomo .sfx.s1{right:4cqw;top:46cqw;font-size:15cqw;transform:rotate(12deg)}
+  .scrollhint{margin-top:8cqw;text-align:center;font-family:var(--sfx);font-size:5cqw;letter-spacing:.2em}
+
+  /* globo de diálogo */
+  .bubble{position:relative;background:#fff;border:.7cqw solid var(--ink);border-radius:46% 54% 50% 50% / 50% 50% 50% 50%;padding:10cqw 9cqw;
+    font-size:4.8cqw;line-height:1.55;text-align:center;font-weight:500}
+  .bubble::after{content:"";position:absolute;left:20%;bottom:-6cqw;border:3cqw solid transparent;border-top:6cqw solid var(--ink);transform:rotate(18deg)}
+  .bubble::before{content:"";position:absolute;left:calc(20% + .6cqw);bottom:-4.2cqw;border:2.4cqw solid transparent;border-top:4.8cqw solid #fff;transform:rotate(18deg);z-index:1}
+  .sec-msg .sfx{right:6cqw;bottom:6cqw;font-size:11cqw;transform:rotate(-10deg)}
+
+  /* viñetas */
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:3cqw}
+  .pn{position:relative;background:#fff;border:1cqw solid var(--ink);padding:6cqw 4cqw;min-width:0;box-shadow:1.4cqw 1.4cqw 0 var(--ink)}
+  .pn.wide{grid-column:1 / -1}
+  .pn .tag{position:absolute;top:-3.6cqw;left:3cqw;background:var(--red);color:#fff;font-weight:700;font-size:3cqw;letter-spacing:.2em;padding:.8cqw 2.4cqw;border:.6cqw solid var(--ink)}
+  .pn .big{font-family:var(--display);font-size:16cqw;line-height:1}
+  .pn .mid{font-family:var(--display);font-size:5.6cqw;line-height:1.2}
+  .pn p{font-size:4cqw;line-height:1.45;color:var(--ink2);margin-top:2cqw}
+  .mbtn{display:inline-block;margin-top:4cqw;font-family:var(--sfx);font-size:5cqw;letter-spacing:.08em;color:#fff;background:var(--ink);padding:1.6cqw 5cqw;
+    text-decoration:none;transform:skewX(-8deg);border:0;cursor:pointer}
+  .mbtn.red{background:var(--red);box-shadow:1cqw 1cqw 0 var(--ink)}
+  .mbtn.ghost{background:#fff;color:var(--ink);border:.6cqw solid var(--ink)}
+
+  /* cuenta regresiva */
+  .count{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4cqw}
+  .count div{background:var(--ink);color:#fff;text-align:center;padding:4cqw 0 2.4cqw;transform:skewX(-6deg)}
+  .count b{display:block;font-family:var(--sfx);font-weight:400;font-size:12cqw;line-height:1;font-variant-numeric:tabular-nums}
+  .count span{font-size:2.6cqw;letter-spacing:.2em;text-transform:uppercase;color:#ddd}
+  .cal{display:flex;flex-wrap:wrap;gap:3cqw;justify-content:center;margin-top:6cqw}
+  .sec-count .sfx{left:4cqw;top:8cqw;font-size:9cqw;transform:rotate(-12deg)}
+
+  /* itinerario: episodios */
+  .eps{display:flex;flex-direction:column;gap:3.4cqw}
+  .ep{display:grid;grid-template-columns:24cqw 1fr;align-items:stretch;background:#fff;border:.8cqw solid var(--ink)}
+  .ep:nth-child(even){transform:rotate(.8deg)} .ep:nth-child(odd){transform:rotate(-.8deg)}
+  .ep .h{background:var(--ink);color:#fff;font-family:var(--sfx);font-size:7cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;padding:2cqw 0}
+  .ep .h small{font-family:var(--body);font-size:2.6cqw;letter-spacing:.2em;color:var(--red);margin-bottom:1cqw}
+  .ep .w{padding:4cqw;font-weight:700;font-size:4.8cqw;display:flex;align-items:center}
+
+  /* galería */
+  .gal{display:grid;grid-template-columns:1fr 1fr;gap:3cqw}
+  .gal figure{border:1cqw solid var(--ink);overflow:hidden;aspect-ratio:3/4;cursor:zoom-in;background:#ddd;box-shadow:1.2cqw 1.2cqw 0 var(--ink)}
+  .gal figure:nth-child(3n+1){grid-column:1 / -1;aspect-ratio:16/10}
+  .gal img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) contrast(1.05)}
+  #lightbox{position:absolute;inset:0;z-index:40;background:rgba(10,10,10,.94);display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0}
+  #lightbox img{max-width:92cqw;max-height:80cqh;border:1cqw solid #fff}
+  #lightbox button{position:absolute;top:calc(4cqw + env(safe-area-inset-top,0px));right:4cqw;width:11cqw;height:11cqw;border-radius:50%;border:.5cqw solid #fff;background:none;color:#fff;font-size:6cqw;cursor:pointer}
+
+  /* confirmación */
+  .rsvp{display:flex;flex-direction:column;gap:3.6cqw;background:#fff;border:1cqw solid var(--ink);padding:7cqw 6cqw;box-shadow:1.6cqw 1.6cqw 0 var(--ink)}
+  .rsvp label.q,.rsvp .q{font-weight:700;font-size:4cqw}
+  .rsvp input[type=text],.rsvp textarea{font:inherit;font-size:4.4cqw;border:.6cqw solid var(--ink);padding:2.6cqw 3cqw;width:100%;background:var(--paper2);outline:none;resize:none;border-radius:0}
+  .rsvp input:focus,.rsvp textarea:focus{background:#fff;box-shadow:1cqw 1cqw 0 var(--red)}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:2.4cqw}
+  .opt{position:relative;cursor:pointer}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt span{display:block;text-align:center;padding:2.6cqw 1cqw;border:.6cqw solid var(--ink);font-family:var(--sfx);font-size:5.2cqw;letter-spacing:.06em;background:#fff;transition:background .2s,color .2s}
+  .opt input:checked + span{background:var(--ink);color:#fff}
+  .opt input:focus-visible + span{outline:.6cqw solid var(--red);outline-offset:.6cqw}
+  .stepper{display:flex;align-items:center;justify-content:space-between;border:.6cqw solid var(--ink);padding:1.4cqw 2cqw 1.4cqw 3cqw;font-weight:700;font-size:4.2cqw}
+  .stepper div{display:flex;align-items:center;gap:3cqw}
+  .stepper button{width:9cqw;height:9cqw;border:.6cqw solid var(--ink);background:#fff;font-family:var(--sfx);font-size:6cqw;cursor:pointer;line-height:1}
+  .stepper b{font-family:var(--sfx);font-weight:400;font-size:8cqw;min-width:7cqw;text-align:center;color:var(--red)}
+  .wa{display:block;text-align:center;margin-top:2cqw;font-family:var(--sfx);font-size:6.4cqw;letter-spacing:.08em;color:#fff;background:var(--red);
+    padding:3cqw;text-decoration:none;border:.7cqw solid var(--ink);box-shadow:1.2cqw 1.2cqw 0 var(--ink)}
+  .note{font-size:3.6cqw;color:var(--ink2);text-align:center;margin-top:-1cqw}
+
+  /* fin */
+  .fin{background:var(--ink);color:#fff;text-align:center;padding:20cqw 8cqw 16cqw;border:0}
+  .fin .jp2{font-family:var(--display);font-size:16cqw;letter-spacing:.06em}
+  .fin .cont{font-family:var(--sfx);font-size:9cqw;letter-spacing:.08em;margin-top:2cqw}
+  .fin p{margin-top:5cqw;font-size:4.4cqw;color:#ccc}
+  .hanko{width:26cqw;height:26cqw;margin:10cqw auto 0;background:var(--red);border-radius:2cqw;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:13cqw;color:#fff;transform:rotate(-8deg);box-shadow:inset 0 0 0 1.2cqw var(--red),inset 0 0 0 1.8cqw #fff;opacity:0}
+  .fin .wm2{margin-top:12cqw;font-size:2.8cqw;letter-spacing:.24em;color:#888}
+
+  /* interfaz flotante */
+  #musicBtn{position:absolute;z-index:25;top:calc(3cqw + env(safe-area-inset-top,0px));right:3.5cqw;width:12cqw;height:12cqw;border:.7cqw solid var(--ink);
+    background:#fff;font-family:var(--sfx);font-size:6cqw;cursor:pointer;box-shadow:1cqw 1cqw 0 var(--ink);visibility:hidden;color:var(--ink)}
+  #musicBtn.off{background:#ddd;text-decoration:line-through}
+  #pageNum{position:absolute;z-index:25;bottom:calc(3cqw + env(safe-area-inset-bottom,0px));right:3.5cqw;font-family:var(--sfx);font-size:4.4cqw;letter-spacing:.1em;
+    background:var(--ink);color:#fff;padding:.8cqw 2.6cqw;visibility:hidden;transform:skewX(-8deg)}
+  #fx{position:absolute;inset:0;z-index:26;pointer-events:none;overflow:hidden}
+  .pop{position:absolute;font-family:var(--sfx);color:var(--red);-webkit-text-stroke:.45cqw var(--ink);paint-order:stroke fill;text-shadow:.6cqw .6cqw 0 var(--ink);
+    font-size:10cqw;line-height:1;transform:translate(-50%,-50%);white-space:nowrap}
+  .burst{position:absolute;width:30cqw;height:30cqw;margin:-15cqw 0 0 -15cqw}
+
+  /* =================== 3D =================== */
+  .page{perspective:150cqw}
+  .t3d{transform-style:preserve-3d;will-change:transform}
+  .t3d .tag{transform:translateZ(5cqw)}
+  .t3d .big,.t3d .mid{transform:translateZ(3cqw)}
+  .t3d .mbtn{transform:translateZ(4cqw) skewX(-8deg)}
+  /* onomatopeyas con relieve */
+  .sfx,.pop{text-shadow:.35cqw .35cqw 0 var(--ink),.7cqw .7cqw 0 var(--ink),1.05cqw 1.05cqw 0 var(--ink),1.4cqw 1.4cqw 0 var(--ink),1.75cqw 1.75cqw 0 rgba(0,0,0,.35)}
+  /* cuenta regresiva con volumen */
+  .count div{box-shadow:.6cqw .6cqw 0 var(--red),1.2cqw 1.2cqw 0 var(--ink)}
+  .count b{text-shadow:0 .5cqw 0 rgba(255,255,255,.12)}
+  /* botones que se hunden al tocarlos */
+  .mbtn,.wa,.opt span,.stepper button{transition:transform .12s,box-shadow .12s}
+  .mbtn:active{transform:skewX(-8deg) translate(.8cqw,.8cqw);box-shadow:none}
+  .wa:active,.stepper button:active{transform:translate(1cqw,1cqw);box-shadow:none}
+
+  /* tomo de manga en 3D (portada, lomo, páginas, contraportada) */
+  .book-wrap{position:relative;height:104cqw;margin-top:2cqw;perspective:140cqw;display:flex;align-items:center;justify-content:center;touch-action:pan-y;cursor:grab}
+  .book{--bw:60cqw;--bh:88cqw;--bd:8cqw;position:relative;width:var(--bw);height:var(--bh);transform-style:preserve-3d}
+  .book .f{position:absolute;backface-visibility:hidden;overflow:hidden}
+  .book .front,.book .back{inset:0}
+  .book .front{transform:translateZ(calc(var(--bd) / 2));background:#fff;border:1cqw solid var(--ink)}
+  .book .front img{width:100%;height:100%;object-fit:cover;object-position:50% 47%}
+  .book .front .lines{position:absolute;inset:-30%;opacity:.22;background:repeating-conic-gradient(from 0deg at 50% 50%,transparent 0 3deg,#000 3deg 3.4deg);
+    -webkit-mask:radial-gradient(circle,transparent 32%,#000 70%);mask:radial-gradient(circle,transparent 32%,#000 70%)}
+  .book .front .bt{position:absolute;left:0;right:0;bottom:0;padding:3cqw 3cqw 3.4cqw;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;text-align:left}
+  .book .front .bt b{display:block;font-family:var(--display);font-weight:400;font-size:8.6cqw;line-height:1}
+  .book .front .bt small{font-family:var(--sfx);font-size:4cqw;letter-spacing:.08em;color:#ff6b7d}
+  .book .front .bv{position:absolute;top:2.4cqw;left:2.4cqw;background:var(--red);color:#fff;font-family:var(--sfx);font-size:5cqw;padding:.6cqw 2cqw;border:.5cqw solid #fff}
+  .book .front .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.4) 48%,transparent 60%) -150% 0/250% 100% no-repeat;mix-blend-mode:screen;pointer-events:none}
+  .book .back{transform:rotateY(180deg) translateZ(calc(var(--bd) / 2));background:var(--paper2);border:1cqw solid var(--ink);padding:6cqw 5cqw;
+    display:flex;flex-direction:column;gap:3cqw;text-align:left}
+  .book .back h3{font-family:var(--display);font-weight:400;font-size:6cqw}
+  .book .back p{font-size:3.6cqw;line-height:1.5;color:var(--ink2)}
+  .book .back .meta{margin-top:auto;font-weight:700;font-size:3.6cqw}
+  .book .back .barcode{height:9cqw;width:34cqw;background:repeating-linear-gradient(90deg,#111 0 .5cqw,#fff .5cqw .9cqw,#111 .9cqw 1.1cqw,#fff 1.1cqw 1.8cqw,#111 1.8cqw 2.6cqw,#fff 2.6cqw 3cqw)}
+  .book .spine{width:var(--bd);height:var(--bh);left:calc(50% - var(--bd) / 2);transform:rotateY(-90deg) translateZ(calc(var(--bw) / 2));background:var(--ink);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3cqw 0;writing-mode:vertical-rl;font-family:var(--display);font-size:3.6cqw;letter-spacing:.1em}
+  .book .spine i{font-style:normal;color:var(--red);font-family:var(--sfx);font-size:5cqw;writing-mode:horizontal-tb}
+  .book .pages{width:var(--bd);height:calc(var(--bh) - 1.6cqw);top:.8cqw;left:calc(50% - var(--bd) / 2);transform:rotateY(90deg) translateZ(calc(var(--bw) / 2 - .4cqw));
+    background:repeating-linear-gradient(90deg,#f3f0e6 0 .25cqw,#d9d4c6 .25cqw .35cqw)}
+  .book .top,.book .bottom{width:calc(var(--bw) - .8cqw);height:var(--bd);left:.4cqw;top:calc(50% - var(--bd) / 2);background:repeating-linear-gradient(0deg,#f3f0e6 0 .25cqw,#d9d4c6 .25cqw .35cqw)}
+  .book .top{transform:rotateX(90deg) translateZ(calc(var(--bh) / 2 - .4cqw))}
+  .book .bottom{transform:rotateX(-90deg) translateZ(calc(var(--bh) / 2 - .4cqw))}
+  .book-shadow{position:absolute;bottom:2cqw;left:50%;width:56cqw;height:6cqw;margin-left:-28cqw;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.35),transparent 70%)}
+  .book-hint{text-align:center;font-family:var(--sfx);font-size:4cqw;letter-spacing:.12em;color:var(--ink2);margin-top:-2cqw}
+  @media (prefers-reduced-motion: reduce){ .speck{display:none} }
+</style>
+</head>
+<body>
+<div id="stage" aria-label="Invitación otaku">
+
+  <!-- ===== PORTADA ANIMADA ===== -->
+  <section id="cover" aria-label="Portada: toca para abrir">
+    <div id="tilt">
+      <div class="cv will" id="cv">
+        <img class="ly band will" data-src="portada/franja_ojos.webp" alt="">
+        <div class="sweep"></div>
+        <i class="glint g1 will"></i><i class="glint g2 will"></i>
+        <img class="ly top will" data-src="portada/papel_arriba.webp" alt="">
+        <img class="ly bot will" data-src="portada/papel_abajo.webp" alt="">
+      </div>
+    </div>
+    <div id="dust"></div>
+    <div class="speed will" id="speed"></div>
+    <div class="grain"></div><div class="vig"></div>
+    <div class="tapb ui will" id="tap"></div>
+    <div class="wm" id="wm"></div>
+  </section>
+  <section id="scene" aria-hidden="true">
+    <div class="sc will" id="sc">
+      <img class="ly base will" id="scBase" data-src="portada/rika_escena.jpg" alt="">
+      <div class="smoke will" id="smoke"></div>
+      <div class="rika ghost will" id="ghost2"><img class="body" data-src="portada/rika_capa.webp" alt=""></div>
+      <div class="rika ghost will" id="ghost1"><img class="body" data-src="portada/rika_capa.webp" alt=""></div>
+      <div class="rika will" id="rika">
+        <img class="body" data-src="portada/rika_capa.webp" alt="">
+        <img class="mouth will" id="mouth" data-src="portada/rika_boca.webp" alt="">
+        <i class="rglow will" id="rglow"></i>
+        <i class="reye will" id="reye"></i>
+      </div>
+    </div>
+    <div class="speed2 will" id="speed2"></div>
+    <div class="grain"></div><div class="vig"></div>
+  </section>
+  <div id="flash"></div>
+
+  <!-- ===== INVITACIÓN ===== -->
+  <main id="inv" aria-hidden="true"><div class="bgfix" aria-hidden="true"><div class="img" id="bgImg"></div></div><div id="invContent"></div></main>
+
+  <button id="musicBtn" class="ui" aria-label="Activar o pausar la música">♪</button>
+  <div id="pageNum" class="ui"></div>
+  <div id="fx" aria-hidden="true"></div>
+  <div id="lightbox" role="dialog" aria-label="Foto"><img id="lbImg" alt=""><button id="lbClose" aria-label="Cerrar">×</button></div>
+  <div id="loader">CARGANDO…</div>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const CONFIG = window.CONFIG;   // los datos viven en config.js
+(() => {
+  "use strict";
+  const REEL = new URLSearchParams(location.search).get("reel") === "1";
+  if (REEL) document.body.classList.add("reel");
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const stage = $("#stage"), rand = gsap.utils.random, D = CONFIG.datos;
+  const esc = x => String(x ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const W = () => stage.clientWidth, H = () => stage.clientHeight;
+
+  $("#tap").textContent = CONFIG.fraseTap;
+  $("#wm").textContent = CONFIG.marcaDeAgua;
+  document.title = `${CONFIG.evento} · ${CONFIG.nombre}`;
+
+  /* ---------------- invitación (render desde CONFIG) ---------------- */
+  function render() {
+    const fd = new Date(D.fechaISO);
+    const dia = String(fd.getDate()).padStart(2, "0"), mes = fd.toLocaleDateString("es-MX", { month: "long" });
+    const gal = (CONFIG.fotos || []).length ? `
+      <section class="page"><h2 class="ttl rv"><span>第5話</span>Galería</h2>
+        <div class="gal">${CONFIG.fotos.map((f, i) => `<figure class="rv" data-i="${i}"><img src="${esc(f)}" alt="Foto ${i + 1}" loading="lazy"></figure>`).join("")}</div>
+      </section>` : "";
+    $("#invContent").innerHTML = `
+      <section class="page tomo">
+        <div class="t-top rv"><span class="vol">VOL.<b>${esc(CONFIG.volumen)}</b></span><span class="jp">招待状</span></div>
+        <div class="book-wrap rv" id="bookWrap">
+          <div class="book" id="book">
+            <div class="f front"><img src="portada/portada.jpg" alt=""><div class="lines"></div><span class="bv">VOL.${esc(CONFIG.volumen)}</span>
+              <div class="bt"><small>${esc(CONFIG.evento)}</small><b>${esc(CONFIG.nombre)}</b></div><i class="shine"></i></div>
+            <div class="f back"><h3>Sinopsis</h3><p>${esc(D.mensaje)}</p><p class="meta">${esc(D.fechaTexto)} · ${esc(D.hora)}<br>${esc(D.lugar)}</p><div class="barcode"></div></div>
+            <div class="f spine"><i>${esc(CONFIG.volumen)}</i>${esc(CONFIG.nombre)} · ${esc(CONFIG.evento)}<i>招</i></div>
+            <div class="f pages"></div><div class="f top"></div><div class="f bottom"></div>
+          </div>
+          <div class="book-shadow"></div>
+        </div>
+        <div class="book-hint rv">↻ GIRA EL TOMO · TÓCALO PARA VOLTEARLO</div>
+        <span class="sfx s1 rv">ドン!</span>
+        <h1 class="t-title rv"><small>¡Estás invitado!</small>${esc(CONFIG.nombre)}</h1>
+        <div class="t-sub rv"><b>Capítulo especial</b>${esc(CONFIG.evento)}</div>
+        <div class="t-date rv">${esc(D.fechaTexto)} · ${esc(D.hora)}</div>
+        <div class="scrollhint rv">DESLIZA ▼</div>
+      </section>
+
+      <section class="page sec-msg">
+        <div class="bubble rv">${esc(D.mensaje)}</div>
+        <span class="sfx rv">キラッ</span>
+      </section>
+
+      <section class="page">
+        <h2 class="ttl rv"><span>第1話</span>¿Cuándo y dónde?</h2>
+        <div class="panels">
+          <div class="pn t3d rv"><span class="tag">FECHA</span><div class="big">${dia}</div><div class="mid">${esc(mes)}</div><p>${esc(D.fechaTexto)}</p></div>
+          <div class="pn t3d rv"><span class="tag">HORA</span><div class="big" style="font-size:9.6cqw">${esc(D.hora.replace(" h", ""))}</div><p>¡Llega puntual, el opening no espera!</p></div>
+          <div class="pn t3d wide rv"><span class="tag">LUGAR</span><div class="mid">${esc(D.lugar)}</div><p>${esc(D.direccion)}</p>
+            <a class="mbtn" href="${esc(D.mapa)}" target="_blank" rel="noopener">Ver mapa ▶</a></div>
+        </div>
+      </section>
+
+      <section class="page sec-count">
+        <span class="sfx rv">ドキドキ</span>
+        <h2 class="ttl rv"><span>第2話</span>¡Faltan…!</h2>
+        <div class="count rv t3d" id="count"><div><b>0</b><span>días</span></div><div><b>0</b><span>horas</span></div><div><b>0</b><span>min</span></div><div><b>0</b><span>seg</span></div></div>
+        <div class="cal rv"><a class="mbtn ghost" id="gcal" target="_blank" rel="noopener">Google Calendar</a><a class="mbtn ghost" id="ocal" target="_blank" rel="noopener">Outlook</a></div>
+      </section>
+
+      <section class="page">
+        <h2 class="ttl rv"><span>第3話</span>Itinerario</h2>
+        <div class="eps">${D.itinerario.map(([h, w], i) => `<div class="ep rv"><div class="h"><small>EP.${i + 1}</small>${esc(h)}</div><div class="w">${esc(w)}</div></div>`).join("")}</div>
+      </section>
+
+      <section class="page">
+        <h2 class="ttl rv"><span>第4話</span>Código de vestimenta</h2>
+        <div class="pn t3d wide rv" style="text-align:center"><span class="tag">DRESS CODE</span><div class="mid">${esc(D.vestimenta)}</div><p>${esc(D.vestimentaNota)}</p></div>
+        <div class="pn t3d wide rv" style="text-align:center;margin-top:7cqw"><span class="tag">REGALOS</span><p style="margin-top:0">${esc(D.regalos)}</p></div>
+      </section>
+      ${gal}
+      <section class="page" id="rsvpSec">
+        <h2 class="ttl rv"><span>最終話</span>¿Vienes?</h2>
+        <form class="rsvp rv t3d" id="rsvp" autocomplete="on">
+          <label class="q" for="rNombre">Tu nombre*</label>
+          <input type="text" id="rNombre" name="nombre" required maxlength="80">
+          <span class="q">¿Asistirás?</span>
+          <div class="opts"><label class="opt"><input type="radio" name="asiste" value="si" checked><span>¡Sí, ahí estaré!</span></label>
+            <label class="opt"><input type="radio" name="asiste" value="no"><span>No podré</span></label></div>
+          <div id="paxRow"><span class="q" style="display:block;margin-bottom:2cqw">¿Cuántas personas?</span>
+            <div class="stepper"><span>Personas</span><div><button type="button" data-d="-1" aria-label="Menos">−</button><b id="pax">1</b><button type="button" data-d="1" aria-label="Más">+</button></div></div></div>
+          <label class="q" for="rCos">¿De qué personaje vendrás? (opcional)</label>
+          <input type="text" id="rCos" name="cosplay" maxlength="60" placeholder="Ej. Nezuko, Goku, Sailor Moon…">
+          <label class="q" for="rMsg">Mensaje para ${esc(CONFIG.nombre)} (opcional)</label>
+          <textarea id="rMsg" name="msg" rows="2" maxlength="300"></textarea>
+          <a class="wa" id="rsvpLink" target="_blank" rel="noopener">¡Enviar por WhatsApp!</a>
+          <p class="note">Confirma antes del ${esc(D.rsvpFecha)}</p>
+        </form>
+      </section>
+
+      <section class="page fin">
+        <div class="jp2 rv">つづく…</div>
+        <div class="cont rv">${esc(D.cierre)}</div>
+        <p class="rv">${esc(CONFIG.nombre)} · ${esc(D.fechaTexto)}</p>
+        <div class="hanko" id="hanko">${esc(CONFIG.iniciales)}</div>
+        <div class="wm2">${esc(CONFIG.marcaDeAgua)}</div>
+      </section>`;
+
+    // cuenta regresiva con giro
+    const target = fd.getTime(), cells = $$("#count b");
+    const tick = () => {
+      const d = Math.max(0, target - Date.now()) / 1000;
+      const v = [Math.floor(d / 86400), Math.floor(d % 86400 / 3600), Math.floor(d % 3600 / 60), Math.floor(d % 60)];
+      cells.forEach((c, i) => { const t = i ? String(v[i]).padStart(2, "0") : String(v[i]); if (c.textContent !== t) { c.textContent = t; if (c._r) gsap.fromTo(c, { rotationX: -90 }, { rotationX: 0, duration: .45, ease: "back.out(1.7)", transformPerspective: 240 }); c._r = 1; } });
+    };
+    tick(); (function loop() { gsap.delayedCall(1, () => { tick(); loop(); }); })();
+
+    // calendario
+    const end = new Date(target + 6 * 3600e3);
+    const f = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
+    const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:00`;
+    const titulo = `${CONFIG.evento} de ${CONFIG.nombre}`, lugar = `${D.lugar}, ${D.direccion}`;
+    $("#gcal").href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(titulo)}&dates=${f(fd)}/${f(end)}&location=${encodeURIComponent(lugar)}`;
+    $("#ocal").href = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(titulo)}&startdt=${iso(fd)}&enddt=${iso(end)}&location=${encodeURIComponent(lugar)}`;
+
+    // RSVP → WhatsApp
+    let pax = 1;
+    const form = $("#rsvp"), link = $("#rsvpLink");
+    const upd = () => {
+      const fdx = new FormData(form), n = String(fdx.get("nombre") || "").trim(), cos = String(fdx.get("cosplay") || "").trim(), msg = String(fdx.get("msg") || "").trim();
+      const va = fdx.get("asiste") !== "no";
+      $("#paxRow").style.display = va ? "" : "none";
+      const t = va
+        ? `¡Hola! Soy ${n || "…"}. Confirmo mi asistencia a ${titulo} (${pax} ${pax === 1 ? "persona" : "personas"}).${cos ? `\nVoy de: ${cos}` : ""}${msg ? `\n\n${msg}` : ""}`
+        : `¡Hola! Soy ${n || "…"}. Lamento no poder ir a ${titulo}.${msg ? `\n\n${msg}` : ""}`;
+      link.href = `https://wa.me/${D.rsvpWhatsapp}?text=${encodeURIComponent(t)}`;
+    };
+    $$(".stepper button").forEach(b => b.addEventListener("click", () => { pax = Math.min(10, Math.max(1, pax + +b.dataset.d)); $("#pax").textContent = pax; gsap.fromTo("#pax", { scale: 1.6 }, { scale: 1, duration: .35, ease: "back.out(2)" }); upd(); }));
+    form.addEventListener("input", upd);
+    form.addEventListener("submit", e => { e.preventDefault(); upd(); link.click(); });
+    upd();
+
+    // galería → visor
+    $$(".gal figure").forEach(fg => fg.addEventListener("click", e => {
+      e.stopPropagation(); $("#lbImg").src = CONFIG.fotos[+fg.dataset.i];
+      gsap.set("#lightbox", { visibility: "visible" }); gsap.fromTo("#lightbox", { opacity: 0 }, { opacity: 1, duration: .3 });
+      gsap.fromTo("#lbImg", { scale: .8, rotation: -3 }, { scale: 1, rotation: 0, duration: .5, ease: "back.out(1.6)" });
+    }));
+    const closeLb = () => gsap.to("#lightbox", { opacity: 0, duration: .25, onComplete: () => gsap.set("#lightbox", { visibility: "hidden" }) });
+    $("#lbClose").addEventListener("click", closeLb); $("#lightbox").addEventListener("click", e => { if (e.target.id === "lightbox") closeLb(); });
+  }
+  render();
+
+  /* ---------------- precarga ---------------- */
+  const load = img => new Promise(res => { const s = img.dataset.src, p = new Image(); p.onload = () => { img.src = s; (p.decode ? p.decode() : Promise.resolve()).catch(() => {}).then(res); }; p.onerror = () => { console.warn("Falta", s); res(); }; p.src = s; });
+  const fonts = Promise.race([Promise.all([document.fonts.load('400 40px "Bangers"'), document.fonts.load('400 40px "Dela Gothic One"', "招待状ドン"), document.fonts.load('700 20px "Zen Kaku Gothic New"')]), new Promise(r => setTimeout(r, 3500))]);
+  Promise.all([...$$("img[data-src]").map(load), fonts]).then(start);
+
+  /* ---------------- música original (chiptune suave) ---------------- */
+  const Musica = (() => {
+    let ctx, master, timer, audio, on = false, nextT = 0, step = 0;
+    const BPM = 112, S16 = 60 / BPM / 4, mtof = n => 440 * Math.pow(2, (n - 69) / 12);
+    const prog = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]];          // Lam – Fa – Do – Sol
+    const lead = [76, 0, 74, 76, 79, 0, 76, 74, 72, 0, 74, 72, 69, 0, 72, 74];
+    function note(n, t, d, type, g) {
+      const o = ctx.createOscillator(), a = ctx.createGain(); o.type = type; o.frequency.value = mtof(n);
+      a.gain.setValueAtTime(0, t); a.gain.linearRampToValueAtTime(g, t + .01); a.gain.exponentialRampToValueAtTime(.0001, t + d);
+      o.connect(a).connect(master); o.start(t); o.stop(t + d + .05);
+    }
+    function hat(t) { const b = ctx.createBuffer(1, ctx.sampleRate * .05, ctx.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
+      const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); f.type = "highpass"; f.frequency.value = 7000; g.gain.value = .05; s.buffer = b; s.connect(f).connect(g).connect(master); s.start(t); }
+    function sched() {
+      while (nextT < ctx.currentTime + .2) {
+        const bar = Math.floor(step / 16) % 4, s = step % 16, ch = prog[bar];
+        if (s % 4 === 0) note(ch[0] - 24, nextT, .35, "triangle", .28);
+        if (s % 2 === 0) note(ch[(s / 2) % 3] + 12, nextT, .18, "square", .035);
+        if (s % 2 === 1) hat(nextT);
+        const m = lead[s]; if (m && Math.floor(step / 64) % 2 === 1) note(m, nextT, .28, "square", .05);
+        nextT += S16; step++;
+      }
+    }
+    function play() {
+      on = true;
+      if (CONFIG.musica) { audio = audio || Object.assign(new Audio(CONFIG.musica), { loop: true, volume: .8 }); audio.play().catch(() => {}); }
+      else {
+        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+        if (!master) { master = ctx.createGain(); const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 3200; master.connect(lp).connect(ctx.destination); }
+        ctx.resume(); master.gain.setTargetAtTime(.6, ctx.currentTime, .4); nextT = ctx.currentTime + .05; clearInterval(timer); timer = setInterval(sched, 50);
+      }
+      $("#musicBtn").classList.remove("off");
+    }
+    function pause() { on = false; if (audio) audio.pause(); if (ctx) { master.gain.setTargetAtTime(0, ctx.currentTime, .15); setTimeout(() => clearInterval(timer), 600); } $("#musicBtn").classList.add("off"); }
+    document.addEventListener("visibilitychange", () => { if (document.hidden) { audio && audio.pause(); ctx && ctx.suspend(); } else if (on) { audio && audio.play(); ctx && ctx.resume(); } });
+    return { play, toggle: () => (on ? pause() : play()) };
+  })();
+
+  /* ---------------- animación ---------------- */
+  function start() {
+    gsap.to("#loader", { opacity: 0, duration: .5, onComplete: () => $("#loader").remove() });
+    const cv = $("#cv");
+
+    // vida en la portada: respiración, papeles que se mueven distinto (profundidad), brillo en los ojos
+    gsap.fromTo(cv, { scale: 1.06 }, { scale: 1.0, duration: 2.4, ease: "power2.out" });
+    gsap.to(cv, { scale: 1.035, duration: 6, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 2.4 });
+    gsap.to(cv, { rotationY: 2.2, rotationX: -1.4, duration: 7, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    gsap.set(".ly.top", { z: 40 }); gsap.set(".ly.bot", { z: 40 });
+    gsap.to(".ly.top", { x: -6, y: -7, rotation: -.4, duration: 4.6, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    gsap.to(".ly.bot", { x: 6, y: 7, rotation: .35, duration: 5.3, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    gsap.to(".ly.band", { x: 2, y: -2, duration: 6.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    gsap.to(".sweep", { backgroundPosition: "220% 0", duration: 2.6, ease: "power1.inOut", repeat: -1, repeatDelay: 2.8, delay: 1.2 });
+    $$(".glint").forEach((g, i) => gsap.fromTo(g, { opacity: .25, scale: .7 }, { opacity: .85, scale: 1.15, duration: 1.6 + i * .3, ease: "sine.inOut", yoyo: true, repeat: -1, delay: i * .8 }));
+    // latido "doki doki" ocasional
+    gsap.timeline({ repeat: -1, repeatDelay: 5.5, delay: 3 })
+      .to(cv, { scale: "+=0.012", duration: .12, ease: "power2.out" }).to(cv, { scale: "-=0.012", duration: .2 })
+      .to(cv, { scale: "+=0.009", duration: .12, ease: "power2.out" }).to(cv, { scale: "-=0.009", duration: .3 });
+    // polvo de papel
+    const dust = $("#dust");
+    for (let i = 0; i < 22; i++) {
+      const s = document.createElement("i"); s.className = "speck will" + (i % 3 === 0 ? " ink" : ""); dust.appendChild(s);
+      gsap.set(s, { x: rand(0, W()), y: rand(0, H()), scale: rand(.3, 1.2), opacity: 0 });
+      const go = () => gsap.to(s, { x: `+=${rand(-40, 40)}`, y: `-=${rand(60, 160)}`, duration: rand(5, 9), ease: "sine.inOut", keyframes: { opacity: [0, rand(.3, .8), 0] },
+        onComplete() { gsap.set(s, { x: rand(0, W()), y: rand(H() * .3, H()) }); go(); } });
+      gsap.delayedCall(rand(0, 5), go);
+    }
+    // inclinación con el dedo / ratón (los papeles están más cerca: parallax real)
+    const rx = gsap.quickTo("#tilt", "rotationX", { duration: .8, ease: "power3.out" }), ry = gsap.quickTo("#tilt", "rotationY", { duration: .8, ease: "power3.out" });
+    $("#cover").addEventListener("pointermove", e => { const r = stage.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - .5) * 8); rx(-((e.clientY - r.top) / r.height - .5) * 6); });
+    $("#cover").addEventListener("pointerleave", () => { rx(0); ry(0); });
+    addEventListener("deviceorientation", e => { if (e.beta == null || opened) return; ry(gsap.utils.clamp(-6, 6, e.gamma * .25)); rx(gsap.utils.clamp(-5, 5, (e.beta - 50) * -.15)); });
+    // globo "toca para abrir"
+    if (!REEL) gsap.timeline({ delay: 1.6 }).fromTo("#tap", { scale: 0, rotation: -12 }, { scale: 1, rotation: 0, duration: .6, ease: "back.out(2.2)" })
+      .add(() => gsap.to("#tap", { y: -8, duration: .7, yoyo: true, repeat: -1, ease: "sine.inOut" }));
+    gsap.fromTo("#wm", { opacity: 0 }, { opacity: 1, duration: 1.2, delay: 1 });
+
+    // tocar → el papel se rasga y sale volando, la mirada se acerca y se abre la invitación
+    let opened = false;
+    const open = () => {
+      if (opened) return; opened = true;
+      if (!REEL) Musica.play();
+      try { if (window.DeviceOrientationEvent && DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(() => {}); } catch (e) {}
+      const inv = $("#inv"), sc = $("#sc"), rika = $("#rika"), ghosts = ["#ghost1", "#ghost2"];
+      let MX = W() / 2, MY = H() * .4;
+      const mouthPos = () => { const r = $("#rglow").getBoundingClientRect(), s0 = stage.getBoundingClientRect(); MX = r.left + r.width / 2 - s0.left; MY = r.top + r.height / 2 - s0.top;
+        const sp = $("#speed2"); sp.style.setProperty("--mx", ((MX + .3 * W()) / (1.6 * W()) * 100) + "%"); sp.style.setProperty("--my", ((MY + .3 * H()) / (1.6 * H()) * 100) + "%"); };
+      gsap.killTweensOf([".ly.top", ".ly.bot", "#tap"]);
+      gsap.set("#mouth", { scaleX: .04, scaleY: .7, opacity: 0 });
+      // las "estelas" fantasma siguen a Rika con retraso
+      const trail = () => ghosts.forEach((g, i) => gsap.to(g, { x: gsap.getProperty(rika, "x"), y: gsap.getProperty(rika, "y"), scale: gsap.getProperty(rika, "scale"), rotation: gsap.getProperty(rika, "rotation"), duration: .18 * (i + 1), overwrite: true }));
+      gsap.timeline()
+        // 1) el papel se abre más y sale volando
+        .to("#tap", { scale: 0, rotation: 15, duration: .3, ease: "back.in(2)" }, 0)
+        .to(cv, { x: "+=6", duration: .05, yoyo: true, repeat: 5, ease: "none" }, 0)
+        .to(".ly.top", { y: -18, x: -8, rotation: -1.5, duration: .35, ease: "power2.out" }, .05)
+        .to(".ly.bot", { y: 18, x: 8, rotation: 1.2, duration: .35, ease: "power2.out" }, .05)
+        .to(".glint", { opacity: 1, scale: 1.8, duration: .3 }, .25)
+        .to(".ly.top", { yPercent: -95, xPercent: -12, rotation: -10, rotationX: 28, duration: 1, ease: "power3.in" }, .55)
+        .to(".ly.bot", { yPercent: 95, xPercent: 10, rotation: 8, rotationX: -24, duration: 1, ease: "power3.in" }, .6)
+        .to(cv, { scale: 1.45, duration: 1, ease: "power2.in" }, .55)
+        // 2) Yuta se aleja: aparece de cuerpo completo con Rika detrás
+        .set("#scene", { visibility: "visible" }, .95)
+        .fromTo("#scene", { opacity: 0 }, { opacity: 1, duration: .45 }, .95)
+        .fromTo(sc, { scale: 3.6, filter: "blur(7px)" }, { scale: 1, filter: "blur(0px)", duration: 2.4, ease: "power3.inOut" }, .95)
+        .set("#cover", { display: "none" }, 1.45)
+        // 3) Rika flota como maldición (vaivén y parpadeo fantasma)
+        .add(() => {
+          gsap.to(rika, { y: -12, rotation: -1.2, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1, onUpdate: trail });
+          gsap.to(rika, { opacity: .82, duration: .09, yoyo: true, repeat: 7, ease: "none", delay: .3 });
+          gsap.to(ghosts, { opacity: (i) => i ? .14 : .26, duration: .6 });
+        }, 2.6)
+        .fromTo("#reye", { opacity: 0, scale: .4 }, { opacity: 1, scale: 1.8, duration: .3, yoyo: true, repeat: 1, ease: "power2.out" }, 3.5)
+        // 4) …y vuela hacia la cámara: el fondo y Yuta se oscurecen y desenfocan
+        .to("#scBase", { scale: 1.04, duration: 1.4, ease: "power2.in" }, 3.8)
+        .to("#smoke", { opacity: .45, duration: 1.2 }, 3.8)
+        .to(rika, { scale: 2.1, y: () => H() * .22, rotation: 2, duration: 1.4, ease: "power2.in", onUpdate: trail }, 3.85)
+        .to(rika, { x: "+=8", duration: .06, yoyo: true, repeat: 9, ease: "none" }, 4.6)
+        // 5) abre la boca con un rugido
+        .set("#mouth", { opacity: 1 }, 4.85)
+        .to("#mouth", { scaleX: 1, scaleY: 1, duration: .55, ease: "back.out(1.7)" }, 4.85)
+        .add(mouthPos, 4.9)
+        .fromTo("#speed2", { opacity: 0, scale: 1.35 }, { opacity: .55, scale: 1, duration: .35, ease: "power2.out" }, 4.92)
+        .to("#rglow", { opacity: 1, scale: 2.4, duration: .5, ease: "power2.in" }, 5.25)
+        .to(ghosts, { opacity: 0, duration: .3 }, 5.3)
+        // 6) se lanza encima de la cámara con la boca abierta… y de ahí sale la invitación
+        .to(rika, { scale: 9, y: () => H() * .28, duration: .85, ease: "power3.in", onUpdate: mouthPos }, 5.35)
+        .to("#speed2", { opacity: 0, duration: .25 }, 5.8)
+        .add(() => {
+          gsap.set(inv, { visibility: "visible", zIndex: 7, clipPath: `circle(0px at ${MX}px ${MY}px)` }); inv.setAttribute("aria-hidden", "false"); reveal();
+          gsap.to(inv, { clipPath: `circle(${Math.hypot(W(), H())}px at ${MX}px ${MY}px)`, duration: .95, ease: "power2.in",
+            onComplete() { gsap.set(inv, { clipPath: "none" }); gsap.set("#scene", { display: "none" }); } });
+          gsap.fromTo(inv, { scale: .35, transformOrigin: `${MX}px ${MY}px` }, { scale: 1, duration: 1.2, ease: "power3.out" });
+        }, 6.0)
+        .to("#flash", { opacity: .7, duration: .15 }, 6.65).to("#flash", { opacity: 0, duration: .5 }, 6.8);
+    };
+    if (!REEL) $("#cover").addEventListener("click", open);
+    window.abrir = open;
+  }
+
+
+  /* ---------------- tomo 3D: gira solo, se arrastra para girar y se voltea al tocarlo ---------------- */
+  function initBook() {
+    const book = $("#book"), wrap = $("#bookWrap"), st = { ry: -24, rx: 8 };
+    const apply = () => gsap.set(book, { rotationY: st.ry, rotationX: st.rx });
+    apply();
+    let idle = gsap.to(st, { ry: 24, duration: 4.5, ease: "sine.inOut", yoyo: true, repeat: -1, onUpdate: apply });
+    gsap.to(".book .shine", { backgroundPosition: "150% 0", duration: 1.8, repeat: -1, repeatDelay: 2.5, ease: "power1.inOut" });
+    let x0 = null, last = 0, moved = 0, flipped = false;
+    wrap.addEventListener("pointerdown", e => { x0 = e.clientX; last = e.clientX; moved = 0; idle.pause(); gsap.killTweensOf(st); });
+    wrap.addEventListener("pointermove", e => { if (x0 === null) return; const dx = e.clientX - last; last = e.clientX; moved += Math.abs(dx); st.ry += dx * .6; apply(); });
+    const up = e => {
+      if (x0 === null) return; x0 = null;
+      if (moved < 6) { flipped = !flipped; gsap.to(st, { ry: Math.round(st.ry / 180) * 180 + 180, rx: 4, duration: 1.1, ease: "back.out(1.3)", onUpdate: apply }); }
+      else gsap.to(st, { ry: Math.round(st.ry / 180) * 180 + (flipped ? 0 : -18), duration: .9, ease: "power3.out", onUpdate: apply });
+    };
+    wrap.addEventListener("pointerup", up); wrap.addEventListener("pointercancel", up);
+  }
+
+  /* ---------------- viñetas que se inclinan en 3D con el dedo / ratón / giroscopio ---------------- */
+  function initTilt3D() {
+    const els = $$(".t3d").map(el => ({ el, rx: gsap.quickTo(el, "rotationX", { duration: .6, ease: "power3.out" }), ry: gsap.quickTo(el, "rotationY", { duration: .6, ease: "power3.out" }) }));
+    els.forEach(({ el, rx, ry }) => {
+      gsap.set(el, { transformPerspective: 800 });
+      el.addEventListener("pointermove", e => { const r = el.getBoundingClientRect(); ry(((e.clientX - r.left) / r.width - .5) * 18); rx(-((e.clientY - r.top) / r.height - .5) * 14); });
+      el.addEventListener("pointerleave", () => { rx(0); ry(0); });
+    });
+    addEventListener("deviceorientation", e => {
+      if (e.beta == null) return;
+      const y = gsap.utils.clamp(-12, 12, e.gamma * .45), x = gsap.utils.clamp(-10, 10, (e.beta - 45) * -.3);
+      els.forEach(q => { q.rx(x); q.ry(y); });
+    });
+  }
+  /* ---------------- invitación: viñetas que "golpean", efectos al tocar, número de página ---------------- */
+  function reveal() {
+    const root = $("#inv"); let flip = 0;
+    initBook(); initTilt3D();
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; io.unobserve(e.target);
+      const el = e.target, isSfx = el.classList.contains("sfx");
+      if (isSfx) gsap.fromTo(el, { opacity: 0, scale: 2.4, z: 300 }, { opacity: 1, scale: 1, z: 0, duration: .5, ease: "back.out(3)", transformPerspective: 600 });
+      else { const k = (++flip) % 3, from = k === 0 ? { rotationX: -70 } : k === 1 ? { rotationY: 65 } : { rotationY: -65 };
+        gsap.fromTo(el, { opacity: 0, z: -180, ...from }, { opacity: 1, z: 0, rotationX: 0, rotationY: 0, duration: .85, ease: "back.out(1.6)", transformPerspective: 900, transformOrigin: k === 0 ? "50% 100%" : k === 1 ? "100% 50%" : "0% 50%" }); }
+    }), { root, threshold: .18 });
+    $$(".rv", root).forEach(el => io.observe(el));
+    const fin = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fin.disconnect(); gsap.fromTo("#hanko", { opacity: 0, scale: 2.6, rotation: 10 }, { opacity: 1, scale: 1, rotation: -8, duration: .5, delay: .6, ease: "power4.in" }); } }), { root, threshold: .4 });
+    fin.observe($(".fin"));
+    // número de página
+    const pages = $$(".page", root);
+    const pn = $("#pageNum"); gsap.set([pn, "#musicBtn"], { visibility: "visible" });
+    const upd = () => { const y = root.scrollTop + root.clientHeight * .4; let k = 0; pages.forEach((p, i) => { if (p.offsetTop <= y) k = i; }); pn.textContent = `P. ${String(k + 1).padStart(2, "0")}/${String(pages.length).padStart(2, "0")}`; };
+    root.addEventListener("scroll", upd, { passive: true }); upd();
+    // parallax suave del collage de fondo
+    const bgSet = gsap.quickSetter("#bgImg", "y", "px");
+    root.addEventListener("scroll", () => { const k = root.scrollTop / Math.max(1, root.scrollHeight - root.clientHeight); bgSet(gsap.utils.interpolate(H() * .04, -H() * .04, k)); }, { passive: true });
+    $("#musicBtn").addEventListener("click", e => { e.stopPropagation(); Musica.toggle(); });
+    // efectos de sonido visuales al tocar
+    const words = ["¡BAM!", "¡ZAS!", "ドン!", "¡POW!", "キラッ", "!!", "ドキッ"];
+    root.addEventListener("click", e => {
+      if (e.target.closest("a,button,input,textarea,label,form,figure,#bookWrap")) return;
+      const r = stage.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, fx = $("#fx");
+      const b = document.createElement("div"); b.className = "burst"; b.style.left = x + "px"; b.style.top = y + "px";
+      let lines = ""; for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2, r1 = 22, r2 = 44 + (i % 3) * 5; lines += `<line x1="${50 + Math.cos(a) * r1}" y1="${50 + Math.sin(a) * r1}" x2="${50 + Math.cos(a) * r2}" y2="${50 + Math.sin(a) * r2}" stroke="#121212" stroke-width="2.2" stroke-linecap="round"/>`; }
+      b.innerHTML = `<svg viewBox="0 0 100 100" width="100%" height="100%">${lines}</svg>`; fx.appendChild(b);
+      const w = document.createElement("div"); w.className = "pop"; w.textContent = words[Math.floor(Math.random() * words.length)]; w.style.left = x + "px"; w.style.top = y + "px"; fx.appendChild(w);
+      gsap.fromTo(b, { scale: .3, opacity: 1 }, { scale: 1.3, opacity: 0, duration: .5, ease: "power2.out", onComplete: () => b.remove() });
+      gsap.fromTo(w, { scale: 0, rotation: rand(-20, 20) }, { scale: 1, duration: .35, ease: "back.out(3)" });
+      gsap.to(w, { y: -30, opacity: 0, duration: .5, delay: .45, onComplete: () => w.remove() });
+    });
+  }
+})();
+</script>
+</body>
+</html>
