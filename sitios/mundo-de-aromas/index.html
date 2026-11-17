@@ -466,7 +466,7 @@ function setCat(k) {
   $("#tienda").style.backgroundColor = c.bg;
   $("#grid").innerHTML = P.filter(p => p.cat === k).map(p => `
     <article class="card" data-id="${p.id}">
-      <div class="ph"><img src="${p.img}" alt="${esc(p.nombre)}" loading="lazy">${p.ml ? `<span class="ml">${esc(p.ml)}</span>` : ""}</div>
+      <div class="ph"><img src="${esc(p.img)}" alt="${esc(p.nombre)}" loading="lazy" onerror="this.onerror=null;this.src=(window.__resp&&window.__resp(${p.id}))||'img/logo.png'">${p.ml ? `<span class="ml">${esc(p.ml)}</span>` : ""}</div>
       <h4>${esc(p.nombre)}</h4><p>${esc(p.desc)}</p>
       <div class="row"><span class="price">${money(p.precio)}</span><button class="add" type="button" data-add="${p.id}" aria-label="Agregar ${esc(p.nombre)}">+ <span class="t">Agregar</span></button></div>
     </article>`).join("");
@@ -539,10 +539,15 @@ function parseCSV(t) {
   if (f || row.length) { row.push(f); rows.push(row); }
   return rows.filter(r => r.some(x => x.trim()));
 }
-const norm = x => String(x || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
 function catKey(x) { const n = norm(x); if (n.startsWith("dam") || n.startsWith("muj")) return "dama"; if (n.startsWith("cab") || n.startsWith("homb")) return "caballero"; if (n.startsWith("inf") || n.startsWith("nin")) return "infantil"; if (n.startsWith("vel")) return "velas"; return ""; }
-function foto(x) {
-  x = String(x || "").trim(); if (!x) return "img/logo.png";
+const norm = x => String(x || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
+const BASE_IMG = {}; P.forEach(p => { BASE_IMG[norm(p.nombre)] = p.img; });
+const RESPALDO = "img/logo.png";
+window.__resp = id => { const p = P[id]; const b = p && BASE_IMG[norm(p.nombre)]; return b && b !== p.img ? b : RESPALDO; };
+function foto(x, nombre) {
+  const propia = BASE_IMG[norm(nombre)];
+  x = String(x || "").trim().replace(/^["']|["']$/g, "");
+  if (!x || /^img\//i.test(x) || /\.(webp|jpe?g|png)$/i.test(x) && !/^https?:/i.test(x)) return propia || (x && !/\s/.test(x) ? (x.includes("/") ? x : `img/${x.replace(/\.(webp|jpe?g|png)$/i, "")}.webp`) : RESPALDO);
   const m = x.match(/\/d\/([\w-]{20,})/) || x.match(/[?&]id=([\w-]{20,})/);
   if (m && /google/.test(x)) return `https://lh3.googleusercontent.com/d/${m[1]}=w800`;
   if (/^https?:\/\//.test(x)) return x;
@@ -556,7 +561,7 @@ async function cargarHoja() {
     const rows = parseCSV(await r.text()); if (rows.length < 2) return;
     const h = rows[0].map(norm), col = k => h.findIndex(x => x.startsWith(k));
     const ci = { cat: col("categ"), nom: col("nombre"), ml: col("ml"), pre: col("precio"), des: col("descrip"), fot: col("foto"), dis: col("disponible") };
-    const list = rows.slice(1).map(r => ({ cat: catKey(r[ci.cat]), nombre: (r[ci.nom] || "").trim(), ml: (r[ci.ml] || "").trim(), precio: +String(r[ci.pre] || "").replace(/[^\d.]/g, "") || 0, desc: (r[ci.des] || "").trim(), img: foto(r[ci.fot]), ok: ci.dis < 0 || !/^no/.test(norm(r[ci.dis])) }))
+    const list = rows.slice(1).map(r => ({ cat: catKey(r[ci.cat]), nombre: (r[ci.nom] || "").trim(), ml: (r[ci.ml] || "").trim(), precio: +String(r[ci.pre] || "").replace(/[^\d.]/g, "") || 0, desc: (r[ci.des] || "").trim(), img: foto(r[ci.fot], r[ci.nom]), ok: ci.dis < 0 || !/^no/.test(norm(r[ci.dis])) }))
       .filter(p => p.cat && p.nombre && p.ok).map((p, i) => ({ ...p, id: i, ml: p.ml && /^\d+$/.test(p.ml) ? p.ml + " ml" : p.ml }));
     if (!list.length) return;
     P = list; renderColls(); setCat(cat); renderBag();
@@ -572,7 +577,7 @@ setCat("dama"); renderBag(); cargarHoja();
 const nav = $("#nav");
 const fab = $("#waFab"); const onScroll = () => { nav.classList.toggle("solid", scrollY > 40); fab.classList.toggle("hide", scrollY < innerHeight * .6); };
 addEventListener("scroll", onScroll, { passive: true }); onScroll();
-if (!window.gsap || reduce) { gsap && gsap.set("#bottle", { rotateY: -24, rotateX: 8 }); $$(".manifest .w").forEach(w => w.style.opacity = 1); return; }
+if (!window.gsap || reduce) { window.gsap && gsap.set("#bottle", { rotateY: -24, rotateX: 8 }); $$(".manifest .w").forEach(w => w.style.opacity = 1); return; }
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 gsap.ticker.lagSmoothing(500, 33);
