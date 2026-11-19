@@ -1,0 +1,480 @@
+<title>Repaso Derecho Fiscal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cuaderno de estudio con pestañas arriba (Aprende · Tarjetas · Examen · Chuleta); resaltador amarillo como acento */
+:root{
+  --bg:#F3F5F4; --card:#FFFFFF; --ink:#16302B; --muted:#5B6E69; --line:#D9E1DE;
+  --accent:#0F766E; --accent-soft:#D5EFEA; --mark:#FFE477; --ok:#1F8A4C; --ok-soft:#DDF3E5; --bad:#C0392B; --bad-soft:#FBE3E0;
+  --display:"Sora",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1B19; --card:#16262A; --ink:#E6EFEC; --muted:#9DB2AC; --line:#2A3D3B;
+  --accent:#4FD1C0; --accent-soft:#163E3A; --mark:#7A6716; --ok:#5ED08F; --ok-soft:#173A27; --bad:#FF8A7A; --bad-soft:#40201C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1B19; --card:#16262A; --ink:#E6EFEC; --muted:#9DB2AC; --line:#2A3D3B;
+  --accent:#4FD1C0; --accent-soft:#163E3A; --mark:#7A6716; --ok:#5ED08F; --ok-soft:#173A27; --bad:#FF8A7A; --bad-soft:#40201C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 60px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,6vw,40px);font-weight:800;letter-spacing:-.02em}
+mark{background:var(--mark);color:inherit;padding:0 .15em;border-radius:3px}
+.top{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.top p{margin:0;color:var(--muted)}
+.prog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{flex:1;height:8px;background:var(--line);border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;padding-block:10px;overflow-x:auto}
+nav button{flex:1;min-width:max-content;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:600 14px var(--body);padding:10px 14px;border-radius:12px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--card)}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.tip{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:15px;margin:10px 0}
+.tip b{color:var(--accent)}
+/* Aprende */
+details.unit{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+details.unit>summary{list-style:none;cursor:pointer;padding:16px;display:flex;gap:12px;align-items:center}
+details.unit>summary::-webkit-details-marker{display:none}
+.num{flex:none;width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:800 15px var(--display)}
+.done .num{background:var(--ok);color:var(--card)}
+summary h2{font-size:17px;flex:1}
+summary .chev{color:var(--muted);transition:transform .2s}
+details[open] .chev{transform:rotate(90deg)}
+.ub{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+.ub h3{font-size:15px;margin-top:6px}
+.ub p{margin:0}
+.ub ul{margin:0;padding-left:20px}
+.ub table{width:100%;border-collapse:collapse;font-size:14px}
+.ub td,.ub th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+.tbl{overflow-x:auto}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:1.5px solid var(--line);border-radius:999px;padding:5px 11px;font-size:14px;background:var(--bg)}
+.pill b{color:var(--accent)}
+.eq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:600}
+.eq span{background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:8px 10px}
+.check{border:1.5px dashed var(--line);border-radius:12px;padding:12px}
+.check p{font-weight:600;margin-bottom:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:500 15px var(--body);padding:11px 13px;border-radius:10px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.why{font-size:14px;color:var(--muted);margin-top:8px}
+/* Tarjetas */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.flash{perspective:1200px;height:270px;cursor:pointer;margin-bottom:12px}
+.fi{position:relative;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flash.flip .fi{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;border:1px solid var(--line);background:var(--card)}
+.face.back{transform:rotateY(180deg);background:var(--accent-soft)}
+.face small{color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.face .q{font:700 clamp(19px,4.5vw,24px)/1.3 var(--display)}
+.face .a{font-size:16px;max-width:52ch}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:0;background:var(--accent);color:var(--card);font:600 15px var(--body);padding:12px 16px;border-radius:12px;cursor:pointer;flex:1}
+.btn.ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.btn.good{background:var(--ok)}
+.btn.warn{background:var(--bad)}
+.count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:center;margin-top:8px}
+/* Examen */
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.qcard .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.qcard h3{font-size:19px;line-height:1.35}
+.score{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.big{font:800 64px var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.miss{width:100%;text-align:left;background:var(--bad-soft);border-radius:10px;padding:10px 12px;font-size:14px}
+/* Chuleta */
+.cheat{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.cg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.cg h3{font-size:14px;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.cg dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:14px}
+.cg dt{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cg dd{margin:0;min-width:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Derecho Fiscal: repaso express</h1>
+    <p>Lee cada tema, contesta la preguntita y luego practica con las tarjetas y el examen. Tu avance se guarda en este navegador.</p>
+    <div class="prog"><span id="progTxt">0 de 7 temas</span><div class="bar"><i id="progBar"></i></div></div>
+  </header>
+  <nav role="tablist">
+    <button role="tab" data-tab="aprende" aria-selected="true">📖 Aprende</button>
+    <button role="tab" data-tab="tarjetas" aria-selected="false">🃏 Tarjetas</button>
+    <button role="tab" data-tab="examen" aria-selected="false">✅ Examen</button>
+    <button role="tab" data-tab="chuleta" aria-selected="false">📌 Chuleta</button>
+  </nav>
+
+  <section id="aprende"></section>
+  <section id="tarjetas" hidden>
+    <div class="filters" id="cardFilters"></div>
+    <div class="flash" id="flash" tabindex="0" role="button" aria-label="Voltear tarjeta">
+      <div class="fi"><div class="face"><small id="fTema"></small><div class="q" id="fQ"></div><small>Toca para ver la respuesta</small></div>
+      <div class="face back"><small>Respuesta</small><div class="a" id="fA"></div></div></div>
+    </div>
+    <div class="row">
+      <button class="btn warn" id="cRep">Repasar otra vez</button>
+      <button class="btn good" id="cOk">Ya me la sé</button>
+    </div>
+    <div class="count" id="cCount"></div>
+  </section>
+  <section id="examen" hidden><div id="quiz"></div></section>
+  <section id="chuleta" hidden><div class="tip"><b>Para el último repaso:</b> todos los artículos y números clave en una sola pantalla.</div><div class="cheat" id="cheat"></div></section>
+</div>
+
+<script>
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- TEMAS ---------- */
+const UNITS=[
+{t:"Consecuencias por incumplir",html:`
+<p>Una <mark>infracción fiscal</mark> es no cumplir una obligación de la ley fiscal. <b>Todavía no es delito</b>, es una falta administrativa (se castiga con multa, no con cárcel).</p>
+<p>Las más comunes: no presentar <b>declaraciones, solicitudes, documentación, avisos o información</b>.</p>
+<div class="tip"><b>Ejemplo de examen:</b> presentar tu declaración fuera de plazo = infracción + multa.</div>
+<h3>Si no pagas a tiempo, pagas 4 cosas</h3>
+<div class="eq"><span>Contribución omitida</span>+<span>Actualización</span>+<span>Recargos</span>+<span>Multa</span></div>
+<div class="tip"><b>Truco:</b> "pagar tarde trae <b>CARMa</b>": <b>C</b>ontribución, <b>A</b>ctualización, <b>R</b>ecargos, <b>M</b>ulta.</div>
+<div class="tbl"><table>
+<tr><th>Concepto</th><th>Artículo</th><th>En palabras simples</th></tr>
+<tr><td><b>Actualización</b></td><td>17-A CFF</td><td>Ajuste por <mark>inflación</mark>. Factor = INPC del mes anterior al más reciente ÷ INPC del mes anterior al más antiguo.</td></tr>
+<tr><td><b>Recargos</b></td><td>21 CFF</td><td><mark>Indemnización</mark> al fisco por pagar tarde (como interés moratorio). Por cada mes o fracción. Se calcula sobre la contribución <b>ya actualizada</b>.</td></tr>
+<tr><td><b>Multa</b></td><td>70 CFF</td><td><mark>Sanción</mark> por la infracción. Se paga aunque pagues el impuesto, y sin perjuicio de la pena si hay delito.</td></tr>
+</table></div>
+<div class="tip"><b>Clave:</b> pagar la multa no te quita el impuesto, y pagar el impuesto no te quita la multa. Pagas todo.</div>`,
+check:{q:"Los recargos se calculan sobre…",o:["La contribución original","La contribución ya actualizada","La multa"],a:1,w:"Primero se actualiza por inflación y sobre ese monto se calculan los recargos (Art. 21 CFF)."}},
+
+{t:"Delitos fiscales",html:`
+<p>Arts. <b>92 a 115 Bis CFF</b>. Aquí ya no es multa: <mark>es cárcel</mark>. Son conductas graves que dañan al fisco.</p>
+<h3>Defraudación fiscal · Art. 108 CFF</h3>
+<p>Con <b>engaños o aprovechando errores</b>, dejas de pagar total o parcialmente una contribución u obtienes un beneficio indebido, perjudicando al fisco federal.</p>
+<div class="tbl"><table>
+<tr><th>Monto defraudado</th><th>Pena</th></tr>
+<tr><td>Hasta $2,531,920</td><td>3 meses a 2 años</td></tr>
+<tr><td>Más de $2,531,920 hasta $3,797,870</td><td>2 a 5 años</td></tr>
+<tr><td>Más de $3,797,870</td><td>3 a 9 años</td></tr>
+<tr><td>No se puede determinar</td><td>3 meses a 6 años</td></tr>
+</table></div>
+<div class="tip"><b>Truco:</b> aprende los cortes como "<b>2.5 millones</b>" y "<b>3.8 millones</b>". Penas: <b>2 → 5 → 9</b> años máximos (y 6 si no se sabe el monto).</div>
+<h3>Contrabando · Art. 102 CFF</h3>
+<p>Meter o sacar mercancía del país <b>sin pagar impuestos</b>, <b>sin permisos</b> o mercancía <b>prohibida</b>.</p>
+<h3>Delitos equiparables</h3>
+<p>No son exactamente el delito base, pero se castigan igual porque dañan igual.</p>
+<div class="pills"><span class="pill">Equiparable a defraudación: <b>Art. 109</b></span><span class="pill">Equiparable a contrabando: <b>Art. 105</b></span></div>
+<div class="tip"><b>Truco:</b> defraudación <b>108 → 109</b> (el que sigue). Contrabando <b>102 → 105</b>.</div>`,
+check:{q:"Alguien defrauda $3,000,000 al fisco. ¿Qué pena le toca?",o:["3 meses a 2 años","2 a 5 años","3 a 9 años"],a:1,w:"$3,000,000 está entre $2,531,920 y $3,797,870 → de 2 a 5 años."}},
+
+{t:"Los 3 tipos de responsabilidad",html:`
+<div class="tip"><b>Esto siempre lo preguntan.</b> Administrativa = dinero · Penal = cárcel · Solidaria = otras personas también responden.</div>
+<h3>1. Administrativa</h3>
+<p>La aplica el <b>SAT sin ir a lo penal</b>. Solo consecuencias económicas y administrativas.</p>
+<ul><li><b>Contribuyente:</b> omitir pago, no declarar, no emitir CFDI, no estar localizable en su domicilio fiscal.</li>
+<li><b>Servidor público:</b> no cobrar impuestos, gestionar mal recursos, condonar deudas ilegalmente. Se regula en la <mark>Ley General de Responsabilidades Administrativas</mark>.</li></ul>
+<h3>2. Penal</h3>
+<p>Ya hay <b>delito fiscal</b>: procedimiento penal y prisión.</p>
+<ul><li><b>Art. 92 CFF:</b> cómo se procede y la intervención de la <b>SHCP</b>. Sin <mark>querella de la SHCP</mark> casi nunca hay proceso penal fiscal.</li>
+<li><b>Art. 95 CFF:</b> quiénes son responsables: quienes <b>cometen, participan, inducen o ayudan</b>.</li></ul>
+<h3>3. Solidaria · Art. 26 CFF</h3>
+<p>Otras personas además del contribuyente responden ante el SAT: <b>retenedores, representantes legales, liquidadores, socios y accionistas</b> (en ciertos casos).</p>
+<ul><li>Incluye los <b>accesorios</b>, pero <mark>NO las multas</mark>.</li><li>Solo existe si hay un supuesto del Art. 26: <b>no es automática</b>.</li><li>Puede tener límites.</li></ul>
+<h3>Facultades de comprobación · Art. 42 CFF</h3>
+<p>Las herramientas del SAT para revisar que cumplas: revisar declaraciones, contabilidad y documentos; pedir datos a ti y a terceros; <b>visitas domiciliarias</b>; <b>revisiones electrónicas</b>; verificar bienes y mercancías. Sirven para detectar omisiones, determinar créditos fiscales y comprobar delitos.</p>`,
+check:{q:"¿Qué NO comprende la responsabilidad solidaria?",o:["Las contribuciones","Los accesorios","Las multas"],a:2,w:"Art. 26 CFF: comprende los accesorios, pero no las multas."}},
+
+{t:"Principales leyes e impuestos",html:`
+<div class="tbl"><table>
+<tr><th>Ley</th><th>¿Qué hace?</th></tr>
+<tr><td><b>CFF</b></td><td>La <mark>ley marco</mark> del sistema tributario: quién paga, cómo se calcula, cómo se declara, derechos y obligaciones.</td></tr>
+<tr><td><b>LISR</b></td><td>Grava los <b>ingresos</b> de físicas y morales. Tiene estímulos (p. ej. contratar personas con discapacidad o adultos mayores).</td></tr>
+<tr><td><b>LIVA</b></td><td>Impuesto al <mark>consumo</mark>: venta de bienes, servicios, uso o goce temporal e importación.</td></tr>
+<tr><td><b>LIEPS</b> (Art. 1)</td><td>Bienes específicos: <b>alcohol, tabaco, bebidas azucaradas y combustibles</b>.</td></tr>
+<tr><td><b>Ley Federal de Derechos</b></td><td>Pagos por <b>servicios del Estado</b> o uso de bienes públicos: pasaporte, trámites migratorios, agua nacional.</td></tr>
+</table></div>
+<h3>Los 7 Títulos de la LISR</h3>
+<p>I. Disposiciones Generales · II. Personas Morales · III. Morales con Fines no Lucrativos · IV. Personas Físicas · V. Residentes en el Extranjero · VI. Entidades Extranjeras y Partes Relacionadas · VII. Estímulos Fiscales.</p>
+<div class="tip"><b>Truco:</b> va de lo general a lo particular: <b>General → Morales → No lucrativas → Físicas → Extranjero → Partes relacionadas → Estímulos</b>.</div>
+<h3>Persona moral vs. física</h3>
+<div class="tbl"><table>
+<tr><th></th><th>Moral</th><th>Física</th></tr>
+<tr><td>Qué es</td><td>Empresa, entidad jurídica</td><td>Ser humano</td></tr>
+<tr><td>Identidad</td><td>Denominación o razón social</td><td>Nombre y apellidos</td></tr>
+<tr><td>RFC</td><td>Propio, distinto al de los socios</td><td>Individual</td></tr>
+<tr><td>Responsabilidad</td><td><mark>Limitada</mark> al capital aportado</td><td><mark>Ilimitada</mark>: responde con su patrimonio</td></tr>
+<tr><td>Ejemplo</td><td>S.A. de C.V., S. de R.L., A.C.</td><td>Médico, freelance, empleado</td></tr>
+<tr><td>Fundamento</td><td>CCF 25-28, LGSM, LISR 76-78</td><td>CCF, CFF y LISR</td></tr>
+</table></div>
+<h3>RESICO · Art. 113-E LISR</h3>
+<p>Personas físicas con actividad empresarial o profesional con ingresos de <mark>hasta $3.5 millones</mark> al año. Pagan ISR con tasas reducidas.</p>
+<h3>ISAN (autos nuevos)</h3>
+<p>Se paga <b>una sola vez</b> al comprar o importar un auto nuevo.</p>
+<div class="pills"><span class="pill"><b>Art. 1</b> quién paga</span><span class="pill"><b>Art. 2</b> cómo se calcula (tabla: más caro, más %)</span><span class="pill"><b>Art. 3</b> quién NO paga: eléctricos, híbridos, gama baja</span><span class="pill"><b>Art. 7</b> la agencia retiene y desglosa</span></div>
+<h3>Comercio exterior</h3>
+<p>Se paga en <b>aduana</b>. La exportación casi no paga (para incentivar ventas al extranjero).</p>
+<ul><li><b>IGI:</b> arancel según la fracción arancelaria (<mark>8 dígitos</mark>). De 0% a 35% o más.</li>
+<li><b>DTA:</b> <mark>8 al millar = 0.8%</mark> del valor, por usar la aduana.</li>
+<li>Con tratado + certificado de origen, el IGI puede bajar a <b>0%</b>. Con programas de fomento importas temporalmente sin pagar si luego exportas.</li></ul>
+<h3>Contribuciones ambientales</h3>
+<p>Se cobran a quien contamina o explota recursos, para empujar tecnologías limpias. Casi no hay federales; los estados sí las tienen. Se cobran por 4 cosas:</p>
+<ul><li>Emisiones a la atmósfera</li><li>Contaminación de agua, suelo y subsuelo</li><li>Generación y depósito de residuos</li><li>Extracción de materiales pétreos (piedra, arena, grava)</li></ul>
+<div class="tip"><b>Truco:</b> <b>Aire, Agua/suelo, Basura, Piedras</b>.</div>`,
+check:{q:"El DTA equivale a…",o:["8 al millar (0.8%)","8%","16%"],a:0,w:"Derecho de Trámite Aduanero: 8 al millar, o sea 0.8% del valor de la mercancía."}},
+
+{t:"Digitalización, datos y transparencia",html:`
+<p><b>Digitalización tributaria:</b> el SAT usa tecnología con 2 objetivos: que sea <mark>más fácil cumplir</mark> y <mark>más difícil evadir</mark>.</p>
+<p><b>Economía digital:</b> usar tecnología para producir, vender y consumir (banca digital, e-commerce, clases en línea, apps, plataformas).</p>
+<p><b>SAT:</b> <mark>órgano desconcentrado de la SHCP</mark>. Recauda ISR, IVA e IEPS y vigila que físicas y morales cumplan.</p>
+<h3>Datos que se deben proteger</h3>
+<div class="pills"><span class="pill"><b>Identificación:</b> nombre, CURP, teléfono</span><span class="pill"><b>Fiscales:</b> RFC, e.firma</span><span class="pill"><b>Biométricos:</b> huella</span><span class="pill"><b>Económicos:</b> ingresos, declaraciones</span><span class="pill"><b>Actividad económica</b></span></div>
+<h3>Secreto fiscal · Art. 69 CFF</h3>
+<p>Autoridades y servidores públicos deben guardar <mark>absoluta reserva</mark> de declaraciones y datos del contribuyente, y de lo que obtengan en sus revisiones.</p>
+<h3>Derechos ARCO · Art. 16 Constitucional y Art. 43 LGPD</h3>
+<div class="pills"><span class="pill"><b>A</b>cceso: ver tus datos</span><span class="pill"><b>R</b>ectificación: corregirlos</span><span class="pill"><b>C</b>ancelación: que los borren</span><span class="pill"><b>O</b>posición: que no los usen</span></div>
+<p><b>Transparencia fiscal:</b> las autoridades deben informar de forma clara, completa y oportuna cómo recaudan y gastan. Da confianza y rendición de cuentas.</p>
+<h3>Tendencias internacionales</h3>
+<ul><li>Impuesto mínimo global del <mark>15%</mark> a multinacionales</li><li>Gravar la economía digital</li><li>Digitalizar las administraciones (factura electrónica, análisis de datos)</li></ul>`,
+check:{q:"El secreto fiscal está en el…",o:["Art. 42 CFF","Art. 69 CFF","Art. 26 CFF"],a:1,w:"Art. 69 CFF: absoluta reserva de los datos del contribuyente."}},
+
+{t:"Sistema tributario: federal, estatal y municipal",html:`
+<div class="tbl"><table>
+<tr><th>Nivel</th><th>Fundamento</th><th>Quién crea / recauda</th><th>Ejemplos</th></tr>
+<tr><td><b>Federal</b></td><td>Art. 73 fr. VII y XXIX CPEUM</td><td>Congreso de la Unión. Autoridades: SHCP, IMSS, INFONAVIT, CONAGUA, TESOFE</td><td>ISR, IVA, IEPS, comercio exterior</td></tr>
+<tr><td><b>Estatal</b></td><td>Art. 124, 117 y 118 CPEUM</td><td>Congreso local; recauda la Secretaría de Finanzas</td><td>Nóminas, hospedaje, derechos estatales</td></tr>
+<tr><td><b>Municipal</b></td><td>Art. 115 fr. III y IV CPEUM</td><td>Ayuntamiento <b>propone</b>, Congreso del Estado <b>aprueba</b>; recauda la Tesorería Municipal</td><td>Predial, adquisición de inmuebles, derechos por servicios, contribuciones de mejoras</td></tr>
+</table></div>
+<div class="tip"><b>Clave:</b> lo que no es federal es de los estados (Art. 124: facultades residuales). El <mark>municipio NO tiene Congreso</mark>: no puede crear impuestos solo.</div>
+<div class="tip"><b>Truco:</b> <b>73</b> Federación · <b>124</b> Estados · <b>115</b> Municipio.</div>
+<h3>Coordinación fiscal</h3>
+<p>Nació por la <b>duplicidad de impuestos</b> entre los tres niveles. La <b>Ley de Coordinación Fiscal</b> se publicó el <mark>27 de diciembre de 1978</mark> y entró en vigor el <mark>1 de enero de 1980</mark>. Creó el Sistema Nacional de Coordinación Fiscal.</p>
+<div class="tbl"><table>
+<tr><th>Participaciones</th><th>Aportaciones</th></tr>
+<tr><td><mark>NO condicionadas</mark>. Se reparten por población, recaudación local y crecimiento. Fondos: General de Participaciones, Fomento Municipal, Fiscalización y Recaudación, Participación por IEPS.</td><td><mark>Condicionadas</mark> a fines específicos: educación, salud, seguridad, infraestructura. Son <b>8 fondos</b>.</td></tr>
+</table></div>
+<div class="tip"><b>Truco:</b> <b>A</b>portaciones = <b>A</b>marradas a un fin. <b>P</b>articipaciones = <b>P</b>ara lo que quieras.</div>
+<p><b>Convenios de coordinación:</b> el estado colabora con la Federación en recaudar y fiscalizar.</p>
+<p><b>Federalismo fiscal:</b> cómo se reparten responsabilidades y recursos entre Federación, estados y municipios.</p>`,
+check:{q:"¿Qué recursos están condicionados a un fin (educación, salud…)?",o:["Participaciones","Aportaciones","Convenios"],a:1,w:"Las aportaciones están etiquetadas (8 fondos). Las participaciones no están condicionadas."}},
+
+{t:"Obligaciones del contribuyente",html:`
+<div class="tbl"><table>
+<tr><th>Sustantivas · Art. 31 fr. IV CPEUM</th><th>Formales</th></tr>
+<tr><td>Obligación de <mark>pagar</mark> (dar dinero). Ej: pagar ISR, IVA.</td><td>Deberes de <mark>hacer o no hacer</mark> para que el SAT controle. Ej: inscribirte al RFC, declarar, llevar contabilidad.</td></tr>
+</table></div>
+<div class="tip"><b>Truco:</b> sustantiva = <b>$</b>ustancia = dinero. Formal = trámite / papeleo.</div>
+<div class="tbl"><table>
+<tr><th>Obligación</th><th>Lo que debes saber</th></tr>
+<tr><td><b>RFC</b></td><td>Clave única y obligatoria para identificarte ante el SAT.</td></tr>
+<tr><td><b>e.firma</b></td><td>Equivale a tu <b>firma autógrafa</b>. Personal e intransferible. Para declaraciones, devoluciones y generar el CSD.</td></tr>
+<tr><td><b>CSD</b></td><td>Certificado de Sello Digital: <mark>solo para firmar CFDI</mark> (facturar).</td></tr>
+<tr><td><b>Buzón Tributario</b> · 17-K CFF</td><td>Comunicación oficial SAT-contribuyente. Obligatorio, con correo y celular actualizados.</td></tr>
+<tr><td><b>CFDI</b> · 29 y 29-A CFF</td><td>Factura electrónica (XML y PDF). RFC emisor y receptor, fecha, valor, clave de producto… Se certifica por SAT o <b>PAC</b>.</td></tr>
+<tr><td><b>Declaraciones</b> · 31 y 32 CFF</td><td><b>Normal:</b> la primera. <b>Complementaria:</b> corrige otra. <b>Informativa:</b> solo informa, sin pago.</td></tr>
+<tr><td><b>Pagos provisionales</b> · 14 LISR</td><td>Adelantos <b>mensuales</b> a cuenta del impuesto anual.</td></tr>
+<tr><td><b>Declaración anual</b></td><td>Morales: <b>Art. 76 fr. V LISR</b>. Físicas: <b>Art. 150 LISR</b>. Ingresos − deducciones = impuesto anual − pagos provisionales → saldo a cargo o a favor.</td></tr>
+<tr><td><b>Contabilidad electrónica</b></td><td>Registros electrónicos; enviar <b>balanza y catálogo de cuentas</b> cada mes.</td></tr>
+<tr><td><b>Conservación</b> · 30 CFF</td><td>Guardar documentos <mark>5 años</mark> desde que se presentó (o debió presentarse) la declaración.</td></tr>
+<tr><td><b>Opinión de cumplimiento</b> · 32-D CFF</td><td><b>Positiva:</b> al corriente. <b>Negativa:</b> adeudos. <b>En suspensión:</b> suspendido en RFC. <b>Inscrito sin obligaciones</b>.</td></tr>
+</table></div>
+<div class="tip"><b>No confundas:</b> e.firma = firmar <b>trámites</b> · CSD = firmar <b>facturas</b>.</div>
+<p><b>Cultura de cumplimiento:</b> pagar voluntariamente por responsabilidad, no por miedo, porque con eso se pagan escuelas, hospitales y carreteras.</p>`,
+check:{q:"¿Cuánto tiempo debes conservar tu documentación (Art. 30 CFF)?",o:["3 años","5 años","10 años"],a:1,w:"5 años desde que se presentó o debió presentarse la declaración."}}
+];
+
+/* ---------- PREGUNTAS DE EXAMEN ---------- */
+const Q=[
+[0,"¿Qué es una infracción fiscal?",["Un delito que se castiga con cárcel","Incumplir una obligación fiscal; es una falta administrativa","Un impuesto adicional"],1,"No es delito todavía: es falta administrativa y se castiga con multa."],
+[0,"Si pagas tarde, ¿qué 4 conceptos pagas?",["Contribución, actualización, recargos y multa","Contribución, IVA, ISR y multa","Solo la multa"],0,"CARMa: Contribución omitida + Actualización + Recargos + Multa."],
+[0,"La actualización (Art. 17-A CFF) sirve para…",["Castigar al contribuyente","Ajustar el monto por la inflación","Pagar a los socios"],1,"Se ajusta con el factor del INPC."],
+[0,"Los recargos son…",["Una indemnización al fisco por pagar tarde","Una pena de prisión","Un descuento"],0,"Art. 21 CFF: como un interés moratorio, por cada mes o fracción."],
+[0,"Si pago el impuesto omitido, ¿me libro de la multa?",["Sí","No, la multa se paga independientemente","Solo si pago en efectivo"],1,"Art. 70 CFF: la multa es independiente del pago de la contribución y accesorios."],
+[0,"¿Qué artículo regula las multas?",["Art. 70 CFF","Art. 21 CFF","Art. 108 CFF"],0,"Art. 70 CFF."],
+[1,"Los delitos fiscales están en los artículos…",["1 a 17 CFF","92 a 115 Bis CFF","113-E LISR"],1,"Arts. 92 a 115 Bis CFF."],
+[1,"Defraudación fiscal es el Art…",["102 CFF","108 CFF","105 CFF"],1,"Art. 108. El 102 es contrabando."],
+[1,"Pena por defraudar más de $3,797,870:",["3 meses a 2 años","2 a 5 años","3 a 9 años"],2,"Más de $3,797,870 → 3 a 9 años."],
+[1,"Pena si NO se puede determinar el monto defraudado:",["3 meses a 6 años","3 a 9 años","No hay pena"],0,"3 meses a 6 años."],
+[1,"Pena por defraudar $1,000,000:",["3 meses a 2 años","2 a 5 años","3 a 9 años"],0,"Hasta $2,531,920 → 3 meses a 2 años."],
+[1,"Meter mercancía prohibida al país es…",["Defraudación","Contrabando","Infracción leve"],1,"Contrabando, Art. 102 CFF."],
+[1,"El delito equiparable a contrabando está en el Art…",["105 CFF","109 CFF","92 CFF"],0,"Contrabando 102 → equiparable 105."],
+[1,"El delito equiparable a defraudación está en el Art…",["105 CFF","109 CFF","69 CFF"],1,"Defraudación 108 → equiparable 109."],
+[2,"¿Qué responsabilidad aplica el SAT sin ir a lo penal?",["Penal","Administrativa","Solidaria"],1,"La administrativa: solo consecuencias económicas y administrativas."],
+[2,"La responsabilidad de servidores públicos se regula en…",["Ley General de Responsabilidades Administrativas","Ley del IVA","Ley Federal de Derechos"],0,"Ley General de Responsabilidades Administrativas."],
+[2,"Sin ______ de la SHCP, en la mayoría de los casos no hay proceso penal fiscal.",["querella","factura","opinión de cumplimiento"],0,"Art. 92 CFF: querella de la SHCP."],
+[2,"El Art. 95 CFF dice…",["Quiénes son responsables de delitos fiscales","Cómo se calcula el ISAN","El plazo para guardar documentos"],0,"Quienes cometen, participan, inducen o ayudan."],
+[2,"La responsabilidad solidaria está en el Art…",["26 CFF","42 CFF","30 CFF"],0,"Art. 26 CFF."],
+[2,"¿La responsabilidad solidaria es automática?",["Sí, siempre","No, solo si se da un supuesto del Art. 26","Solo para personas físicas"],1,"Solo existe si se presenta alguno de los supuestos del Art. 26."],
+[2,"¿Quién puede ser responsable solidario?",["Retenedores y representantes legales","Cualquier vecino","Solo el SAT"],0,"Retenedores, representantes legales, liquidadores, socios y accionistas en ciertos casos."],
+[2,"Las facultades de comprobación están en el Art…",["42 CFF","69 CFF","17-K CFF"],0,"Art. 42 CFF: visitas domiciliarias, revisiones electrónicas, etc."],
+[3,"¿Cuál es la ley marco del sistema tributario?",["LISR","CFF","LIVA"],1,"El Código Fiscal de la Federación."],
+[3,"¿Qué ley grava los ingresos de personas físicas y morales?",["LIVA","LISR","LIEPS"],1,"Ley del ISR."],
+[3,"El IVA es un impuesto…",["Al consumo","Sobre la renta","Al patrimonio"],0,"Grava venta de bienes, servicios, uso o goce e importación."],
+[3,"El IEPS grava…",["Pasaportes","Alcohol, tabaco, bebidas azucaradas y combustibles","Sueldos"],1,"Art. 1 LIEPS."],
+[3,"Sacar un pasaporte es un pago regulado por…",["Ley Federal de Derechos","LISR","ISAN"],0,"Pago por un servicio del Estado → Ley Federal de Derechos."],
+[3,"¿Cuántos Títulos tiene la LISR?",["5","7","10"],1,"7 Títulos; el VII es Estímulos Fiscales."],
+[3,"El Título IV de la LISR trata de…",["Personas Morales","Personas Físicas","Residentes en el Extranjero"],1,"IV. Personas Físicas."],
+[3,"Responsabilidad de una persona física:",["Limitada al capital","Ilimitada, responde con su patrimonio","No tiene"],1,"La moral es limitada al capital aportado; la física es ilimitada."],
+[3,"Límite de ingresos para el RESICO de personas físicas:",["$2 millones","$3.5 millones","$5 millones"],1,"Art. 113-E LISR: hasta $3.5 millones anuales."],
+[3,"El ISAN se paga…",["Cada año","Una sola vez al comprar el auto nuevo","Cada mes"],1,"Solo una vez, al comprar o importar."],
+[3,"¿Quién NO paga ISAN (Art. 3)?",["Autos de lujo","Autos eléctricos e híbridos","Camionetas importadas"],1,"Eléctricos, híbridos y gama baja bajo el límite."],
+[3,"¿Quién retiene el ISAN al vender (Art. 7)?",["El SAT","La agencia","El banco"],1,"Las agencias lo retienen y desglosan."],
+[3,"La fracción arancelaria tiene…",["4 dígitos","8 dígitos","13 dígitos"],1,"Código de 8 dígitos."],
+[3,"¿Cuál NO es causa de contribución ambiental?",["Emisiones a la atmósfera","Extracción de materiales pétreos","Venta de refrescos"],2,"Las 4: emisiones, contaminación de agua/suelo, residuos y materiales pétreos."],
+[4,"Los 2 objetivos de la digitalización tributaria:",["Cobrar más y multar más","Que sea más fácil cumplir y más difícil evadir","Eliminar el SAT"],1,"Fácil cumplir, difícil evadir."],
+[4,"¿Qué es el SAT?",["Un órgano desconcentrado de la SHCP","Una empresa privada","Un tribunal"],0,"Órgano desconcentrado de la SHCP."],
+[4,"La huella digital es un dato…",["Fiscal","Biométrico","Económico"],1,"Biométrico."],
+[4,"La C de ARCO significa…",["Corrección","Cancelación","Consulta"],1,"Acceso, Rectificación, Cancelación, Oposición."],
+[4,"Corregir tus datos si están mal es el derecho de…",["Acceso","Rectificación","Oposición"],1,"Rectificación."],
+[4,"Impuesto mínimo global para multinacionales:",["10%","15%","16%"],1,"15%."],
+[5,"Fundamento de la potestad tributaria federal:",["Art. 73 fr. VII y XXIX CPEUM","Art. 115 CPEUM","Art. 124 CPEUM"],0,"Art. 73: Congreso de la Unión."],
+[5,"Fundamento de los municipios:",["Art. 115 CPEUM","Art. 73 CPEUM","Art. 31 CPEUM"],0,"Art. 115 fr. III y IV."],
+[5,"¿Quién aprueba la Ley de Ingresos de un municipio?",["El Ayuntamiento","El Congreso del Estado","La SHCP"],1,"El Ayuntamiento propone y el Congreso del Estado aprueba."],
+[5,"El impuesto predial es…",["Federal","Estatal","Municipal"],2,"Municipal; lo cobra la Tesorería Municipal."],
+[5,"El impuesto sobre nóminas es…",["Federal","Estatal","Municipal"],1,"Estatal."],
+[5,"La Ley de Coordinación Fiscal entró en vigor el…",["27 de diciembre de 1978","1 de enero de 1980","1 de enero de 2000"],1,"Publicada 27/dic/1978, vigente desde 1/ene/1980."],
+[5,"¿Por qué nació la coordinación fiscal?",["Por la duplicidad de impuestos","Por la inflación","Por el comercio exterior"],0,"Había duplicidad entre Federación, estados y municipios."],
+[5,"Las participaciones…",["Están condicionadas","NO están condicionadas","Solo son para educación"],1,"Las participaciones son libres; las aportaciones son condicionadas."],
+[5,"¿Cuántos fondos de aportaciones hay?",["4","8","12"],1,"8 fondos."],
+[6,"Las obligaciones sustantivas se basan en…",["Art. 31 fr. IV CPEUM","Art. 42 CFF","Art. 115 CPEUM"],0,"Art. 31 fr. IV: obligación de contribuir."],
+[6,"Inscribirse en el RFC es una obligación…",["Sustantiva","Formal","Penal"],1,"Formal: es un deber de hacer."],
+[6,"¿Para qué sirve SOLO el CSD?",["Para firmar CFDI (facturar)","Para declaraciones anuales","Para entrar al banco"],0,"El CSD solo sirve para firmar facturas."],
+[6,"El Buzón Tributario está en el Art…",["17-K CFF","29 CFF","32-D CFF"],0,"Art. 17-K CFF."],
+[6,"La declaración que corrige una anterior es la…",["Normal","Complementaria","Informativa"],1,"Complementaria."],
+[6,"Los pagos provisionales son…",["Adelantos mensuales del impuesto anual","Multas","Devoluciones"],0,"Art. 14 LISR."],
+[6,"Fundamento de la declaración anual de personas físicas:",["Art. 76 fr. V LISR","Art. 150 LISR","Art. 14 LISR"],1,"Físicas Art. 150; morales Art. 76 fr. V."],
+[6,"Opinión de cumplimiento negativa significa…",["Estás al corriente","Tienes adeudos","Estás suspendido"],1,"Negativa = adeudos. Art. 32-D CFF."],
+[6,"El CFDI está regulado en los artículos…",["29 y 29-A CFF","31 y 32 CFF","26 y 42 CFF"],0,"Arts. 29 y 29-A CFF."]
+];
+
+/* ---------- TARJETAS ---------- */
+const CARDS=[
+[0,"CARMa: ¿qué pagas si pagas tarde?","Contribución omitida + Actualización + Recargos + Multa"],
+[0,"Art. 17-A CFF","Actualización: ajuste por inflación con el INPC"],
+[0,"Art. 21 CFF","Recargos: indemnización por pagar tarde, sobre la contribución actualizada"],
+[0,"Art. 70 CFF","Multa: se paga aunque pagues el impuesto"],
+[1,"Art. 108 CFF","Defraudación fiscal: con engaños o errores dejas de pagar"],
+[1,"Art. 102 CFF","Contrabando: meter o sacar mercancía sin pagar, sin permiso o prohibida"],
+[1,"Art. 109 / Art. 105 CFF","109: equiparable a defraudación · 105: equiparable a contrabando"],
+[1,"Penas de defraudación","≤ $2,531,920: 3 m–2 a · hasta $3,797,870: 2–5 a · más: 3–9 a · sin determinar: 3 m–6 a"],
+[2,"Responsabilidad administrativa","La aplica el SAT sin ir a lo penal; consecuencias económicas"],
+[2,"Art. 92 CFF","Proceso penal fiscal; necesita querella de la SHCP"],
+[2,"Art. 95 CFF","Responsables: quienes cometen, participan, inducen o ayudan"],
+[2,"Art. 26 CFF","Responsabilidad solidaria: incluye accesorios, NO multas; no es automática"],
+[2,"Art. 42 CFF","Facultades de comprobación: visitas, revisiones electrónicas, pedir datos"],
+[3,"CFF","Ley marco del sistema tributario"],
+[3,"LIEPS Art. 1","Alcohol, tabaco, bebidas azucaradas y combustibles"],
+[3,"Ley Federal de Derechos","Pagos por servicios del Estado: pasaporte, migración, agua"],
+[3,"Art. 113-E LISR","RESICO: físicas con ingresos de hasta $3.5 millones"],
+[3,"Moral vs física: responsabilidad","Moral: limitada al capital · Física: ilimitada"],
+[3,"ISAN Arts. 1, 2, 3, 7","1 quién paga · 2 cálculo · 3 exentos (eléctricos, híbridos, gama baja) · 7 agencia retiene"],
+[3,"IGI y DTA","IGI: arancel 0–35% (fracción de 8 dígitos) · DTA: 8 al millar (0.8%)"],
+[3,"4 causas de contribuciones ambientales","Emisiones, contaminación de agua/suelo, residuos, materiales pétreos"],
+[4,"Art. 69 CFF","Secreto fiscal: absoluta reserva de los datos"],
+[4,"Derechos ARCO","Acceso, Rectificación, Cancelación, Oposición (Art. 16 CPEUM, 43 LGPD)"],
+[4,"SAT","Órgano desconcentrado de la SHCP"],
+[4,"Tendencias internacionales","Mínimo global 15%, gravar economía digital, digitalizar administraciones"],
+[5,"Arts. 73 / 124 / 115 CPEUM","73 Federación · 124 Estados · 115 Municipio"],
+[5,"Ley de Coordinación Fiscal","Publicada 27/12/1978, vigente 1/1/1980; creó el Sistema Nacional de Coordinación Fiscal"],
+[5,"Participaciones vs aportaciones","Participaciones: libres · Aportaciones: condicionadas (8 fondos)"],
+[6,"Art. 31 fr. IV CPEUM","Obligación sustantiva: pagar"],
+[6,"e.firma vs CSD","e.firma: firma trámites · CSD: solo firma facturas (CFDI)"],
+[6,"Art. 17-K CFF","Buzón Tributario"],
+[6,"Arts. 29 y 29-A CFF","CFDI (factura electrónica, XML y PDF, la certifica SAT o PAC)"],
+[6,"Art. 14 LISR","Pagos provisionales mensuales"],
+[6,"Arts. 76 fr. V y 150 LISR","Declaración anual: morales 76 fr. V · físicas 150"],
+[6,"Art. 30 CFF","Conservar documentos 5 años"],
+[6,"Art. 32-D CFF","Opinión de cumplimiento: positiva, negativa, en suspensión, inscrito sin obligaciones"]
+];
+const SHORT=["Consecuencias","Delitos","Responsabilidad","Leyes","Datos","Sistema","Obligaciones"];
+
+/* ---------- Pestañas ---------- */
+const tabs=document.querySelectorAll('nav button');
+function show(id){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));['aprende','tarjetas','examen','chuleta'].forEach(s=>document.getElementById(s).hidden=s!==id);store.set('tab',id);window.scrollTo({top:0})}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.tab));
+
+/* ---------- Aprende ---------- */
+let done=store.get('done',[]);
+function prog(){document.getElementById('progTxt').textContent=`${done.length} de 7 temas`;document.getElementById('progBar').style.width=done.length/7*100+'%'}
+function mcq(box,q,opts,ans,why,onDone){
+  box.innerHTML=`<div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div class="why" hidden></div>`;
+  const w=box.querySelector('.why');
+  box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(box.dataset.locked)return; box.dataset.locked=1; const i=+b.dataset.i;
+    box.querySelectorAll('.opt')[ans].classList.add('ok'); if(i!==ans)b.classList.add('bad');
+    w.hidden=false; w.innerHTML=(i===ans?'<b style="color:var(--ok)">¡Correcto!</b> ':'<b style="color:var(--bad)">Casi.</b> ')+why; onDone&&onDone(i===ans);
+  });
+}
+const A=document.getElementById('aprende');
+UNITS.forEach((u,k)=>{
+  const d=document.createElement('details'); d.className='unit'+(done.includes(k)?' done':''); if(k===0)d.open=true;
+  d.innerHTML=`<summary><span class="num">${done.includes(k)?'✓':k+1}</span><h2>${u.t}</h2><span class="chev">›</span></summary><div class="ub">${u.html}<div class="check"><p>Comprueba: ${u.check.q}</p><div class="cb"></div></div></div>`;
+  A.appendChild(d);
+  mcq(d.querySelector('.cb'),u.check.q,u.check.o,u.check.a,u.check.w,()=>{if(!done.includes(k)){done.push(k);store.set('done',done);d.classList.add('done');d.querySelector('.num').textContent='✓';prog()}});
+});
+prog();
+
+/* ---------- Tarjetas ---------- */
+let known=store.get('known',[]),filt=-1,deck=[],ci=0;
+const ff=document.getElementById('cardFilters');
+['Todas',...SHORT].forEach((n,i)=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.setAttribute('aria-pressed',i===0);b.onclick=()=>{filt=i-1;ff.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));build()};ff.appendChild(b)});
+function build(){deck=CARDS.map((c,i)=>i).filter(i=>(filt<0||CARDS[i][0]===filt)&&!known.includes(i));deck.sort(()=>Math.random()-.5);ci=0;draw()}
+const fl=document.getElementById('flash');
+function draw(){
+  fl.classList.remove('flip');
+  const tot=CARDS.filter(c=>filt<0||c[0]===filt).length;
+  if(!deck.length){document.getElementById('fTema').textContent='';document.getElementById('fQ').textContent='🎉 ¡Te sabes todas!';document.getElementById('fA').textContent='Toca "Repasar otra vez" para reiniciar este grupo.';document.getElementById('cCount').textContent=`${tot} de ${tot} dominadas`;return}
+  const c=CARDS[deck[ci%deck.length]];
+  setTimeout(()=>{document.getElementById('fTema').textContent=SHORT[c[0]];document.getElementById('fQ').textContent=c[1];document.getElementById('fA').textContent=c[2]},150);
+  document.getElementById('cCount').textContent=`Dominadas: ${tot-deck.length} de ${tot} · quedan ${deck.length}`;
+}
+fl.onclick=()=>fl.classList.toggle('flip');
+fl.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();fl.classList.toggle('flip')}};
+document.getElementById('cOk').onclick=()=>{if(!deck.length)return;known.push(deck[ci%deck.length]);store.set('known',known);deck.splice(ci%deck.length,1);draw()};
+document.getElementById('cRep').onclick=()=>{if(!deck.length){known=known.filter(i=>!(filt<0||CARDS[i][0]===filt));store.set('known',known);build();return}ci++;draw()};
+build();
+
+/* ---------- Examen ---------- */
+const QZ=document.getElementById('quiz');
+let qs=[],qi=0,ok=0,miss=[];
+function startMenu(){
+  const best=store.get('best',null);
+  QZ.innerHTML=`<div class="qcard"><h3>Simulacro de examen</h3><p style="margin:0;color:var(--muted)">Preguntas al azar con la respuesta explicada al momento. ${best!==null?`Tu mejor resultado: <b>${best}%</b>.`:''}</p>
+  <div class="row"><button class="btn" data-n="15">Rápido · 15</button><button class="btn ghost" data-n="30">Medio · 30</button><button class="btn ghost" data-n="${Q.length}">Todas · ${Q.length}</button></div></div>`;
+  QZ.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>start(+b.dataset.n));
+}
+function start(n){qs=[...Q].sort(()=>Math.random()-.5).slice(0,n);qi=0;ok=0;miss=[];next()}
+function next(){
+  if(qi>=qs.length)return end();
+  const [u,q,o,a,w]=qs[qi];
+  const ord=o.map((x,i)=>i).sort(()=>Math.random()-.5);
+  QZ.innerHTML=`<div class="qcard"><div class="meta"><span>${SHORT[u]}</span><span>${qi+1} / ${qs.length} · ✓ ${ok}</span></div><div class="bar"><i style="width:${qi/qs.length*100}%"></i></div><h3>${q}</h3><div class="cb"></div><button class="btn" id="nx" hidden>Siguiente →</button></div>`;
+  mcq(QZ.querySelector('.cb'),q,ord.map(i=>o[i]),ord.indexOf(a),w,good=>{if(good)ok++;else miss.push(qs[qi]);const nx=document.getElementById('nx');nx.hidden=false;nx.focus();nx.onclick=()=>{qi++;next()}});
+}
+function end(){
+  const p=Math.round(ok/qs.length*100); const best=store.get('best',0); if(p>best)store.set('best',p);
+  const msg=p>=90?'¡Vas lista para el examen! 🔥':p>=70?'¡Muy bien! Repasa las que fallaste y quedas.':'Vuelve a leer los temas marcados abajo y repite el simulacro.';
+  QZ.innerHTML=`<div class="qcard score"><div class="big">${p}%</div><h3>${ok} de ${qs.length} correctas</h3><p style="margin:0">${msg}</p>
+  ${miss.map(m=>`<div class="miss"><b>${m[1]}</b><br>✔ ${m[2][m[3]]}. ${m[4]}</div>`).join('')}
+  <div class="row" style="width:100%"><button class="btn" id="again">Otro simulacro</button>${miss.length?'<button class="btn ghost" id="retry">Repetir solo las falladas</button>':''}</div></div>`;
+  document.getElementById('again').onclick=startMenu;
+  const r=document.getElementById('retry'); if(r)r.onclick=()=>{qs=[...miss].sort(()=>Math.random()-.5);qi=0;ok=0;miss=[];next()};
+}
+startMenu();
+
+/* ---------- Chuleta ---------- */
+const CH=[
+["Pagar tarde (CFF)",[["17-A","Actualización (inflación)"],["21","Recargos"],["70","Multa"]]],
+["Delitos (CFF 92–115 Bis)",[["108","Defraudación"],["109","Equip. defraudación"],["102","Contrabando"],["105","Equip. contrabando"]]],
+["Penas defraudación",[["≤ 2.53 M","3 meses – 2 años"],["≤ 3.80 M","2 – 5 años"],["> 3.80 M","3 – 9 años"],["¿?","3 meses – 6 años"]]],
+["Responsabilidad (CFF)",[["92","Proceso penal, querella SHCP"],["95","Quiénes responden"],["26","Solidaria (sin multas)"],["42","Facultades de comprobación"]]],
+["Leyes",[["CFF","Ley marco"],["LISR","Ingresos · 7 Títulos"],["113-E","RESICO ≤ 3.5 M"],["LIEPS 1","Alcohol, tabaco, azúcar, combustibles"],["LFD","Servicios del Estado"]]],
+["Comercio exterior / ISAN",[["IGI","0–35%, fracción 8 dígitos"],["DTA","8 al millar = 0.8%"],["ISAN 3","Exentos: eléctricos, híbridos"],["ISAN 7","Agencia retiene"]]],
+["Datos",[["69 CFF","Secreto fiscal"],["ARCO","Art. 16 CPEUM, 43 LGPD"],["15%","Mínimo global"]]],
+["Niveles (CPEUM)",[["73","Federal"],["124","Estatal (residual)"],["115","Municipal"],["1978/1980","Ley de Coordinación Fiscal"],["8","Fondos de aportaciones"]]],
+["Obligaciones",[["31-IV CPEUM","Sustantiva (pagar)"],["17-K","Buzón Tributario"],["29, 29-A","CFDI"],["31, 32","Declaraciones"],["14 LISR","Pagos provisionales"],["76-V / 150","Anual morales / físicas"],["30","Conservar 5 años"],["32-D","Opinión de cumplimiento"]]]
+];
+document.getElementById('cheat').innerHTML=CH.map(([h,r])=>`<div class="cg"><h3>${h}</h3><dl>${r.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>`).join('');
+
+show(store.get('tab','aprende'));
+</script>
