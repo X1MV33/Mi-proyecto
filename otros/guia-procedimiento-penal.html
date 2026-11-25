@@ -1,0 +1,450 @@
+<meta charset="utf-8">
+<title>Repaso Procedimiento Penal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cuaderno de estudio con pestañas arriba (Aprende · Tarjetas · Examen · Chuleta); resaltador amarillo como acento */
+:root{
+  --bg:#F3F5F4; --card:#FFFFFF; --ink:#16302B; --muted:#5B6E69; --line:#D9E1DE;
+  --accent:#8E1B2C; --accent-soft:#F6DFE2; --mark:#FFE477; --ok:#1F8A4C; --ok-soft:#DDF3E5; --bad:#C0392B; --bad-soft:#FBE3E0;
+  --display:"Sora",system-ui,sans-serif; --body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1B19; --card:#16262A; --ink:#E6EFEC; --muted:#9DB2AC; --line:#2A3D3B;
+  --accent:#F08A98; --accent-soft:#3E1A20; --mark:#7A6716; --ok:#5ED08F; --ok-soft:#173A27; --bad:#FF8A7A; --bad-soft:#40201C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1B19; --card:#16262A; --ink:#E6EFEC; --muted:#9DB2AC; --line:#2A3D3B;
+  --accent:#F08A98; --accent-soft:#3E1A20; --mark:#7A6716; --ok:#5ED08F; --ok-soft:#173A27; --bad:#FF8A7A; --bad-soft:#40201C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 60px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,6vw,40px);font-weight:800;letter-spacing:-.02em}
+mark{background:var(--mark);color:inherit;padding:0 .15em;border-radius:3px}
+.top{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.top p{margin:0;color:var(--muted)}
+.prog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{flex:1;height:8px;background:var(--line);border-radius:9px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;padding-block:10px;overflow-x:auto}
+nav button{flex:1;min-width:max-content;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:600 14px var(--body);padding:10px 14px;border-radius:12px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--card)}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.tip{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:15px;margin:10px 0}
+.tip b{color:var(--accent)}
+/* Aprende */
+details.unit{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+details.unit>summary{list-style:none;cursor:pointer;padding:16px;display:flex;gap:12px;align-items:center}
+details.unit>summary::-webkit-details-marker{display:none}
+.num{flex:none;width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:800 15px var(--display)}
+.done .num{background:var(--ok);color:var(--card)}
+summary h2{font-size:17px;flex:1}
+summary .chev{color:var(--muted);transition:transform .2s}
+details[open] .chev{transform:rotate(90deg)}
+.ub{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+.ub h3{font-size:15px;margin-top:6px}
+.ub p{margin:0}
+.ub ul{margin:0;padding-left:20px}
+.ub table{width:100%;border-collapse:collapse;font-size:14px}
+.ub td,.ub th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+.tbl{overflow-x:auto}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:1.5px solid var(--line);border-radius:999px;padding:5px 11px;font-size:14px;background:var(--bg)}
+.pill b{color:var(--accent)}
+.eq{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-weight:600}
+.eq span{background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:8px 10px}
+.check{border:1.5px dashed var(--line);border-radius:12px;padding:12px}
+.check p{font-weight:600;margin-bottom:8px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:500 15px var(--body);padding:11px 13px;border-radius:10px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad)}
+.why{font-size:14px;color:var(--muted);margin-top:8px}
+/* Tarjetas */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.flash{perspective:1200px;height:270px;cursor:pointer;margin-bottom:12px}
+.fi{position:relative;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flash.flip .fi{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;border:1px solid var(--line);background:var(--card)}
+.face.back{transform:rotateY(180deg);background:var(--accent-soft)}
+.face small{color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.face .q{font:700 clamp(19px,4.5vw,24px)/1.3 var(--display)}
+.face .a{font-size:16px;max-width:52ch}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:0;background:var(--accent);color:var(--card);font:600 15px var(--body);padding:12px 16px;border-radius:12px;cursor:pointer;flex:1}
+.btn.ghost{background:var(--card);color:var(--ink);border:1.5px solid var(--line)}
+.btn.good{background:var(--ok)}
+.btn.warn{background:var(--bad)}
+.count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:center;margin-top:8px}
+/* Examen */
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.qcard .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.qcard h3{font-size:19px;line-height:1.35}
+.score{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.big{font:800 64px var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.miss{width:100%;text-align:left;background:var(--bad-soft);border-radius:10px;padding:10px 12px;font-size:14px}
+/* Chuleta */
+.cheat{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.cg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.cg h3{font-size:14px;color:var(--accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.cg dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:14px}
+.cg dt{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cg dd{margin:0;min-width:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Procedimiento Penal 2: recuperación</h1>
+    <p>Lee cada tema, contesta la preguntita y luego practica con las tarjetas y el examen. Tu avance se guarda en este navegador.</p>
+    <div class="prog"><span id="progTxt">0 de 8 temas</span><div class="bar"><i id="progBar"></i></div></div>
+  </header>
+  <nav role="tablist">
+    <button role="tab" data-tab="aprende" aria-selected="true">📖 Aprende</button>
+    <button role="tab" data-tab="tarjetas" aria-selected="false">🃏 Tarjetas</button>
+    <button role="tab" data-tab="examen" aria-selected="false">✅ Examen</button>
+    <button role="tab" data-tab="chuleta" aria-selected="false">📌 Chuleta</button>
+  </nav>
+
+  <section id="aprende"></section>
+  <section id="tarjetas" hidden>
+    <div class="filters" id="cardFilters"></div>
+    <div class="flash" id="flash" tabindex="0" role="button" aria-label="Voltear tarjeta">
+      <div class="fi"><div class="face"><small id="fTema"></small><div class="q" id="fQ"></div><small>Toca para ver la respuesta</small></div>
+      <div class="face back"><small>Respuesta</small><div class="a" id="fA"></div></div></div>
+    </div>
+    <div class="row">
+      <button class="btn warn" id="cRep">Repasar otra vez</button>
+      <button class="btn good" id="cOk">Ya me la sé</button>
+    </div>
+    <div class="count" id="cCount"></div>
+  </section>
+  <section id="examen" hidden><div id="quiz"></div></section>
+  <section id="chuleta" hidden><div class="tip"><b>Para el último repaso:</b> todos los artículos y números clave en una sola pantalla.</div><div class="cheat" id="cheat"></div></section>
+</div>
+
+<script>
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- TEMAS ---------- */
+const UNITS=[
+{t:"Extinción de la acción penal",html:`
+<p>Art. <b>485 CNPP</b>: la pretensión punitiva y la potestad para ejecutar penas y medidas de seguridad se <mark>extinguen</mark> por <b>10 causas</b>:</p>
+<div class="pills"><span class="pill"><b>I</b> Cumplimiento de la pena</span><span class="pill"><b>II</b> Muerte del acusado/sentenciado</span><span class="pill"><b>III</b> Reconocimiento de inocencia o anulación de sentencia</span><span class="pill"><b>IV</b> Perdón (delitos de querella)</span><span class="pill"><b>V</b> Indulto</span><span class="pill"><b>VI</b> Amnistía</span><span class="pill"><b>VII</b> Prescripción</span><span class="pill"><b>VIII</b> Supresión del tipo penal</span><span class="pill"><b>IX</b> Sentencia anterior por los mismos hechos</span><span class="pill"><b>X</b> Criterio de oportunidad o solución alterna cumplida</span></div>
+<div class="tip"><b>Truco:</b> "<b>C</b>uando <b>M</b>uere, <b>R</b>econocen, <b>P</b>erdonan, <b>I</b>ndultan, <b>A</b>mnistían, <b>P</b>rescribe, <b>S</b>uprimen, <b>S</b>entencian y <b>C</b>umple" → CMRPIAPSSC.</div>
+<h3>Muerte del delincuente · Art. 109 CPNL</h3>
+<p>Extingue la acción persecutoria y la sanción, <mark>pero NO</mark> la <b>reparación del daño</b> ni el <b>decomiso</b> de instrumentos y objetos del delito (cuando la sentencia causó ejecutoria). El ofendido conserva su derecho a la reparación.</p>
+<h3>Perdón del ofendido · Art. 111 CPNL</h3>
+<p><b>Requisitos:</b></p>
+<ul><li>Que el delito se persiga a <mark>instancia de parte</mark> (querella).</li><li>Que se conceda <b>antes de que cause ejecutoria</b> la sentencia definitiva.</li><li>Que la víctima esté <b>informada</b> del significado y trascendencia del perdón.</li></ul>
+<div class="tip"><b>Ojo:</b> el perdón al <b>autor</b> beneficia a partícipes y encubridores (si se reparó el daño). El perdón a un <b>partícipe o encubridor</b> solo beneficia a ese.</div>
+<p><b>También procede en delitos de oficio</b> si: no son graves, la pena máxima <mark>no excede 6 años</mark> y hay acuerdo por <b>mediación o conciliación</b>, informando al MP y al juez.</p>
+<p><b>No procede el perdón</b> en violencia familiar contra víctimas de 12 a menores de 18 con daño psicológico, ciertas lesiones calificadas o que tarden más de 15 días, ni con víctimas menores de 12 en violencia familiar. Tampoco si el imputado:</p>
+<ul><li><b>A)</b> Obtuvo perdón por delitos dolosos de oficio en los <b>2 años</b> anteriores.</li><li><b>B)</b> Celebró acuerdos reparatorios por dolosos de oficio, salvo que pasaran <b>2 años</b> de cumplir el último.</li><li><b>C)</b> Incumplió un acuerdo reparatorio, salvo absolución o <b>5 años</b> desde el incumplimiento.</li></ul>`,
+check:{q:"La muerte del delincuente NO extingue…",o:["La acción persecutoria","La sanción de prisión","La reparación del daño y el decomiso"],a:2,w:"Art. 109 CPNL: quedan a salvo la reparación del daño y el decomiso."}},
+
+{t:"Prescripción",html:`
+<p><b>Prescripción:</b> vencimiento de una acción; por el <mark>simple transcurso del tiempo</mark> ya no puede llevarse a cabo algo que conforme a derecho correspondía.</p>
+<div class="tip"><b>Media aritmética</b> = (pena mínima + pena máxima) ÷ 2. Ej.: de 6 meses a 3 años → (0.5 + 3) ÷ 2 = <b>1 año 9 meses</b>.</div>
+<div class="tbl"><table>
+<tr><th>Artículo CPNL</th><th>Regla</th></tr>
+<tr><td><b>124</b></td><td>Empieza a contar desde el <mark>último acto de ejecución u omisión</mark>. Víctimas niñas, niños y adolescentes: desde que cumplan la <b>mayoría de edad</b>; plazo = media aritmética, <b>nunca menor de 5 años</b>.</td></tr>
+<tr><td><b>126</b></td><td>Si el delito solo merece <b>multa</b>: prescribe en <mark>1 año</mark>. Si además hay prisión (o es alternativa), se atiende a la de prisión.</td></tr>
+<tr><td><b>129</b></td><td>Delitos de <b>querella</b>: presentarla dentro de <mark>1 año</mark> desde que se conoce el delito y al delincuente, y en <mark>3 años</mark> independientemente de ello.</td></tr>
+<tr><td><b>136</b></td><td>La <b>multa</b> (como sanción impuesta) prescribe en <mark>2 años</mark>. Las demás sanciones: lo que debían durar <b>+ una cuarta parte</b>, nunca más de <b>60 años</b>.</td></tr>
+</table></div>
+<h3>Ejemplo: lesiones</h3>
+<ul><li><b>Art. 301-I:</b> tardan en sanar ≤ 15 días → 3 días a 6 meses o multa; <b>de querella</b> (salvo incapaces o parientes).</li><li><b>Art. 301-II:</b> más de 15 días → 6 meses a 3 años y multa.</li><li><b>Art. 302:</b> ponen en peligro la vida → 3 a 7 años y multa (media: <b>5 años</b>).</li></ul>
+<h3>Adolescentes · Art. 109 LNSIJPA</h3>
+<div class="pills"><span class="pill">Grupo etario <b>I</b>: máx. 1 año</span><span class="pill">Grupo <b>II</b>: máx. 3 años</span><span class="pill">Grupo <b>III</b>: máx. 5 años</span><span class="pill">Demás casos: 1 año</span></div>
+<p>Delitos sexuales o trata contra menores cometidos por adolescentes: corre cuando la víctima cumple <b>18 años</b>.</p>
+<div class="tip"><b>Truco adolescentes:</b> <b>1 · 3 · 5</b> (como los grupos I, II, III).</div>`,
+check:{q:"¿Desde cuándo empieza a correr la prescripción de la acción penal (Art. 124)?",o:["Desde la denuncia","Desde el último acto de ejecución u omisión","Desde la sentencia"],a:1,w:"Art. 124 CPNL."}},
+
+{t:"Notificaciones, citación y medios de apremio",html:`
+<h3>Formas de notificación · Art. 82 CNPP</h3>
+<ul><li><b>I. Personalmente:</b> en audiencia, por medio tecnológico señalado, en las instalaciones del órgano o en el domicilio.</li><li><b>II.</b> Por <b>lista, estrado o boletín judicial</b>.</li><li><b>III.</b> Por <b>edictos</b>: cuando se desconoce identidad o domicilio; se publican <mark>una sola vez</mark> en el medio oficial y un periódico de circulación nacional.</li></ul>
+<p><b>En domicilio:</b> el notificador se cerciora del domicilio, busca al interesado, entrega copia y recaba firma. Si no está, deja <mark>citatorio</mark> para hora fija del día hábil siguiente; si no atiende, se entiende con cualquier persona del domicilio. Siempre se levanta <b>acta circunstanciada</b>.</p>
+<div class="tbl"><table><tr><th>Notificación</th><th>Surte efectos</th></tr>
+<tr><td>Personal (fr. I)</td><td>Al día siguiente de practicada</td></tr>
+<tr><td>Lista/estrado y edictos (II y III)</td><td>Al día siguiente de su publicación</td></tr>
+<tr><td>Medios electrónicos (Art. 87)</td><td><mark>El mismo día</mark> en que se confirme la recepción</td></tr>
+<tr><td>Correo certificado (Art. 87)</td><td>Desde el día hábil siguiente a la recepción</td></tr></table></div>
+<p><b>Art. 89 · Validez:</b> aunque no se haya hecho en forma, si la persona <mark>se muestra sabedora</mark>, surte efectos.</p>
+<h3>Citación · Art. 90</h3>
+<p>Todos deben presentarse cuando se les cite, <b>excepto</b>: el Presidente, los servidores del Art. 111 constitucional, el Consejero Jurídico del Ejecutivo, magistrados y jueces, y personas imposibilitadas (edad, enfermedad grave). A ellos se les toma testimonio <b>a distancia</b>, en sesión privada. A otros servidores públicos se les cita por su <b>superior jerárquico</b>.</p>
+<h3>Medios de apremio · Art. 104</h3>
+<div class="tbl"><table><tr><th></th><th>Ministerio Público</th><th>Órgano jurisdiccional</th></tr>
+<tr><td>Amonestación</td><td>✔</td><td>✔</td></tr>
+<tr><td>Multa</td><td><mark>20 a 1,000</mark> días</td><td><mark>20 a 5,000</mark> días</td></tr>
+<tr><td>Fuerza pública</td><td>✔</td><td>✔</td></tr>
+<tr><td>Arresto</td><td>Hasta 36 h</td><td>Hasta 36 h</td></tr></table></div>
+<div class="tip"><b>Truco:</b> el juez multa 5 veces más (5,000 vs 1,000). Trabajadores de salario mínimo: máximo 1 día de salario.</div>`,
+check:{q:"La notificación por medios electrónicos surte efectos…",o:["Al día siguiente","El mismo día en que se confirma la recepción","A los 3 días"],a:1,w:"Art. 87 CNPP."}},
+
+{t:"Sanciones y reparación del daño",html:`
+<p><b>Art. 45 Bis CPNL</b>: consecuencias jurídicas del delito: <mark>sanciones, medidas de seguridad y reparación del daño y perjuicio</mark>.</p>
+<h3>Sanciones · Art. 46 CPNL</h3>
+<div class="pills"><span class="pill">Prisión</span><span class="pill">Multa</span><span class="pill">Trabajo comunitario</span><span class="pill">Inhabilitación, suspensión y privación de derechos</span><span class="pill">Caución de no ofender</span><span class="pill">Amonestación</span><span class="pill">Publicación de sentencia</span><span class="pill">Confinamiento</span><span class="pill">Suspensión/disolución de sociedades</span><span class="pill">Decomiso</span><span class="pill">Destrucción de cosas peligrosas</span><span class="pill">Las demás de la ley</span></div>
+<h3>Sustitución de la pena · Art. 81 CPNL</h3>
+<p>Para quien delinque <mark>por primera vez</mark>:</p>
+<ul><li>Prisión <b>no mayor de 3 años</b> → puede sustituirse por <b>multa</b> (junto con trabajo comunitario).</li><li>Prisión <b>no mayor de 4 años</b> → por <b>trabajo en beneficio de la comunidad</b>.</li></ul>
+<div class="tip"><b>Truco:</b> <b>3 = multa</b>, <b>4 = trabajo comunitario</b>.</div>
+<h3>Obligados a reparar · Art. 145 CPNL</h3>
+<ul><li>Quienes ejercen la patria potestad, tutores y custodios de incapaces.</li><li>Patrones, empresas y personas morales por delitos de sus empleados en sus funciones.</li><li>Federación, Estado y municipios por sus servidores públicos.</li><li>Cualquier persona a la que la ley le dé responsabilidad por actos de terceros.</li></ul>
+<h3>Ley Federal del Trabajo (muerte)</h3>
+<p><b>Art. 500:</b> <mark>2 meses</mark> de salario para gastos funerarios + lo del Art. 502. <b>Art. 502:</b> <mark>5,000 días</mark> de salario.</p>`,
+check:{q:"Si la pena de prisión no excede de 4 años (primodelincuente), se puede sustituir por…",o:["Multa","Trabajo en beneficio de la comunidad","Amonestación"],a:1,w:"Art. 81: ≤3 años multa; ≤4 años trabajo comunitario."}},
+
+{t:"Peritos y medidas de protección",html:`
+<p><b>Perito:</b> persona que se desempeña en un arte, materia o profesión y sirve a la autoridad para emitir un <mark>informe o dictamen</mark>.</p>
+<ul><li><b>Art. 272:</b> el MP o la Policía (con conocimiento del MP) ordenan peritajes. El dictamen escrito <mark>no exime</mark> al perito de declarar en juicio.</li><li><b>Art. 274 · Irreproducible:</b> si el objeto se consume, se usa la cantidad necesaria; si se consumirá todo, el MP notifica al defensor para que los peritos de ambas partes lo hagan juntos o lo presencien.</li><li><b>Art. 275 · Especiales:</b> en agresiones sexuales se integra un <b>equipo interdisciplinario</b> para concentrar las entrevistas en una sola sesión.</li><li><b>Art. 136 · Consultor técnico:</b> <mark>no emite peritajes, solo opiniones</mark>; acompaña y apoya a la parte en audiencia.</li></ul>
+<h3>Medidas de protección · Art. 137</h3>
+<p>Las ordena el <b>MP</b> cuando el imputado representa un <b>riesgo inminente</b> para la víctima:</p>
+<div class="pills"><span class="pill"><b>I</b> No acercarse ni comunicarse</span><span class="pill"><b>II</b> No acercarse al domicilio</span><span class="pill"><b>III</b> Separación del domicilio</span><span class="pill"><b>IV</b> Entrega de objetos y documentos</span><span class="pill"><b>V</b> No intimidar</span><span class="pill"><b>VI</b> Vigilancia del domicilio</span><span class="pill"><b>VII</b> Protección policial</span><span class="pill"><b>VIII</b> Auxilio inmediato</span><span class="pill"><b>IX</b> Refugios</span><span class="pill"><b>X</b> Reingreso al domicilio</span></div>
+<div class="tip"><b>Clave:</b> por las fracciones <b>I, II y III</b> debe haber audiencia dentro de <mark>5 días</mark> para que el juez las cancele, ratifique o modifique. Si se incumplen → medios de apremio.</div>
+<h3>Providencias precautorias · Art. 138</h3>
+<p>Para garantizar la reparación del daño: <mark>embargo de bienes</mark> e <mark>inmovilización de cuentas</mark>. Se cancelan si el imputado paga o garantiza, si hay absolución o sobreseimiento, etc.</p>
+<div class="tip"><b>Duración (Art. 139):</b> medidas de protección y providencias: máximo <b>60 días naturales</b>, prorrogables hasta <b>30</b>.</div>
+<p><b>Art. 98 Bis CPNL:</b> las órdenes de protección en violencia familiar u hostigamiento sexual se decretan <b>de oficio</b> y la víctima goza de la presunción de necesitarlas (no requiere más pruebas).</p>
+<p><b>Art. 367:</b> el órgano jurisdiccional puede ordenar medidas de <b>protección a testigos</b> y sus familiares.</p>`,
+check:{q:"¿Cuánto duran como máximo las medidas de protección?",o:["30 días, prorrogables 15","60 días naturales, prorrogables hasta 30","90 días sin prórroga"],a:1,w:"Art. 139 CNPP."}},
+
+{t:"Resoluciones, competencia e impedimentos",html:`
+<div class="tbl"><table><tr><th>Autos</th><th>Sentencias</th></tr>
+<tr><td><mark>No</mark> ponen fin al procedimiento; resuelven una controversia.</td><td><mark>Concluyen</mark> el procedimiento.</td></tr></table></div>
+<ul><li>Sentencia del <b>Tribunal de enjuiciamiento</b> (procedimiento ordinario): <b>absolutoria o condenatoria</b>.</li><li>Sentencia en <b>procedimiento abreviado</b> (juez de control): <mark>solo condenatoria</mark>.</li></ul>
+<h3>Incompetencia · Arts. 25 y 27</h3>
+<p>Puede ser por <b>declinatoria</b> o <b>inhibitoria</b>. Quien elige una <mark>no puede cambiar</mark> a la otra ni usarlas juntas o una tras otra.</p>
+<p><b>Declinatoria:</b> escrita u oral, hasta antes del <b>auto de apertura a juicio</b>. Si es del tribunal de enjuiciamiento: dentro de <b>3 días</b> desde que surte efectos la notificación de la fecha de juicio.</p>
+<h3>Excusa y recusación · Arts. 36 a 39</h3>
+<ul><li><b>Excusa:</b> el propio juez se separa <b>sin audiencia</b> de las partes.</li><li><b>Recusación:</b> la piden las partes cuando el juez <mark>no se excusa</mark> teniendo impedimento.</li><li>Las causas de impedimento <b>no se dispensan</b> por voluntad de las partes.</li></ul>
+<p><b>Causas de impedimento (Art. 37):</b> haber intervenido como MP, defensor, perito o testigo; ser cónyuge o pariente (recta sin límite; colateral y afinidad hasta 2º grado); tutor o curador; juicio pendiente; ser acreedor o deudor; haber denunciado o demandado a una parte; haber dado consejos u opiniones; recibir dádivas; y, en tribunal de enjuiciamiento, <mark>haber sido juez de control</mark> en el mismo asunto.</p>
+<h3>Acumulación · Art. 30</h3>
+<div class="pills"><span class="pill">Concurso de delitos</span><span class="pill">Delitos conexos</span><span class="pill">Autores o partícipes de un mismo delito</span><span class="pill">Un delito contra diversas personas</span></div>`,
+check:{q:"La sentencia en procedimiento abreviado puede ser…",o:["Solo absolutoria","Solo condenatoria","Absolutoria o condenatoria"],a:1,w:"Las dicta el juez de control y solo son condenatorias."}},
+
+{t:"Soluciones alternas y procedimiento abreviado",html:`
+<div class="tip"><b>Art. 184:</b> soluciones alternas = <b>acuerdo reparatorio</b> y <b>suspensión condicional del proceso</b>. <b>Art. 185:</b> el <b>procedimiento abreviado</b> es forma de <mark>terminación anticipada</mark>.</div>
+<h3>Acuerdo reparatorio · Arts. 186-187</h3>
+<p>Entre víctima e imputado; aprobado por el MP o juez de control y cumplido → <mark>extingue la acción penal</mark>. Se cumple en el acto o en un plazo. Se puede impugnar en <b>5 días</b> ante el juez de control.</p>
+<p><b>Procede en:</b> delitos de querella o que admiten perdón; delitos <b>culposos</b>; delitos <b>patrimoniales sin violencia</b>. <b>No procede</b> si ya celebró acuerdos por los mismos delitos dolosos, ni en <b>violencia familiar</b>.</p>
+<div class="tip"><b>Truco:</b> <b>Q</b>uerella · <b>C</b>ulposo · <b>P</b>atrimonial sin violencia = "<b>QCP</b>".</div>
+<h3>Suspensión condicional del proceso · Arts. 191-195</h3>
+<ul><li>Plan de reparación + condiciones; si se cumple, extingue la acción penal.</li><li><b>Cuándo:</b> después del <b>auto de vinculación</b> y hasta antes del <b>auto de apertura a juicio</b>.</li><li><b>Requisitos (192):</b> media aritmética de prisión <mark>≤ 5 años</mark>; sin oposición fundada de la víctima; <b>2 años</b> desde cumplimiento o <b>5</b> desde incumplimiento de una anterior.</li><li><b>Plazo (195):</b> de <mark>6 meses a 3 años</mark>.</li><li>Condiciones (residir en un lugar, no consumir drogas, tratamiento, trabajo, no portar armas, no conducir, no viajar al extranjero, cumplir alimentos, etc.). Las supervisa la <b>unidad de evaluación de medidas cautelares</b>.</li></ul>
+<h3>Procedimiento abreviado · Arts. 201-202</h3>
+<ul><li>Lo <b>solicita el MP</b> con la acusación; sin oposición <b>fundada</b> de la víctima.</li><li>El imputado: está informado, <b>renuncia al juicio oral</b>, consiente, <mark>admite su responsabilidad</mark> y acepta ser sentenciado con los datos del MP.</li><li><b>Cuándo:</b> después del auto de vinculación y antes del auto de apertura a juicio oral.</li><li><b>Reducción</b> (sin condena previa por doloso y media ≤ 5 años): hasta <mark>la mitad</mark> de la pena mínima en <b>dolosos</b> y hasta <mark>dos terceras partes</mark> en <b>culposos</b>.</li></ul>`,
+check:{q:"El plazo de la suspensión condicional del proceso es de…",o:["3 meses a 1 año","6 meses a 3 años","1 a 5 años"],a:1,w:"Art. 195 CNPP."}},
+
+{t:"Actos de investigación",html:`
+<div class="tbl"><table><tr><th>Acto</th><th>Lo clave</th></tr>
+<tr><td><b>Inspección</b> (267)</td><td>Estado de lugares, objetos, instrumentos o productos del delito; lo que se aprecia por los <b>sentidos</b>. Debe constar en registro.</td></tr>
+<tr><td><b>Inspección de personas</b> (268)</td><td>En flagrancia o con indicios; exploración <b>externa</b>. Si expone partes íntimas → <mark>autorización judicial</mark>.</td></tr>
+<tr><td><b>Revisión corporal</b> (269)</td><td>Muestras de fluidos, cabello, sangre, imágenes: <mark>voluntaria</mark>, informando el derecho a negarse; personal del <b>mismo sexo</b> o el que la persona elija.</td></tr>
+<tr><td><b>Negativa</b> (270)</td><td>El MP pide al juez la autorización inmediata.</td></tr>
+<tr><td><b>Reconocimiento de personas</b> (277)</td><td>Con reserva; procede <b>sin consentimiento</b> del imputado pero <mark>con su defensor</mark>.</td></tr>
+<tr><td><b>Por fotografía</b> (279)</td><td>Con fotos de personas parecidas, <mark>sin necesidad del defensor</mark>. No se usa si el imputado es conocido y está disponible.</td></tr>
+<tr><td><b>Reconocimiento de objeto</b> (280)</td><td>Primero se <b>describe</b>, luego se presenta.</td></tr>
+<tr><td><b>Comunicaciones entre particulares</b> (276)</td><td>Aportadas voluntariamente por <b>uno de los participantes</b>; vinculadas al delito.</td></tr>
+<tr><td><b>Intervención de comunicaciones</b> (291)</td><td>La solicitan el titular de la PGR o los procuradores al <mark>juez federal de control</mark>; se resuelve en máximo <b>6 horas</b>.</td></tr>
+<tr><td><b>Localización geográfica</b> (303)</td><td>El Procurador la ordena directamente en casos urgentes (secuestro, extorsión…); informa al juez en <mark>48 horas</mark>.</td></tr>
+<tr><td><b>Cateo</b> (282-283)</td><td>Domicilio o propiedad privada → <mark>autorización judicial</mark>; indica lugar, personas, objetos y motivos.</td></tr></table></div>
+<p><b>Ley General de Víctimas, Art. 123-X:</b> al entregar el cuerpo sin sentencia ejecutoriada, se informa a la víctima que <mark>no debe cremarlo</mark> (derecho a la verdad y justicia).</p>
+<div class="tip"><b>No confundas:</b> reconocimiento <b>en persona</b> = con defensor · <b>por foto</b> = sin defensor.</div>`,
+check:{q:"La intervención de comunicaciones privadas la autoriza…",o:["El MP directamente","El juez federal de control","El juez de lo civil"],a:1,w:"Art. 291: el titular de la PGR o procuradores la solicitan al juez federal de control."}}
+];
+
+const Q=[
+[0,"¿Cuántas causas de extinción prevé el Art. 485 CNPP?",["7","10","12"],1,"Son 10 fracciones."],
+[0,"¿Cuál NO es causa de extinción del Art. 485?",["Amnistía","Indulto","Confesión del imputado"],2,"Las 10 causas no incluyen la confesión."],
+[0,"El perdón del ofendido procede en delitos que se persiguen…",["De oficio siempre","A instancia de parte (querella)","Solo federales"],1,"Art. 111-I CPNL."],
+[0,"¿Hasta cuándo puede otorgarse el perdón?",["Antes de la denuncia","Antes de que cause ejecutoria la sentencia","Hasta 1 año después de la sentencia"],1,"Art. 111-II CPNL."],
+[0,"El perdón otorgado a un encubridor beneficia a…",["Todos los participantes","Solo a quien se le otorgó","Al autor"],1,"El perdón al autor sí beneficia a todos (si se reparó el daño)."],
+[0,"En delitos de oficio no graves, el perdón procede si la pena máxima no excede de…",["3 años","6 años","10 años"],1,"Y con acuerdo por mediación o conciliación."],
+[0,"No procede el perdón si el imputado lo obtuvo por dolosos de oficio en los…",["6 meses anteriores","2 años anteriores","10 años anteriores"],1,"Inciso A del Art. 111."],
+[0,"La muerte del delincuente extingue la sanción excepto…",["La prisión","La multa","La reparación del daño y el decomiso"],2,"Art. 109 CPNL."],
+[1,"La media aritmética es…",["La pena máxima entre dos","(Pena mínima + máxima) ÷ 2","La pena mínima × 2"],1,"Suma de mínima y máxima entre dos."],
+[1,"Si el delito solo merece multa, la acción prescribe en…",["1 año","2 años","3 años"],0,"Art. 126 CPNL."],
+[1,"La querella debe presentarse dentro de…",["6 meses","1 año desde que se conoce el delito y al delincuente (3 años en todo caso)","5 años"],1,"Art. 129 CPNL."],
+[1,"La sanción de multa impuesta prescribe en…",["1 año","2 años","5 años"],1,"Art. 136 CPNL."],
+[1,"Las demás sanciones prescriben en…",["Lo que debían durar + una cuarta parte, máximo 60 años","El doble","La mitad"],0,"Art. 136 CPNL."],
+[1,"Con víctimas menores, la prescripción empieza…",["Desde el hecho","Cuando cumplan la mayoría de edad","Desde la denuncia"],1,"Art. 124, nunca menor de 5 años."],
+[1,"Adolescentes del grupo etario II: la prescripción no puede exceder de…",["1 año","3 años","5 años"],1,"Grupo I: 1, II: 3, III: 5."],
+[1,"Lesiones que tardan en sanar 15 días o menos se persiguen…",["De oficio siempre","A petición de parte (salvo excepciones)","Por el juez"],1,"Art. 301-I CPNL."],
+[1,"Lesiones que ponen en peligro la vida (Art. 302) tienen pena de…",["3 a 7 años","6 meses a 3 años","1 a 2 años"],0,"Media aritmética: 5 años."],
+[2,"Cuando se desconoce el domicilio del interesado se notifica por…",["Lista","Edictos","Correo"],1,"Art. 82-III, publicación por una sola ocasión."],
+[2,"Si en la primera visita no está el interesado, el notificador…",["Se va","Deja citatorio para el día hábil siguiente","Notifica por teléfono"],1,"Art. 82 regla 2."],
+[2,"La notificación personal surte efectos…",["El mismo día","Al día siguiente de practicada","A los 3 días"],1,"Art. 82, último párrafo."],
+[2,"Si la persona se muestra sabedora de una notificación mal hecha…",["Es nula","Surte efectos","Se repite"],1,"Art. 89 CNPP."],
+[2,"¿Quién está exceptuado de presentarse cuando es citado?",["Cualquier empleado público","Magistrados y jueces","Los testigos"],1,"Art. 90; declaran a distancia."],
+[2,"Multa máxima como medio de apremio del MP:",["1,000 días","5,000 días","500 días"],0,"El juez llega a 5,000."],
+[2,"Arresto máximo como medio de apremio:",["24 horas","36 horas","72 horas"],1,"Para MP y juez."],
+[3,"Consecuencias jurídicas del delito (Art. 45 Bis):",["Sanciones, medidas de seguridad y reparación del daño","Solo prisión","Multa y amonestación"],0,"Art. 45 Bis CPNL."],
+[3,"Prisión no mayor de 3 años (primera vez) puede sustituirse por…",["Multa","Libertad absoluta","Confinamiento"],0,"Art. 81; con trabajo comunitario."],
+[3,"Según la LFT, gastos funerarios por muerte:",["1 mes de salario","2 meses de salario","5,000 días"],1,"Art. 500."],
+[3,"Indemnización del Art. 502 LFT:",["1,000 días","5,000 días","730 días"],1,"Equivalente a 5,000 días de salario."],
+[3,"¿Quién está obligado a reparar el daño por delitos de sus empleados?",["Nadie","Los patrones y empresas","Solo el empleado"],1,"Art. 145-II CPNL."],
+[4,"El dictamen escrito del perito…",["Lo exime de ir a juicio","No lo exime de declarar en audiencia","Sustituye la prueba"],1,"Art. 272."],
+[4,"El consultor técnico…",["Emite dictámenes","Solo da opiniones y apoya a la parte","Es juez"],1,"Art. 136."],
+[4,"En agresiones sexuales los peritajes se hacen con…",["Un solo perito","Un equipo interdisciplinario","La policía"],1,"Art. 275."],
+[4,"Si el objeto del peritaje se consumirá por completo, el MP debe…",["Destruirlo","Notificar al defensor","Pedir otro objeto"],1,"Art. 274 · peritaje irreproducible."],
+[4,"¿Quién ordena las medidas de protección del Art. 137?",["El Ministerio Público","El tribunal de alzada","La víctima"],0,"Fundada y motivadamente."],
+[4,"Por las medidas de las fracciones I, II y III debe haber audiencia dentro de…",["24 horas","5 días","30 días"],1,"Art. 137."],
+[4,"Providencias precautorias del Art. 138:",["Embargo e inmovilización de cuentas","Arresto","Cateo"],0,"Para garantizar la reparación del daño."],
+[4,"En violencia familiar, las órdenes de protección (Art. 98 Bis CPNL) se decretan…",["Solo si la víctima prueba","De oficio","Nunca"],1,"Con presunción de necesitarlas."],
+[5,"Los autos…",["Ponen fin al procedimiento","No ponen fin; resuelven una controversia","Son sentencias"],1,"Diferencia con la sentencia."],
+[5,"Formas de incompetencia:",["Declinatoria e inhibitoria","Excusa y recusación","Apelación y revocación"],0,"Art. 25; no se pueden combinar."],
+[5,"La declinatoria se promueve hasta antes del…",["Auto de vinculación","Auto de apertura a juicio","Juicio de amparo"],1,"Art. 27."],
+[5,"Cuando el juez se separa por sí mismo del asunto es…",["Recusación","Excusa","Declinatoria"],1,"Art. 38, sin audiencia de las partes."],
+[5,"Un juez del tribunal de enjuiciamiento está impedido si…",["Es mayor de 60","Fue juez de control en el mismo procedimiento","Vive en otra ciudad"],1,"Art. 37-IX."],
+[5,"¿Cuál es causa de acumulación?",["Concurso de delitos","Que el juez lo pida","Que el imputado se cambie de casa"],0,"Art. 30."],
+[6,"Son soluciones alternas:",["Acuerdo reparatorio y suspensión condicional","Procedimiento abreviado y juicio","Amparo y apelación"],0,"Art. 184."],
+[6,"El procedimiento abreviado es…",["Solución alterna","Forma de terminación anticipada","Recurso"],1,"Art. 185."],
+[6,"El acuerdo reparatorio NO procede en…",["Delitos culposos","Violencia familiar","Delitos de querella"],1,"Art. 187."],
+[6,"La suspensión condicional procede si la media aritmética de prisión no excede de…",["3 años","5 años","8 años"],1,"Art. 192-I."],
+[6,"¿Cuándo puede pedirse la suspensión condicional?",["Antes de la denuncia","Después del auto de vinculación y antes de la apertura a juicio","Después de la sentencia"],1,"Art. 193."],
+[6,"En el abreviado, el imputado debe…",["Guardar silencio","Admitir su responsabilidad y renunciar al juicio oral","Pagar una multa"],1,"Art. 201-III."],
+[6,"Reducción en abreviado para delitos culposos:",["Hasta la mitad de la pena mínima","Hasta dos terceras partes de la pena mínima","Toda la pena"],1,"Dolosos: hasta la mitad."],
+[7,"La inspección de personas que expone partes íntimas requiere…",["Solo aviso","Autorización judicial","Nada"],1,"Art. 268."],
+[7,"La revisión corporal (toma de muestras) es…",["Obligatoria siempre","Voluntaria, con derecho a negarse","Secreta"],1,"Si se niega, el MP pide autorización judicial (Art. 270)."],
+[7,"El reconocimiento de personas procede sin consentimiento del imputado, pero…",["Con su defensor presente","Con un notario","Con la víctima"],0,"Art. 277."],
+[7,"El reconocimiento por fotografía…",["Requiere defensor","No requiere defensor","Está prohibido"],1,"Art. 279."],
+[7,"La solicitud de intervención de comunicaciones se resuelve en máximo…",["6 horas","48 horas","5 días"],0,"Art. 291."],
+[7,"Tras ordenar la localización geográfica, el MP informa al juez en…",["6 horas","48 horas","72 horas"],1,"Art. 303."],
+[7,"El cateo se requiere cuando se inspecciona…",["Un lugar público","Un domicilio o propiedad privada","Un vehículo en la calle"],1,"Art. 282."]
+];
+
+const CARDS=[
+[0,"Art. 485 CNPP","10 causas de extinción: cumplimiento, muerte, inocencia, perdón, indulto, amnistía, prescripción, supresión del tipo, sentencia anterior, solución alterna"],
+[0,"Art. 109 CPNL","Muerte del delincuente: extingue acción y sanción, NO la reparación del daño ni el decomiso"],
+[0,"Art. 111 CPNL · requisitos","Delito de querella · antes de sentencia ejecutoriada · víctima informada"],
+[0,"Perdón en delitos de oficio","No graves, pena máx. ≤ 6 años, con mediación o conciliación"],
+[1,"Media aritmética","(Pena mínima + máxima) ÷ 2"],
+[1,"Art. 124 CPNL","Prescripción desde el último acto; menores: desde la mayoría de edad, mínimo 5 años"],
+[1,"Arts. 126 / 136 CPNL","Acción por delito de solo multa: 1 año · multa impuesta: 2 años · demás: duración + ¼ (máx. 60)"],
+[1,"Art. 129 CPNL","Querella: 1 año desde que se conoce; 3 años en todo caso"],
+[1,"Art. 109 LNSIJPA","Adolescentes: grupo I 1 año · II 3 años · III 5 años"],
+[2,"Art. 82 CNPP","Notificación: personal · lista/estrado/boletín · edictos (una sola vez)"],
+[2,"Art. 87 CNPP","Electrónica: surte efectos el mismo día de la confirmación"],
+[2,"Art. 89 CNPP","Validez: si la persona se muestra sabedora, surte efectos"],
+[2,"Art. 104 CNPP","Apremio: amonestación, multa (MP 20-1,000 / juez 20-5,000), fuerza pública, arresto 36 h"],
+[3,"Art. 45 Bis CPNL","Consecuencias: sanciones, medidas de seguridad, reparación del daño"],
+[3,"Art. 81 CPNL","Primera vez: ≤3 años → multa · ≤4 años → trabajo comunitario"],
+[3,"Arts. 500 y 502 LFT","2 meses de salario (funeral) + 5,000 días de salario"],
+[4,"Art. 136 CNPP","Consultor técnico: solo opiniones, no peritajes"],
+[4,"Art. 137 CNPP","10 medidas de protección; I-III → audiencia en 5 días"],
+[4,"Art. 138 CNPP","Providencias precautorias: embargo e inmovilización de cuentas"],
+[4,"Art. 139 CNPP","Duración: 60 días naturales + hasta 30"],
+[5,"Autos vs sentencias","Autos no terminan el procedimiento; sentencias sí"],
+[5,"Art. 25 CNPP","Incompetencia: declinatoria o inhibitoria, no se combinan"],
+[5,"Excusa vs recusación","Excusa: el juez se separa solo · Recusación: la piden las partes"],
+[5,"Art. 30 CNPP","Acumulación: concurso, conexos, mismos autores, un delito vs varias personas"],
+[6,"Art. 187 CNPP","Acuerdo reparatorio: querella, culposos, patrimoniales sin violencia (no en violencia familiar)"],
+[6,"Arts. 192 y 195 CNPP","Suspensión condicional: media ≤ 5 años · plazo 6 meses a 3 años"],
+[6,"Art. 202 CNPP","Abreviado: reducción hasta ½ (dolosos) o ⅔ (culposos) de la pena mínima"],
+[7,"Art. 268 vs 269","Inspección de persona (externa) vs revisión corporal (muestras, voluntaria)"],
+[7,"Art. 277 vs 279","Reconocimiento en persona con defensor · por foto sin defensor"],
+[7,"Art. 291 CNPP","Intervención de comunicaciones: juez federal de control, resuelve en 6 h"],
+[7,"Art. 303 CNPP","Geolocalización: Procurador ordena; informa al juez en 48 h"],
+[7,"Art. 282 CNPP","Cateo: domicilio o propiedad privada con orden judicial"]
+];
+const SHORT=["Extinción","Prescripción","Notificaciones","Sanciones","Peritos","Resoluciones","Alternas","Investigación"];
+
+const CH=[
+["Extinción",[["485 CNPP","10 causas"],["109 CPNL","Muerte (queda reparación)"],["111 CPNL","Perdón"],["≤ 6 años","Perdón en oficio con mediación"]]],
+["Prescripción (CPNL)",[["124","Desde último acto · menores: mayoría, mín. 5"],["126","Solo multa: 1 año"],["129","Querella: 1 año / 3 años"],["136","Multa 2 años · demás +¼, máx. 60"]]],
+["Adolescentes",[["Grupo I","1 año"],["Grupo II","3 años"],["Grupo III","5 años"],["Sexuales/trata","Desde los 18 de la víctima"]]],
+["Notificaciones (CNPP)",[["82","Personal · lista · edictos"],["87","Electrónica: mismo día"],["89","Sabedor = válida"],["90","Citación y excepciones"]]],
+["Apremio (104)",[["MP","Multa 20-1,000 días"],["Juez","Multa 20-5,000 días"],["Arresto","Hasta 36 h"]]],
+["Sanciones",[["45 Bis","Sanción, medida, reparación"],["46","Catálogo de sanciones"],["81","≤3 multa · ≤4 trabajo"],["145","Obligados a reparar"],["LFT 500/502","2 meses + 5,000 días"]]],
+["Peritos y protección",[["272","Peritajes"],["274","Irreproducible"],["275","Equipo interdisciplinario"],["136","Consultor técnico"],["137","10 medidas · audiencia 5 días"],["138","Embargo e inmovilización"],["139","60 + 30 días"],["367","Protección a testigos"]]],
+["Competencia",[["25","Declinatoria / inhibitoria"],["27","Hasta apertura a juicio · tribunal 3 días"],["36-39","Excusa y recusación"],["37","Causas de impedimento"],["30","Acumulación"]]],
+["Alternas",[["184","Acuerdo y suspensión"],["185","Abreviado"],["187","Querella · culposo · patrimonial"],["192","Media ≤ 5 años"],["195","6 meses a 3 años"],["202","½ dolosos · ⅔ culposos"]]],
+["Investigación",[["267","Inspección"],["268","Inspección de personas"],["269-270","Revisión corporal"],["277","Reconocimiento con defensor"],["279","Fotografía sin defensor"],["291","Intervención: 6 h"],["303","Geolocalización: 48 h"],["282-283","Cateo"]]],
+["Otros artículos de tu temario",[["308/314/65","Homicidio culposo (CPNL)"],["16 bis","CNPP"],["251-252/266","Actos de molestia"],["LGV 123-X","No cremar el cuerpo"]]]
+];
+
+/* ---------- Pestañas ---------- */
+const tabs=document.querySelectorAll('nav button');
+function show(id){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));['aprende','tarjetas','examen','chuleta'].forEach(s=>document.getElementById(s).hidden=s!==id);store.set('tab',id);window.scrollTo({top:0})}
+tabs.forEach(b=>b.onclick=()=>show(b.dataset.tab));
+
+/* ---------- Aprende ---------- */
+let done=store.get('done',[]);
+function prog(){document.getElementById('progTxt').textContent=`${done.length} de ${UNITS.length} temas`;document.getElementById('progBar').style.width=done.length/UNITS.length*100+'%'}
+function mcq(box,q,opts,ans,why,onDone){
+  box.innerHTML=`<div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}</div><div class="why" hidden></div>`;
+  const w=box.querySelector('.why');
+  box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(box.dataset.locked)return; box.dataset.locked=1; const i=+b.dataset.i;
+    box.querySelectorAll('.opt')[ans].classList.add('ok'); if(i!==ans)b.classList.add('bad');
+    w.hidden=false; w.innerHTML=(i===ans?'<b style="color:var(--ok)">¡Correcto!</b> ':'<b style="color:var(--bad)">Casi.</b> ')+why; onDone&&onDone(i===ans);
+  });
+}
+const A=document.getElementById('aprende');
+UNITS.forEach((u,k)=>{
+  const d=document.createElement('details'); d.className='unit'+(done.includes(k)?' done':''); if(k===0)d.open=true;
+  d.innerHTML=`<summary><span class="num">${done.includes(k)?'✓':k+1}</span><h2>${u.t}</h2><span class="chev">›</span></summary><div class="ub">${u.html}<div class="check"><p>Comprueba: ${u.check.q}</p><div class="cb"></div></div></div>`;
+  A.appendChild(d);
+  mcq(d.querySelector('.cb'),u.check.q,u.check.o,u.check.a,u.check.w,()=>{if(!done.includes(k)){done.push(k);store.set('done',done);d.classList.add('done');d.querySelector('.num').textContent='✓';prog()}});
+});
+prog();
+
+/* ---------- Tarjetas ---------- */
+let known=store.get('known',[]),filt=-1,deck=[],ci=0;
+const ff=document.getElementById('cardFilters');
+['Todas',...SHORT].forEach((n,i)=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.setAttribute('aria-pressed',i===0);b.onclick=()=>{filt=i-1;ff.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));build()};ff.appendChild(b)});
+function build(){deck=CARDS.map((c,i)=>i).filter(i=>(filt<0||CARDS[i][0]===filt)&&!known.includes(i));deck.sort(()=>Math.random()-.5);ci=0;draw()}
+const fl=document.getElementById('flash');
+function draw(){
+  fl.classList.remove('flip');
+  const tot=CARDS.filter(c=>filt<0||c[0]===filt).length;
+  if(!deck.length){document.getElementById('fTema').textContent='';document.getElementById('fQ').textContent='🎉 ¡Te sabes todas!';document.getElementById('fA').textContent='Toca "Repasar otra vez" para reiniciar este grupo.';document.getElementById('cCount').textContent=`${tot} de ${tot} dominadas`;return}
+  const c=CARDS[deck[ci%deck.length]];
+  setTimeout(()=>{document.getElementById('fTema').textContent=SHORT[c[0]];document.getElementById('fQ').textContent=c[1];document.getElementById('fA').textContent=c[2]},150);
+  document.getElementById('cCount').textContent=`Dominadas: ${tot-deck.length} de ${tot} · quedan ${deck.length}`;
+}
+fl.onclick=()=>fl.classList.toggle('flip');
+fl.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();fl.classList.toggle('flip')}};
+document.getElementById('cOk').onclick=()=>{if(!deck.length)return;known.push(deck[ci%deck.length]);store.set('known',known);deck.splice(ci%deck.length,1);draw()};
+document.getElementById('cRep').onclick=()=>{if(!deck.length){known=known.filter(i=>!(filt<0||CARDS[i][0]===filt));store.set('known',known);build();return}ci++;draw()};
+build();
+
+/* ---------- Examen ---------- */
+const QZ=document.getElementById('quiz');
+let qs=[],qi=0,ok=0,miss=[];
+function startMenu(){
+  const best=store.get('best',null);
+  QZ.innerHTML=`<div class="qcard"><h3>Simulacro de examen</h3><p style="margin:0;color:var(--muted)">Preguntas al azar con la respuesta explicada al momento. ${best!==null?`Tu mejor resultado: <b>${best}%</b>.`:''}</p>
+  <div class="row"><button class="btn" data-n="15">Rápido · 15</button><button class="btn ghost" data-n="30">Medio · 30</button><button class="btn ghost" data-n="${Q.length}">Todas · ${Q.length}</button></div></div>`;
+  QZ.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>start(+b.dataset.n));
+}
+function start(n){qs=[...Q].sort(()=>Math.random()-.5).slice(0,n);qi=0;ok=0;miss=[];next()}
+function next(){
+  if(qi>=qs.length)return end();
+  const [u,q,o,a,w]=qs[qi];
+  const ord=o.map((x,i)=>i).sort(()=>Math.random()-.5);
+  QZ.innerHTML=`<div class="qcard"><div class="meta"><span>${SHORT[u]}</span><span>${qi+1} / ${qs.length} · ✓ ${ok}</span></div><div class="bar"><i style="width:${qi/qs.length*100}%"></i></div><h3>${q}</h3><div class="cb"></div><button class="btn" id="nx" hidden>Siguiente →</button></div>`;
+  mcq(QZ.querySelector('.cb'),q,ord.map(i=>o[i]),ord.indexOf(a),w,good=>{if(good)ok++;else miss.push(qs[qi]);const nx=document.getElementById('nx');nx.hidden=false;nx.focus();nx.onclick=()=>{qi++;next()}});
+}
+function end(){
+  const p=Math.round(ok/qs.length*100); const best=store.get('best',0); if(p>best)store.set('best',p);
+  const msg=p>=90?'¡Vas lista para el examen! 🔥':p>=70?'¡Muy bien! Repasa las que fallaste y quedas.':'Vuelve a leer los temas marcados abajo y repite el simulacro.';
+  QZ.innerHTML=`<div class="qcard score"><div class="big">${p}%</div><h3>${ok} de ${qs.length} correctas</h3><p style="margin:0">${msg}</p>
+  ${miss.map(m=>`<div class="miss"><b>${m[1]}</b><br>✔ ${m[2][m[3]]}. ${m[4]}</div>`).join('')}
+  <div class="row" style="width:100%"><button class="btn" id="again">Otro simulacro</button>${miss.length?'<button class="btn ghost" id="retry">Repetir solo las falladas</button>':''}</div></div>`;
+  document.getElementById('again').onclick=startMenu;
+  const r=document.getElementById('retry'); if(r)r.onclick=()=>{qs=[...miss].sort(()=>Math.random()-.5);qi=0;ok=0;miss=[];next()};
+}
+startMenu();
+
+/* ---------- Chuleta ---------- */
+document.getElementById('cheat').innerHTML=CH.map(([h,r])=>`<div class="cg"><h3>${h}</h3><dl>${r.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>`).join('');
+
+show(store.get('tab','aprende'));
+</script>
