@@ -20,13 +20,13 @@ body{width:1080px;height:${H}px;overflow:hidden;background:#141414;font-family:I
 .bg{position:absolute;left:0;top:${o}px;width:1080px;height:1620px;background:url(${BG}) center/cover}
 .fade{position:absolute;left:0;right:0;top:${o}px;height:260px;background:linear-gradient(#141414,rgba(20,20,20,0))}
 .c{position:absolute;left:0;right:0;text-align:center}
-.brand{top:${48 + o * .35}px;display:flex;justify-content:center;align-items:center;gap:16px}
-.brand img{width:96px;height:96px}
-.brand div{text-align:left}.brand b{display:block;font-weight:800;font-size:32px;letter-spacing:.06em}
-.brand small{display:block;font-weight:600;font-size:13px;letter-spacing:.34em;color:#C9C9C9;margin-top:3px}
-h1{top:${178 + o * .55}px;font-weight:900;font-size:118px;line-height:.95;letter-spacing:-.045em}
+.brand{top:${36 + o * .35}px;display:flex;justify-content:center;align-items:center;gap:16px}
+.brand img{width:150px;height:150px}
+.brand div{text-align:left}.brand b{display:block;font-weight:800;font-size:40px;letter-spacing:.06em}
+.brand small{display:block;font-weight:600;font-size:15px;letter-spacing:.34em;color:#C9C9C9;margin-top:3px}
+h1{top:${206 + o * .55}px;font-weight:900;font-size:104px;line-height:.95;letter-spacing:-.045em}
 h1 em{font-style:normal;color:#111;background:${YEL};padding:0 .14em;border-radius:.12em}
-.sub{top:${418 + o * .62}px;font-weight:500;font-size:34px;letter-spacing:.01em;color:#E6E6E6}
+.sub{top:${425 + o * .62}px;font-weight:500;font-size:32px;letter-spacing:.01em;color:#E6E6E6}
 .sub b{font-weight:800;color:#fff}
 .sub i{display:inline-block;width:60px;height:2px;background:#888;vertical-align:middle;margin:0 18px}
 .ph{position:absolute;filter:drop-shadow(0 26px 30px rgba(0,0,0,.6)) drop-shadow(0 6px 8px rgba(0,0,0,.5))}
@@ -54,8 +54,8 @@ h1 em{font-style:normal;color:#111;background:${YEL};padding:0 .14em;border-radi
 <div class="c brand"><img src="${LOGO}"><div><b>MEGACEL</b><small>TECNOLOGÍA A TU ALCANCE</small></div></div>
 <h1 class="c">Celulares<br>a <em>crédito</em></h1>
 <div class="c sub"><i></i>Desde <b>Android</b> hasta <b>iPhone</b><i></i></div>
-<div class="ph sam" style="bottom:${1620 - 1088}px"><img src="${SAM}"></div>
-<div class="ph iph" style="bottom:${1620 - 1092}px"><img src="${IPH}"></div>
+<div class="ph sam" style="bottom:${1620 - 1088}px;left:262px;width:390px"><img src="${SAM}"></div>
+<div class="ph iph" style="bottom:${1620 - 1092}px;left:490px;width:330px"><img src="${IPH}"></div>
 <div class="c feats">
   <div class="ft">${ic.credito}<b>Crédito fácil</b><span>Llévate tu celular hoy</span></div>
   <div class="ft">${ic.semana}<b>Pagos semanales</b><span>Flexibles, a tu ritmo</span></div>
