@@ -95,6 +95,28 @@ details[open] .chev{transform:rotate(90deg)}
 .cg dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:14px}
 .cg dt{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .cg dd{margin:0;min-width:0}
+.lvl{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:10px;font-size:10.5px;color:var(--muted);text-align:center}
+.lvl span{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 2px;line-height:1.2}
+.lvl b{display:block;font:800 16px var(--display);color:var(--accent)}
+.acard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:12px;min-height:200px;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.acard .front{text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+.acard small{color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.acard .q{font:800 28px/1.2 var(--display)}
+.acard .back{border-top:1px dashed var(--line);padding-top:14px}
+.acard .kicker{font-weight:700;color:var(--accent);font-size:14px}
+.acard .back p{margin:6px 0 10px}
+.hook{background:var(--mark);border-radius:10px;padding:10px 12px;font-size:14.5px}
+.artin{font:600 20px var(--body);text-align:center;width:min(240px,100%);padding:10px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.clz{font-size:18px;line-height:1.5}
+.blank{display:inline-block;min-width:70px;border-bottom:2px solid var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.blank.good{color:var(--ok);border-color:var(--ok)}.blank.badb{color:var(--bad);border-color:var(--bad)}
+.case{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:15px}
+.road{list-style:none;padding:0;margin:12px 0;display:flex;flex-direction:column;gap:0}
+.road li{display:grid;grid-template-columns:22px 1fr;gap:12px;padding-bottom:18px;position:relative}
+.road li::before{content:"";position:absolute;left:10px;top:20px;bottom:0;width:2px;background:var(--line)}
+.road li:last-child::before{display:none}
+.dot2{width:22px;height:22px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.road h3{font-size:17px}.road p{margin:2px 0 8px;color:var(--muted);font-size:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -108,6 +130,10 @@ details[open] .chev{transform:rotate(90deg)}
     <button role="tab" data-tab="aprende" aria-selected="true">📖 Aprende</button>
     <button role="tab" data-tab="tarjetas" aria-selected="false">🃏 Tarjetas</button>
     <button role="tab" data-tab="examen" aria-selected="false">✅ Examen</button>
+    <button role="tab" data-tab="articulos" aria-selected="false">🧠 Artículos</button>
+    <button role="tab" data-tab="completa" aria-selected="false">✍️ Completa</button>
+    <button role="tab" data-tab="casos" aria-selected="false">⚖️ Casos</button>
+    <button role="tab" data-tab="mapa" aria-selected="false">🗺️ Mapa</button>
     <button role="tab" data-tab="chuleta" aria-selected="false">📌 Chuleta</button>
   </nav>
 
@@ -125,6 +151,10 @@ details[open] .chev{transform:rotate(90deg)}
     <div class="count" id="cCount"></div>
   </section>
   <section id="examen" hidden><div id="quiz"></div></section>
+  <section id="articulos" hidden><div class="tip"><b>Método para memorizar:</b> intenta recordar <b>antes</b> de ver la respuesta (eso es lo que hace que se te quede). Cada artículo trae un <b>gancho</b> para el número. Las que fallas te salen más seguido; las que te sabes, menos.</div><div id="arts"></div></section>
+  <section id="completa" hidden><div class="tip"><b>Como en el examen:</b> frases de los artículos con el dato que más preguntan tapado.</div><div id="cloze"></div></section>
+  <section id="casos" hidden><div class="tip"><b>Casos prácticos:</b> así pregunta un profe exigente. Aplica el artículo al caso.</div><div id="casos"></div></section>
+  <section id="mapa" hidden></section>
   <section id="chuleta" hidden><div class="tip"><b>Para el último repaso:</b> todos los artículos y números clave en una sola pantalla.</div><div class="cheat" id="cheat"></div></section>
 </div>
 
@@ -371,7 +401,7 @@ const CH=[
 
 /* ---------- Pestañas ---------- */
 const tabs=document.querySelectorAll('nav button');
-function show(id){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));['aprende','tarjetas','examen','chuleta'].forEach(s=>document.getElementById(s).hidden=s!==id);store.set('tab',id);window.scrollTo({top:0})}
+function show(id){tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));['aprende','tarjetas','examen','articulos','completa','casos','mapa','chuleta'].forEach(s=>document.getElementById(s).hidden=s!==id);store.set('tab',id);window.scrollTo({top:0})}
 tabs.forEach(b=>b.onclick=()=>show(b.dataset.tab));
 
 /* ---------- Aprende ---------- */
@@ -445,6 +475,190 @@ startMenu();
 
 /* ---------- Chuleta ---------- */
 document.getElementById('cheat').innerHTML=CH.map(([h,r])=>`<div class="cg"><h3>${h}</h3><dl>${r.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div>`).join('');
+
+/* ===================== MEMORIZAR ARTÍCULOS ===================== */
+// [número, ley, tema, contenido, gancho para recordar el número]
+const ARTS=[
+["485","CNPP","Extinción de la acción penal","10 causas: cumplimiento, muerte, inocencia/anulación, perdón, indulto, amnistía, prescripción, supresión del tipo, sentencia anterior, solución alterna cumplida.","4-8-5: «Cuatro, ocho, cinco… ¡y se acabó el brinco!». Es de los últimos artículos del CNPP: el final de todo, la extinción."],
+["109","CPNL","Muerte del delincuente","Extingue la acción y la sanción, pero NO la reparación del daño ni el decomiso.","1-0-9: el 1 (el delincuente) se va a 0 (muere)… pero el 9 sigue en pie: la deuda (reparación) no se muere."],
+["111","CPNL","Perdón del ofendido","Requisitos: delito de querella, antes de sentencia ejecutoriada, víctima informada. En oficio: no grave, máx. 6 años, con mediación.","1-1-1: tres unos = los tres requisitos del perdón."],
+["124","CPNL","Desde cuándo corre la prescripción","Desde el último acto de ejecución u omisión. Víctimas menores: desde la mayoría de edad, media aritmética, mínimo 5 años.","1, 2, 3… ¡4! Se cuenta hasta el ÚLTIMO acto, como el último número."],
+["126","CPNL","Prescripción si solo hay multa","La acción prescribe en 1 año si el delito solo merece multa; si hay prisión, se atiende a la prisión.","1-2-6: empieza con 1 → 1 año."],
+["129","CPNL","Plazo para la querella","1 año desde que se conoce el delito y al delincuente; 3 años en todo caso.","1-2-9: 1 año… y 9 = 3×3 → 3 años."],
+["136","CPNL","Prescripción de las sanciones","Multa: 2 años. Las demás: lo que debían durar + ¼, nunca más de 60 años.","13-6: el 6 te recuerda el tope de 60 años. (Ojo: el 136 del CNPP es otro: consultor técnico)."],
+["109","LNSIJPA","Prescripción para adolescentes","Grupo I: máx. 1 año · Grupo II: máx. 3 · Grupo III: máx. 5 · demás casos: 1 año.","Mismo número que la muerte (109) pero en la ley de adolescentes: grupos I-II-III = 1-3-5, puros impares."],
+["82","CNPP","Formas de notificación","Personal (audiencia, medio tecnológico, instalaciones, domicilio), lista/estrado/boletín y edictos (una sola vez).","8-2: en domicilio son 2 visitas (la primera deja citatorio)."],
+["87","CNPP","Notificación electrónica","Surte efectos el mismo día en que se confirma la recepción. Correo certificado: desde el día hábil siguiente.","87 = la «e» de electrónico va pegadita: llega al instante, mismo día."],
+["89","CNPP","Validez de la notificación","Si la persona se muestra sabedora, la notificación surte efectos aunque no se hizo en forma.","8-9: «¡ocho, nueve… ya lo sabe!». Si ya lo sabes, vale."],
+["90","CNPP","Citación","Todos deben presentarse; exceptuados: Presidente, servidores del art. 111 constitucional, Consejero Jurídico, magistrados, jueces e imposibilitados (declaran a distancia).","90 = «no venta»: nadie se salva de ir… salvo los VIP."],
+["104","CNPP","Medios de apremio","Amonestación, multa (MP 20-1,000 días; juez 20-5,000), fuerza pública, arresto hasta 36 h.","1-0-4: 4 medios de apremio."],
+["45 Bis","CPNL","Consecuencias del delito","Sanciones, medidas de seguridad y reparación del daño y perjuicio.","45 Bis = bis de «doble»… pero son 3 consecuencias."],
+["46","CPNL","Catálogo de sanciones","Prisión, multa, trabajo comunitario, inhabilitación, caución de no ofender, amonestación, publicación, confinamiento, sociedades, decomiso, destrucción, demás.","45 dice que hay sanciones, 46 (el siguiente) te dice cuáles."],
+["81","CPNL","Sustitución de la pena","Primera vez: prisión ≤ 3 años → multa (con trabajo comunitario); ≤ 4 años → trabajo en beneficio de la comunidad.","8-1: termina en 1 = «primera vez». Luego 3 = multa, 4 = trabajo."],
+["145","CPNL","Obligados a reparar el daño","Patria potestad/tutores, patrones y empresas, Federación/Estado/municipios, y quien la ley señale.","1-4-5: son 4 fracciones de obligados."],
+["500 y 502","LFT","Indemnización por muerte","500: 2 meses de salario para funeral + lo del 502. 502: 5,000 días de salario.","500 → 5,000 días (agrégale un cero)."],
+["272","CNPP","Peritajes","Los ordena el MP o la Policía; el dictamen escrito no exime al perito de declarar en juicio.","La familia del «27» son los peritos: 272, 274, 275."],
+["274","CNPP","Peritaje irreproducible","Si el objeto se consume, el MP avisa al defensor para que los peritos lo hagan juntos o lo presencien.","27-4: 4 manos (dos peritos) para algo que solo se puede hacer una vez."],
+["275","CNPP","Peritajes especiales","Agresiones sexuales: equipo interdisciplinario y entrevistas en una sola sesión.","27-5: los 5 dedos de una mano que cuida a la víctima: equipo."],
+["136","CNPP","Consultor técnico","No emite peritajes, solo opiniones; acompaña y apoya a la parte en audiencia.","136, 137, 138, 139 son seguidos: primero el que te asesora (consultor) y luego la protección."],
+["137","CNPP","Medidas de protección","10 medidas que ordena el MP; por las fracciones I, II y III hay audiencia en 5 días ante el juez.","13-7: «la escalera de la protección» 137 → 138 → 139."],
+["138","CNPP","Providencias precautorias","Embargo de bienes e inmovilización de cuentas para garantizar la reparación del daño.","138: el 8 parece una caja fuerte → embargo y cuentas."],
+["139","CNPP","Duración de medidas y providencias","Máximo 60 días naturales, prorrogables hasta 30.","139: el último escalón dice cuánto dura: 60 + 30."],
+["98 Bis","CPNL","Órdenes de protección (violencia familiar)","Se decretan de oficio en violencia familiar u hostigamiento sexual; presunción de necesitarlas.","98 → casi 100: protección al 100% sin pedir pruebas."],
+["367","CNPP","Protección a testigos","El órgano jurisdiccional puede ordenar medidas para proteger al testigo y su familia.","3-6-7: los testigos suben al estrado (está ya en la parte del juicio, números altos)."],
+["25","CNPP","Formas de incompetencia","Declinatoria o inhibitoria; quien elige una no puede cambiar a la otra ni combinarlas.","25: 2 formas, y no las puedes mezclar."],
+["27","CNPP","Declinatoria","Hasta antes del auto de apertura a juicio; contra el tribunal de enjuiciamiento: 3 días.","27: «declina» antes de abrir el juicio."],
+["30","CNPP","Acumulación","Concurso de delitos, delitos conexos, mismos autores o partícipes, un delito contra varias personas.","30 = juntar todo en uno: acumulación."],
+["37","CNPP","Causas de impedimento","9 causas: haber intervenido, parentesco, tutela, juicio pendiente, deudas, denuncias, consejos, dádivas, haber sido juez de control.","36 = excusa/recusación · 37 = sus causas · 38 = excusa · 39 = recusación."],
+["184","CNPP","Soluciones alternas","Acuerdo reparatorio y suspensión condicional del proceso.","18-4: «a los 18 te alternas»: 2 soluciones alternas."],
+["185","CNPP","Terminación anticipada","El procedimiento abreviado.","185: uno después del 184 → la tercera vía, la anticipada."],
+["187","CNPP","Procedencia del acuerdo reparatorio","Querella, culposos y patrimoniales sin violencia; no en violencia familiar.","18-7: «QCP» (querella, culposo, patrimonial)."],
+["192","CNPP","Requisitos de la suspensión condicional","Media aritmética ≤ 5 años, sin oposición fundada, 2 años desde cumplimiento / 5 desde incumplimiento.","19-2: 2 años desde que cumpliste."],
+["195","CNPP","Plazo y condiciones de la suspensión","De 6 meses a 3 años; condiciones como residir en un lugar, no drogas, no armas, no viajar…","19-5: el 5 = media ≤ 5 años; plazo de 6 meses a 3 años."],
+["201","CNPP","Requisitos del abreviado","Lo pide el MP; sin oposición fundada; el imputado renuncia al juicio oral y admite su responsabilidad.","201: empieza el «200», el atajo del abreviado."],
+["202","CNPP","Reducción en el abreviado","Hasta ½ de la pena mínima en dolosos, hasta ⅔ en culposos.","20-2: 2 tipos de reducción (dolosos y culposos)."],
+["267","CNPP","Inspección","Estado de lugares, objetos e instrumentos; lo que se percibe por los sentidos.","267 abre la investigación: «mira con tus sentidos»."],
+["268","CNPP","Inspección de personas","Exploración externa; si expone partes íntimas: autorización judicial.","268: el siguiente paso, de lugares a personas."],
+["269","CNPP","Revisión corporal","Muestras voluntarias, con derecho a negarse; personal del mismo sexo.","269 = muestras del cuerpo."],
+["270","CNPP","Si se niega a dar muestras","El MP pide autorización inmediata al juez.","270: el «0» de la negativa."],
+["277","CNPP","Reconocimiento de personas","Sin consentimiento del imputado, pero con su defensor presente.","277: dos 7 = dos personas: imputado y su defensor."],
+["279","CNPP","Reconocimiento por fotografía","Con fotos de personas parecidas, sin necesidad del defensor.","279: el 9 parece una cámara volteada."],
+["282","CNPP","Cateo","Domicilio o propiedad privada → orden judicial con lugar, personas, objetos y motivos.","282 = casa (las 2 paredes del 2-8-2 con el 8 adentro)."],
+["291","CNPP","Intervención de comunicaciones","Lo piden el titular de la PGR o procuradores al juez federal de control; resuelve en 6 h.","2-9-1: un solo juez (federal) y 6 horas."],
+["303","CNPP","Localización geográfica","El Procurador la ordena directo en urgencias; informa al juez en 48 h.","3-0-3: el 0 en medio es el celular que se localiza entre dos antenas (3 y 3). Y a diferencia del 291 (6 h), aquí avisas al juez en 48 h."]
+];
+
+/* frases para completar */
+const CLOZE=[
+["Las medidas de protección tendrán una duración máxima de ___ días naturales, prorrogables hasta por 30.",["60","30","90"],0,"Art. 139 CNPP"],
+["Por las medidas de protección de las fracciones I, II y III debe celebrarse audiencia dentro de los ___ días siguientes.",["3","5","10"],1,"Art. 137 CNPP"],
+["La acción penal prescribe en ___ si el delito solo mereciere multa.",["1 año","2 años","3 años"],0,"Art. 126 CPNL"],
+["La multa prescribe en ___ años; las demás sanciones en un periodo igual al que debían durar y una cuarta parte más.",["1","2","5"],1,"Art. 136 CPNL"],
+["La querella deberá presentarse dentro de un plazo de ___, contado desde que se tenga conocimiento del delito y del delincuente.",["6 meses","1 año","3 años"],1,"Art. 129 CPNL"],
+["Tratándose de víctimas niñas, niños y adolescentes, el término de prescripción nunca podrá ser menor de ___ años.",["3","5","10"],1,"Art. 124 CPNL"],
+["El Ministerio Público podrá imponer multa de veinte a ___ días de salario mínimo como medio de apremio.",["500","1,000","5,000"],1,"Art. 104 CNPP"],
+["El arresto como medio de apremio podrá ser hasta por ___ horas.",["24","36","48"],1,"Art. 104 CNPP"],
+["La notificación por medios electrónicos surtirá efecto ___ en que se confirme que se recibió el archivo.",["el mismo día","al día siguiente","a los tres días"],0,"Art. 87 CNPP"],
+["Si la persona que deba ser notificada se muestra ___ de la misma, ésta surtirá efectos legales.",["sabedora","ausente","inconforme"],0,"Art. 89 CNPP"],
+["El juez podrá substituir la pena de prisión no mayor de ___ años por una pena de multa.",["3","4","5"],0,"Art. 81 CPNL"],
+["El plazo de la suspensión condicional del proceso no podrá ser inferior a ___ ni superior a tres años.",["3 meses","6 meses","1 año"],1,"Art. 195 CNPP"],
+["Procede la suspensión condicional cuando la media aritmética de la pena de prisión no exceda de ___ años.",["3","5","7"],1,"Art. 192 CNPP"],
+["En el abreviado, el MP podrá solicitar la reducción de hasta ___ de la pena mínima en delitos dolosos.",["una mitad","dos terceras partes","una cuarta parte"],0,"Art. 202 CNPP"],
+["El reconocimiento de personas procederá aún sin consentimiento del imputado, pero siempre en presencia de su ___.",["Defensor","Ministerio Público","familiar"],0,"Art. 277 CNPP"],
+["La solicitud de intervención de comunicaciones deberá resolverse en un plazo que no exceda de las ___ horas.",["6","24","48"],0,"Art. 291 CNPP"],
+["Tras la localización geográfica, el MP informará al Juez de control dentro del plazo de ___ horas.",["6","24","48"],2,"Art. 303 CNPP"],
+["Cualquier inspección que implique exposición de partes íntimas del cuerpo requerirá ___.",["autorización judicial","aviso al MP","consentimiento verbal"],0,"Art. 268 CNPP"],
+["El perdón procede en delitos de oficio no graves cuya pena máxima no exceda de ___ años de prisión.",["3","6","8"],1,"Art. 111 CPNL"],
+["La declinatoria contra el tribunal de enjuiciamiento debe promoverse dentro de ___ días.",["3","5","10"],0,"Art. 27 CNPP"]
+];
+
+/* casos prácticos */
+const CASOS=[
+{c:"A Pedro le imputan lesiones que pusieron en peligro la vida (Art. 302: 3 a 7 años). Su defensa propone una suspensión condicional del proceso.",q:"¿Procede por la pena?",o:["Sí, la media aritmética es 5 años y no excede de 5","No, la pena máxima es 7 años","No, nunca procede en lesiones"],a:0,w:"Media = (3+7)÷2 = 5. El Art. 192 pide que no exceda de 5 años: 5 sí cabe. (Ojo: también importa que no haya oposición fundada de la víctima)."},
+{c:"Ana sufrió lesiones que tardaron 10 días en sanar (Art. 301-I). Se enteró de quién fue el mismo día, pero quiere presentar la querella 14 meses después.",q:"¿Todavía puede?",o:["Sí, tiene 3 años","No, el plazo es de 1 año desde que conoció el delito y al delincuente","Sí, no hay plazo"],a:1,w:"Art. 129: 1 año desde que conoce el delito y al delincuente. Los 3 años son el tope cuando no lo conoce."},
+{c:"Luis fue condenado a 2 años de prisión. Es su primer delito.",q:"¿Qué puede hacer el juez?",o:["Nada, debe ir a prisión","Sustituir la prisión por multa (con trabajo comunitario)","Perdonarlo"],a:1,w:"Art. 81: prisión ≤ 3 años para quien delinque por primera vez → multa, junto con trabajo comunitario."},
+{c:"El imputado murió antes de la sentencia. La víctima pregunta si todavía le pueden pagar los daños.",q:"¿Qué le contestas?",o:["No, todo se extingue","Sí, queda a salvo su derecho a la reparación del daño","Solo si el imputado dejó testamento"],a:1,w:"Art. 109 CPNL: la muerte extingue la acción, pero quedan a salvo los derechos del ofendido a la reparación."},
+{c:"En un caso de violencia familiar, la víctima y el imputado quieren firmar un acuerdo reparatorio.",q:"¿Procede?",o:["Sí, si la víctima quiere","No, el Art. 187 lo prohíbe en violencia familiar","Sí, si el juez lo aprueba"],a:1,w:"El Art. 187 excluye los delitos de violencia familiar y sus equivalentes."},
+{c:"Un robo sin violencia sobre las personas (delito patrimonial). Víctima e imputado se ponen de acuerdo para pagar el daño.",q:"¿Qué figura usan?",o:["Acuerdo reparatorio","Procedimiento abreviado","Cateo"],a:0,w:"Art. 187-III: delitos patrimoniales cometidos sin violencia → acuerdo reparatorio."},
+{c:"El testigo clave es un magistrado. La defensa quiere que declare.",q:"¿Cómo declara?",o:["Lo obligan a ir en persona","A distancia (video), en sesión privada","No puede declarar"],a:1,w:"Art. 90: los magistrados están exceptuados de presentarse; declaran por sistemas de reproducción a distancia."},
+{c:"El notificador va a la casa del imputado y no lo encuentra.",q:"¿Qué hace?",o:["Notifica por edictos","Deja citatorio para una hora fija del día hábil siguiente","Se va y no regresa"],a:1,w:"Art. 82, regla 2. Si tampoco atiende el citatorio, se entiende con cualquier persona del domicilio."},
+{c:"Un perito analizará una droga y la muestra es tan poca que se consumirá completa.",q:"¿Qué debe hacer el MP?",o:["Hacerlo sin avisar","Notificar al defensor para que los peritos de ambas partes lo hagan juntos o lo presencien","Esperar a tener más droga"],a:1,w:"Art. 274: peritaje irreproducible."},
+{c:"La policía quiere tomar sangre al sospechoso y él se niega.",q:"¿Qué sigue?",o:["Se la toman a la fuerza","El MP solicita autorización al juez","Se archiva el caso"],a:1,w:"Art. 270: ante la negativa, el MP pide autorización inmediata al órgano jurisdiccional."},
+{c:"Un testigo debe identificar al imputado, que está detenido y disponible.",q:"¿Se le pueden enseñar fotos?",o:["Sí, siempre","No; si el imputado es conocido y está disponible, no se muestran fotos","Solo con notario"],a:1,w:"Art. 279: no se muestran fotografías si la identidad es conocida y puede participar en una fila de identificación."},
+{c:"Hay un secuestro en curso y la víctima está en peligro. Se necesita ubicar el celular de los secuestradores ya.",q:"¿Quién lo ordena y cuándo avisa al juez?",o:["El juez, en 6 horas","El Procurador directamente; informa al juez en 48 horas","La policía, sin avisar"],a:1,w:"Art. 303: localización geográfica en tiempo real en casos urgentes."},
+{c:"El MP solicitó procedimiento abreviado por un delito culposo con pena mínima de 3 años. El acusado no tiene condenas previas por dolo y la media no excede de 5.",q:"¿Cuánto se puede reducir de la pena mínima?",o:["Hasta la mitad","Hasta dos terceras partes","Nada"],a:1,w:"Art. 202: culposos hasta ⅔ de la pena mínima; dolosos hasta ½."},
+{c:"Un juez del tribunal de enjuiciamiento fue el juez de control en el mismo caso y no se excusa.",q:"¿Qué pueden hacer las partes?",o:["Nada","Recusarlo","Pedir un cateo"],a:1,w:"Art. 37-IX es causa de impedimento; si no se excusa, procede la recusación (Art. 39)."}
+];
+
+/* mapa del proceso */
+const MAPA=[
+["Investigación","El MP y la policía reúnen pruebas.",["267 Inspección","268 Inspección de personas","269-270 Revisión corporal","272-275 Peritajes","276 Comunicaciones de particulares","277-280 Reconocimientos","282-283 Cateo","291 Intervención","303 Geolocalización"]],
+["Protección a la víctima","En cualquier momento, si hay riesgo.",["137 Medidas de protección","138 Providencias precautorias","139 Duración 60+30","98 Bis CPNL Violencia familiar","367 Testigos"]],
+["Comunicación del proceso","Cómo se avisa y se obliga a comparecer.",["82 Notificaciones","87 Electrónica","89 Validez","90 Citación","104 Medios de apremio"]],
+["Quién juzga","Competencia y juez imparcial.",["25 Incompetencia","27 Declinatoria","30 Acumulación","36-39 Excusa y recusación"]],
+["Salidas antes del juicio","Después de la vinculación y antes del auto de apertura.",["184 Soluciones alternas","186-187 Acuerdo reparatorio","191-195 Suspensión condicional","201-202 Abreviado"]],
+["Sentencia y consecuencias","Lo que pasa si te condenan.",["45 Bis Consecuencias","46 Sanciones","81 Sustitución","145 Obligados a reparar","LFT 500/502"]],
+["Fin de todo","Cuando ya no se puede perseguir ni castigar.",["485 CNPP Extinción","109 Muerte","111 Perdón","124-136 Prescripción","109 LNSIJPA Adolescentes"]]
+];
+
+/* ---- render: Artículos (repetición espaciada) ---- */
+(function(){
+  const box=store.get('leitner',{}), K=i=>ARTS[i][0]+'|'+ARTS[i][1];
+  let mode='num', cur=null, shown=false;
+  const el=document.getElementById('arts');
+  const lvl=i=>box[K(i)]||0;
+  function next(){
+    const pool=ARTS.map((_,i)=>i), w=pool.map(i=>Math.pow(.38,lvl(i)));
+    let r=Math.random()*w.reduce((a,b)=>a+b,0); for(const i of pool){r-=w[i]; if(r<=0){cur=i;break}}
+    if(cur===null) cur=0; shown=false; draw();
+  }
+  function stats(){ const c=[0,0,0,0,0,0]; ARTS.forEach((_,i)=>c[Math.min(5,lvl(i))]++); return c; }
+  function draw(){
+    const [n,ley,tema,cont,gancho]=ARTS[cur], st=stats(), dom=st[4]+st[5];
+    const front= mode==='num'
+      ? `<small>¿Qué dice el…?</small><div class="q">Art. ${n} ${ley}</div>`
+      : `<small>¿Qué artículo es?</small><div class="q" style="font-size:20px">${tema}</div><input id="artIn" class="artin" inputmode="numeric" placeholder="Escribe el número" autocomplete="off"><div class="row" style="margin-top:6px"><button class="btn ghost" id="artCheck">Revisar</button></div><div id="artRes" class="why"></div>`;
+    el.innerHTML=`
+      <div class="row" style="margin-bottom:10px"><button class="chip" data-m="num" aria-pressed="${mode==='num'}">Número → qué dice</button><button class="chip" data-m="tema" aria-pressed="${mode==='tema'}">Tema → número</button></div>
+      <div class="lvl">${['Nuevas','Nivel 1','Nivel 2','Nivel 3','Casi','Dominadas'].map((t,i)=>`<span><b>${st[i]}</b>${t}</span>`).join('')}</div>
+      <div class="acard">
+        <div class="front">${front}</div>
+        <div class="back" ${shown?'':'hidden'}>
+          <div class="kicker">Art. ${n} ${ley} · ${tema}</div><p>${cont}</p>
+          <div class="hook">🧠 <b>Gancho:</b> ${gancho}</div>
+        </div>
+      </div>
+      ${shown?`<div class="row"><button class="btn warn" id="aNo">No me la sabía</button><button class="btn good" id="aYes">Me la sabía</button></div>`
+             :`<div class="row"><button class="btn" id="aShow">Ver respuesta</button></div>`}
+      <div class="count">Dominas ${dom} de ${ARTS.length} artículos. Las que fallas te salen más seguido.</div>`;
+    el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mode=b.dataset.m;next()});
+    const sh=el.querySelector('#aShow'); if(sh) sh.onclick=()=>{shown=true;draw()};
+    const y=el.querySelector('#aYes'); if(y) y.onclick=()=>{box[K(cur)]=Math.min(5,lvl(cur)+1);store.set('leitner',box);next()};
+    const no=el.querySelector('#aNo'); if(no) no.onclick=()=>{box[K(cur)]=Math.max(0,Math.min(1,lvl(cur)-1));store.set('leitner',box);next()};
+    const ck=el.querySelector('#artCheck');
+    if(ck){ const go=()=>{ const v=document.getElementById('artIn').value.replace(/\s/g,'').toLowerCase(), ok=n.toLowerCase().replace(/\s/g,'').split(/y/).includes(v)||n.toLowerCase().replace(/\s/g,'')===v;
+        document.getElementById('artRes').innerHTML= ok?'<b style="color:var(--ok)">¡Exacto!</b>':`<b style="color:var(--bad)">Era el ${n} ${ley}.</b>`; shown=true; setTimeout(draw, ok?600:1400); };
+      ck.onclick=go; document.getElementById('artIn').onkeydown=e=>{if(e.key==='Enter')go()}; }
+  }
+  next();
+})();
+
+/* ---- render: Completa ---- */
+(function(){
+  const el=document.getElementById('cloze'); let order=[], k=0, ok=0;
+  function start(){ order=CLOZE.map((_,i)=>i).sort(()=>Math.random()-.5); k=0; ok=0; draw(); }
+  function draw(){
+    if(k>=order.length){ el.innerHTML=`<div class="qcard score"><div class="big">${ok}/${order.length}</div><h3>¡Terminaste!</h3><p style="margin:0">Repite hasta que te salgan todas: así se te quedan los números.</p><button class="btn" id="cAgain">Otra vez</button></div>`; document.getElementById('cAgain').onclick=start; return; }
+    const [t,o,a,art]=CLOZE[order[k]];
+    el.innerHTML=`<div class="qcard"><div class="meta"><span>${art}</span><span>${k+1} / ${order.length} · ✓ ${ok}</span></div>
+      <h3 class="clz">${t.replace('___','<span class="blank" id="blank">_____</span>')}</h3>
+      <div class="opts">${o.map((x,i)=>`<button class="opt" data-i="${i}">${x}</button>`).join('')}</div><button class="btn" id="cNext" hidden>Siguiente →</button></div>`;
+    el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ if(el.dataset.l==='1')return; el.dataset.l='1'; const i=+b.dataset.i;
+      el.querySelectorAll('.opt')[a].classList.add('ok'); if(i!==a) b.classList.add('bad'); else ok++;
+      const bl=document.getElementById('blank'); bl.textContent=o[a]; bl.classList.add(i===a?'good':'badb');
+      const n=document.getElementById('cNext'); n.hidden=false; n.onclick=()=>{el.dataset.l='';k++;draw()}; });
+  }
+  start();
+})();
+
+/* ---- render: Casos ---- */
+(function(){
+  const el=document.getElementById('casos'); let k=0, ok=0, order=[];
+  function start(){ order=CASOS.map((_,i)=>i).sort(()=>Math.random()-.5); k=0; ok=0; draw(); }
+  function draw(){
+    if(k>=order.length){ el.innerHTML=`<div class="qcard score"><div class="big">${ok}/${order.length}</div><h3>Casos resueltos</h3><p style="margin:0">Si fallaste alguno, léelo otra vez: el profe pregunta así.</p><button class="btn" id="kAgain">Otra vez</button></div>`; document.getElementById('kAgain').onclick=start; return; }
+    const C=CASOS[order[k]];
+    el.innerHTML=`<div class="qcard"><div class="meta"><span>Caso ${k+1} de ${order.length}</span><span>✓ ${ok}</span></div>
+      <div class="case">⚖️ ${C.c}</div><h3>${C.q}</h3><div class="cb"></div><button class="btn" id="kNext" hidden>Siguiente caso →</button></div>`;
+    mcq(el.querySelector('.cb'),C.q,C.o,C.a,C.w,good=>{ if(good)ok++; const n=document.getElementById('kNext'); n.hidden=false; n.onclick=()=>{k++;draw()}; });
+  }
+  start();
+})();
+
+/* ---- render: Mapa ---- */
+document.getElementById('mapa').innerHTML=`<div class="tip"><b>Para entender, no solo memorizar:</b> cada artículo vive en un momento del proceso. Si sabes <b>cuándo</b> pasa algo, recuerdas más fácil <b>qué artículo</b> es.</div>
+<ol class="road">${MAPA.map(([t,d,arts])=>`<li><div class="dot2"></div><div><h3>${t}</h3><p>${d}</p><div class="pills">${arts.map(a=>{const [n,...r]=a.split(' ');return `<span class="pill"><b>${n}</b> ${r.join(' ')}</span>`}).join('')}</div></div></li>`).join('')}</ol>
+<div class="tip"><b>Truco de bloques del CNPP:</b> 25-39 quién juzga · 82-104 avisos y apremio · 136-139 protección · 184-202 salidas alternas · 267-303 investigación · 485 el final.</div>`;
 
 show(store.get('tab','aprende'));
 </script>
