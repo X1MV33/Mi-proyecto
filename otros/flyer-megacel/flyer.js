@@ -2,6 +2,8 @@
 // Uso: node flyer.js  → genera flyer-megacel.png (1080x1620) y flyer-megacel-historia.png (1080x1920)
 const { chromium } = require('playwright');
 const D = __dirname;
+const b64 = f => 'data:image/png;base64,' + require('fs').readFileSync(D + '/' + f).toString('base64');
+const SAM = b64('cel-samsung.png'), IPH = b64('cel-iphone.png');
 const LOGO = 'data:image/png;base64,' + require('fs').readFileSync(D + '/logo-megacel.png').toString('base64');
 const NAVY = '#0B1E4D', YEL = '#FFD21F';
 
@@ -69,11 +71,12 @@ h1 em{font-style:normal;color:${NAVY};background:${YEL};padding:0 .12em;border-r
 .sub{position:absolute;left:62px;top:${445 + off}px;font-weight:500;font-size:36px;line-height:1.25;letter-spacing:-.01em}
 .sub b{font-weight:800}
 .sub i{display:block;width:44px;height:3px;background:${NAVY};margin-top:22px}
-.ine{position:absolute;left:44px;top:${1090 + off}px;font-weight:900;font-size:250px;line-height:.8;letter-spacing:-.06em;color:${NAVY}}
+.ine{position:absolute;left:44px;top:${1150 + off}px;font-weight:900;font-size:250px;line-height:.8;letter-spacing:-.06em;color:${NAVY}}
 .ine small{position:absolute;left:8px;top:-40px;white-space:nowrap;font-size:26px;font-weight:700;letter-spacing:.24em;color:#5A6585}
 .ph{position:absolute;filter:drop-shadow(0 40px 50px rgba(11,30,77,.35)) drop-shadow(0 10px 14px rgba(11,30,77,.25))}
-.ph.back{left:380px;top:${610 + off}px;width:310px;height:620px;transform:rotate(-16deg)}
-.ph.front{left:590px;top:${335 + off}px;width:270px;height:540px;transform:rotate(12deg)}
+.ph.sam{left:235px;top:${535 + off}px;width:480px}
+.ph img{width:100%;display:block}
+.ph.iph{left:585px;top:${330 + off}px;width:405px}
 .feats{position:absolute;right:52px;top:${960 + off}px;width:215px;display:flex;flex-direction:column;gap:22px}
 .ft .ic{width:56px;height:56px;border:2.5px solid ${NAVY};border-radius:12px;display:grid;place-items:center;background:#fff;margin-bottom:10px}
 .ft .ic svg{width:36px;height:36px}
@@ -93,8 +96,8 @@ h1 em{font-style:normal;color:${NAVY};background:${YEL};padding:0 .12em;border-r
 <h1>Celulares<br>a <em>crédito</em></h1>
 <div class="sub">Desde <b>Android</b><br>hasta <b>iPhone</b>.<i></i></div>
 <div class="ine"><small>SOLO NECESITAS TU</small>INE</div>
-<div class="ph back">${phoneBack}</div>
-<div class="ph front">${phoneFront}</div>
+<div class="ph sam"><img src="${SAM}"></div>
+<div class="ph iph"><img src="${IPH}"></div>
 <div class="feats">
   ${feat('credito', 'Crédito fácil', 'Llévate tu celular hoy.')}
   ${feat('semana', 'Pagos semanales', 'Flexibles, a tu ritmo.')}
